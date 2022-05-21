@@ -1,0 +1,397 @@
+<div class="container-fluid">
+  <aw-wizard navBarLayout="large-filled-symbols">
+    <aw-wizard-step
+      [navigationSymbol]="{ symbol: '&#xf02c;', fontFamily: 'FontAwesome ' }"
+      stepTitle="Select Fee Group"
+    >
+      <div class="row">
+        <div class="col-12">
+          <div
+            class="default-according style-1 faq-accordion job-accordion"
+            id="accordionoc"
+          >
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="mb-0">
+                      <button
+                        class="btn btn-link pl-0"
+                        (click)="isFilter = !isFilter"
+                        [attr.aria-expanded]="!isFilter"
+                        aria-controls="collapse"
+                      >
+                        Filter
+                      </button>
+                    </h5>
+                  </div>
+                  <div class="collapse show" *ngIf="isFilter">
+                    <div class="card-body filter-cards-view animate-chk">
+                      <div class="row">
+                        <div class="col-xl-3 col-md-6 col-sm-12">
+                          <label for="bg_id"
+                            >Department
+                            <span class="font-danger">*</span></label
+                          >
+                          <select
+                            class="form-control"
+                            id="bg_id"
+                            placeholder="Kannada"
+                            (change)="onFilterData('')"
+                            [formControl]="filterForm.controls['department']"
+                          >
+                            <option value="">Select a Department</option>
+                            <option
+                              *ngFor="let data of departmentList"
+                              value="{{ data.name }}"
+                            >
+                              {{ data.name }}
+                            </option>
+                          </select>
+                        </div>
+                        <div class="col-xl-3 col-md-6 col-sm-12">
+                          <label for="bg_id"
+                            >Class <span class="font-danger">*</span></label
+                          >
+                          <select
+                            class="form-control"
+                            id="bg_id"
+                            placeholder="1"
+                            (change)="onFilterData('')"
+                            [formControl]="filterForm.controls['class']"
+                          >
+                            <option value="">Select a Class</option>
+                            <option
+                              *ngFor="let data of classList"
+                              value="{{ data.name }}"
+                            >
+                              {{ data.name }}
+                            </option>
+                          </select>
+                        </div>
+                        <div class="col-xl-3 col-md-6 col-sm-12 mb-3">
+                          <div class="faq-form">
+                            <label for="bg_id">Name</label>
+                            <input
+                              class="form-control"
+                              type="text"
+                              [formControl]="filterForm.controls['studentName']"
+                              (keyup)="onFilterData($event.target.value)"
+                              placeholder="Search.."
+                            />
+                          </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 col-sm-12 float-right">
+                          <div class="faq-form">
+                            <label for="bg_id">&nbsp;</label>
+                            <button
+                              class="btn btn-primary text-center align-self-center align-bottom"
+                              (click)="reset(); onFilterData('')"
+                            >
+                              Clear
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row d-flex align-items-center"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <div class="card-body">
+              <div class="row d-flex justify-content-end">
+                <button
+                  class="btn btn-primary text-center align-self-center align-bottom mb-3 mr-3"
+                  [disabled]="selectedStudents.length > 0 ? false : true"
+                  (click)="AddStudents()"
+                  awNextStep
+                >
+                  Promote
+                </button>
+              </div>
+              <div class="loader-box center" *ngIf="dataFetch">
+                <span class="rotate dashed"></span>
+              </div>
+              <p-table
+                [value]="StudentList"
+                class="table"
+                [(selection)]="selectedStudents"
+                dataKey="student_id"
+                *ngIf="!dataFetch"
+                selectionMode="multiple"
+                [paginator]="true"
+                [rows]="10"
+                [showCurrentPageReport]="true"
+                responsiveLayout="scroll"
+              >
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th style="width: 3rem">
+                      <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th pSortableColumn="student_name">
+                      Student Name
+                      <p-sortIcon field="student_name"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="department">
+                      Medium <p-sortIcon field="department"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="class">
+                      Class <p-sortIcon field="class"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="division">
+                      Division <p-sortIcon field="division"></p-sortIcon>
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-data let-rowIndex="rowIndex">
+                  <tr [pSelectableRow]="data">
+                    <td>
+                      <p-tableCheckbox [value]="data"></p-tableCheckbox>
+                    </td>
+                    <td>{{ data.student_name }}</td>
+                    <td>{{ data.department }}</td>
+                    <td>{{ data.class }}</td>
+                    <td>{{ data.division }}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aw-wizard-step>
+    <aw-wizard-step
+      [navigationSymbol]="{ symbol: '&#xf02c;', fontFamily: 'FontAwesome ' }"
+      stepTitle="Select Fee Group"
+    >
+      <div class="card">
+        <div class="card-header">
+          <h5>Promotion Details</h5>
+        </div>
+        <div class="card-body">
+          <form
+            class="needs-validation"
+            [formGroup]="promotionForm"
+            autocomplete="off"
+            novalidate
+          >
+            <div class="form-row justify-content-end">
+              <div class="col-md-3 mb-3">
+                <div class="d-flex justify-content-between">
+                  <label for="academic_year_id"
+                    >Academin Year <span class="font-danger">*</span></label
+                  >
+                </div>
+                <div class="row">
+                  <select
+                    class="form-control col-9 ml-3"
+                    id="academic_year_id"
+                    placeholder="academinYear"
+                    [formControl]="promotionForm.controls['academic_year_id']"
+                  >
+                    <option value="">Select a academinYear</option>
+                    <option
+                      *ngFor="let data of academinYearList"
+                      value="{{ data.id }}"
+                    >
+                      {{ data.name }}
+                    </option>
+                  </select>
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-plus"
+                    class="p-button-rounded p-button-primary btn-primary ml-1"
+                    style="height: 35px; width: 35px"
+                    ngbTooltip="Add New Academin Year"
+                    (click)="addAcademicYear()"
+                  ></button>
+                </div>
+                <div
+                  *ngIf="
+                    promotionForm.controls.academic_year_id.touched &&
+                    promotionForm.controls.academic_year_id.errors?.required
+                  "
+                  class="text text-danger"
+                >
+                  Academin Year is required.
+                </div>
+              </div>
+              <div class="col-md-3 mb-3">
+                <div class="d-flex justify-content-between">
+                  <label for="dept_id"
+                    >Department <span class="font-danger">*</span></label
+                  >
+                </div>
+                <div class="row">
+                  <select
+                    class="form-control col-9 ml-3"
+                    id="dept_id"
+                    placeholder="Department"
+                    [formControl]="promotionForm.controls['dept_id']"
+                  >
+                    <option value="">Select a Department</option>
+                    <option
+                      *ngFor="let data of departmentList"
+                      value="{{ data.id }}"
+                    >
+                      {{ data.name }}
+                    </option>
+                  </select>
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-plus"
+                    class="p-button-rounded p-button-primary btn-primary ml-1"
+                    style="height: 35px; width: 35px"
+                    ngbTooltip="Add New Department"
+                    (click)="addDepartment()"
+                  ></button>
+                </div>
+                <div
+                  *ngIf="
+                    promotionForm.controls.dept_id.touched &&
+                    promotionForm.controls.dept_id.errors?.required
+                  "
+                  class="text text-danger"
+                >
+                  Department is required.
+                </div>
+              </div>
+              <div class="col-md-3 mb-3">
+                <div class="d-flex justify-content-between">
+                  <label for="class_id"
+                    >Class <span class="font-danger">*</span></label
+                  >
+                </div>
+                <div class="row">
+                  <select
+                    class="form-control col-9 ml-3"
+                    id="class_id"
+                    placeholder="Class"
+                    [formControl]="promotionForm.controls['class_id']"
+                  >
+                    <option value="">Select a Class</option>
+                    <option
+                      *ngFor="let data of classList"
+                      value="{{ data.id }}"
+                    >
+                      {{ data.name }}
+                    </option>
+                  </select>
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-plus"
+                    class="p-button-rounded p-button-primary btn-primary ml-1"
+                    style="height: 35px; width: 35px"
+                    ngbTooltip="Add New Class"
+                    (click)="addClass()"
+                  ></button>
+                </div>
+                <div
+                  *ngIf="
+                    promotionForm.controls.class_id.touched &&
+                    promotionForm.controls.class_id.errors?.required
+                  "
+                  class="text text-danger"
+                >
+                  Class is required.
+                </div>
+              </div>
+              <div class="col-md-3 mb-3">
+                <div class="d-flex justify-content-between">
+                  <label for="class_id"
+                    >Division <span class="font-danger">*</span></label
+                  >
+                </div>
+                <div class="row">
+                  <select
+                    class="form-control col-9 ml-3"
+                    id="class_id"
+                    placeholder="Class"
+                    [formControl]="promotionForm.controls['division_id']"
+                  >
+                    <option value="">Select a Division</option>
+                    <option
+                      *ngFor="let data of divisionList"
+                      value="{{ data.id }}"
+                    >
+                      {{ data.name }}
+                    </option>
+                  </select>
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-plus"
+                    class="p-button-rounded p-button-primary btn-primary ml-1"
+                    style="height: 35px; width: 35px"
+                    ngbTooltip="Add New Division"
+                    (click)="addDivision()"
+                  ></button>
+                </div>
+                <div
+                  *ngIf="
+                    promotionForm.controls.division_id.touched &&
+                    promotionForm.controls.division_id.errors?.required
+                  "
+                  class="text text-danger"
+                >
+                  Division is required.
+                </div>
+              </div>
+            </div>
+            <div class="form-row justify-content-end align-items-end">
+              <div class="col">
+                <label for="user_comments">Comments</label>
+                <textarea
+                  class="form-control"
+                  id="user_comments"
+                  [formControl]="promotionForm.controls['user_comments']"
+                  rows="1"
+                  cols="5"
+                  class="form-control"
+                  placeholder="Promoted"
+                ></textarea>
+              </div>
+
+              <div class="col-md-4 col-sm-12">
+                <div class="d-flex justify-content-around">
+                  <button
+                    class="btn btn-primary text-center align-self-center float-right align-bottom"
+                    awPreviousStep
+                  >
+                    Go Back
+                  </button>
+
+                  <button
+                    class="btn btn-primary text-center align-self-center float-right align-bottom"
+                    [disabled]="!promotionForm.valid || asignDisable"
+                    (click)="promoteStudents()"
+                  >
+                    {{ asignDisable ? "" : "Asign" }} &nbsp;<i
+                      class="fa fa-circle-o-notch fa-spin"
+                      *ngIf="asignDisable"
+                    ></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </aw-wizard-step>
+  </aw-wizard>
+</div>

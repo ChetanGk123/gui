@@ -1,0 +1,109 @@
+<div class=" debit-card">
+    <div class="card height-equal">
+      <div class="card-header">
+        <h5>Institute Detais</h5>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="instituteForm" class="row">
+          <div class="form-group col-6 p-r-0">
+            <label for="name">Institute Name <span class="font-danger">*</span></label>
+            <input class="form-control" formControlName="name" id="name" type="text" placeholder="XYZ">
+            <div *ngIf="instituteForm.controls.name.touched && instituteForm.controls.name.errors?.required"
+                class="text text-danger">
+                Name is required.
+            </div>
+          </div>
+          <div class="form-group col-6">
+            <label for="email">Email <span class="font-danger">*</span></label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="email"
+              id="email"
+              placeholder="abc@gmail.com"
+            />
+            <div *ngIf="instituteForm.controls.email.touched && instituteForm.controls.email.errors?.required"
+                class="text text-danger">
+                Email is required.
+            </div>
+          </div>
+          <div class="form-group col-6 p-r-0">
+            <label for="phone_number">Phone Number <span class="font-danger">*</span></label>
+            <input
+              type="text"
+              class="form-control"
+              prefix="+91" mask=" 00000 00000"
+              formControlName="phone_number"
+              id="phone_number"
+              placeholder="91XXXXXXXX"
+            />
+            <div *ngIf="instituteForm.controls.phone_number.touched && instituteForm.controls.phone_number.errors?.required"
+                class="text text-danger">
+                Phone Number is required.
+            </div>
+            <div *ngIf="instituteForm.controls.phone_number.touched && instituteForm.controls.phone_number.errors?.minlength"
+                class="text text-danger">
+                Number should be min 10 digits.
+            </div>
+                        
+           </div>
+          <div class="form-group col-6">
+            <label for="registered_on">Registered On <span class="font-danger">*</span></label>
+            
+            <div class="input-group custom-datepicker job-input-datepicker">
+              <input class="form-control" placeholder="yyyy-mm-dd" name="dp" (dateSelect)="dateChange($event,'registered_on')"
+                  ngbDatepicker #registered_on="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="btn btn-primary" (click)="registered_on.toggle()" type="button"><i
+                    class="fa fa-calendar"></i></button>
+              </div>
+            </div>
+            <div *ngIf="instituteForm.controls.registered_on.touched && instituteForm.controls.registered_on.errors?.required"
+                class="text text-danger">
+                Registered Date is required.
+            </div>
+          </div>
+          <div class="form-group col-6 p-r-0">
+            <label for="license_start_date">License Start Date <span class="font-danger">*</span></label>
+            <div class="input-group custom-datepicker job-input-datepicker">
+              <input class="form-control" placeholder="yyyy-mm-dd" name="dp" (dateSelect)="dateChange($event,'license_start_date')"
+                  ngbDatepicker #d="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="btn btn-primary" (click)="d.toggle()" type="button"><i
+                    class="fa fa-calendar"></i></button>
+              </div>
+            </div>
+            <div *ngIf="instituteForm.controls.license_start_date.touched && instituteForm.controls.license_start_date.errors?.required"
+                class="text text-danger">
+                License Start Date is required.
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="row">
+                <div class="col-sm-6" *ngFor="let item of license_plans">
+                  <div class="card" for="{{item.sr}}">
+                    <div class="media p-20">
+                      <div class="radio radio-primary mr-3">
+                        <input type="radio" formControlName="license_plan_id" id="{{item.sr}}" value="{{item.id}}">
+                        <label for="{{item.sr}}"></label>
+                      </div>
+                      <div class="media-body">
+                        <h6 class="mt-0 mega-title-badge">{{item.name}}<span class="badge badge-primary pull-right digits">{{item.amt}}
+                            INR</span></h6>
+                        <p>Total no of days covered in this plan is <b>{{item.days}}</b></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="col-6">
+            <button class="btn btn-primary-gradien btn-block" [disabled]="!instituteForm.valid" type="button" (click)="OnSubmit()">Submit</button>
+          </div>
+          <div class="col-6">
+            <button class="btn btn-warning-gradien btn-block"  type="reset" (click)="OnClear()">Clear</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

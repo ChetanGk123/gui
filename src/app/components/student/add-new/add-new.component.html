@@ -1,0 +1,858 @@
+<div class="container-fluid">
+    <div class="loader-box center" *ngIf="dataFetch"><span class="rotate dashed"></span></div>
+    <div class="row" *ngIf="!dataFetch">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-header">
+            <h5>Admission Details</h5>
+          </div>
+          <div class="card-body step-indicator">          
+            <aw-wizard navBarLayout="large-filled-symbols" [awNavigationMode] [navigateForward]="navigation">
+              <aw-wizard-step [navigationSymbol]="{ symbol: '&#xf007;', fontFamily: 'FontAwesome ' }" stepTitle="Student Details" >
+                <form class="needs-validation" [formGroup]="studentForm" autocomplete="off" novalidate>
+                <!-- Student Details Start -->
+                <!-- <h5>Student Details</h5> -->
+                <div class="form-row mt-3">
+                    <!-- First Name Start -->
+                    <div class="form-group mt-4 col-md-1 mb-3">
+                        <div class="form-check">
+                            <div class="checkbox p-0">
+                                <input id="generate_admission_no" type="checkbox" formControlName="generate_admission_no" class="form-check-input" >
+                                <label class="form-check-label" for="generate_admission_no"  ngbTooltip="Generate Admission No"><app-feather-icons
+                                    class="search-icon"
+                                    [icon]="'trello'"
+                                  ></app-feather-icons></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label for="admission_no">Admission No</label>
+                        <input type="text" *ngIf="!studentForm.controls['generate_admission_no'].value" class="form-control" id="admission_no" placeholder="Admission No"
+                            [formControl]="studentForm.controls['admission_no']" >
+                        <input type="text" *ngIf="studentForm.controls['generate_admission_no'].value" disabled="true" class="form-control" id="admission_no" placeholder="Admission No"
+                            [formControl]="studentForm.controls['admission_no']" >
+                     </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="f_name">First name <span class="font-danger">*</span></label>
+                        <input type="text" class="form-control" id="f_name" placeholder="First name"
+                            formControlName="f_name">
+                        <div *ngIf="studentForm.controls.f_name.touched && studentForm.controls.f_name.errors?.required"
+                            class="text text-danger">
+                            First Name is required.
+                        </div>
+                        <div *ngIf="studentForm.controls.f_name.touched && studentForm.controls.f_name.errors?.pattern"
+                            class="text text-danger">
+                            First Name must be an alphabates.
+                        </div>
+                    </div>
+                    <!-- First Name End -->
+                    <!-- Middle Name Start -->
+                    <div class="col-md-3 mb-3">
+                        <label for="m_name">Middle name <span class="font-danger">*</span></label>
+                        <input type="text" class="form-control" id="m_name" placeholder="Middle name"
+                             formControlName="m_name">
+                        <div *ngIf="studentForm.controls.m_name.touched && studentForm.controls.m_name.errors?.required"
+                            class="text text-danger">
+                            Middle Name is required.
+                        </div>
+                        <div *ngIf="studentForm.controls.m_name.touched && studentForm.controls.m_name.errors?.pattern"
+                            class="text text-danger">
+                            Middle Name must be an alphabates.
+                        </div>
+                    </div>
+                    <!-- Middle Name End -->
+                    <!-- Last Name Start -->
+                    <div class="col-md-3 mb-3">
+                        <label for="l_name">Last name <span class="font-danger">*</span></label>
+                        <input type="text" class="form-control" id="l_name" placeholder="Last name"
+                            formControlName="l_name">
+                        <div *ngIf="studentForm.controls.l_name.touched && studentForm.controls.l_name.errors?.required"
+                            class="text text-danger">
+                            Last Name is required.
+                        </div>
+                        <div *ngIf="studentForm.controls.l_name.touched && studentForm.controls.l_name.errors?.pattern"
+                            class="text text-danger">
+                            Last Name must be an alphabates.
+                        </div>
+                    </div>
+                    <!-- Last Name End -->
+                    </div>
+                    <div class="form-row">
+                    <!-- Birth Date Start -->
+                    <div class="col-md-3 mb-3">
+                        <label for="dob">Date Of Birth <span class="font-danger">*</span></label>
+                        <input type="date" class="form-control" id="dob" placeholder="dob"
+                             formControlName="dob">
+
+                        <div *ngIf="studentForm.controls.dob.touched && studentForm.controls.dob.errors?.required"
+                            class="text text-danger">
+                            Date Of Birth is required.
+                        </div>
+                    </div>
+                    <!-- Birth Date End -->
+                    <!-- Blood Group Start -->
+                    <div class="col-md-3 mb-3">
+                        <label for="bg_id">Blood Group</label>
+                        <div class="row">    
+                            <select class="form-control col-9 ml-3" id="bg_id" placeholder="O+ve" formControlName="bg_id" >
+                                <option value="">Select a Blood Group</option>
+                                <option *ngFor="let data of bloodGroupList" value="{{data.id}}">{{data.name}}</option>
+                            </select>
+                            <button class="btn btn-primary btn-circle1 ml-1" style="height: 30px;width: 30px;" ngbTooltip="Add Blood Group" (click)="addBlooadGroup()"><i class="icofont icofont-plus" style="height: 20px;width: 20px;"></i></button>
+                        </div>
+                    </div>
+                    <!-- Blood Group End -->
+                    <!-- Height Start -->
+                    <div class="col-md-3 mb-3">
+                        <label for="height">Height</label>
+                        <input type="text" class="form-control" id="height" mask="000" placeholder="Height"
+                             formControlName="height">
+                    </div>
+                    <!-- Height End -->
+                    <!-- Weight Start -->
+                    <div class="col-md-3 mb-3">
+                        <label for="weight">Weight</label>
+                        <input type="number" class="form-control" id="weight"  placeholder="Weight"
+                             formControlName="weight">
+                    </div>
+                    <!-- Weight End -->
+                    <!-- gender Start -->
+                    <div class="col-md-3 mb-3">
+                        <div class="d-flex justify-content-between"> <label for="gender_id">Gender <span class="font-danger">*</span></label></div>
+                        <div class="row">    
+                        <select class="form-control col-9 ml-3" id="gender_id" placeholder="gender" formControlName="gender_id" >
+                                <option value="">Select a Gender</option>
+                                <option *ngFor="let data of genderList" value="{{data.id}}">{{data.name}}</option>
+                            </select>
+                            <button class="btn btn-primary btn-circle1 ml-1" style="height: 30px;width: 30px;" ngbTooltip="Add Blood Group" (click)="addGender()"><i class="icofont icofont-plus" style="height: 20px;width: 20px;"></i></button>
+                        </div>
+                        <div *ngIf="studentForm.controls.gender_id.touched && studentForm.controls.gender_id.errors?.required"
+                            class="text text-danger">
+                            Gender is required.
+                        </div>
+                    </div>
+                    <!-- gender End -->
+                     <!-- religion Start -->
+                     <div class="col-md-3 mb-3">
+                        <div class="d-flex justify-content-between"><label for="religion_id">Religion <span class="font-danger">*</span></label></div>
+                        <div class="row">   
+                             <select class="form-control col-9 ml-3" id="religion_id" placeholder="gender" formControlName="religion_id" >
+                                <option value="">Select a religion</option>
+                                <option *ngFor="let data of religionList" value="{{data.id}}">{{data.name}}</option>
+                            </select>
+                            <button class="btn btn-primary btn-circle1 ml-1" style="height: 30px;width: 30px;" ngbTooltip="Add New Religion" (click)="addReligion()"><i class="icofont icofont-plus" style="height: 20px;width: 20px;"></i></button>
+                        </div>
+                        <div *ngIf="studentForm.controls.religion_id.touched && studentForm.controls.religion_id.errors?.required"
+                            class="text text-danger">
+                            Religion is required.
+                        </div>
+                    </div>
+                    <!-- religion End -->
+                     <!-- cast Start -->
+                     <div class="col-md-3 mb-3">
+                        <div class="d-flex justify-content-between"><label for="caste_id">Cast <span class="font-danger">*</span></label></div>
+                        <div class="row">
+                              <select class="form-control col-9 ml-3" id="caste_id" placeholder="gender" formControlName="caste_id">
+                                <option value="">Select a Cast</option>
+                                <option *ngFor="let data of casteList" value="{{data.id}}">{{data.name}}</option>
+                            </select>
+                            <button class="btn btn-primary btn-circle1 ml-1" style="height: 30px;width: 30px;" ngbTooltip="Add New Cast" (click)="addCast()"><i class="icofont icofont-plus" style="height: 20px;width: 20px;"></i></button>
+                        </div>
+                        <div *ngIf="studentForm.controls.caste_id.touched && studentForm.controls.caste_id.errors?.required"
+                            class="text text-danger">
+                            Cast is required.
+                        </div>
+                    </div>
+                    <!-- cast End -->
+                     <!-- Category Start -->
+                     <div class="col-md-3 mb-3">
+                        <div class="d-flex justify-content-between"><label for="category_id">Category <span class="font-danger">*</span></label></div>
+                        <div class="row">
+                            <select class="form-control col-9 ml-3" id="category_id" placeholder="gender"  formControlName="category_id">
+                                <option value="">Select a Category</option>
+                                <option *ngFor="let data of categoryList" value="{{data.id}}">{{data.name}}</option>
+                            </select>
+                            <button class="btn btn-primary btn-circle1 ml-1" style="height: 30px;width: 30px;" ngbTooltip="Add New Category" (click)="addCategory()"><i class="icofont icofont-plus" style="height: 20px;width: 20px;"></i></button>
+                        </div>
+                        <div *ngIf="studentForm.controls.category_id.touched && studentForm.controls.category_id.errors?.required"
+                            class="text text-danger">
+                            Category is required.
+                        </div>
+                    </div>
+                    <!-- Category End -->
+                     
+                    <!-- Phone Number Start -->
+                    <div class="col-md-3 mb-3">
+                        <label for="mobile">Phone Number</label>
+                        <input type="text" class="form-control" id="mobile" prefix="+91" mask=" 00000 00000" placeholder="Phone Number"
+                            [formControl]="studentForm.controls['mobile']" >
+                        <div *ngIf="studentForm.controls.mobile.touched && studentForm.controls.mobile.errors?.minlength"
+                            class="text text-danger">
+                            Number should be min 10 digits.
+                        </div>
+                        <div *ngIf="studentForm.controls.mobile.touched && studentForm.controls.mobile.errors?.maxlength"
+                            class="text text-danger">
+                            Number should be max 12 digits.
+                        </div>
+                    </div>
+                    <!-- Phone Number End -->
+                    <!-- Email Start -->
+                    <div class="col-md-4 mb-3">
+                        <label for="email">Email</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">@</span>
+                            </div>
+                            <input type="email" class="form-control" id="email"  placeholder="Email"
+                            [formControl]="studentForm.controls['email']">
+                        </div>
+                        <div *ngIf="studentForm.controls.email.touched && studentForm.controls.email.errors?.email"
+                            class="text text-danger">
+                            Email pattern is required.
+                        </div>
+                    </div>
+                    <!-- Email End -->
+                    <!-- Sats No Start -->
+                    <div class="col-md-3 mb-3">
+                        <label for="sats_no">Sats No</label>
+                        <input type="text" class="form-control" mask="000 000 000" id="sats_no" placeholder="Sats No"
+                            [formControl]="studentForm.controls['sats_no']" >
+                    </div>
+                    <!-- Sats No End -->
+                    <!-- Admission Date Start -->
+                    <div class="col-md-2 mb-3">
+                        <label for="admission_date">Admission Date <span class="font-danger">*</span></label>
+                        <input type="date" class="form-control" id="admission_date" placeholder="admissiondate"
+                            [formControl]="studentForm.controls['admission_date']" >
+                    </div>
+                    <!-- Admission Date End -->
+                    <div class="form-group mt-4 col-md-1 mb-3">
+                        <div class="form-check">
+                            <div class="checkbox p-0">
+                                <input id="is_special_needs" type="checkbox" [formControl]="studentForm.controls['is_special_needs']" class="form-check-input">
+                                <label class="form-check-label" for="is_special_needs"  ngbTooltip="Is child disabled?">
+                                    <i class="fa fa-wheelchair" style="font-weight: bold; font-size: 22px;"></i></label> 
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-7 mb-3">
+                        <label for="special_needs">Disabilities</label>
+                        <input type="text" *ngIf="studentForm.controls['is_special_needs'].value" class="form-control" id="special_needs" placeholder="Disabilities"
+                            [formControl]="studentForm.controls['special_needs']" >
+                        <input type="text" *ngIf="!studentForm.controls['is_special_needs'].value" disabled="true" class="form-control" id="special_needs" placeholder="Disabilities"
+                            [formControl]="studentForm.controls['special_needs']" >
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="place_of_birth">Place Of Birth <span class="font-danger">*</span></label>
+                        <input type="text"  class="form-control" id="place_of_birth" placeholder="Banglore"
+                            [formControl]="studentForm.controls['place_of_birth']" >
+                            <div *ngIf="studentForm.controls.place_of_birth.touched && studentForm.controls.place_of_birth.errors?.required"
+                            class="text text-danger">
+                            Place Of Birth is required.
+                        </div>
+                    </div>
+                </div>
+                <!-- Student Details End -->
+                <div class="form-group f1-buttons">
+                    
+                    <button class="btn btn-primary btn-next" awNextStep> Next
+                    </button> 
+                </div>
+            </form>
+              </aw-wizard-step>
+              <aw-wizard-step [navigationSymbol]="{ symbol: '&#xf279;', fontFamily: 'FontAwesome' }" stepTitle="Address Info">
+                <!-- Address Details Start -->
+                <div class="form-row">
+                    <div class="col-md-5 mb-3">
+                        <div class="row">
+                            <div class="col">
+                                <label for="permanent_address">Permanent Address</label>
+                                <textarea class="form-control" id="permanent_address" [formControl]="studentForm.controls['permanent_address']" rows="3" cols="5" class="form-control"
+                                            placeholder="Permanent Address"></textarea>
+                                            <div *ngIf="studentForm.controls.permanent_address.touched && studentForm.controls.permanent_address.errors?.required"
+                                    class="text text-danger">
+                                    Permanent Address is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="permanent_city">City <span class="font-danger">*</span></label>
+                                <input type="text"  class="form-control" id="permanent_city" placeholder="Banglore"
+                                    [formControl]="studentForm.controls['permanent_city']" >
+                                    <div *ngIf="studentForm.controls.permanent_city.touched && studentForm.controls.permanent_city.errors?.required"
+                                    class="text text-danger">
+                                    City is required.
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="permanent_pin">Pin <span class="font-danger">*</span></label>
+                                <input type="text"  mask="000 000" class="form-control" id="permanent_pin" placeholder="XXX XXX"
+                                    [formControl]="studentForm.controls['permanent_pin']" >
+                                    <div *ngIf="studentForm.controls.permanent_pin.touched && studentForm.controls.permanent_pin.errors?.required"
+                                    class="text text-danger">
+                                    Pin is required.
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="permanent_taluka">Taluka <span class="font-danger">*</span></label>
+                                <input type="text"  class="form-control" id="permanent_taluka" placeholder="Banglore"
+                                    [formControl]="studentForm.controls['permanent_taluka']" >
+                                    <div *ngIf="studentForm.controls.permanent_taluka.touched && studentForm.controls.permanent_taluka.errors?.required"
+                                    class="text text-danger">
+                                    Taluka is required.
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="permanent_district">District <span class="font-danger">*</span></label>
+                                <input type="text"  class="form-control" id="permanent_district" placeholder="Banglore"
+                                    [formControl]="studentForm.controls['permanent_district']" >
+                                    <div *ngIf="studentForm.controls.permanent_district.touched && studentForm.controls.permanent_district.errors?.required"
+                                    class="text text-danger">
+                                    District is required.
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="permanent_state">State <span class="font-danger">*</span></label>
+                                <input type="text"  class="form-control" id="permanent_state" placeholder="Karnataka"
+                                    [formControl]="studentForm.controls['permanent_state']" >
+                                    <div *ngIf="studentForm.controls.permanent_state.touched && studentForm.controls.permanent_state.errors?.required"
+                                    class="text text-danger">
+                                    State is required.
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="permanent_country">Country <span class="font-danger">*</span></label>
+                                <input type="text"  class="form-control" id="permanent_country" placeholder="India"
+                                    [formControl]="studentForm.controls['permanent_country']" >
+                                    <div *ngIf="studentForm.controls.permanent_country.touched && studentForm.controls.permanent_country.errors?.required"
+                                    class="text text-danger">
+                                    Country is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" (click)="copyAddress()" style="height: 2.2rem;margin-top: 5rem;" ngbTooltip="Copy Permanent Address"><app-feather-icons
+                        class="search-icon"
+                        [icon]="'copy'"
+                      ></app-feather-icons></button>
+                    <div class="col-md-5 mb-3">
+                        <div class="row">
+                            <div class="col">
+                                <label for="current_address">Present Address</label>
+                                <textarea class="form-control" id="current_address" [formControl]="studentForm.controls['current_address']" rows="3" cols="5" class="form-control"
+                                            placeholder="Present Address"></textarea>
+                                            <div *ngIf="studentForm.controls.current_address.touched && studentForm.controls.current_address.errors?.required"
+                                    class="text text-danger">
+                                    Current Address is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="current_city">City <span class="font-danger">*</span></label>
+                                <input type="text"  class="form-control" id="current_city" placeholder="Banglore"
+                                    [formControl]="studentForm.controls['current_city']" >
+                                    <div *ngIf="studentForm.controls.current_city.touched && studentForm.controls.current_city.errors?.required"
+                                    class="text text-danger">
+                                    City is required.
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="current_pin">Pin <span class="font-danger">*</span></label>
+                                <input type="text"  mask="000 000" class="form-control" id="current_pin" placeholder="XXX XXX"
+                                    [formControl]="studentForm.controls['current_pin']" >
+                                    <div *ngIf="studentForm.controls.current_pin.touched && studentForm.controls.current_pin.errors?.required"
+                                    class="text text-danger">
+                                    Pin is required.
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="current_taluka">Taluka <span class="font-danger">*</span></label>
+                                <input type="text"  class="form-control" id="current_taluka" placeholder="Banglore"
+                                    [formControl]="studentForm.controls['current_taluka']" >
+                                    <div *ngIf="studentForm.controls.current_taluka.touched && studentForm.controls.current_taluka.errors?.required"
+                                    class="text text-danger">
+                                    Taluka is required.
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="current_district">District <span class="font-danger">*</span></label>
+                                <input type="text"  class="form-control" id="current_district" placeholder="Banglore"
+                                    [formControl]="studentForm.controls['current_district']" >
+                                    <div *ngIf="studentForm.controls.current_district.touched && studentForm.controls.current_district.errors?.required"
+                                    class="text text-danger">
+                                    District is required.
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="current_state">State <span class="font-danger">*</span></label>
+                                <input type="text"  class="form-control" id="current_state" placeholder="Karnataka"
+                                    [formControl]="studentForm.controls['current_state']" >
+                                    <div *ngIf="studentForm.controls.current_state.touched && studentForm.controls.current_state.errors?.required"
+                                    class="text text-danger">
+                                    State is required.
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="current_country">Country <span class="font-danger">*</span></label>
+                                <input type="text"  class="form-control" id="current_country" placeholder="India"
+                                    [formControl]="studentForm.controls['current_country']" >
+                                    <div *ngIf="studentForm.controls.current_country.touched && studentForm.controls.current_country.errors?.required"
+                                    class="text text-danger">
+                                    Country is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Address Details End -->
+                <button class="btn btn-primary btn-previous mr-3"  awPreviousStep (click)="findstudentFormInvalidControls()"> Previous </button>
+                <button class="btn btn-primary btn-next" [disabled]="!studentForm.valid" awNextStep> Next </button>
+              </aw-wizard-step>
+              <aw-wizard-step [navigationSymbol]="{ symbol: '&#xf0c0;', fontFamily: 'FontAwesome' }" stepTitle="Family Details" [canEnter]="true">
+                 <!-- Father Details Start -->
+                 <h5>Father Details</h5>
+                 <div class="form-row">
+                     <!-- Father name Start -->
+                     <div class="col-md-4 mb-3">
+                         <label for="fathers_name">Father name <span class="font-danger">*</span></label>
+                         <input type="text" class="form-control" id="fathers_name" placeholder="Father name"
+                             [formControl]="parentForm.controls['fathers_name']" >
+                         <div *ngIf="parentForm.controls.fathers_name.touched && parentForm.controls.fathers_name.errors?.required"
+                             class="text text-danger">
+                             Fathert Name is required.
+                         </div>
+                         <div *ngIf="parentForm.controls.fathers_name.touched && parentForm.controls.fathers_name.errors?.pattern"
+                             class="text text-danger">
+                             Father Name must be an alphabates.
+                         </div>
+                     </div>
+                     <!-- Father name End -->
+                     <!-- Phone Number Start -->
+                     <div class="col-md-4 mb-3">
+                         <label for="fathers_mobile">Phone Number </label>
+                         <input type="text" class="form-control" id="fathers_mobile" prefix="+91" mask=" 00000 00000"  placeholder="Phone Number"
+                             [formControl]="parentForm.controls['fathers_mobile']" >
+                             <div *ngIf="parentForm.controls.fathers_mobile.touched && parentForm.controls.fathers_mobile.errors?.minlength"
+                             class="text text-danger">
+                             Number should be min 10 digits.
+                         </div>
+                         <div *ngIf="parentForm.controls.fathers_mobile.touched && parentForm.controls.fathers_mobile.errors?.maxlength"
+                             class="text text-danger">
+                             Number should be max 12 digits.
+                         </div>
+                     </div>
+                     <!-- Phone Number End -->
+                     <!-- Father Occupation Start -->
+                     <div class="col-md-4 mb-3">
+                         <label for="father_occupation">Father Occupation</label>
+                         <input type="text" class="form-control" id="father_occupation" placeholder="Father Occupation"
+                             [formControl]="parentForm.controls['father_occupation']" >
+                         
+                     </div>
+                     <!-- Father Occupation End -->
+                     <!-- Father Education Start -->
+                     <div class="col-md-4 mb-3">
+                         <label for="father_education">Father Education</label>
+                         <input type="text" class="form-control" id="father_education" placeholder="Father Education"
+                             [formControl]="parentForm.controls['father_education']" >
+                         
+                     </div>
+                     <!-- Father Education End -->
+                     <!-- Father Income Start -->
+                     <div class="col-md-4 mb-3">
+                         <label for="father_income">Father Income</label>
+                         <div class="input-group">
+                             <div class="input-group-prepend">
+                                 <span class="input-group-text">₹</span>
+                             </div>
+                             <input type='text'  mask="separator" thousandSeparator="," class="form-control" id="father_income" placeholder="Father Income"
+                             [formControl]="parentForm.controls['father_income']" >
+                         </div>
+                     </div>
+                     <!-- Father Income End -->
+                     <!-- Email Start -->
+                    <div class="col-md-4 mb-3">
+                        <label for="fathers_email">Email</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">@</span>
+                            </div>
+                            <input type="email" class="form-control" id="fathers_email"  placeholder="Email"
+                            [formControl]="parentForm.controls['fathers_email']">
+                        </div>
+                        <div *ngIf="parentForm.controls.fathers_email.touched && parentForm.controls.fathers_email.errors?.email"
+                            class="text text-danger">
+                            Email pattern is required.
+                        </div>
+                    </div>
+                    <!-- Email End -->
+                 </div>
+                 <!-- Father Details End -->
+                 <!-- Mother Details Start -->
+                 <h5>Mother Details</h5>
+                 <div class="form-row">
+                     <div class="col-md-4 mb-3">
+                         <label for="mothers_name">Mother name <span class="font-danger">*</span></label>
+                         <input type="text" class="form-control" id="mothers_name" placeholder="Mother name"
+                             [formControl]="parentForm.controls['mothers_name']" >
+                         <div *ngIf="parentForm.controls.mothers_name.touched && parentForm.controls.mothers_name.errors?.required"
+                             class="text text-danger">
+                             Mother Name is required.
+                         </div>
+                         <div *ngIf="parentForm.controls.mothers_name.touched && parentForm.controls.mothers_name.errors?.pattern"
+                             class="text text-danger">
+                             Mother Name must be an alphabates.
+                         </div>
+                     </div>
+                     <div class="col-md-4 mb-3">
+                         <label for="mothers_mobile">Phone Number</label>
+                         <input type="text" class="form-control" id="mothers_mobile" prefix="+91" mask=" 00000 00000" placeholder="Phone Number"
+                             [formControl]="parentForm.controls['mothers_mobile']" >
+                         <div *ngIf="parentForm.controls.mothers_mobile.touched && parentForm.controls.mothers_mobile.errors?.minlength"
+                             class="text text-danger">
+                             Number should be min 10 digits.
+                         </div>
+                         <div *ngIf="parentForm.controls.mothers_mobile.touched && parentForm.controls.mothers_mobile.errors?.maxlength"
+                             class="text text-danger">
+                             Number should be max 12 digits.
+                         </div>
+                     </div>
+                     <div class="col-md-4 mb-3">
+                         <label for="mothers_occupation">Mother Occupation</label>
+                         <input type="text" class="form-control" id="mothers_occupation" placeholder="Mother Occupation"
+                             [formControl]="parentForm.controls['mothers_occupation']" >
+                     </div>
+                     <div class="col-md-4 mb-3">
+                         <label for="mother_education">Mother Education</label>
+                         <input type="text" class="form-control" id="mother_education" placeholder="mother_education"
+                             [formControl]="parentForm.controls['mother_education']" >
+                     </div>
+                     <div class="col-md-4 mb-3">
+                         <label for="mother_income">Mother Income</label>
+                         <div class="input-group">
+                             <div class="input-group-prepend">
+                                 <span class="input-group-text">₹</span>
+                             </div>
+                             <input type='text'  mask="separator" thousandSeparator="," class="form-control" id="mother_income" placeholder="Mother Income"
+                             [formControl]="parentForm.controls['mother_income']" >
+                         </div>
+                     </div>
+                      <!-- Email Start -->
+                    <div class="col-md-4 mb-3">
+                        <label for="mothers_email">Email</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">@</span>
+                            </div>
+                            <input type="email" class="form-control" id="mothers_email"  placeholder="Email"
+                            [formControl]="parentForm.controls['mothers_email']">
+                        </div>
+                        <div *ngIf="parentForm.controls.mothers_email.touched && parentForm.controls.mothers_email.errors?.email"
+                            class="text text-danger">
+                            Email pattern is required.
+                        </div>
+                    </div>
+                    <!-- Email End -->
+                 </div>
+                 <!-- Mother Details End -->
+                <button class="btn btn-primary btn-previous mr-3"  awPreviousStep> Previous </button>
+                <button class="btn btn-primary btn-next"  awNextStep> Next </button>
+              </aw-wizard-step>
+              <aw-wizard-step [navigationSymbol]="{ symbol: '&#xf234;', fontFamily: 'FontAwesome' }" stepTitle="Guardian Details">
+                <h5>Guardian</h5>
+                <!-- Guardian Option Start -->
+                <div class="form-group m-t-15 m-checkbox-inline mb-0 custom-radio-ml mb-3">
+                    <div class="radio radio-primary" (click)="onGuardianChange('New')">
+                        <input type="radio" name="radio1" id="radioinline1" value="New">
+                        <label for="radioinline1" class="mb-0">New</label>
+                    </div>
+                    <div class="radio radio-primary" (click)="onGuardianChange('Father')">
+                        <input type="radio" name="radio1" id="radioinline2" value="Father">
+                        <label for="radioinline2" class="mb-0">Father</label>
+                    </div>
+                    <div class="radio radio-primary" (click)="onGuardianChange('Mother')">
+                        <input type="radio" name="radio1" id="radioinline3" value="Mother">
+                        <label for="radioinline3" class="mb-0">Mother</label>
+                    </div>
+                </div>
+                 <!-- Guardian Option End -->
+                 <!-- Guardian Details Start -->
+                 
+                 <div class="form-row">
+                     <!-- Guardian relation Start -->
+                     <div class="col-md-4 mb-3">
+                         <label for="guardian_relation">Relation <span class="font-danger">*</span></label>
+                         <input type="text" class="form-control" id="guardian_relation" placeholder="Relation"
+                             [formControl]="parentForm.controls['guardian_relation']" >
+                         <div *ngIf="parentForm.controls.guardian_relation.touched && parentForm.controls.guardian_relation.errors?.required"
+                             class="text text-danger">
+                             Guardian Relation is required.
+                         </div>
+                         <div *ngIf="parentForm.controls.guardian_relation.touched && parentForm.controls.guardian_relation.errors?.pattern"
+                             class="text text-danger">
+                             Guardian Relation must be an alphabates.
+                         </div>
+                     </div>
+                     <!-- Guardian relation End -->
+                     <!-- Guardian name Start -->
+                     <div class="col-md-4 mb-3">
+                         <label for="guardians_name">Guardian name <span class="font-danger">*</span></label>
+                         <input type="text" class="form-control" id="guardians_name" placeholder="Guardian name"
+                             [formControl]="parentForm.controls['guardians_name']" >
+                         <div *ngIf="parentForm.controls.guardians_name.touched && parentForm.controls.guardians_name.errors?.required"
+                             class="text text-danger">
+                             Guardian Name is required.
+                         </div>
+                         <div *ngIf="parentForm.controls.guardians_name.touched && parentForm.controls.guardians_name.errors?.pattern"
+                             class="text text-danger">
+                             Guardian Name must be an alphabates.
+                         </div>
+                     </div>
+                     <!-- Guardian name End -->
+                     <!-- Phone Number Start -->
+                     <div class="col-md-4 mb-3">
+                         <label for="guardians_mobile">Phone Number <span class="font-danger">*</span></label>
+                         <input type="text" class="form-control" id="guardians_mobile" prefix="+91" mask=" 00000 00000"  placeholder="Phone Number"
+                             [formControl]="parentForm.controls['guardians_mobile']" >
+                             <div *ngIf="parentForm.controls.guardians_mobile.touched && parentForm.controls.guardians_mobile.errors?.minlength"
+                             class="text text-danger">
+                             Number should be min 10 digits.
+                         </div>
+                         <div *ngIf="parentForm.controls.guardians_mobile.touched && parentForm.controls.guardians_mobile.errors?.maxlength"
+                             class="text text-danger">
+                             Number should be max 12 digits.
+                         </div>
+                         <div *ngIf="parentForm.controls.guardians_mobile.touched && parentForm.controls.guardians_mobile.errors?.required"
+                             class="text text-danger">
+                             Number is required.
+                         </div>
+                     </div>
+                     <!-- Phone Number End -->
+                     <!-- Guardian Occupation Start -->
+                     <div class="col-md-4 mb-3">
+                         <label for="guardians_occupation">Guardian Occupation</label>
+                         <input type="text" class="form-control" id="guardians_occupation" placeholder="Guardian Occupation"
+                             [formControl]="parentForm.controls['guardians_occupation']" >
+                         
+                     </div>
+                     <!-- Guardian Occupation End -->
+                     <!-- Guardian Email Start -->
+                     <div class="col-md-4 mb-3">
+                         <label for="guardians_email">Guardian Email</label>
+                         <input type="email" class="form-control" id="guardians_email" placeholder="Guardian Email"
+                             [formControl]="parentForm.controls['guardians_email']" >
+                     </div>
+                     <!-- Guardian Email End -->
+                     <!-- Guardian Address Start -->
+                     <div class="col-md-12 mb-3">
+                         <label for="guardian_address">Guardian Address</label>
+                             <textarea class="form-control" id="guardian_address" [formControl]="parentForm.controls['guardian_address']" rows="2" cols="5" class="form-control"
+                             placeholder="Guardian Address"></textarea>
+                                    <div *ngIf="parentForm.controls.guardian_address.touched && parentForm.controls.guardian_address.errors?.required"
+                            class="text text-danger">
+                            Guardian Address is required.
+                        </div>
+                     </div>
+                     <!-- Guardian Address End -->
+                     </div>
+                     <h5>Other Family Details</h5>
+                     <div class="form-row">
+                     <div class="col-md-4 mb-3">
+                        <label for="no_of_family_members">No Of Family Members</label>
+                        <input type="number" class="form-control" id="no_of_family_members" placeholder="No Of Family Members"
+                            [formControl]="parentForm.controls['no_of_family_members']" >
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="no_of_brothers">No Of Brothers</label>
+                        <input type="number" class="form-control" id="no_of_brothers" placeholder="No Of Brothers"
+                            [formControl]="parentForm.controls['no_of_brothers']" >
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="no_of_sisters">No Of Sisters</label>
+                        <input type="number" class="form-control" id="no_of_sisters" placeholder="No Of Sisters"
+                            [formControl]="parentForm.controls['no_of_sisters']" >
+                    </div>
+                 </div>
+                 <!-- Father Details End -->
+                <button class="btn btn-primary btn-previous mr-3"  awPreviousStep> Previous </button>
+                <button class="btn btn-primary btn-next" [disabled]="!parentForm.valid" awNextStep> Next </button>
+              </aw-wizard-step>
+              <aw-wizard-step [navigationSymbol]="{ symbol: '&#xf2bd;', fontFamily: 'FontAwesome' }" stepTitle="Academic Info">
+                <!-- Study Details Start -->
+                <h5>Study Details</h5>
+                <div class="form-row">
+                    <div class="col-md-3 mb-3">
+                        <div class="d-flex justify-content-between"><label for="academic_year_id">Academin Year <span class="font-danger">*</span></label></div>
+                        <div class="row">
+                        <select class="form-control col-9 ml-3" id="academic_year_id" placeholder="academinYear" [formControl]="academicForm.controls['academic_year_id']" >
+                            <option value="">Select a academinYear</option>
+                            <option *ngFor="let data of academinYearList" value="{{data.id}}">{{data.name}}</option>
+                        </select>
+                        <button class="btn btn-primary btn-circle1 ml-1" style="height: 30px;width: 30px;" ngbTooltip="Add New Academin Year" (click)="addAcademicYear()"><i class="icofont icofont-plus" style="height: 20px;width: 20px;"></i></button>
+                    </div>
+                        <div *ngIf="academicForm.controls.academic_year_id.touched && academicForm.controls.academic_year_id.errors?.required"
+                            class="text text-danger">
+                            Academin Year is required.
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="d-flex justify-content-between"><label for="dept_id">Department <span class="font-danger">*</span></label></div>
+                        <div class="row">
+                        <select class="form-control col-9 ml-3" id="dept_id" placeholder="Department" [formControl]="academicForm.controls['dept_id']" >
+                            <option value="">Select a Department</option>
+                            <option *ngFor="let data of departmentList" value="{{data.id}}">{{data.name}}</option>
+                        </select>
+                        <button class="btn btn-primary btn-circle1 ml-1" style="height: 30px;width: 30px;" ngbTooltip="Add New Department" (click)="addDepartment()"><i class="icofont icofont-plus" style="height: 20px;width: 20px;"></i></button>
+                    </div>
+                        <div *ngIf="academicForm.controls.dept_id.touched && academicForm.controls.dept_id.errors?.required"
+                            class="text text-danger">
+                            Department is required.
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="d-flex justify-content-between"><label for="class_id">Class <span class="font-danger">*</span></label></div>
+                        <div class="row">
+                        <select class="form-control col-9 ml-3" id="class_id" placeholder="Class" [formControl]="academicForm.controls['class_id']" >
+                            <option value="">Select a Class</option>
+                            <option *ngFor="let data of classList" value="{{data.id}}">{{data.name}}</option>
+                        </select>
+                        <button class="btn btn-primary btn-circle1 ml-1" style="height: 30px;width: 30px;" ngbTooltip="Add New Class" (click)="addClass()"><i class="icofont icofont-plus" style="height: 20px;width: 20px;"></i></button>
+                    </div>
+                        <div *ngIf="academicForm.controls.class_id.touched && academicForm.controls.class_id.errors?.required"
+                            class="text text-danger">
+                            Class is required.
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="d-flex justify-content-between"><label for="class_id">Division </label></div>
+                        <div class="row">
+                        <select class="form-control col-9 ml-3" id="class_id" placeholder="Class" [formControl]="academicForm.controls['division_id']" >
+                            <option value="">Select a Division</option>
+                            <option *ngFor="let data of divisionList" value="{{data.id}}">{{data.name}}</option>
+                        </select>
+                        <button class="btn btn-primary btn-circle1 ml-1" style="height: 30px;width: 30px;" ngbTooltip="Add New Division" (click)="addDivision()"><i class="icofont icofont-plus" style="height: 20px;width: 20px;"></i></button>
+                    </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="dob">Allocation Date <span class="font-danger">*</span></label>
+                        <input type="date" class="form-control" id="dob" placeholder="dob"
+                        [formControl]="academicForm.controls['allocation_date']">
+
+                        <div *ngIf="academicForm.controls.allocation_date.touched && academicForm.controls.allocation_date.errors?.required"
+                            class="text text-danger">
+                            Date Of Birth is required.
+                        </div>
+                    </div>
+                </div>
+                <!-- Study Details End -->
+                <button class="btn btn-primary btn-previous mr-3"  awPreviousStep> Previous </button>
+                <button class="btn btn-primary btn-next" [disabled]="!academicForm.valid"  awNextStep> Next </button>
+              </aw-wizard-step>
+              <aw-wizard-step [navigationSymbol]="{ symbol: '&#xf1da;', fontFamily: 'FontAwesome' }" stepTitle="Academic History Info">
+                <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <h5>
+                            School History
+                            <button class="btn btn-primary pull-right" (click)="addSchoolHistory()">
+                              Add new
+                            </button>
+                            <div class="clearfix"></div>
+                          </h5>
+                        <div class="table-responsive mb-3">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                      <th>SlNo</th>
+                                      <th>School Name</th>
+                                      <th>Scholarships</th>
+                                      <th>Standard</th>
+                                      <th>Leave Date</th>
+                                      <th>Reason</th>
+                                      <th>Actions</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr *ngFor="let school of schoolHistoryList; let i = index">
+                                        <td>
+                                            {{i+1}}
+                                        </td>
+                                        <td>
+                                            <div *ngIf="editIndex != i">{{school.institution_name}}</div>
+                                            <div *ngIf="editIndex == i">
+                                                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="school.institution_name" value="{{school.institution_name}}">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div *ngIf="editIndex != i">{{school.scholarship}}</div>
+                                            <div *ngIf="editIndex == i">
+                                                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="school.scholarship" value="{{school.scholarship}}">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div *ngIf="editIndex != i">{{school.std_attended}}</div>
+                                            <div *ngIf="editIndex == i">
+                                                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="school.std_attended">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div *ngIf="editIndex != i">{{school.leave_date}}</div>
+                                            <div *ngIf="editIndex == i">
+                                                <input type="date" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="school.leave_date">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div *ngIf="editIndex != i">{{school.reason}}</div>
+                                            <div *ngIf="editIndex == i">
+                                                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="school.reason">
+                                            </div>
+                                        </td>
+                                        <td style="width: 12rem;">
+                                            <div *ngIf="editIndex != i">
+                                                <button class="btn btn-info btn-sm mr-2" (click)="editIndex = i">
+                                                    <i class="icofont icofont-pencil-alt-5"></i>
+                                                  </button>
+                                                  <button class="btn btn-danger btn-sm" (click)="schoolHistoryList.splice(i, 1)">
+                                                      <i class="icofont icofont-delete-alt"></i>
+                                                    </button>
+                                            </div>
+                                            <div *ngIf="editIndex == i">
+                                                <button class="btn btn-success btn-sm mr-2" (click)="schoolHistoryList[i] = school;editIndex = -1">
+                                                    <i class="icofont icofont-ui-file"></i>
+                                                </button>
+                                                <button class="btn btn-danger btn-sm" (click)="schoolHistoryList.splice(i, 1)">
+                                                    <i class="icofont icofont-delete-alt"></i>
+                                                  </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                  </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                        <label for="languages_studied">Languages studied</label>
+                        <input type="text" class="form-control" id="languages_studied" placeholder="Languages studied"
+                            [formControl]="studentForm.controls['languages_studied']" >
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="previous_medium_of_instrutcion">Previous medium of instrutcion</label>
+                        <input type="text" class="form-control" id="previous_medium_of_instrutcion" placeholder="Englisg / Kannada"
+                            [formControl]="studentForm.controls['previous_medium_of_instrutcion']" >
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-previous mr-3"  awPreviousStep> Previous </button>
+                <button class="btn btn-primary btn-next" (click)="submit()" [disabled]="!studentForm.valid || !parentForm.valid || !academicForm.valid || !academicHistoryForm.valid || submitDisable"> 
+                    {{submitDisable?"":"Submit"}} &nbsp;<i class="fa fa-circle-o-notch fa-spin" *ngIf="submitDisable"></i>
+                </button>
+              </aw-wizard-step>
+            </aw-wizard>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

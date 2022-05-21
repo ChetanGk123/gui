@@ -1,0 +1,65 @@
+<div class="card">
+    <div class="card-header">
+      <h5>Fees and other transactions</h5>
+    </div>
+    <div class="card-body">
+        <div class="row mb-4 pl-3 pr-3">
+          <div class="col-md-8 col-sm-12">
+            <div class="faq-form">
+              <input
+                class="form-control"
+                [(ngModel)]="filterValue"
+                type="text"
+                (keyup)="onFilter($event.target.value)"
+                placeholder="Search.."
+              />
+              <app-feather-icons
+                class="search-icon"
+                [icon]="'search'"
+              ></app-feather-icons>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-12 d-flex justify-content-around">
+            <button
+              class="btn btn-warning text-center"
+              type="button"
+              (click)="filterValue = ''; onClear()"
+            >
+              Clear
+            </button>
+          </div>
+        </div>
+        <div class="loader-box center" *ngIf="dataFetch">
+          <span class="rotate dashed"></span>
+        </div>
+        <p-table [value]="TransactionsList" *ngIf="!dataFetch" class="table" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]">
+          <ng-template pTemplate="header" >
+            <tr>
+              <th>Receipt No</th>
+              <th>Txn Date</th>
+              <th>Txn Type</th>
+              <th>Previous Bal</th>
+              <th>Txn Amout</th>
+              <th>Current Bal</th>
+              <th>Print</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
+            <tr>
+              <td>{{product.receipt_no}}</td>
+              <td>{{product.transaction_date}}</td>
+              <!-- <td>{{product.transaction_type}}</td> -->
+              <td><font [color]="product.transaction_type == 'DEBIT'?'red':'green'"
+                ><b>{{product.transaction_type}}</b></font></td>
+              <td>{{product.previous_balance | currency: 'INR'}}</td>
+              <td>{{product.transaction_amount | currency: 'INR'}}</td>
+              <td>{{product.current_balance | currency: 'INR'}}</td>
+              <td>
+                <button pButton pRipple type="button" icon="pi pi-print" class="p-button-rounded p-button-primary ml-1" style="height: 35px; width: 35px;" ngbTooltip="Update Record" (click)="printTransaction(product)"></button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+</div>

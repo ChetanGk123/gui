@@ -1,0 +1,201 @@
+<div class="container-fluid">
+  <aw-wizard navBarLayout="large-filled-symbols">
+    <aw-wizard-step [navigationSymbol]="{ symbol: '&#xf02c;', fontFamily: 'FontAwesome ' }" stepTitle="Select Student">
+      <div class="row">
+        <div class="col-12">
+          <div class="default-according style-1 faq-accordion job-accordion" id="accordionoc">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link pl-0" (click)="isFilter = !isFilter" [attr.aria-expanded]="!isFilter"
+                        aria-controls="collapse">Filter</button>
+                    </h5>
+                  </div>
+                  <div class="collapse show" *ngIf="isFilter">
+                    <div class="card-body filter-cards-view animate-chk">
+                      <div class="row d-flex justify-content-end">
+                        <div class="col-xl-3 col-md-6 col-sm-12">
+                          <label for="department">Department <span class="font-danger">*</span></label>
+                          <select class="form-control" id="department" placeholder="Kannada" (change)="onFilterData('')"
+                            [formControl]="filterForm.controls['department']">
+                            <option value="">Select a Department</option>
+                            <option *ngFor="let data of departmentList" value="{{ data.name }}">
+                              {{ data.name }}
+                            </option>
+                          </select>
+                        </div>
+                        <div class="col-xl-3 col-md-6 col-sm-12">
+                          <label for="class">Class <span class="font-danger">*</span></label>
+                          <select class="form-control" id="class" placeholder="1" (change)="onFilterData('')"
+                            [formControl]="filterForm.controls['class']">
+                            <option value="">Select a Class</option>
+                            <option *ngFor="let data of classList" value="{{ data.name }}">
+                              {{ data.name }}
+                            </option>
+                          </select>
+                        </div>
+                        <div class="col-xl-3 col-md-6 col-sm-12">
+                          <label for="division">Division <span class="font-danger">*</span></label>
+                          <select class="form-control" id="division" placeholder="1" (change)="onFilterData('')"
+                            [formControl]="filterForm.controls['division']">
+                            <option value="">Select a Division</option>
+                            <option *ngFor="let data of divisionList" value="{{ data.name }}">
+                              {{ data.name }}
+                            </option>
+                          </select>
+                        </div>
+                        <div class="col-xl-3 col-md-6 col-sm-12 mb-3">
+                          <div class="faq-form">
+                            <label for="studentName">Name</label>
+                            <input class="form-control" type="text" id="studentName"
+                              [formControl]="filterForm.controls['studentName']"
+                              (keyup)="onFilterData($event.target.value)" placeholder="Search.." />
+                          </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 col-sm-12 float-right">
+                          <div class="faq-form">
+                            <label>&nbsp;</label>
+                            <button class="btn btn-primary text-center align-self-center align-bottom"
+                              (click)="reset(); onFilterData('')">Clear</button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row d-flex align-items-center"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <div class="card-body">
+              <div class="loader-box center" *ngIf="dataFetch">
+                <span class="rotate dashed"></span>
+              </div>
+              <p-table [value]="StudentList" class="table" [(selection)]="selectedStudents" dataKey="student_id"
+                *ngIf="!dataFetch" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+                responsiveLayout="scroll">
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th pSortableColumn="student_name">Student Name <p-sortIcon field="student_name"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="department">Medium <p-sortIcon field="department"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="class">Class <p-sortIcon field="class"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="division">Division <p-sortIcon field="division"></p-sortIcon>
+                    </th>
+                    <th>TC</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-data let-rowIndex="rowIndex">
+                  <tr>
+                    <td>{{ data.student_name }}</td>
+                    <td>{{ data.department }}</td>
+                    <td>{{ data.class }}</td>
+                    <td>{{ data.division }}</td>
+                    <td>
+                      <button pButton pRipple type="button" icon="pi pi-sign-out"
+                        class="p-button-rounded btn-danger ml-1" style="height: 35px; width: 35px;"
+                        ngbTooltip="Assign TC" awNextStep (click)="selectStudent(data)"></button>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </aw-wizard-step>
+    <aw-wizard-step [navigationSymbol]="{ symbol: '&#xf02c;', fontFamily: 'FontAwesome ' }" stepTitle="TC Details">
+      <!-- <div class="card">
+        <div class="card-header">
+          <h5>TC Details</h5>
+        </div>
+        <div class="card-body">
+          <form class="needs-validation" [formGroup]="tcForm" autocomplete="off" novalidate>
+            <div class="form-row">
+              <div class="col-md-4 mb-3">
+                <label for="name">Student Name <span class="font-danger">*</span></label>
+                <input type="text" readonly class="form-control" id="name" placeholder="Abcd" formControlName="name">
+                <div *ngIf="tcForm.controls.name.touched && tcForm.controls.name.errors?.required"
+                  class="text text-danger">
+                  Student Name is required.
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="application_date">Application Date <span class="font-danger">*</span></label>
+                <input type="date" class="form-control" id="application_date" placeholder="application_date"
+                  formControlName="application_date">
+
+                <div
+                  *ngIf="tcForm.controls.application_date.touched && tcForm.controls.application_date.errors?.required"
+                  class="text text-danger">
+                  Application Date is required.
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="issued_date">Issued Date <span class="font-danger">*</span></label>
+                <input type="date" class="form-control" id="issued_date" placeholder="issued_date"
+                  formControlName="issued_date">
+                <div
+                  *ngIf="tcForm.controls.issued_date.touched && tcForm.controls.issued_date.errors?.required"
+                  class="text text-danger">
+                  Issued Date is required.
+                </div>
+              </div>
+              <div class="col-12 mb-3">
+                <label for="character_of_conduct">Student Character <span class="font-danger">*</span></label>
+                <input type="text" class="form-control" id="character_of_conduct" placeholder="Good" formControlName="character_of_conduct">
+                <div *ngIf="tcForm.controls.character_of_conduct.touched && tcForm.controls.character_of_conduct.errors?.required"
+                  class="text text-danger">
+                  Student Character is required.
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="no_of_days">No Of Days In Academic Year <span class="font-danger">*</span></label>
+                <input type="text" class="form-control" id="no_of_days" mask="000" placeholder="100" formControlName="no_of_days">
+                <div *ngIf="tcForm.controls.no_of_days.touched && tcForm.controls.no_of_days.errors?.required"
+                  class="text text-danger">
+                  No Of Days is required.
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="no_of_attended_days">No Of Days Attended  In Academic Year <span class="font-danger">*</span></label>
+                <input type="text" class="form-control" id="no_of_attended_days" mask="000" placeholder="100" formControlName="no_of_attended_days">
+                <div *ngIf="tcForm.controls.no_of_attended_days.touched && tcForm.controls.no_of_attended_days.errors?.required"
+                  class="text text-danger">
+                  No Of Days Attended is required.
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="tc_reason">TC Reason <span class="font-danger">*</span></label>
+                <input type="text" class="form-control" id="tc_reason" placeholder="Transfer" formControlName="tc_reason">
+                <div *ngIf="tcForm.controls.tc_reason.touched && tcForm.controls.tc_reason.errors?.required"
+                  class="text text-danger">
+                  TC Reason is required.
+                </div>
+              </div>
+            </div>
+            <div class="form-group f1-buttons">
+
+              <button class="btn btn-primary btn-next" awPreviousStep> Previous</button>
+              <button type="submit" class="btn btn-primary btn-next ml-3" [disabled]="!tcForm.valid || submitLoader" (click)="AssignTC()"> {{submitLoader?"":"Assign TC"}}
+                &nbsp;<i class="fa fa-circle-o-notch fa-spin" *ngIf="submitLoader"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div> -->
+      <app-tc-details [selectedStudent] = "selectedStudent"></app-tc-details>
+    </aw-wizard-step>
+  </aw-wizard>
+
+</div>

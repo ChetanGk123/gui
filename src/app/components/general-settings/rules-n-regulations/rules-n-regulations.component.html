@@ -1,0 +1,15 @@
+<div class="container-fluid">
+    <div class="d-flex justify-content-between">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5> Institute Rules & Regulations</h5>
+                </div>
+                <div class="card-body">
+                    <angular-editor  [(ngModel)]="value" [config]="config"></angular-editor>
+                    <button class="btn btn-primary text-center mt-3" (click)="showToast()">SAVE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

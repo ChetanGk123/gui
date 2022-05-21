@@ -1,0 +1,95 @@
+
+<div class="row" >
+    <div class="col">
+        <div
+          class="default-according style-1 faq-accordion job-accordion"
+          id="accordionoc"
+        >
+          <div class="row">
+            <div class="col-xl-12"> 
+              <div class="card">
+                <div class="card-header">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link pl-0" (click)="isAYFilter = !isAYFilter" [attr.aria-expanded]="!isAYFilter"
+                      aria-controls="collapse"><h5>Academic Year</h5></button>
+                  </h5>
+                </div>
+                <div class="collapse show" *ngIf="isAYFilter">
+                  <div class="card-body filter-cards-view animate-chk">
+                    <div class="job-filter row">
+                      <div class="faq-form col-8">
+                        <input
+                          class="form-control"
+                          type="text"
+                          [(ngModel)]="ayeditValue"
+                          (keyup)="onAyFilter($event.target.value)"
+                          placeholder="2021-2022"
+                        />
+                      </div>
+                      <div class="col-3">
+                        <button class="btn btn-success text-center float-right " [disabled]="ayList.length>0 || addLoader" type="button" (click)="onAddNewAy()">
+                          {{!addLoader?"Add":""}}&nbsp;<i class="fa fa-circle-o-notch fa-spin" *ngIf="addLoader"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <!-- <div class="job-filter row">
+                      <div class="col-md-8 mb-3">
+                        <label for="bg_id">Active Academic Year</label>
+                            <select class="form-control col-12" id="bg_id" placeholder="O+ve" [(ngModel)]="active_ay">
+                                <option value="">Select a Academic Year</option>
+                                <option *ngFor="let data of ayList" value="{{data.id}}">{{data.name}}</option>
+                            </select>
+                    </div>
+                    <div class="col-3">
+                      <button class="btn btn-success text-center middle mt-4" type="button" [disabled]="updateLoader" (click)="UpdateAy()">
+                        {{!updateLoader?"Update":""}}&nbsp;<i class="fa fa-circle-o-notch fa-spin" *ngIf="updateLoader"></i>
+                      </button>
+                    </div>
+                    
+                    </div> -->
+                    
+                      <div class="table-responsive mt-3 mb-3" style="height: 40.5vh;">
+                        <div class="loader-box center" *ngIf="dataFetch"><span class="rotate dashed"></span></div>
+                        <table class="table" *ngIf="!dataFetch">
+                            <thead>
+                                <tr>
+                                  <th>SlNo</th>
+                                  <th>Name</th>
+                                  <th>Actions / Status</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let data of ayList; let i = index">
+                                    <td>
+                                        {{i+1}}
+                                    </td>
+                                    <td>
+                                        <div *ngIf="ayeditIndex != i">{{data.name}}</div>
+                                        <div *ngIf="ayeditIndex == i">
+                                            <input type="text" class="form-control" (keyup)="ayeditValue = $event.target.value" [ngModelOptions]="{standalone: true}" value="{{ayeditValue}}">
+                                        </div>
+                                    </td>
+                                    <td style="width: 12rem;">
+                                        <div *ngIf="ayeditIndex != i">
+                                          <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-success" style="height: 35px; width: 35px;" (click)="ayeditClick(i,data)"></button>
+                                          <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger ml-2" style="height: 35px; width: 35px;" (click)="onDeleteAy(data.id)"></button>
+                                          <p-inputSwitch class=" ml-2" [ngModel]="data.status == 1" (onChange)="active_ay = data;UpdateAy()"></p-inputSwitch>
+                                        </div>
+                                        <div *ngIf="ayeditIndex == i">
+                                          <button pButton pRipple type="button" icon="pi pi-file" class="p-button-rounded p-button-success" style="height: 35px; width: 35px;" (click)="updateAy(data.id)"></button>
+                                          <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger ml-2" style="height: 35px; width: 35px;" (click)="ayeditIndex = -1"></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                              </tbody>
+                        </table>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>

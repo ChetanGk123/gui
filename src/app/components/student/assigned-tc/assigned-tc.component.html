@@ -1,0 +1,166 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div
+        class="default-according style-1 faq-accordion job-accordion"
+        id="accordionoc"
+      >
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="mb-0">
+                  <button
+                    class="btn btn-link pl-0"
+                    (click)="isFilter = !isFilter"
+                    [attr.aria-expanded]="!isFilter"
+                    aria-controls="collapse"
+                  >
+                    Filter
+                  </button>
+                </h5>
+              </div>
+              <div class="collapse show" *ngIf="isFilter">
+                <div class="card-body filter-cards-view animate-chk">
+                  <div class="row d-flex justify-content-end">
+                    <!-- <div class="col-xl-3 col-md-6 col-sm-12">
+                          <label for="department">Department <span class="font-danger">*</span></label>
+                          <select class="form-control" id="department" placeholder="Kannada" (change)="onFilterData('')"
+                            [formControl]="filterForm.controls['department']">
+                            <option value="">Select a Department</option>
+                            <option *ngFor="let data of departmentList" value="{{ data.name }}">
+                              {{ data.name }}
+                            </option>
+                          </select>
+                        </div>
+                        <div class="col-xl-3 col-md-6 col-sm-12">
+                          <label for="class">Class <span class="font-danger">*</span></label>
+                          <select class="form-control" id="class" placeholder="1" (change)="onFilterData('')"
+                            [formControl]="filterForm.controls['class']">
+                            <option value="">Select a Class</option>
+                            <option *ngFor="let data of classList" value="{{ data.name }}">
+                              {{ data.name }}
+                            </option>
+                          </select>
+                        </div>
+                        <div class="col-xl-3 col-md-6 col-sm-12">
+                          <label for="division">Division <span class="font-danger">*</span></label>
+                          <select class="form-control" id="division" placeholder="1" (change)="onFilterData('')"
+                            [formControl]="filterForm.controls['division']">
+                            <option value="">Select a Division</option>
+                            <option *ngFor="let data of divisionList" value="{{ data.name }}">
+                              {{ data.name }}
+                            </option>
+                          </select>
+                        </div> -->
+                    <div class="col-xl-9 col-md-9 col-sm-12 mb-3">
+                      <div class="faq-form">
+                        <label for="studentName">Name</label>
+                        <input
+                          class="form-control"
+                          type="text"
+                          id="studentName"
+                          [formControl]="filterForm.controls['studentName']"
+                          (keyup)="onFilterData($event.target.value)"
+                          placeholder="Search.."
+                        />
+                      </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-sm-12 float-right">
+                      <div class="faq-form">
+                        <label>&nbsp;</label>
+                        <button
+                          class="btn btn-primary text-center align-self-center align-bottom"
+                          (click)="reset(); onFilterData('')"
+                        >
+                          Clear
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row d-flex align-items-center"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <div class="loader-box center" *ngIf="dataFetch">
+            <span class="rotate dashed"></span>
+          </div>
+          <p-table
+            [value]="StudentList"
+            class="table"
+            [(selection)]="selectedStudents"
+            dataKey="student_id"
+            *ngIf="!dataFetch"
+            [paginator]="true"
+            [rows]="10"
+            [showCurrentPageReport]="true"
+            responsiveLayout="scroll"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th pSortableColumn="student_name">
+                  Student Name <p-sortIcon field="student_name"></p-sortIcon>
+                </th>
+                <th pSortableColumn="tc_number">
+                  TC Number <p-sortIcon field="tc_number"></p-sortIcon>
+                </th>
+                <th pSortableColumn="issued_date">
+                  Issued Date <p-sortIcon field="issued_date"></p-sortIcon>
+                </th>
+                <th>TC</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-data let-rowIndex="rowIndex">
+              <tr>
+                <td>{{ data.student_name }}</td>
+                <td>{{ data.tc_number }}</td>
+                <td>{{ data.issued_date }}</td>
+                <td>
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-search"
+                    class="p-button-rounded btn-success ml-1"
+                    style="height: 35px; width: 35px"
+                    ngbTooltip="Assign TC"
+                    (click)="selectStudent(data)"
+                  ></button>
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-pencil"
+                    class="p-button-rounded btn-warning ml-1"
+                    style="height: 35px; width: 35px"
+                    ngbTooltip="Update TC"
+                    (click)="updateTC(data)"
+                  ></button>
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-trash"
+                    class="p-button-rounded btn-danger ml-1"
+                    style="height: 35px; width: 35px"
+                    ngbTooltip="Delete TC"
+                    (click)="deleteTc(data)"
+                  ></button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,165 @@
+<div class="container-fluid">
+  <div class="row d-flex justify-content-between">
+    <div class="col-md-5 col-sm-12">
+      <div class="card user-card">
+        <div class="card-body">
+            <h5 >Your Institute Profile</h5>
+          <div class="user-card-image">
+              <img class="img-fluid rounded-circle image-radius" src="{{institute.logo??'assets/images/logo.png'}}" alt="">
+            </div>
+          <div class="user-deatils text-center">
+            <h5>{{institute.name}}</h5>
+            <h6 class="mb-0">{{institute.moto}}</h6>
+            <hr>
+            <div class="media">
+                <app-feather-icons class="font-primary m-r-10" [icon]="'phone'"></app-feather-icons>
+                <span>Contact Number</span>
+                <div class="media-body text-right"><span>{{institute.number}}</span></div>
+              </div>
+            <div class="media">
+                <app-feather-icons class="font-primary m-r-10" [icon]="'mail'"></app-feather-icons>
+                <span>Email</span>
+                <div class="media-body text-right"><span>{{institute.email}}</span></div>
+              </div>
+            <div class="media">
+                <app-feather-icons class="font-primary m-r-10" [icon]="'globe'"></app-feather-icons>
+                <span>Website</span>
+                <div class="media-body text-right"><span>{{institute.website}}</span></div>
+              </div>
+            <hr>
+            <app-feather-icons class="m-r-10 font-danger"  [icon]="'map-pin'"></app-feather-icons>
+            <h6 class="mb-0">{{institute.address}}</h6>
+            <h6 class="mb-0">{{institute.country}}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-7 col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <h5>Update Institute Info Here</h5>
+            <form class="form needs-validation" [formGroup]="instituteForm">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="Name">Institute Name</label>
+                      <input
+                        type="email"
+                        class="form-control"
+                        formControlName="name"
+                        id="Name"
+                        placeholder="Institute  Name"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="Moto">Moto</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="Moto"
+                        formControlName="moto"
+                        placeholder="Dream it, to achieve it.."
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="Number">Contact Number</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="Number"
+                        formControlName="number"
+                        placeholder="999 999 9999"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="Email">Email address</label>
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="Email"
+                        formControlName="email"
+                        placeholder="name@example.com"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="Website">Website</label>
+                      <input
+                        type="url"
+                        class="form-control"
+                        id="Website"
+                        formControlName="website"
+                        placeholder="Website"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="Address">Address</label>
+                      <textarea
+                      formControlName="address"
+                        class="form-control"
+                        id="Address"
+                        rows="3"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="Country">Country</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="Country"
+                        formControlName="country"
+                        placeholder="Country"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="Logo">Logo</label>
+                      <input
+                        type="file"
+                        #file
+                        (change)="preview(file.files)"
+                        formControlName="logo"
+                        class="form-control mb-1"
+                        id="Logo"
+                      />
+                    </div>
+                    <img [src]="imgURL" height="200" *ngIf="imgURL">
+                  </div>
+                </div>
+              </div>
+            </form>
+            <button class="btn btn-primary float-right text-center mt-3" (click)="updateInstitute()">
+              Update
+            </button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

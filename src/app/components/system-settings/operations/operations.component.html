@@ -1,0 +1,81 @@
+<div class="row">
+    <div class="col">
+       <div
+       class="default-according style-1 faq-accordion job-accordion"
+       id="accordionoc"
+     >
+       <div class="row">
+         <div class="col-xl-12">
+           <div class="card">
+             <div class="card-header">
+               <h5 class="mb-0">Operations
+               </h5>
+             </div>
+             <div class="collapse show">
+               <div class="card-body filter-cards-view animate-chk">
+                 <div class="job-filter row">
+                     <div class="col-8">
+                         <div class="faq-form">
+                           <input
+                             class="form-control"
+                             type="text"
+                             (keyup)="onFilter($event.target.value)"
+                             placeholder="View"
+                           />
+                           <app-feather-icons
+                                      class="search-icon"
+                                      [icon]="'search'"
+                                    ></app-feather-icons>
+                         </div>
+                     </div>
+                   <div class="col-4">
+                       <button class="btn btn-success text-center float-right" type="button" (click)="onAddNew()">
+                         Add
+                       </button>
+                   </div>
+                 </div>
+                 
+                   <div class="table-responsive mt-3 mb-3" style="height: 40.5vh;">
+                     <div class="loader-box center" *ngIf="dataFetch"><span class="rotate dashed"></span></div>
+                       <table class="table" *ngIf="!dataFetch">
+                         <thead>
+                             <tr>
+                               <th>SlNo</th>
+                               <th>Name</th>
+                               <th>Actions</th>
+                             </tr>
+                           </thead>
+                           <tbody>
+                             <tr *ngFor="let data of List; let i = index">
+                                 <td>
+                                     {{i+1}}
+                                 </td>
+                                 <td style="width: 10rem;">
+                                     <div *ngIf="editIndex != i">{{data.operation_name}}</div>
+                                     <div *ngIf="editIndex == i">
+                                         <input type="text" class="form-control" (keyup)="editValue = $event.target.value" [ngModelOptions]="{standalone: true}" value="{{editValue}}">
+                                     </div>
+                                 </td>
+                                 <td style="width: 12rem;">
+                                     <div *ngIf="editIndex != i">
+                                           <button class="btn btn-primary btn-pill mr-3" style="width: 30px;" (click)="editClick(i,data)"><i class="icofont icofont-pencil-alt-5" style="margin-left: -6px;"></i></button>
+                                           <button class="btn btn-danger btn-pill" style="width: 30px;" (click)="onDelete(data.operation_id)"><i class="icofont icofont-delete-alt" style="margin-left: -6px;"></i></button>
+                                     </div>
+                                     <div *ngIf="editIndex == i">
+                                           <button class="btn btn-success btn-pill mr-3" style="width: 30px;" (click)="update(data.operation_id)"><i class="icofont icofont-ui-file" style="margin-left: -6px;"></i></button>
+                                           <button class="btn btn-danger btn-pill" style="width: 30px;" (click)="editIndex = -1"><i class="icofont icofont-close" style="margin-left: -6px;"></i></button>
+                                     </div>
+                                 </td>
+                             </tr>
+                           </tbody>
+                     </table>
+                 </div>
+                 
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+    </div>
+</div>

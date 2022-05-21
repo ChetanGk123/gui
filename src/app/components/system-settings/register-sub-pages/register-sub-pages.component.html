@@ -1,0 +1,219 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-3 xl-40">
+            <div class="card">
+              <div class="card-header"><h5>New Page</h5></div>
+              <div class="card-body row">
+                <div class="col-12" >
+                    <form [formGroup]="ComponentForm">
+                  <div class="job-filter">
+                    <div class="faq-form">
+                      <label for="title">Title <span class="font-danger">*</span></label>
+                      <input id="title" class="form-control" type="text" formControlName="title" placeholder="Dashboard.."/>
+                      <div *ngIf="ComponentForm.controls.title.touched && ComponentForm.controls.title.errors?.required"
+                            class="text text-danger">
+                            Title is required.
+                        </div>
+                    </div>
+                  </div>
+                  <div class="job-filter mt-2">
+                    <div class="faq-form">
+                        <label for="main_component_id">Main Component <span class="font-danger">*</span></label>
+                        <select class="form-control" id="main_component_id" formControlName="main_component_id" >
+                        <option value="">Select a Component</option>
+                        <option *ngFor="let data of moduleList" value="{{data.c_id}}">{{data.component_name}}</option>
+                        </select>
+                        <div *ngIf="ComponentForm.controls.main_component_id.touched && ComponentForm.controls.main_component_id.errors?.required" class="text text-danger">
+                            Module is required.
+                        </div>
+                    </div>
+                  </div>
+                  <div class="job-filter mt-2">
+                    <div class="faq-form">
+                        <label for="title">Type <span class="font-danger">*</span></label>
+                        <select class="form-control" id="bg_id" formControlName="type" >
+                        <option value="">Select a Type</option>
+                        <!-- <option value="sub">Sub</option> -->
+                        <option value="link">Link</option>
+                        </select>
+                        <div *ngIf="ComponentForm.controls.type.touched && ComponentForm.controls.type.errors?.required" class="text text-danger">
+                            Type is required.
+                        </div>
+                    </div>
+                  </div>
+                  <div class="job-filter mt-2">
+                    <div class="faq-form">
+                        <label for="icon">Icon</label>
+                        <select class="form-control" id="icon" formControlName="icon" >
+                        <option value="">Select a Icon</option>
+                        <option *ngFor="let data of feather_icons" value="{{data}}">{{data}}</option>
+                        </select>
+                        <div *ngIf="ComponentForm.controls.icon.touched && ComponentForm.controls.icon.errors?.required" class="text text-danger">
+                            Icon is required.
+                        </div>
+                    </div>
+                  </div>
+                  <div class="job-filter mt-2">
+                    <div class="faq-form">
+                        <label for="path">Path </label>
+                        <input id="title" class="form-control" type="text" formControlName="path" placeholder="/dashboard"/>
+                    </div>
+                  </div>
+                  <div class="job-filter mt-2">
+                    <div class="faq-form">
+                        <label for="display_order">Display Order </label>
+                        <input id="display_order" class="form-control" type="number" formControlName="display_order" placeholder="1"/>
+                    </div>
+                  </div>
+                  <div class="row" style="gap: 20px;justify-content: center;">
+                      <button
+                        class="btn btn-primary text-center mt-4"
+                        type="button"
+                        (click)="onAddNew()"
+                      >
+                        Add
+                      </button>
+                      <button
+                        class="btn btn-warning text-center mt-4"
+                        type="button"
+                        (click)="onClearForm()"
+                      >
+                        Clear
+                      </button>
+                  </div>
+                </form>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="col-xl-9 xl-60">
+            <div class="card">
+                <div class="card-header"><h5>Page List</h5></div>
+                <div class="collapse show">
+                    <div class="card-body">
+                        <div class="row pl-3 pr-3">
+                            <div class="col-md-8 col-sm-12">
+                                <div class="faq-form">
+                                    <input
+                                      class="form-control"
+                                      [(ngModel)]="filterValue"
+                                      type="text"
+                                      (keyup)="onFilter($event.target.value)"
+                                      placeholder="Search.."
+                                    />
+                                    <app-feather-icons
+                                      class="search-icon"
+                                      [icon]="'search'"
+                                    ></app-feather-icons>
+                                  </div>
+                            </div>
+                            <div class="col-md-3 col-sm-12 d-flex justify-content-around">
+                                <button
+                                  class="btn btn-warning text-center"
+                                  type="button"
+                                  (click)="filterValue = ''; onClear()"
+                                >
+                                  Clear
+                                </button>
+                              </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="card-body">
+                                <div class="loader-box center" *ngIf="dataFetch">
+                                    <span class="rotate dashed"></span>
+                                </div>
+                                <div class="custom-datatable">
+                                <ngx-datatable
+                                  #table
+                                  class="bootstrap"
+                                  *ngIf="!dataFetch"
+                                  [headerHeight]="50"
+                                  [limit]="4"
+                                  [footerHeight]="50"
+                                  [columnMode]="ColumnMode.force"
+                                  rowHeight="55"
+                                  [rows]="List"
+                                >
+                                <ngx-datatable-column name="SL NO">
+                                    <ng-template
+                                      ngx-datatable-cell-template
+                                      let-rowIndex="rowIndex"
+                                      let-value="value"
+                                      let-row="row"
+                                    >
+                                      <span>{{ rowIndex + 1 }}</span>
+                                    </ng-template>
+                                  </ngx-datatable-column>
+                                <ngx-datatable-column name="Name" [sortable]="true">
+                                    <ng-template
+                                      ngx-datatable-cell-template
+                                      let-rowIndex="rowIndex"
+                                      let-value="value"
+                                      let-row="row"
+                                    >
+                                      <span>{{ row.component_name }}</span>
+                                    </ng-template>
+                                  </ngx-datatable-column>
+                                <ngx-datatable-column name="Module" [sortable]="true">
+                                    <ng-template
+                                      ngx-datatable-cell-template
+                                      let-rowIndex="rowIndex"
+                                      let-value="value"
+                                      let-row="row"
+                                    >
+                                      <span>{{ row.comdule_name }}</span>
+                                    </ng-template>
+                                  </ngx-datatable-column>
+                                <ngx-datatable-column name="Path" [sortable]="true">
+                                    <ng-template
+                                      ngx-datatable-cell-template
+                                      let-rowIndex="rowIndex"
+                                      let-value="value"
+                                      let-row="row"
+                                    >
+                                      <span>{{ row.route }}</span>
+                                    </ng-template>
+                                  </ngx-datatable-column>
+                                  <ngx-datatable-column name="Type" [sortable]="true">
+                                    <ng-template
+                                      ngx-datatable-cell-template
+                                      let-rowIndex="rowIndex"
+                                      let-value="value"
+                                      let-row="row"
+                                    >
+                                      <span>{{ row.type }}</span>
+                                    </ng-template>
+                                  </ngx-datatable-column>
+                                  <ngx-datatable-column name="Order" [sortable]="true">
+                                    <ng-template
+                                      ngx-datatable-cell-template
+                                      let-rowIndex="rowIndex"
+                                      let-value="value"
+                                      let-row="row"
+                                    >
+                                      <span>{{ row.display_order }}</span>
+                                    </ng-template>
+                                  </ngx-datatable-column>
+                                  <ngx-datatable-column name="Actions">
+                                    <ng-template
+                                      ngx-datatable-cell-template
+                                      let-rowIndex="rowIndex"
+                                      let-value="value"
+                                      let-row="row"
+                                    >
+                                    <button class="btn btn-success btn-circle mr-1" ngbTooltip="Update Record" (click)="updateData(row)"><i class="fa fa-wrench mt-1" style="font-size: 17px;" ></i></button>
+                                    <button class="btn btn-danger btn-circle mr-1" ngbTooltip="Delete Record" (click)="onDelete(row.sub_compo_id)"><i class="fa fa-trash-o mt-1" style="font-size: large;" ></i></button>
+                                    </ng-template>
+                                  </ngx-datatable-column>
+                                </ngx-datatable>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

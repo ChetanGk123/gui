@@ -1,0 +1,104 @@
+<div class="card">
+  <div class="card-header">
+    <h5>Current Academic Year</h5>
+  </div>
+    <div class="card-body">
+        <div class="row mb-4 pl-3 pr-3">
+          <div class="col-md-8 col-sm-12">
+            <div class="faq-form">
+              <input
+                class="form-control"
+                [(ngModel)]="filterValue"
+                type="text"
+                (keyup)="onFilter($event.target.value)"
+                placeholder="Search.."
+              />
+              <app-feather-icons
+                class="search-icon"
+                [icon]="'search'"
+              ></app-feather-icons>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-12 d-flex justify-content-around">
+            <button
+              class="btn btn-warning text-center"
+              type="button"
+              (click)="filterValue = ''; onClear()"
+            >
+              Clear
+            </button>
+
+          </div>
+        </div>
+        <div class="loader-box center" *ngIf="dataFetch">
+          <span class="rotate dashed"></span>
+        </div>
+        <p-table [value]="CurrentFeeList" [(selection)]="selectedFees" selectionMode="multiple" *ngIf="!dataFetch" class="table" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]">
+          <ng-template pTemplate="header" >
+            <tr>
+              <th style="width: 3rem">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+              </th>
+              <th>Fee Group</th>
+              <th>Total Fees</th>
+              <th>Balance</th>
+              <th>Due Date</th>
+              <th>
+                <button class="btn btn-primary text-center" type="button"  (click)="printFee()"> Print </button>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
+            <tr [pSelectableRow]="product">
+              <td>
+                <p-tableCheckbox [value]="product"></p-tableCheckbox>
+              </td>
+              <td>{{product.fee_group_name}}</td>
+              <td>{{product.total_fees | currency: 'INR'}}</td>
+              <td>{{product.fee_balance | currency: 'INR'}}</td>
+              <td>{{product.due_date}}</td>
+              <td>
+                  <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-primary ml-1" style="height: 35px; width: 35px;" ngbTooltip="Update Record" (click)="updateFees(product)"></button>
+                  <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger ml-1" style="height: 35px; width: 35px;" ngbTooltip="Delete Record" (click)="deleteFees(product)"></button>
+                  <button pButton pRipple type="button" icon="pi pi-upload" class="p-button-rounded p-button-success ml-1" style="height: 35px; width: 35px;" ngbTooltip="Pay" (click)="payFees(product)"></button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+      <div class="card-header">
+        <h5>Pervious Academic Year</h5>
+      </div>
+      <div class="card-body">
+        <div class="loader-box center" *ngIf="dataFetch">
+          <span class="rotate dashed"></span>
+        </div>
+        <p-table [value]="PreviousFeeList" *ngIf="!dataFetch" class="table" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]">
+          <ng-template pTemplate="header" >
+            <tr>
+              <th>Academic Year</th>
+              <th>Fee Group</th>
+              <th>Actual Fees</th>
+              <th>Discount</th>
+              <th>Total Fees</th>
+              <th>Due Date</th>
+              <th>Fee Status</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
+            <tr>
+              <td>{{product.current_academic_name}}</td>
+              <td>{{product.fee_group_name}}</td>
+              <td>{{product.actual_fees | currency: 'INR'}}</td>
+              <td>{{product.discount | currency: 'INR'}}</td>
+              <td>{{product.total_fees | currency: 'INR'}}</td>
+              <td>{{product.due_date}}</td>
+              <td><button class="btn btn-pill active" [ngClass]="product.fee_balance > 0 ?'btn-danger' : 'btn-primary'" type="button" placement="top"
+                ><b>{{product.fee_balance > 0 ?"UNPAID":"PAID"}}</b></button></td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+</div>

@@ -1,0 +1,307 @@
+<div class="container-fluid"> 
+    <aw-wizard navBarLayout="large-filled-symbols">
+        <aw-wizard-step [navigationSymbol]="{ symbol: '&#xf02c;', fontFamily: 'FontAwesome ' }" stepTitle="Select Fee Group">
+            <div class="card">
+                <div class="card-header"><h5>Fee Groups</h5></div>
+                  <div class="collapse show">
+                    <div class="card-body">
+                      <div class="row pl-3 pr-3"  style="gap: 10px;">
+                          <div class="col-md-4 col-sm-12">
+                            <div class="faq-form">
+                              <label for="bg_id">Fee Group <span class="font-danger">*</span></label>
+                              <select
+                                class="form-control"
+                                id="bg_id"
+                                placeholder="2021-2022"
+                                [(ngModel)]="filterGroupValue"
+                                (change)="onFilter('')"
+                              >
+                                <option value="">Select a Fee Group</option>
+                                <option  *ngFor="let data of feeGroups" value="{{ data.id }}">{{ data.name }}</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-4 col-sm-12">
+                            <div class="faq-form">
+                              <label for="bg_id">Fee Component</label>
+                              <input
+                              class="form-control"
+                              [(ngModel)]="filterValue"
+                              type="text"
+                              (keyup)="onFilter($event.target.value)"
+                              placeholder="Search.."
+                            />
+                            </div>
+                          </div>
+                          <div class="col-md-3 col-sm-12 d-flex justify-content-around">                        
+                            <button class="btn btn-warning text-center mt-4" style="height: 35px;" type="button" (click)="filterValue='';filterGroupValue='';onClear()">Clear</button>
+                          </div>
+                      </div>
+                     <div class="row">
+                      <div class="card-body custom-datatable">
+                        <div class="loader-box center" *ngIf="dataFetch"><span class="rotate dashed"></span></div>
+                        
+                    <p-table [value]="feeGroups" class="table"  rowGroupMode="rowspan" groupRowsBy="group_name"  *ngIf="!dataFetch" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]">
+                    <ng-template pTemplate="header" >
+                        <tr>
+                            <th pSortableColumn="name">Group Name<p-sortIcon field="name"></p-sortIcon></th>
+                            <th pSortableColumn="no_of_components">No Of Components <p-sortIcon field="no_of_components"></p-sortIcon></th>
+                            <th pSortableColumn="total_fees">Total Fees <p-sortIcon field="total_fees"></p-sortIcon></th>
+                            <th >Actions</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-product let-rowIndex="rowIndex"  let-rowgroup="rowgroup">
+                        <tr>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.no_of_components }}</td>
+                            <td>{{ product.total_fees | currency: 'INR'}}</td>
+                            <td> 
+                              <div> 
+                                <button pButton pRipple type="button" icon="pi pi-link" class="p-button-rounded" style="height: 35px; width: 35px;" awNextStep (click)="assignFees(product)"></button> 
+                              </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                
+                  </p-table>
+                    </div>
+                     </div> 
+                    </div>
+                  </div>
+                </div>
+            
+        </aw-wizard-step>
+      <aw-wizard-step [navigationSymbol]="{ symbol: '&#xf0c0;', fontFamily: 'FontAwesome ' }" stepTitle="Select Student">
+        <div class="default-according style-1 faq-accordion job-accordion" id="accordionoc">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link pl-0" (click)="isFilter = !isFilter" [attr.aria-expanded]="!isFilter" aria-controls="collapse">Filter</button>
+                  </h5>
+                </div>
+                <div class="collapse show" *ngIf="isFilter">
+                  <div class="card-body filter-cards-view animate-chk">
+                    <div class="row">
+                      <div class="col-xl-3 col-md-6 col-sm-12">
+                        <label for="bg_id">Department <span class="font-danger">*</span></label>
+                        <select class="form-control" id="bg_id" placeholder="Kannada" (change)="onFilterData('')" [formControl]="filterForm.controls['department']">
+                          <option value="">Select a Department</option>
+                          <option *ngFor="let data of departmentList" value="{{ data.name }}">
+                            {{ data.name }}
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col-xl-3 col-md-6 col-sm-12">
+                        <label for="bg_id">Class <span class="font-danger">*</span></label>
+                        <select class="form-control" id="bg_id" placeholder="1" (change)="onFilterData('')" [formControl]="filterForm.controls['class']">
+                          <option value="">Select a Class</option>
+                          <option *ngFor="let data of classList" value="{{ data.name }}">
+                            {{ data.name }}
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col-xl-3 col-md-6 col-sm-12 mb-3">
+                        <div class="faq-form">
+                          <label for="bg_id">Class</label>
+                          <input class="form-control" type="text" [formControl]="filterForm.controls['studentName']" (keyup)="onFilterData($event.target.value)" placeholder="Search.." />
+                        </div>
+                      </div>
+                      <div class="col-xl-3 col-md-6 col-sm-12 float-right">
+                        <div class="faq-form">
+                          <label for="bg_id">&nbsp;</label>
+                          <button class="btn btn-primary text-center align-self-center align-bottom" (click)="reset(); onFilterData('')">Clear</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row d-flex align-items-center"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            <div class="card p-2">
+              <div class="loader-box center" *ngIf="dataFetch">
+                <span class="rotate dashed"></span>
+              </div>
+              <p-table [value]="feeComponents" class="table" *ngIf="!dataFetch && feeComponentList.length > 0" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll">
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th pSortableColumn="component_name">component_name <p-sortIcon field="component_name"></p-sortIcon></th>
+                    <th pSortableColumn="fees">Fees <p-sortIcon field="fees"></p-sortIcon></th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-data let-rowIndex="rowIndex">
+                  <tr>
+                    <td>{{ data.component_name }}</td>
+                    <td>{{ data.fees | currency: "INR" }}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+          <div class="col-8 pl-2">
+            <div class="card p-2">
+              <div class="loader-box center" *ngIf="dataFetch">
+                <span class="rotate dashed"></span>
+              </div>
+              <p-table
+                [value]="StudentList"
+                class="table"
+                [(selection)]="selectedStudents"
+                dataKey="student_id"
+                *ngIf="!dataFetch && feeComponent?.id"
+                [paginator]="true"
+                selectionMode="multiple"
+                [rowSelectable]="isRowSelectable"
+                [rows]="10"
+                [showCurrentPageReport]="true"
+                responsiveLayout="scroll"
+              >
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th style="width: 3rem"> 
+                      <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th pSortableColumn="student_name">Student Name <p-sortIcon field="student_name"></p-sortIcon></th>
+                    <th pSortableColumn="department">Medium <p-sortIcon field="department"></p-sortIcon></th>
+                    <th pSortableColumn="class">Class <p-sortIcon field="class"></p-sortIcon></th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-data let-rowIndex="rowIndex">
+                  <tr [pSelectableRow]="data">
+                    <td>
+                      <p-tableCheckbox [value]="data" [disabled]="isFeeAsigned(data)"></p-tableCheckbox>
+                    </td>
+                    <td>{{ data.student_name }}</td>
+                    <td>{{ data.department }}</td>
+                    <td>{{ data.class }}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-around mb-5">
+            <button class="btn btn-primary btn-next" awPreviousStep>Previous</button>
+          <button class="btn btn-primary btn-next" [disabled]="selectedStudents.length > 0?false:true" awNextStep>Next</button>
+        </div>
+      </aw-wizard-step>
+      <aw-wizard-step [navigationSymbol]="{ symbol: '&#xf0d6;', fontFamily: 'FontAwesome ' }" stepTitle="Add Discounts">
+        <div class="card">
+          <div class="card-body">
+            <div class="table-responsive mb-3">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>SlNo</th>
+                    <th>Fee Component</th>
+                    <th>Discount</th>
+                    <th>Applicable Fees</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of feeComponentList; let i = index">
+                    <td>
+                      {{ i + 1 }}
+                    </td>
+                    <td>{{ data.component_name }}&nbsp; ({{ data.actual_fees | currency: "INR" }}) </td>
+                    <td><input class="form-control" style="max-width: 60%" (keyup)="updateFees(data)" type="number" [(ngModel)]="data.discount" /></td>
+                    <td>{{ data.applicable_fees | currency: "INR" }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-around mb-5">
+          <button class="btn btn-primary btn-next" awPreviousStep>Previous</button>
+          <button class="btn btn-primary btn-next" awNextStep (click)="updateFeeList()">Next</button>
+        </div>
+      </aw-wizard-step>
+      <aw-wizard-step [navigationSymbol]="{ symbol: '&#xf0c1;', fontFamily: 'FontAwesome ' }" stepTitle="Assign Fees">
+        <div class="row">
+          <div class="col-6">
+            <div class="card">
+              <div class="card-header"><h5>Fee Details</h5></div>
+              <div class="card-body">
+                <p-table [value]="feeComponentList" class="table" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll">
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th>Name</th>
+                      <th>Discount</th>
+                      <th>Applicable Fees</th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-data let-rowIndex="rowIndex">
+                    <tr>
+                      <td>{{ data.component_name }}</td>
+                      <td>{{ data.discount | currency: "INR" }}</td>
+                      <td>{{ data.applicable_fees | currency: "INR" }}</td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="card">
+              <div class="card-header"><h5>Selected Students</h5></div>
+              <div class="card-body">
+                <p-table [value]="selectedStudents" class="table" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll">
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th>Student Name</th>
+                      <th>Department</th>
+                      <th>Class</th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-data let-rowIndex="rowIndex">
+                    <tr>
+                      <td>{{ data.student_name }}</td>
+                      <td>{{ data.department }}</td>
+                      <td>{{ data.class }}</td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+              <div class="card">
+                <div class="card-header"><h5>Other Details</h5></div>
+                <div class="card-body">
+                    <label for="bg_id">Notes</label>
+                    <textarea class="form-control" id="permanent_address" [(ngModel)]="feeNotes" rows="5" cols="5" class="form-control"
+                    placeholder="Fees for A-B standards with discount"></textarea>
+                    <div class="form-group">
+                        <label for="registered_on">Due On <span class="font-danger">*</span></label>
+                        
+                        <div class="input-group custom-datepicker job-input-datepicker">
+                          <input class="form-control" placeholder="yyyy-mm-dd" name="dp" (dateSelect)="dateChange($event,'registered_on')"
+                              ngbDatepicker #registered_on="ngbDatepicker">
+                          <div class="input-group-append">
+                            <button class="btn btn-primary"  (click)="registered_on.toggle()" type="button"><i
+                                class="fa fa-calendar"></i></button>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="row justify-content-around mb-5">
+          <button class="btn btn-primary btn-next" awPreviousStep>Previous</button>
+          <button class="btn btn-primary btn-next" [disabled]="due_date.length < 1 || loader" (click)="assignFee()">{{loader?"":"Submit"}}&nbsp;<i class="fa fa-circle-o-notch fa-spin" *ngIf="loader"></i></button>
+        </div>
+      </aw-wizard-step>
+    </aw-wizard>
+  </div>
+  

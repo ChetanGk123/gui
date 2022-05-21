@@ -1,0 +1,79 @@
+<div class="debit-card">
+  <div class="card height-equal">
+    <div class="card-header">
+      <h5>Fee Payment Detais</h5>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="paymentForm" class="row">
+        <div class="form-group col-4 p-r-0">
+          <label for="student_id">Student Name</label>
+          <input readonly class="form-control" id="student_id" [value]="dialogdata.student_name" type="text" disabled />
+        </div>
+        <div class="form-group col-4">
+          <label for="fee_name">Fee Name</label>
+          <input type="text" disabled [value]="dialogdata.fee_group_name" class="form-control" id="fee_name" />
+        </div>
+        <div class="form-group col-4">
+          <label for="fee_name">Academic Year</label>
+          <input type="text" disabled [value]="dialogdata.current_academic_name" class="form-control" id="fee_name" />
+        </div>
+        <div class="form-group col-4 p-r-0">
+          <label for="account_id">Account Head <span class="font-danger">*</span></label>
+          <select class="form-control" formControlName="account_head_id" id="account_id" size="1">
+            <option value="">Select A/c Head</option>
+            <option *ngFor="let data of accountHeadList" value="{{ data.account_id }}">{{ data.account_name }}</option>
+          </select>
+          <div *ngIf="paymentForm.controls.account_head_id.touched && paymentForm.controls.account_head_id.errors?.required" class="text text-danger">Account Head is required.</div>
+        </div>
+        <div class="form-group col-4">
+          <label for="transaction_amount">Amount <span class="font-danger">*</span></label>
+          <input type="text" class="form-control"  mask="separator.2" thousandSeparator="," formControlName="transaction_amount" id="transaction_amount" placeholder="1,000" />
+          <div *ngIf="paymentForm.controls.transaction_amount.touched && paymentForm.controls.transaction_amount.errors?.required" class="text text-danger">Amount is required.</div>
+        </div>
+        <div class="form-group col-4">
+          <label for="payment_date">Payment Date <span class="font-danger">*</span></label>
+          <input type="date" class="form-control" id="payment_date" placeholder="payment_date"
+               formControlName="payment_date">
+          <div *ngIf="paymentForm.controls.payment_date.touched && paymentForm.controls.payment_date.errors?.required"
+              class="text text-danger">
+              Payment Date is required.
+          </div>
+        </div>
+        <div class="form-group col-6 p-r-0">
+          <label for="payment_mode">Payment Mode</label>
+          <input type="text" class="form-control" formControlName="payment_mode" id="payment_mode" placeholder="PhonePe" />
+        </div>
+        <div class="form-group col-6">
+          <label for="payment_ref">Payment Ref No</label>
+          <input type="text" class="form-control" formControlName="payment_ref" id="payment_ref" placeholder="UTR132156" />
+        </div>
+        <div class="form-group col-12 p-r-0">
+          <label for="user_comments">Payment Description</label>
+          <textarea class="form-control" id="permanent_address" [formControl]="paymentForm.controls['user_comments']" rows="2" cols="5" class="form-control"
+                                    placeholder="Permanent Address"></textarea>
+        </div>
+        <div class="col-12">
+          <p-table [value]="dialogdata.fee_component_data" class="table" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll">
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Name</th>
+                <th>Discount</th>
+                <th>Applicable Fees</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-data let-rowIndex="rowIndex">
+              <tr>
+                <td>{{ data.fee_component_name }}</td>
+                <td>{{ data.discount | currency: "INR" }}</td>
+                <td>{{ data.applicable_fees | currency: "INR" }}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+        <div class="col-12">
+          <button class="btn btn-primary-gradien btn-block" [disabled]="!paymentForm.valid || clicked" type="button"  (click)="OnSubmit()">{{clicked?"":"Submit"}} <i class="fa fa-circle-o-notch fa-spin" *ngIf="clicked"></i></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

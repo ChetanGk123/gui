@@ -1,0 +1,65 @@
+<div class="container-fluid">
+    <div class="col">
+      <div class="col-12 ">
+          <div class="loader-box center" *ngIf="dataFetch">
+            <span class="rotate dashed"></span>
+          </div>
+          <div class="row" *ngIf="!dataFetch">
+            <div class="col-md-6 col-lg-6 col-xl-4" 
+            *ngFor="let item of List | slice: (page - 1) * pageSize:page * pageSize">
+                <div class="card user-card" style="cursor: pointer"
+                (click)="viewDetails(item)">
+                  <div class="card-body">
+                    <div class="user-card-image">
+                        <img class="img-fluid rounded-circle image-radius" src="{{item.logo??'assets/images/logo.png'}}" alt="">
+                      </div>
+                    <div class="user-deatils text-center">
+                      <h5>{{item.name}}</h5>
+                      <h6 class="mb-0">{{item.license_number}}</h6>
+                      <hr>
+                      <div class="media">
+                          <app-feather-icons class="font-primary m-r-10" [icon]="'phone'"></app-feather-icons>
+                          <span>Contact Number</span>
+                          <div class="media-body text-right"><span>{{item.phone_number}}</span></div>
+                        </div>
+                      <div class="media">
+                          <app-feather-icons class="font-primary m-r-10" [icon]="'mail'"></app-feather-icons>
+                          <span>Email</span>
+                          <div class="media-body text-right"><span>{{item.email??'royalpalacelkp@gmail.com'}}</span></div>
+                        </div>
+                      <div class="media">
+                        <app-feather-icons class="font-primary m-r-10" [icon]="'globe'"></app-feather-icons>
+                        <span>Website</span>
+                        <div class="media-body text-right"><span>{{item.website??'www.royalpalacelkp.com'}}</span></div>
+                      </div>
+                      <hr>
+                      <div class="media">
+                        <app-feather-icons class="font-primary m-r-10" [icon]="'calendar'"></app-feather-icons>
+                        <span>Licence Start</span>
+                        <div class="media-body text-right"><span>{{item.license_start_date??'12-04-2022'}}</span></div>
+                      </div>
+                      <div class="media">
+                        <app-feather-icons class="font-primary m-r-10" [icon]="'calendar'"></app-feather-icons>
+                        <span>Licence Plan</span>
+                        <div class="media-body text-right"><span>{{item.license_plan??'Sample Licence'}}</span></div>
+                      </div>
+                      <div class="media">
+                        <app-feather-icons class="font-primary m-r-10" [icon]="'refresh-cw'"></app-feather-icons>
+                        <span>Reneval in</span>
+                        <div class="media-body text-right"><span>{{calculateDiff(item.license_start_date,item.license_end_date) + " Days"}}</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+          <ngb-pagination
+            class="d-flex justify-content-center mb-3"
+            #paginator
+            [pageSize]="pageSize"
+            [collectionSize]="List.length"
+            [(page)]="page"
+          ></ngb-pagination>
+        </div>
+      </div>
+</div>
