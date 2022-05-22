@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/shared/services/auth/api.service';
 import { StudentService } from 'src/app/shared/services/student_services/student.service';
 import { FeePaymentComponent } from '../fee-payment/fee-payment.component';
+import { FeeVoucherComponent } from '../fee-voucher/fee-voucher.component';
 import { FeeService } from '../Service/fee.service';
 
 @Component({
@@ -76,6 +77,15 @@ export class CollectFeesComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result:any)=>{
       if(result.result){
         this.ngOnInit()
+        console.log(result);
+        const data = {
+          id:result['data'].student.TXN_ID
+        }
+        const dialogRef1 = this.dialog.open(FeeVoucherComponent, {
+          data: data,
+          height: "88%",
+            width: "80%", 
+        });
       }
     })
   }

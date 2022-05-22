@@ -25,7 +25,7 @@
                         <option  *ngFor="let data of List" value="{{ data.id }}">{{ data.name }}</option>
                       </select>
                       <div *ngIf="FeeComponent.controls.group_id.touched && FeeComponent.controls.group_id.errors?.required" class="text text-danger">
-                          Type is required.
+                        Fee Group is required.
                       </div>
                   </div>
                 </div>
@@ -35,7 +35,7 @@
                       <input id="title" class="form-control" type='text'  mask="separator.2" thousandSeparator="," formControlName="fees" placeholder="500">
 
                       <div *ngIf="FeeComponent.controls.fees.touched && FeeComponent.controls.fees.errors?.required" class="text text-danger">
-                          Type is required.
+                        Fees is required.
                       </div>
                   </div>
                 </div>

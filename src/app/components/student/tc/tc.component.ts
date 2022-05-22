@@ -445,7 +445,7 @@ export class TCComponent implements OnInit {
               },
             ],
           ],
-          margin: [10, 70, 10, 10],
+          margin: [10, 50, 10, 10],
         },
       ],
       images: {

@@ -1,17 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AssignFeesComponent } from './assign-fees/assign-fees.component';
-import { BulkAssignComponent } from './bulk-assign/bulk-assign.component';
-import { FeeComponentsComponent } from './fee-components/fee-components.component';
-import { FeeGroupComponent } from './fee-group/fee-group.component';
-import { DueFeesComponent } from './due-fees/due-fees.component';
-import { CollectFeesComponent } from './collect-fees/collect-fees.component';
 
 const routes: Routes = [
   { path: "", redirectTo:"feeGroup" },
   {
     path: "feeGroup",
-    component: FeeGroupComponent,
+    loadChildren: () => import('./fee-group/fee-group.module').then(m => m.FeeGroupModule),
     data: {
       title: "Fee Groups",
       breadcrumb: "Fee Groups",
@@ -19,23 +13,15 @@ const routes: Routes = [
   },
   {
     path: "feeComponents",
-    component: FeeComponentsComponent,
+    loadChildren: () => import('./fee-components/fee-components.module').then(m => m.FeeComponentsModule),
     data: {
       title: "Fee Components",
       breadcrumb: "Fee Components",
     },
   },
   {
-    path: "bulkAssign",
-    component: BulkAssignComponent,
-    data: {
-      title: "Assign Fees",
-      breadcrumb: "Assign Fees",
-    },
-  },
-  {
     path: "assignFees",
-    component: AssignFeesComponent,
+    loadChildren: () => import('./assign-fees/assign-fees.module').then(m => m.AssignFeesModule),
     data: {
       title: "Assign Fees",
       breadcrumb: "Assign Fees",
@@ -43,7 +29,7 @@ const routes: Routes = [
   },
   {
     path: "dueFees",
-    component: DueFeesComponent,
+    loadChildren: () => import('./due-fees/due-fees.module').then(m => m.DueFeesModule),
     data: {
       title: "Due Fees",
       breadcrumb: "Due Fees",
@@ -52,7 +38,7 @@ const routes: Routes = [
 
   {
     path: "collectFees",
-    component: CollectFeesComponent,
+    loadChildren: () => import('./collect-fees/collect-fees.module').then(m => m.CollectFeesModule),
     data: {
       title: "Collect Fees",
       breadcrumb: "Collect Fees",

@@ -131,7 +131,9 @@ export class FeeGroupComponent implements OnInit {
               this.loader = false
             }
           });
-      } 
+      } else{
+        this.loader = false
+      }
     })
     }
     

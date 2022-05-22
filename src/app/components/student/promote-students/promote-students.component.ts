@@ -42,6 +42,7 @@ export class PromoteStudentsComponent implements OnInit {
     dept_id: new FormControl("", [Validators.required]),
     class_id: new FormControl("", [Validators.required]),
     division_id: new FormControl("", [Validators.required]),
+    promotion_date: new FormControl("", [Validators.required]),
     user_comments: new FormControl(""),
   })
   constructor(
@@ -131,6 +132,7 @@ export class PromoteStudentsComponent implements OnInit {
     this.apiService.postTypeRequest('promote_students',this.promotionForm.value).subscribe((result:any)=>{
       if(result.result){
         this.ngOnInit();
+        this.selectedStudents = []
         this.toster.success(result.message)
       }else{
         this.toster.error(result.message)
@@ -138,6 +140,7 @@ export class PromoteStudentsComponent implements OnInit {
       }
       
     })
+    
   }
 
   addAcademicYear(){

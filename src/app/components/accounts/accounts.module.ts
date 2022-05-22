@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { AccountsRoutingModule } from './accounts-routing.module';
 import { AccountsComponent } from './accounts.component';
-import { AddAccountHeadComponent } from './add-account-head/add-account-head.component';
-import { AccountHeadsComponent } from './account-heads/account-heads.component';
 
 import { SharedModule } from 'src/app/shared/shared.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
@@ -17,8 +15,6 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 @NgModule({
   declarations: [
     AccountsComponent,
-    AddAccountHeadComponent,
-    AccountHeadsComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +26,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     NgxMaskModule,
     TableModule,
     ReactiveFormsModule,
-    PrimengModule
+    PrimengModule,
   ],
   providers:[ MessageService, ConfirmationService]
 })

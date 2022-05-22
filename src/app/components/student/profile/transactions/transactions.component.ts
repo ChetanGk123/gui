@@ -46,6 +46,8 @@ export class TransactionsComponent implements OnInit {
   }
 
   printTransaction(product){
+    console.log(product);
+    
     const dialogRef = this.dialog.open(FeeVoucherComponent, {
       data: product,
       height: "88%",

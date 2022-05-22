@@ -30,6 +30,7 @@ import { ExcelService } from './services/excel.service';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { PrimengModule } from './primeng.module'
+import { NgxMaskModule } from 'ngx-mask';
 @NgModule({
   declarations: [
     LoaderComponent,
@@ -55,11 +56,21 @@ import { PrimengModule } from './primeng.module'
     NgbModule,
     ReactiveFormsModule,
     NgxDatatableModule,
+    NgxMaskModule.forRoot(),
   ],
   exports: [
     LoaderComponent,
     MaterialModule,
     FeatherIconsComponent,
+    CommonModule,
+    RouterModule,
+    NgxPrintModule,
+    MaterialModule,
+    PrimengModule,
+    FormsModule,
+    NgbModule,
+    ReactiveFormsModule,
+    NgxDatatableModule,
   ],
   providers: [
     NavService,

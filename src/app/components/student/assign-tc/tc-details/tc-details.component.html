@@ -86,7 +86,7 @@
             </div>
             <div class="form-group f1-buttons">
 
-              <button class="btn btn-primary btn-next" awPreviousStep> Previous</button>
+              <button *ngIf="!updateTC" class="btn btn-primary btn-next" awPreviousStep> Previous</button>
               <button type="submit" class="btn btn-primary btn-next ml-3" [disabled]="!tcForm.valid || submitLoader" (click)="AssignTC()"> {{submitLoader?"":"Assign TC"}}
                 &nbsp;<i class="fa fa-circle-o-notch fa-spin" *ngIf="submitLoader"></i>
               </button>

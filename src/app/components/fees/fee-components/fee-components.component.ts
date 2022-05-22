@@ -213,7 +213,9 @@ export class FeeComponentsComponent implements OnInit {
                       this.toster.error(result.message);
                     }
                   });
-              } 
+              } else{
+                this.loader = false
+              }
             })
       }
       else{
@@ -293,10 +295,5 @@ export class FeeComponentsComponent implements OnInit {
           });
       } 
     })
-  }
-
-  assignFees(product){
-    this.feeService.setFeeGroup(product);
-    this.router.navigate(['/fees/bulkAssign'])
   }
 }

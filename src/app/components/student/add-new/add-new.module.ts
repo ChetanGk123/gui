@@ -17,8 +17,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CommonModule,
     ArchwizardModule,
     AddNewRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
     SharedModule,
     NgxMaskModule.forRoot(),
   ]

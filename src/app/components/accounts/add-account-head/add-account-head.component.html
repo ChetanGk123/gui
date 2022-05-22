@@ -26,6 +26,7 @@
                 style="max-height: 36px;"
                 type="submit"
                 (click)="onAddNew()"
+                [disabled]="submitDisable"
               >
                 {{submitDisable?"":id != null?"Update":"Add"}} &nbsp;<i class="fa fa-circle-o-notch fa-spin" *ngIf="submitDisable"></i>
               </button>

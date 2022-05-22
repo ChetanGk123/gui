@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: "", redirectTo:"allStudents" },
   {
     path: "allStudents",
-    component: AllStudentsComponent,
+    loadChildren: () => import('./all-students/all-students.module').then(m => m.AllStudentsModule),
     data: {
       title: "All Students",
       breadcrumb: "All Students",
@@ -44,7 +44,7 @@ const routes: Routes = [
   },
   {
     path: "promote",
-    component: PromoteStudentsComponent,
+    loadChildren: () => import('./promote-students/promote-students.module').then(m => m.PromoteStudentsModule),
     data: {
       title: "Promote Student",
       breadcrumb: "Promote Student",
@@ -52,7 +52,7 @@ const routes: Routes = [
   },
   {
     path: "assignTc",
-    component: AssignTcComponent,
+    loadChildren: () => import('./assign-tc/assign-tc.module').then(m => m.AssignTcModule),
     data: {
       title: "Assign TC",
       breadcrumb: "Assign TC",
@@ -60,7 +60,7 @@ const routes: Routes = [
   },
   {
     path: "assignedTc",
-    component: AssignedTcComponent,
+    loadChildren: () => import('./assigned-tc/assigned-tc.module').then(m => m.AssignedTcModule),
     data: {
       title: "Assigned TC",
       breadcrumb: "Assigned TC",

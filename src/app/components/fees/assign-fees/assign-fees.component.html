@@ -6,24 +6,9 @@
                   <div class="collapse show">
                     <div class="card-body">
                       <div class="row pl-3 pr-3"  style="gap: 10px;">
-                          <div class="col-md-4 col-sm-12">
+                          <div class="col-md-8 col-sm-12">
                             <div class="faq-form">
-                              <label for="bg_id">Fee Group <span class="font-danger">*</span></label>
-                              <select
-                                class="form-control"
-                                id="bg_id"
-                                placeholder="2021-2022"
-                                [(ngModel)]="filterGroupValue"
-                                (change)="onFilter('')"
-                              >
-                                <option value="">Select a Fee Group</option>
-                                <option  *ngFor="let data of feeGroups" value="{{ data.id }}">{{ data.name }}</option>
-                              </select>
-                            </div>
-                          </div>
-                          <div class="col-md-4 col-sm-12">
-                            <div class="faq-form">
-                              <label for="bg_id">Fee Component</label>
+                              <label for="bg_id">Fee Group Name</label>
                               <input
                               class="form-control"
                               [(ngModel)]="filterValue"
@@ -41,7 +26,7 @@
                       <div class="card-body custom-datatable">
                         <div class="loader-box center" *ngIf="dataFetch"><span class="rotate dashed"></span></div>
                         
-                    <p-table [value]="feeGroups" class="table"  rowGroupMode="rowspan" groupRowsBy="group_name"  *ngIf="!dataFetch" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll"
+                    <p-table [value]="CompList" class="table"  rowGroupMode="rowspan" groupRowsBy="group_name"  *ngIf="!dataFetch" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll"
                     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]">
                     <ng-template pTemplate="header" >
                         <tr>

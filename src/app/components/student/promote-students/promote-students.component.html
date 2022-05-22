@@ -367,7 +367,19 @@
                 ></textarea>
               </div>
 
-              <div class="col-md-4 col-sm-12">
+              <div class="col-md-4 mb-2">
+                <label for="promotion_date">Promotion Date <span class="font-danger">*</span></label>
+                <input type="date" class="form-control" id="promotion_date" placeholder="promotion_date"
+                  formControlName="promotion_date">
+
+                <div
+                  *ngIf="promotionForm.controls.promotion_date.touched && promotionForm.controls.promotion_date.errors?.required"
+                  class="text text-danger">
+                  Application Date is required.
+                </div>
+              </div>
+
+              <div class="col-md-4 col-sm-12  mb-2">
                 <div class="d-flex justify-content-around">
                   <button
                     class="btn btn-primary text-center align-self-center float-right align-bottom"
@@ -379,9 +391,9 @@
                   <button
                     class="btn btn-primary text-center align-self-center float-right align-bottom"
                     [disabled]="!promotionForm.valid || asignDisable"
-                    (click)="promoteStudents()"
+                    (click)="promoteStudents()" awPreviousStep
                   >
-                    {{ asignDisable ? "" : "Asign" }} &nbsp;<i
+                    {{ asignDisable ? "" : "Promote" }} &nbsp;<i
                       class="fa fa-circle-o-notch fa-spin"
                       *ngIf="asignDisable"
                     ></i>

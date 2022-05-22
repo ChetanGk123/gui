@@ -55,8 +55,10 @@ export class AssignFeesComponent implements OnInit {
     this.apiService.getTypeRequest("table_data/FEE_GROUP").subscribe((result: any) => {
       if (result.result) {
         this.dataFetch = false;
-        this.feeGroups = [];
-        this.feeGroups = result.data;
+        console.log(result.data);
+        
+        this.feeGroups = this.CompList = [];
+        this.feeGroups = this.CompList = result.data;
       } else {
         this.toster.error(result.message);
       }
@@ -218,17 +220,17 @@ export class AssignFeesComponent implements OnInit {
   onFilter(value) {
     this.CompList = [];
     if (this.filterGroupValue.length > 0) {
-      this.feeComponents.filter((x) => {
-        if (x.component_name.toLowerCase().includes(value.toLowerCase()) && x.group_id == this.filterGroupValue) this.CompList.push(x);
+      this.feeGroups.filter((x) => {
+        if (x.name == this.filterGroupValue) this.CompList.push(x);
       });
     } else {
-      this.feeComponents.filter((x) => {
-        if (x.component_name.toLowerCase().includes(value.toLowerCase())) this.CompList.push(x);
+      this.feeGroups.filter((x) => {
+        if (x.name.toLowerCase().includes(value.toLowerCase())) this.CompList.push(x);
       });
     }
   }
 
   onClear() {
-    this.CompList = this.feeComponents;
+    this.CompList = this.feeGroups;
   }
 }

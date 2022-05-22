@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AccountHeadsComponent } from './account-heads/account-heads.component';
 import { AccountsComponent } from './accounts.component';
-import { AddAccountHeadComponent } from './add-account-head/add-account-head.component';
 
 const routes: Routes = [
   { path: '', component: AccountsComponent },
   {
     path: "accountHeads",
-    component: AccountHeadsComponent,
+    loadChildren: () => import('./account-heads/account-heads.module').then(m => m.AccountHeadsModule),
     data: {
       title: "Account Heads",
       breadcrumb: "Account Heads",
@@ -16,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: "addAccountHeads",
-    component: AddAccountHeadComponent,
+    loadChildren: () => import('./add-account-head/add-account-head.module').then(m => m.AddAccountHeadModule),
     data: {
       title: "Add Account Heads",
       breadcrumb: "Add Account Heads",

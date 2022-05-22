@@ -120,6 +120,7 @@ export class AddAccountHeadComponent implements OnInit {
                 'success'
               )
               this.ngOnInit();
+              this.Clear()
             } else {
               swalWithBootstrapButtons.fire(
                 'Cancelled',
@@ -127,11 +128,9 @@ export class AddAccountHeadComponent implements OnInit {
                 'error'
               )
               this.toster.error(result.message);
+              this.submitDisable = false
             }
           });
-      }else{
-        this.toster.error(result.message);
-        this.submitDisable = false
       } 
     })
     }
@@ -162,9 +161,11 @@ export class AddAccountHeadComponent implements OnInit {
     }
     else if(this.addValue.length > 0){
       this.toster.error("Value alredy Exists")
+      this.submitDisable = false
     }
     else{
       this.toster.error("Cannot add empty value")
+      this.submitDisable = false
     }
     
   }
