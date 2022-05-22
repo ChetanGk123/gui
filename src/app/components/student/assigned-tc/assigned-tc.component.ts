@@ -19,6 +19,7 @@ export class AssignedTcComponent implements OnInit {
   public isFilter: boolean = true;
   public dataFetch: boolean = false;
   public submitLoader: boolean = false;
+  public updateTc: boolean = false;
   selectedStudent:any = ""
   StudentList:any = []
   Students:any = []
@@ -41,6 +42,7 @@ export class AssignedTcComponent implements OnInit {
 
   ngOnInit(){
     this.dataFetch = true
+    this.updateTc = false
     this.apiService.getTypeRequest("table_data/ALL_TC_DATA").subscribe((result:any)=>{
       if(result.error_code == 1){
         this.toster.warning(result.message)
@@ -83,6 +85,7 @@ export class AssignedTcComponent implements OnInit {
   updateTC(data){
     console.log(data);
     this.selectedStudent = data
+    this.updateTc = true
   }
 
   deleteTc(data:any){

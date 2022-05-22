@@ -11,7 +11,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgxMaskModule, IConfig } from 'ngx-mask'
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { ArchwizardModule } from 'angular-archwizard'
+import { ArchwizardModule, WizardComponent } from 'angular-archwizard'
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { AngularEditorModule } from '@kolkov/angular-editor';
@@ -27,6 +27,7 @@ import { TCComponent } from './tc/tc.component';
 import { AssignedTcComponent } from './assigned-tc/assigned-tc.component';
 import { TcDetailsComponent } from './assign-tc/tc-details/tc-details.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 
 @NgModule({
@@ -62,7 +63,7 @@ import { ProfileComponent } from './profile/profile.component';
   ],
   exports: [AllStudentsComponent],
   bootstrap: [AllStudentsComponent],
-  providers: [
+  providers: [ MessageService, ConfirmationService,WizardComponent,
     { provide: MAT_DIALOG_DATA, useValue: {} },
     { provide: MatDialogRef, useValue: {} }
 ]

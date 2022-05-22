@@ -163,4 +163,11 @@
       </div>
     </div>
   </div>
+  <p-dialog [(visible)]="updateTc" [style]="{ width: '80%' }" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+      <div class="card">
+        <app-tc-details [selectedStudent] = "selectedStudent" (newItemEvent)=" ngOnInit()"></app-tc-details>
+      </div>
+    </ng-template>
+  </p-dialog>
 </div>
