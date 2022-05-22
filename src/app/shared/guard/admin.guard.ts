@@ -19,7 +19,6 @@ export class AdminGuard implements CanActivate {
     let user:any =this.authService.getUserData; 
   const helper = new JwtHelperService();
   const TokenExpired = helper.isTokenExpired(user?.token);
-  
     if(user?.token){
       // if (next.data.roles && next.data.roles.indexOf(user.user_role) === -1) {
       //   this.toastr.error("You are not allowed to access this page")

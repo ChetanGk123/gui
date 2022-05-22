@@ -9,7 +9,7 @@ Error: File to import not found or unreadable: theme/variables.
 98:  *\/
 99: 
 100: @import "theme/variables";
-101: $primary-color: #007bff;
+101: $primary-color: #4466f2;
 102: $secondary-color :#26c6da;
 103: $gradient-primary: linear-gradient($secondary-color, $primary-color);
 104: $all-focus-outline-color: $primary-color;
@@ -54,4 +54,4 @@ C:/Program Files (x86)/Koala/bin/sass:22:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: File to import not found or unreadable: theme/variables.\A        Load path: D:/angular_theme/endlessgit/src/assets/scss/color\A         on line 100 of D:\angular_theme\endlessgit\src\assets\scss\color\light-2.scss\A \A 95: 	 85. wishlist\A 96: 	 86. checkout\A 97: 	 87. typahead-search\A 98:  */\A 99: \A 100: @import \"theme/variables\";\A 101: $primary-color: #007bff;\A 102: $secondary-color :#26c6da;\A 103: $gradient-primary: linear-gradient($secondary-color, $primary-color);\A 104: $all-focus-outline-color: $primary-color;\A 105: $code-tag-color: $primary-color;"; }
+  content: "Error: File to import not found or unreadable: theme/variables.\A        Load path: D:/angular_theme/endlessgit/src/assets/scss/color\A         on line 100 of D:\angular_theme\endlessgit\src\assets\scss\color\light-2.scss\A \A 95: 	 85. wishlist\A 96: 	 86. checkout\A 97: 	 87. typahead-search\A 98:  */\A 99: \A 100: @import \"theme/variables\";\A 101: $primary-color: #4466f2;\A 102: $secondary-color :#26c6da;\A 103: $gradient-primary: linear-gradient($secondary-color, $primary-color);\A 104: $all-focus-outline-color: $primary-color;\A 105: $code-tag-color: $primary-color;"; }

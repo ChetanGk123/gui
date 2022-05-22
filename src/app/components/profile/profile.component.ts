@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ForgetPwdComponent } from '../authentication/forget-pwd/forget-pwd.component';
+import { ResetPwdComponent } from '../authentication/reset-pwd/reset-pwd.component';
 
 @Component({
   selector: 'app-profile',
@@ -9,97 +10,10 @@ import { ForgetPwdComponent } from '../authentication/forget-pwd/forget-pwd.comp
 })
 export class ProfileComponent implements OnInit {
 
-  products1:any[] = [];
   card:string = "Personal Information";
   constructor(public dialog:MatDialog) { }
 
   ngOnInit(): void {
-    this.products1 = [
-      {
-        code:1,
-        name:'Abhi',
-        category:'type1',
-        quantity:120,
-        price:123
-      },
-      {
-        code:2,
-        name:'Basu',
-        category:'type1',
-        quantity:120,
-        price:123
-      },
-      {
-        code:3,
-        name:'chandru',
-        category:'type1',
-        quantity:120,
-        price:123
-      },
-      {
-        code:4,
-        name:'Abhi',
-        category:'type1',
-        quantity:120,
-        price:123
-      },
-      {
-        code:1,
-        name:'Abhi',
-        category:'type1',
-        quantity:120,
-        price:123
-      },
-      {
-        code:2,
-        name:'Basu',
-        category:'type1',
-        quantity:120,
-        price:123
-      },
-      {
-        code:3,
-        name:'chandru',
-        category:'type1',
-        quantity:120,
-        price:123
-      },
-      {
-        code:4,
-        name:'Abhi',
-        category:'type1',
-        quantity:120,
-        price:123
-      },
-      {
-        code:1,
-        name:'Abhi',
-        category:'type1',
-        quantity:120,
-        price:123
-      },
-      {
-        code:2,
-        name:'Basu',
-        category:'type1',
-        quantity:120,
-        price:123
-      },
-      {
-        code:3,
-        name:'chandru',
-        category:'type1',
-        quantity:120,
-        price:123
-      },
-      {
-        code:4,
-        name:'Abhi',
-        category:'type1',
-        quantity:120,
-        price:123
-      },
-    ]
   }
 
   setCard(cardName){
@@ -107,7 +21,6 @@ export class ProfileComponent implements OnInit {
   }
 
   ChangePassword(){
-const dialogRef = this.dialog.open(ForgetPwdComponent,
-  {height:"80%"})
+const dialogRef = this.dialog.open(ResetPwdComponent)
   }
 }

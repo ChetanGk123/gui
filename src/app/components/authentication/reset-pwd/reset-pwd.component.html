@@ -1,26 +1,34 @@
 <div class="container-fluid">
-  <!-- Reset Password page start-->
+  <!-- Unlock page start-->
   <div class="authentication-main">
     <div class="row">
       <div class="col-md-12 p-0">
-        <div class="auth-innerright">
+        <div class="auth-innerright" style="min-height: 53vh;">
           <div class="authentication-box">
-            <div class="text-center"><img src="assets/images/endless-logo.png" alt=""></div>
-            <div class="card mt-4 p-4">
-              <form class="theme-form">
-                <h5 class="f-16 mb-3 f-w-600">CREATE YOUR PASSWORD</h5>
+            <div class="text-center mt-4"><img src="assets/images/logo.png" height="70px" alt="logo"></div>
+            <div class="card mt-4 p-4 mb-5">
+              <form class="theme-form" >
                 <div class="form-group">
-                  <label class="col-form-label">New Password</label>
-                  <input class="form-control" type="password" placeholder="*****">
+                  <label class="col-form-label">Enter New Password</label>
+                  <input class="form-control" type="password"  placeholder="*******">
+                  <!-- <div *ngIf="loginForm.controls.password.touched && loginForm.controls.password.errors?.required"
+                      class="text text-danger mt-1">
+                      Password is required
+                    </div> -->
                 </div>
                 <div class="form-group">
-                  <label class="col-form-label">Retype Password</label>
-                  <input class="form-control" type="password" placeholder="*****">
+                  <label class="col-form-label">Confirm Password</label>
+                  <input class="form-control" type="password"  placeholder="*******">
+                  <!-- <div *ngIf="loginForm.controls.password.touched && loginForm.controls.password.errors?.required"
+                      class="text text-danger mt-1">
+                      Password is required
+                    </div> -->
                 </div>
-                <div class="form-group form-row mb-0">
-                  <div class="col-md-2">
-                    <button class="btn btn-primary" type="submit">Done</button>
-                  </div>
+                <div class="form-group form-row mb-2 justify-content-center">
+                    <button class="btn btn-primary mr-5" type="submit" [disabled]="Loader" (click)="changePassword()">Change&nbsp;<i class="fa fa-circle-o-notch fa-spin" *ngIf="Loader"></i></button>
+                    <button class="btn btn-primary ml-5" type="submit" [disabled]="Loader" (click)="cancel()">Cancel</button>
+                    <!-- <button class="btn btn-primary mr-5" type="submit" [disabled]="Loader" (click)="unlock()">Unlock&nbsp;<i class="fa fa-circle-o-notch fa-spin" *ngIf="Loader"></i></button>
+                    <button class="btn btn-primary ml-5" type="submit" [disabled]="Loader" (click)="logOut()">Logout</button> -->
                 </div>
               </form>
             </div>
@@ -29,5 +37,5 @@
       </div>
     </div>
   </div>
-  <!-- Reset Password page end-->
+  <!-- Unlock page end-->
 </div>

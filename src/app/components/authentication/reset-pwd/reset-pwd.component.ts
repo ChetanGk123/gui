@@ -7,8 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResetPwdComponent implements OnInit {
 
+  Loader:boolean = false
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() {
 
+   }
+
+   changePassword(){
+     this.Loader = true;
+   }
+
+   cancel(){
+     this.Loader = false
+   }
 }
