@@ -253,7 +253,7 @@ export class TCComponent implements OnInit {
                           border: [false, true, true, true],
                         },
                         {
-                          text: 'Indai',
+                          text: 'Indian',
                           alignment: 'center',
                           margin: [0, 5, 10, 5],
                           border: [true, true, false, true],

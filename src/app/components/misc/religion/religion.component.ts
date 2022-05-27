@@ -1,11 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { MatDialogRef } from "@angular/material/dialog";
 import { ToastrService } from "ngx-toastr";
-import { ApiService } from "src/app/shared/services/auth/api.service"; 
+import { ApiService } from "src/app/shared/services/auth/api.service";
 import { DialogService } from "src/app/shared/services/dialog.service";
 import { SpinnerService } from "src/app/shared/services/spinner.service";
-declare var require
-const Swal = require('sweetalert2')
+declare var require;
+const Swal = require("sweetalert2");
 @Component({
   selector: "app-religion",
   templateUrl: "./religion.component.html",
@@ -13,7 +13,7 @@ const Swal = require('sweetalert2')
 })
 export class ReligionComponent implements OnInit {
   public isReligionFilter: boolean = true;
-  public addLoader:boolean = true;
+  public addLoader: boolean = true;
   religioneditIndex = -1;
   dataFetch: boolean = false;
   religioneditValue: string;
@@ -28,14 +28,15 @@ export class ReligionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.dataFetch = true
-    this.addLoader = false
+    this.clear();
+    this.dataFetch = true;
+    this.addLoader = false;
     this.apiService
       .getTypeRequest("dropdown_data/RELIGION")
       .subscribe((result: any) => {
         this.religionList = result.data;
         this.religion = result.data;
-        this.dataFetch = false
+        this.dataFetch = false;
       });
   }
 
@@ -45,56 +46,61 @@ export class ReligionComponent implements OnInit {
   }
 
   updateReligion(data) {
-    this.addLoader = true
-    this.dataFetch = true
+    this.addLoader = true;
+    this.dataFetch = true;
     var Religion = {
       item_id: data,
       item_name: this.religioneditValue,
     };
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger'
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger",
       },
       buttonsStyling: false,
-    })
-    swalWithBootstrapButtons.fire({
-      title: 'Are you sure, you want to Update?',
-      text: "Perviously registered data will be affected!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, update it!',
-      cancelButtonText: 'No, cancel!',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.value) {
-        this.apiService
-          .postTypeRequest("update_item/RELIGION", Religion)
-          .toPromise()
-          .then((result: any) => {
-            if (result.result) {
-              this.toster.warning("Data Updated");
-              swalWithBootstrapButtons.fire(
-                'Updated!',
-                result.message,
-                'success'
-              )
-              this.ngOnInit();
-            } else {
-              swalWithBootstrapButtons.fire(
-                'Cancelled',
-                result.message,
-                'error'
-              )
-              this.toster.error(result.message);
-              this.addLoader = false
-    this.dataFetch = false
-            }
-          });
-      } 
-    })
+    });
+    swalWithBootstrapButtons
+      .fire({
+        title: "Are you sure, you want to Update?",
+        text: "Perviously registered data will be affected!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, update it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.value) {
+          this.apiService
+            .postTypeRequest("update_item/RELIGION", Religion)
+            .toPromise()
+            .then((result: any) => {
+              if (result.result) {
+                this.toster.warning("Data Updated");
+                swalWithBootstrapButtons.fire(
+                  "Updated!",
+                  result.message,
+                  "success"
+                );
+                this.ngOnInit();
+              } else {
+                swalWithBootstrapButtons.fire(
+                  "Cancelled",
+                  result.message,
+                  "error"
+                );
+                this.toster.error(result.message);
+                this.addLoader = false;
+                this.dataFetch = false;
+              }
+            });
+        } else {
+          this.addLoader = false;
+          this.dataFetch = false;
+        }
+      });
     this.religioneditIndex = -1;
-    this.dialogRef.close(true)
+    this.dialogRef.close(true);
   }
 
   onReligionFilter(value) {
@@ -106,16 +112,20 @@ export class ReligionComponent implements OnInit {
     });
   }
 
+  clear() {
+    this.religioneditValue = "";
+  }
+
   onAddNewReligion() {
-    this.addLoader = true
-    this.dataFetch = true
+    this.addLoader = true;
+    this.dataFetch = true;
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger'
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger",
       },
       buttonsStyling: false,
-    })
+    });
     if (this.religioneditValue.length > 0) {
       var religion = {
         item_name: this.religioneditValue,
@@ -128,44 +138,41 @@ export class ReligionComponent implements OnInit {
             this.religionList = result.data;
             this.ngOnInit();
             this.toster.success("New Data Added");
-            swalWithBootstrapButtons.fire(
-              'Added!',
-              result.message,
-              'success'
-            )
-            this.dialogRef.close(true)
+            swalWithBootstrapButtons.fire("Added!", result.message, "success");
+            this.dialogRef.close(true);
           } else {
             this.toster.error(result.message);
-            this.addLoader = false
-    this.dataFetch = false
+            this.addLoader = false;
+            this.dataFetch = false;
           }
         });
     }
     this.religioneditValue = "";
-
   }
 
   async onDeleteReligion(id: string) {
-    this.dataFetch = true
+    this.dataFetch = true;
     var Request_Data = {
       item_id: id,
     };
-      const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: 'btn btn-success',
-          cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: false,
-      })
-      swalWithBootstrapButtons.fire({
-        title: 'Are you sure, you want to delete?',
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger",
+      },
+      buttonsStyling: false,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        title: "Are you sure, you want to delete?",
         text: "You won't be able to revert this!",
-        type: 'warning',
+        type: "warning",
         showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel!',
-        reverseButtons: true
-      }).then((result) => {
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true,
+      })
+      .then((result) => {
         if (result.value) {
           this.apiService
             .postTypeRequest("delete_item/RELIGION", Request_Data)
@@ -174,25 +181,26 @@ export class ReligionComponent implements OnInit {
               if (result.result) {
                 this.toster.warning("Data deleted");
                 swalWithBootstrapButtons.fire(
-                  'Deleted!',
+                  "Deleted!",
                   result.message,
-                  'success'
-                )
+                  "success"
+                );
                 this.ngOnInit();
               } else {
                 swalWithBootstrapButtons.fire(
-                  'Cancelled',
+                  "Cancelled",
                   result.message,
-                  'error'
-                )
+                  "error"
+                );
                 this.toster.error(result.message);
-                this.dataFetch = false
+                this.dataFetch = false;
+                this.addLoader = false;
               }
             });
+        }else {
+          this.addLoader = false;
+          this.dataFetch = false;
         }
-        else{
-          this.dataFetch = false
-        } 
-      })
-    }
+      });
+  }
 }

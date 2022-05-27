@@ -25,7 +25,7 @@
                           placeholder="Doc"
                         />
                       </div>
-                      <div class="col-3">
+                      <div class="col-4">
                         <button class="btn btn-success text-center float-right" type="button" [disabled]="docList.length>0 || addLoader" (click)="onAddNewDoc()">
                           {{!addLoader?"Add":""}}&nbsp;<i class="fa fa-circle-o-notch fa-spin" *ngIf="addLoader"></i>
                         </button>
@@ -60,7 +60,7 @@
                                         </div>
                                         <div *ngIf="docditIndex == i">
                                           <button pButton pRipple type="button" icon="pi pi-file" class="p-button-rounded p-button-success" style="height: 35px; width: 35px;" (click)="updateDoc(data.id)"></button>
-                                          <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger ml-2" style="height: 35px; width: 35px;" (click)="docditIndex = -1"></button>
+                                          <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger ml-2" style="height: 35px; width: 35px;" (click)="docditIndex = -1;clear()"></button>
                                         </div>
                                     </td>
                                 </tr>

@@ -26,7 +26,7 @@
                           placeholder="2021-2022"
                         />
                       </div>
-                      <div class="col-3">
+                      <div class="col-4">
                         <button class="btn btn-success text-center float-right " [disabled]="ayList.length>0 || addLoader" type="button" (click)="onAddNewAy()">
                           {{!addLoader?"Add":""}}&nbsp;<i class="fa fa-circle-o-notch fa-spin" *ngIf="addLoader"></i>
                         </button>
@@ -77,7 +77,7 @@
                                         </div>
                                         <div *ngIf="ayeditIndex == i">
                                           <button pButton pRipple type="button" icon="pi pi-file" class="p-button-rounded p-button-success" style="height: 35px; width: 35px;" (click)="updateAy(data.id)"></button>
-                                          <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger ml-2" style="height: 35px; width: 35px;" (click)="ayeditIndex = -1"></button>
+                                          <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger ml-2" style="height: 35px; width: 35px;" (click)="ayeditIndex = -1;clear()"></button>
                                         </div>
                                     </td>
                                 </tr>
