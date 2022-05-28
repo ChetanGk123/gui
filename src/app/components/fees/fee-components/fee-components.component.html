@@ -121,8 +121,8 @@
                         <td>{{ product.fees | currency: 'INR'}}</td>
                         <td> 
                           <div>
-                            <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded" style="height: 35px; width: 35px;" (click)="editClick(rowIndex,product)"></button> 
-                            <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger ml-2" style="height: 35px; width: 35px;" (click)="onDelete(product.fee_component_id)"></button> 
+                            <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded btn-primary" style="height: 35px; width: 35px;" (click)="editClick(rowIndex,product)"></button> 
+                            <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded btn-danger ml-2" style="height: 35px; width: 35px;" (click)="onDelete(product.fee_component_id)"></button> 
                           </div>
                         </td>
                     </tr>

@@ -15,6 +15,7 @@ export interface current_academic_details {
 export interface personal_data {
   student_name: string;
   dob: string;
+  dob_in_words: string;
   religion: string;
   caste: string;
   category: string;

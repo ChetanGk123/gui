@@ -59,9 +59,9 @@
               <td>{{product.fee_balance | currency: 'INR'}}</td>
               <td>{{product.due_date}}</td>
               <td>
-                  <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-primary ml-1" style="height: 35px; width: 35px;" ngbTooltip="Update Record" (click)="updateFees(product)"></button>
-                  <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger ml-1" style="height: 35px; width: 35px;" ngbTooltip="Delete Record" (click)="deleteFees(product)"></button>
-                  <button pButton pRipple type="button" icon="pi pi-upload" class="p-button-rounded p-button-success ml-1" style="height: 35px; width: 35px;" ngbTooltip="Pay" (click)="payFees(product)"></button>
+                  <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded btn-primary ml-1" style="height: 35px; width: 35px;" ngbTooltip="Update Record" (click)="updateFees(product)"></button>
+                  <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded btn-danger ml-1" style="height: 35px; width: 35px;" ngbTooltip="Delete Record" (click)="deleteFees(product)"></button>
+                  <button pButton pRipple type="button" icon="pi pi-upload" class="p-button-rounded btn-success ml-1" style="height: 35px; width: 35px;" ngbTooltip="Pay" (click)="payFees(product)"></button>
               </td>
             </tr>
           </ng-template>

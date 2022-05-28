@@ -71,12 +71,12 @@
                                         </td>
                                         <td style="width: 12rem;">
                                             <div *ngIf="DepeditIndex != i">
-                                              <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-success" style="height: 35px; width: 35px;" (click)="DepeditClick(i,data)"></button>
-                                              <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger ml-2" style="height: 35px; width: 35px;" (click)="onDeleteDep(data.id)"></button>
+                                              <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded btn-success" style="height: 35px; width: 35px;" (click)="DepeditClick(i,data)"></button>
+                                              <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded btn-danger ml-2" style="height: 35px; width: 35px;" (click)="onDeleteDep(data.id)"></button>
                                             </div>
                                             <div *ngIf="DepeditIndex == i">
-                                              <button pButton pRipple type="button" icon="pi pi-file" class="p-button-rounded p-button-success" style="height: 35px; width: 35px;" (click)="updateDep(data.id)"></button>
-                                              <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger ml-2" style="height: 35px; width: 35px;" (click)="DepeditIndex = -1;clear()"></button>
+                                              <button pButton pRipple type="button" icon="pi pi-file" class="p-button-rounded btn-success" style="height: 35px; width: 35px;" (click)="updateDep(data.id)"></button>
+                                              <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded btn-danger ml-2" style="height: 35px; width: 35px;" (click)="DepeditIndex = -1;clear()"></button>
                                             </div>
                                         </td>
                                     </tr>

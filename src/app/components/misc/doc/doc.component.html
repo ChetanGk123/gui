@@ -55,12 +55,12 @@
                                     </td>
                                     <td style="width: 12rem;">
                                         <div *ngIf="docditIndex != i">
-                                          <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-success" style="height: 35px; width: 35px;" (click)="docditClick(i,data)"></button>
-                                          <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger ml-2" style="height: 35px; width: 35px;" (click)="onDeleteDoc(data.id)"></button>
+                                          <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded btn-success" style="height: 35px; width: 35px;" (click)="docditClick(i,data)"></button>
+                                          <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded btn-danger ml-2" style="height: 35px; width: 35px;" (click)="onDeleteDoc(data.id)"></button>
                                         </div>
                                         <div *ngIf="docditIndex == i">
-                                          <button pButton pRipple type="button" icon="pi pi-file" class="p-button-rounded p-button-success" style="height: 35px; width: 35px;" (click)="updateDoc(data.id)"></button>
-                                          <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger ml-2" style="height: 35px; width: 35px;" (click)="docditIndex = -1;clear()"></button>
+                                          <button pButton pRipple type="button" icon="pi pi-file" class="p-button-rounded btn-success" style="height: 35px; width: 35px;" (click)="updateDoc(data.id)"></button>
+                                          <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded btn-danger ml-2" style="height: 35px; width: 35px;" (click)="docditIndex = -1;clear()"></button>
                                         </div>
                                     </td>
                                 </tr>

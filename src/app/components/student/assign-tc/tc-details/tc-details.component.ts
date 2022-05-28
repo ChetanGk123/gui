@@ -29,6 +29,7 @@ export class TcDetailsComponent implements OnInit,OnChanges {
     no_of_days: new FormControl("",[Validators.required]),
     no_of_attended_days: new FormControl("",[Validators.required]),
     tc_reason: new FormControl("",[Validators.required]),
+    user_comments: new FormControl("",[Validators.required]),
   })
   constructor(
     public apiService:ApiService,
@@ -60,6 +61,7 @@ export class TcDetailsComponent implements OnInit,OnChanges {
       no_of_days:data.no_of_days??"",
       no_of_attended_days:data.no_of_attended_days??"",
       tc_reason:data.tc_reason??"",
+      user_comments:data.user_comments??"",
     })
     this.tcForm.updateValueAndValidity()
   }

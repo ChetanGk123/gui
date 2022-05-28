@@ -71,13 +71,13 @@
                                     </td>
                                     <td style="width: 12rem;">
                                         <div *ngIf="ayeditIndex != i">
-                                          <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-success" style="height: 35px; width: 35px;" (click)="ayeditClick(i,data)"></button>
-                                          <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger ml-2" style="height: 35px; width: 35px;" (click)="onDeleteAy(data.id)"></button>
+                                          <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded btn-success" style="height: 35px; width: 35px;" (click)="ayeditClick(i,data)"></button>
+                                          <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded btn-danger ml-2" style="height: 35px; width: 35px;" (click)="onDeleteAy(data.id)"></button>
                                           <p-inputSwitch class=" ml-2" [ngModel]="data.status == 1" (onChange)="active_ay = data;UpdateAy()"></p-inputSwitch>
                                         </div>
                                         <div *ngIf="ayeditIndex == i">
-                                          <button pButton pRipple type="button" icon="pi pi-file" class="p-button-rounded p-button-success" style="height: 35px; width: 35px;" (click)="updateAy(data.id)"></button>
-                                          <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger ml-2" style="height: 35px; width: 35px;" (click)="ayeditIndex = -1;clear()"></button>
+                                          <button pButton pRipple type="button" icon="pi pi-file" class="p-button-rounded btn-success" style="height: 35px; width: 35px;" (click)="updateAy(data.id)"></button>
+                                          <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded btn-danger ml-2" style="height: 35px; width: 35px;" (click)="ayeditIndex = -1;clear()"></button>
                                         </div>
                                     </td>
                                 </tr>

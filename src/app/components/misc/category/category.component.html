@@ -56,12 +56,12 @@
                                     </td>
                                     <td style="width: 12rem;">
                                         <div *ngIf="categoryeditIndex != i">
-                                          <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-success" style="height: 35px; width: 35px;" (click)="categoryeditClick(i,data)"></button>
-                                          <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger ml-2" style="height: 35px; width: 35px;" (click)="onDeleteCategory(data.id)"></button>
+                                          <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded btn-success" style="height: 35px; width: 35px;" (click)="categoryeditClick(i,data)"></button>
+                                          <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded btn-danger ml-2" style="height: 35px; width: 35px;" (click)="onDeleteCategory(data.id)"></button>
                                         </div>
                                         <div *ngIf="categoryeditIndex == i">
-                                          <button pButton pRipple type="button" icon="pi pi-file" class="p-button-rounded p-button-success" style="height: 35px; width: 35px;" (click)="updateCategory(data.id)"></button>
-                                          <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger ml-2" style="height: 35px; width: 35px;" (click)="categoryeditIndex = -1;clear()"></button>
+                                          <button pButton pRipple type="button" icon="pi pi-file" class="p-button-rounded btn-success" style="height: 35px; width: 35px;" (click)="updateCategory(data.id)"></button>
+                                          <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded btn-danger ml-2" style="height: 35px; width: 35px;" (click)="categoryeditIndex = -1;clear()"></button>
                                         </div>
                                     </td>
                                 </tr>

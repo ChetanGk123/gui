@@ -44,7 +44,8 @@ export class AddNewComponent implements OnInit {
         m_name:new FormControl ('', [Validators.required]),
         l_name:new FormControl ('', [Validators.required]),
         dob:new FormControl ('', [Validators.required]),
-        nationality: new FormControl(""),
+        dob_in_words:new FormControl (),
+        nationality: new FormControl("Indian", [Validators.required]),
         current_address:new FormControl ('', [Validators.required]),
         permanent_address:new FormControl ('', [Validators.required]),
         religion_id:new FormControl ('', [Validators.required]),
@@ -161,11 +162,13 @@ export class AddNewComponent implements OnInit {
         this.studentForm.patchValue({
           admission_date: this.datepipe.transform(new Date(i[2] + '/' + i[1] + '/' + i[0]), 'yyyy-MM-dd'),
           admission_no: data.admission_no??"",
+          nationality: data.nationality??"",
           bg_id: data.bg_id??"",
           caste_id:data.caste_id??"",
           category_id:data.category_id??"",
           current_address: data.current_address??"",
           dob: this.datepipe.transform(new Date(e[2] + '/' + e[1] + '/' + e[0]), 'yyyy-MM-dd'),
+          dob_in_words: data.dob_in_words??"",
           email: data.email??"",
           f_name: data.f_name??"",
           gender_id: data.gender_id??"",
@@ -491,5 +494,4 @@ export class AddNewComponent implements OnInit {
       }
     });
   }
-
 }

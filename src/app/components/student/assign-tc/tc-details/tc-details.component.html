@@ -44,7 +44,7 @@
               </div>
               <!-- Issued Date End -->
               <!-- Character Start -->
-              <div class="col-12 mb-3">
+              <div class="col-9 mb-3">
                 <label for="character_of_conduct">Student Character <span class="font-danger">*</span></label>
                 <input type="text" class="form-control" id="character_of_conduct" placeholder="Good" formControlName="character_of_conduct">
                 <div *ngIf="tcForm.controls.character_of_conduct.touched && tcForm.controls.character_of_conduct.errors?.required"
@@ -52,6 +52,23 @@
                   Student Character is required.
                 </div>
               </div>
+              <div class="col-3 mb-3">
+                <label>Status <span class="font-danger">*</span></label>
+                <div class="form-group m-t-10 m-checkbox-inline mb-0 custom-radio-ml">
+                  <div class="radio radio-primary">
+                    <input type="radio" name="user_comments" value="Pass" id="pass" formControlName="user_comments">
+                    <label for="pass" class="mb-0">Pass</label>
+                </div>
+                <div class="radio radio-primary">
+                    <input type="radio" name="user_comments" value="Studying" id="Studying" formControlName="user_comments">
+                    <label for="Studying" class="mb-0">Studying</label>
+                </div>
+                </div>
+                <div *ngIf="tcForm.controls.user_comments.touched && tcForm.controls.user_comments.errors?.required"
+                  class="text text-danger">
+                 Status is required.
+                </div>
+            </div>
               <!-- Character End -->
               <!-- No Of Days Start -->
               <div class="col-md-4 mb-3">

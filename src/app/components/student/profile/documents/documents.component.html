@@ -8,7 +8,7 @@
               <option value="">Select a Document</option>
               <option *ngFor="let data of DocumentList" value="{{data.id}}">{{data.name}}</option>
           </select>
-            <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-primary ml-1" style="height: 30px; width: 30px;" (click)="addDocumentType()"></button>
+            <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded btn-primary ml-1" style="height: 30px; width: 30px;" (click)="addDocumentType()"></button>
           </div>
           <div *ngIf="fileGroup.controls.doc_id.touched && fileGroup.controls.doc_id.errors?.required"
               class="text text-danger">
@@ -40,7 +40,7 @@
               <input type="file" class="form-control" style="padding-bottom: 35px;" id="doc" placeholder="doc" #file (change)="readUrl($event)" [formControl]="fileGroup.controls['doc']" >
             </div>
             <div class="col-md-1">
-                <button pButton pRipple type="button" icon="pi pi-trash" ngbTooltip="Delete Document" class="p-button-rounded p-button-danger mb-3 ml-1" style="height: 35px; width: 35px;" (click)="deleteDocument()" *ngIf="update && fileGroup.get('doc_url').value"></button>
+                <button pButton pRipple type="button" icon="pi pi-trash" ngbTooltip="Delete Document" class="p-button-rounded btn-danger mb-3 ml-1" style="height: 35px; width: 35px;" (click)="deleteDocument()" *ngIf="update && fileGroup.get('doc_url').value"></button>
             </div>
             <div class="col-md-2 col-sm-12" *ngIf="!update">
               <button class="btn btn-primary float-right text-center mb-3" (click)=" uploadFile()" [disabled]="!fileGroup.valid" type="submit">
@@ -94,9 +94,9 @@
                           <span>{{data.expiry_date??'--'}}</span>
                       </td>
                       <td>
-                        <button pButton pRipple type="button" icon="pi pi-download" *ngIf="data.doc_url" ngbTooltip="Download Document"  class="p-button-rounded p-button-primary mb-3" style="height: 35px; width: 35px;" (click)="downloadDocument(data)"></button>
-                        <button pButton pRipple type="button" icon="pi pi-pencil" ngbTooltip="Update Record" class="p-button-rounded p-button-success mb-3 ml-1" style="height: 35px; width: 35px;" (click)="updateDocument(data)"></button>
-                        <button pButton pRipple type="button" icon="pi pi-trash" ngbTooltip="Delete Record" class="p-button-rounded p-button-danger mb-3 ml-1" style="height: 35px; width: 35px;" (click)="deleteRecord(data)"></button>
+                        <button pButton pRipple type="button" icon="pi pi-download" *ngIf="data.doc_url" ngbTooltip="Download Document"  class="p-button-rounded btn-primary mb-3" style="height: 35px; width: 35px;" (click)="downloadDocument(data)"></button>
+                        <button pButton pRipple type="button" icon="pi pi-pencil" ngbTooltip="Update Record" class="p-button-rounded btn-success mb-3 ml-1" style="height: 35px; width: 35px;" (click)="updateDocument(data)"></button>
+                        <button pButton pRipple type="button" icon="pi pi-trash" ngbTooltip="Delete Record" class="p-button-rounded btn-danger mb-3 ml-1" style="height: 35px; width: 35px;" (click)="deleteRecord(data)"></button>
                       </td>
                   </tr>
                 </tbody>
