@@ -120,7 +120,6 @@ export class NavService {
 		{
 			title: 'Accounts', icon: 'command', type: 'sub', active: false,roles:['Admin'] , children: [
 				{ path: '/accounts/addAccountHeads', title: 'Add Account Heads',icon: 'command', type: 'link',roles:['Admin'] },
-				{ path: '/accounts/accountHeads', title: 'Account Heads',icon: 'command', type: 'link',roles:['Admin'] },
 				
 			]
 		},
@@ -141,8 +140,7 @@ export class NavService {
 		},
 		{
 			title: 'Reports', icon: 'folder', type: 'sub', active: false,roles:['Admin','ADMISSION OFFICER'], children: [
-				{ path: '/teacher/allTeachers', title: 'All Teachers', type: 'link',roles:['Admin','ADMISSION OFFICER'] },
-				{ path: '/teacher/addNew', title: 'Add New Teacher', type: 'link',roles:['Admin','ADMISSION OFFICER'] },
+				{ path: '/accounts/accountHeads', title: 'Account Heads',icon: 'command', type: 'link',roles:['Admin'] },
 			]
 		},
 		{

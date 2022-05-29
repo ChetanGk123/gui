@@ -55,8 +55,6 @@ export class AssignFeesComponent implements OnInit {
     this.apiService.getTypeRequest("table_data/FEE_GROUP").subscribe((result: any) => {
       if (result.result) {
         this.dataFetch = false;
-        console.log(result.data);
-        
         this.feeGroups = this.CompList = [];
         this.feeGroups = this.CompList = result.data;
       } else {
