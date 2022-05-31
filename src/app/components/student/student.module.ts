@@ -23,6 +23,7 @@ import { EditComponent } from './profile/fees/edit/edit.component';
 import { TCComponent } from './tc/tc.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { CameraComponent } from 'src/app/shared/components/camera/camera.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     DocumentsComponent,
     EditComponent,
     TCComponent,
+    CameraComponent
   ],
   imports: [
     CommonModule,

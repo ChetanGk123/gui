@@ -96,6 +96,7 @@
     "ngx-rangeslider-component": "^1.0.6",
     "ngx-spinner": "^8.1.0",
     "ngx-toastr": "^12.0.0",
+    "ngx-webcam": "^0.4.1",
     "num-words": "^1.2.2",
     "pdfmake": "^0.2.5",
     "photoswipe": "^4.1.3",

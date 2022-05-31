@@ -252,8 +252,8 @@ export class TCComponent implements OnInit {
                             this.student_data
                               .student_personal_data_by_student_id.dob +
                             "\n" +
-                            toPascalCase(this.student_data
-                              .student_personal_data_by_student_id.dob_in_words.toLowerCase()),
+                           this.student_data
+                              .student_personal_data_by_student_id.dob_in_words,
                           alignment: "center",
                           margin: [0, 5, 10, 5],
                           border: [true, true, false, true],

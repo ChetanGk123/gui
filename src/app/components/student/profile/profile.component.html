@@ -1,7 +1,7 @@
 <div class="loader-box center" *ngIf="!dataFetch"><span class="rotate dashed"></span></div>
 <div class="container-fluid" *ngIf="dataFetch">
     <div class="row">
-        <div class="col-md-6 col-lg-3 col-xl-3">
+        <div class="col-sm-12 col-md-4 col-lg-3 col-xl-3">
             <div
             class="card custom-card"
           >
@@ -69,9 +69,23 @@
                 </div>
               </div>
               <div class="row">
+                
+                <p-dialog [(visible)]="cameraDialog" style="width: 90%;"  header="Transaction Details" [modal]="true" styleClass="p-fluid">
+                  <ng-template pTemplate="content">
+                <app-camera (getPicture)="handleImage($event)"></app-camera>
+              </ng-template>
+            </p-dialog>
+            <div class="webcam-image" *ngIf="webcamImage">
+              <img [src]="webcamImage.imageAsDataUrl" />
+            </div>
+              </div>
+              <div class="row">
                 <div class="col">
-                  <button class="btn btn-primary text-center mt-3" (click)="uploadProfilePhoto()">
-                    Update Profile Pic
+                  <button class="btn btn-primary text-center mt-3" (click)="cameraDialog = true">
+                    Open Camera
+                  </button>
+                  <button class="btn btn-primary text-center mt-3" (click)="uploadProfilePhoto()" [disabled]="ProfilePhotoloader">
+                    Update Profile Pic&nbsp;<i class="fa fa-circle-o-notch fa-spin" *ngIf="ProfilePhotoloader"></i>
                   </button>
                   <button class="btn btn-primary text-center mt-3" (click)="openAdmissionForm()">
                     Open Admission Form
@@ -84,7 +98,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6 col-lg-9 col-xl-9">
+        <div class="col-sm-12 col-md-8 col-lg-9 col-xl-9">
             <div class="card">
 				<div class="card-header">
 					<!-- <h5 class="pull-left">{{student.name | uppercase}}</h5> -->

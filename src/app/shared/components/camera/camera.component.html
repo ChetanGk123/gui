@@ -1,0 +1,93 @@
+<div class="container-fluid mt-4">
+  <div *ngIf="isCameraExist; else noCameraExist">
+    <div style="text-align: center">
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary" (click)="takeSnapshot()">
+          Take Picture
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="changeWebCame(true)"
+        >
+          Toggle Camera
+        </button>
+        <button type="button" class="btn btn-primary" (click)="onOffWebCame()">
+          Switch camera
+        </button>
+      </div>
+      <br />
+      <webcam
+        [height]="500"
+        [width]="1000"
+        [trigger]="triggerObservable"
+        (imageCapture)="handleImage($event)"
+        *ngIf="showWebcam"
+        [switchCamera]="nextWebcamObservable"
+      ></webcam>
+    </div>
+
+    <div *ngIf="errors.length > 0">
+      <h4>Error Messages:</h4>
+      <ul *ngFor="let error of errors">
+        <li>{{ error | json }}</li>
+      </ul>
+    </div>
+  </div>
+  <div *ngIf="cropImage">
+    <div>
+      <image-cropper
+        [imageFile]="cropImage"
+        [maintainAspectRatio]="true"
+        [resizeToWidth]="128"
+        [cropperMinWidth]="128"
+        [onlyScaleDown]="true"
+        [roundCropper]="false"
+        [canvasRotation]="canvasRotation"
+        [containWithinAspectRatio]="containWithinAspectRatio"
+        [transform]="transform"
+        format="png"
+        outputType="base64"
+        (imageCropped)="imageCropped($event)"
+        (imageLoaded)="imageLoaded()"
+        (cropperReady)="cropperReady()"
+        (loadImageFailed)="loadImageFailed()"
+        [style.display]="showCropper ? null : 'none'"
+      ></image-cropper>
+    </div>
+    <div class="text-center">
+      <img [src]="croppedImage" />
+    </div>
+    <!-- <button pButton pRipple type="button" icon="pi pi-link" class="p-button-rounded" style="height: 35px; width: 35px;" awNextStep (click)="assignFees(product)"></button> -->
+    <button pButton pRipple type="button" style="height: 35px; width: 35px;" icon="pi pi-undo" class="btn-primary p-button-rounded" (click)="rotateLeft()"><i data-feather="rotate-ccw"></i></button>
+    <button pButton pRipple type="button" style="height: 35px; width: 35px;" icon="pi pi-refresh" class="btn-primary p-button-rounded" (click)="rotateRight()"><i data-feather="rotate-cw"></i></button>
+    <button pButton pRipple type="button" style="height: 35px; width: 35px;" icon="pi pi-arrows-h" class="btn-primary p-button-rounded" (click)="flipHorizontal()"><i data-feather="maximize-2"></i></button>
+    <button pButton pRipple type="button" style="height: 35px; width: 35px;" icon="pi pi-arrows-v" class="btn-primary p-button-rounded" (click)="flipVertical()"><i data-feather="maximize-2"></i></button>
+    <br />
+    <br />
+    <button class="btn btn-primary text-center" (click)="toggleContainWithinAspectRatio()">
+      {{
+        containWithinAspectRatio
+          ? "Fill Aspect Ratio"
+          : "Contain Within Aspect Ratio"
+      }} &nbsp; <i *ngIf="!containWithinAspectRatio" class="pi pi-window-maximize"></i><i *ngIf="containWithinAspectRatio" class="pi pi-window-minimize"></i>
+    </button>
+    <button type="button" class="btn btn-primary text-center" (click)="resetImage()">Reset image &nbsp; <i class="pi pi-history"></i></button>
+    <br />
+    <br />
+    <div class="row text-center" style="align-items: center;justify-content: center;">
+      <button pButton pRipple type="button" style="height: 35px; width: 35px;" icon="pi pi-minus" class="btn-primary p-button-rounded" (click)="zoomOut()"><i data-feather="rotate-ccw"></i></button>
+      <input
+        [(ngModel)]="rotation"
+        placeholder="Rotation"
+        type="number"
+        (keyup)="updateRotation()"
+      />
+      <button pButton pRipple type="button" style="height: 35px; width: 35px;" icon="pi pi-plus" class="btn-primary p-button-rounded" (click)="zoomIn()"><i data-feather="rotate-ccw"></i></button>
+    </div>
+    <button type="button" class="btn btn-primary text-center" (click)="uploadImage()">
+      Upload Picture
+    </button>
+  </div>
+  <ng-template #noCameraExist> Camera device not available </ng-template>
+</div>

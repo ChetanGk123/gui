@@ -6,6 +6,8 @@ import { ApiService } from 'src/app/shared/services/auth/api.service';
 import { DialogService } from 'src/app/shared/services/dialog.service';
 import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
+import {MenuItem} from 'primeng/api';
+
 declare var require
 const Swal = require('sweetalert2')
 
@@ -16,6 +18,7 @@ const Swal = require('sweetalert2')
   styleUrls: ['./fee-group.component.scss']
 })
 export class FeeGroupComponent implements OnInit {
+
 
   loader:boolean = false;
   public isFeeGroupFilter:boolean = true;
@@ -33,7 +36,9 @@ export class FeeGroupComponent implements OnInit {
   ColumnMode = ColumnMode;
   SortType = SortType;
 
+
   ngOnInit() {
+    
     this.loader = false
     this.dataFetch = true
     this.apiService.getTypeRequest('dropdown_data/FEE_GROUP').subscribe((result:any) => {

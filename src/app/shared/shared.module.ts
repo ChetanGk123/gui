@@ -31,6 +31,9 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { PrimengModule } from './primeng.module'
 import { NgxMaskModule } from 'ngx-mask';
+import {WebcamModule} from 'ngx-webcam';
+import { ImageCropperModule } from 'ngx-image-cropper';
+
 @NgModule({
   declarations: [
     LoaderComponent,
@@ -48,6 +51,7 @@ import { NgxMaskModule } from 'ngx-mask';
   ],
   imports: [
     CommonModule,
+    ImageCropperModule,
     RouterModule,
     NgxPrintModule,
     MaterialModule,
@@ -57,9 +61,11 @@ import { NgxMaskModule } from 'ngx-mask';
     ReactiveFormsModule,
     NgxDatatableModule,
     NgxMaskModule.forRoot(),
+    WebcamModule
   ],
   exports: [
     LoaderComponent,
+    ImageCropperModule,
     MaterialModule,
     FeatherIconsComponent,
     CommonModule,
@@ -71,6 +77,7 @@ import { NgxMaskModule } from 'ngx-mask';
     NgbModule,
     ReactiveFormsModule,
     NgxDatatableModule,
+    WebcamModule,
   ],
   providers: [
     NavService,
