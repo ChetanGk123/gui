@@ -26,6 +26,8 @@ export class AdminGuard implements CanActivate {
       //   return false
       // }
       if(!TokenExpired){
+        console.log("time left "+this.authService.TockenExpiry.toFixed(2));
+        
         return true
       }else{
         this.router.navigate(['auth/login'], { queryParams: { returnUrl: state.url } });

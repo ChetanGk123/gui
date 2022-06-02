@@ -131,10 +131,20 @@ export class AuthService {
     const helper = new JwtHelperService();
     var day1:any = helper.getTokenExpirationDate(this.getUserData.token);
     var day2:any = new Date(); 
+    console.log("time left "+Math.floor((day1 - day2)-5000));
+    
+    
     this.userActivity = setTimeout(() => {
       if (this.getUserData) {
         this.userInactive.next(undefined);
       }
-    }, Math.floor(day1 - day2));
+    }, Math.floor(day1 - day2)-5000);
+  }
+
+  get TockenExpiry():number{
+    const helper = new JwtHelperService();
+    var day1:any = helper.getTokenExpirationDate(this.getUserData.token);
+    var day2:any = new Date();
+    return Math.floor(day1 - day2)
   }
 }

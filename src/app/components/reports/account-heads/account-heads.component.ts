@@ -5,7 +5,7 @@ import { ToastrService } from "ngx-toastr";
 import { ApiService } from "src/app/shared/services/auth/api.service";
 import * as FileSaver from "file-saver";
 import { MatDialog } from "@angular/material/dialog";
-import { AccountHeadTransactionsComponent } from "../../reports/account-head-transactions/account-head-transactions.component";
+import { AccountHeadTransactionsComponent } from "./account-head-transactions/account-head-transactions.component";
 @Component({
   selector: "app-account-heads",
   templateUrl: "./account-heads.component.html",

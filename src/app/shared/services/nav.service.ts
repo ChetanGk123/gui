@@ -112,7 +112,7 @@ export class NavService {
 				{ path: '/fees/feeGroup', title: 'Fee Groups',icon: 'dollar-sign', type: 'link',roles:['Admin'] },
 				{ path: '/fees/feeComponents', title: 'Fee Components',icon: 'dollar-sign', type: 'link',roles:['Admin'] },
 				{ path: '/fees/assignFees', title: 'Assign Fees',icon: 'dollar-sign', type: 'link',roles:['Admin'] },
-				{ path: '/fees/dueFees', title: 'Due Fees',icon: 'dollar-sign', type: 'link',roles:['Admin'] },
+				
 				{ path: '/fees/collectFees', title: 'Collect Fees',icon: 'dollar-sign', type: 'link',roles:['Admin'] },
 				
 			]
@@ -140,7 +140,8 @@ export class NavService {
 		// },
 		{
 			title: 'Reports', icon: 'folder', type: 'sub', active: false,roles:['Admin','ADMISSION OFFICER'], children: [
-				{ path: '/accounts/accountHeads', title: 'Account Heads',icon: 'command', type: 'link',roles:['Admin'] },
+				{ path: '/reports/accountHeads', title: 'Account Heads',icon: 'command', type: 'link',roles:['Admin'] },
+				{ path: '/reports/dueFees', title: 'Due Fees',icon: 'dollar-sign', type: 'link',roles:['Admin'] },
 			]
 		},
 		{

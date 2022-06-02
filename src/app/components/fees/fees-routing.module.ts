@@ -27,14 +27,6 @@ const routes: Routes = [
       breadcrumb: "Assign Fees",
     },
   },
-  {
-    path: "dueFees",
-    loadChildren: () => import('./due-fees/due-fees.module').then(m => m.DueFeesModule),
-    data: {
-      title: "Due Fees",
-      breadcrumb: "Due Fees",
-    },
-  },
 
   {
     path: "collectFees",

@@ -41,7 +41,7 @@ export class PromoteStudentsComponent implements OnInit {
     academic_year_id: new FormControl("", [Validators.required]),
     dept_id: new FormControl("", [Validators.required]),
     class_id: new FormControl("", [Validators.required]),
-    division_id: new FormControl("", [Validators.required]),
+    division_id: new FormControl(""),
     promotion_date: new FormControl("", [Validators.required]),
     user_comments: new FormControl(""),
   })

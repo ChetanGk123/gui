@@ -5,14 +5,6 @@ import { AccountsComponent } from './accounts.component';
 const routes: Routes = [
   { path: '', component: AccountsComponent },
   {
-    path: "accountHeads",
-    loadChildren: () => import('./account-heads/account-heads.module').then(m => m.AccountHeadsModule),
-    data: {
-      title: "Account Heads",
-      breadcrumb: "Account Heads",
-    },
-  },
-  {
     path: "addAccountHeads",
     loadChildren: () => import('./add-account-head/add-account-head.module').then(m => m.AddAccountHeadModule),
     data: {

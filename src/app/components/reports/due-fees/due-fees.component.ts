@@ -4,8 +4,10 @@ import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { ApiService } from "src/app/shared/services/auth/api.service";
 import { StudentService } from "src/app/shared/services/student_services/student.service";
-import { FeeService } from "../Service/fee.service";
-
+import { FeeService } from "../../fees/Service/fee.service";
+import * as FileSaver from "file-saver";
+import { MatDialog } from "@angular/material/dialog";
+import { DueFeesReportComponent } from "./due-fees-report/due-fees-report.component";
 @Component({
   selector: "app-due-fees",
   templateUrl: "./due-fees.component.html",
@@ -30,7 +32,8 @@ export class DueFeesComponent implements OnInit {
     public apiService: ApiService, 
     public feeService: FeeService, 
     public router: Router, 
-    public toster: ToastrService
+    public toster: ToastrService,
+    public dialog:MatDialog
     ) {}
 
 
@@ -85,6 +88,42 @@ export class DueFeesComponent implements OnInit {
       department: "",
       class: "",
       studentName: "",
+    });
+  }
+
+  exportExcel() {
+    import("xlsx").then((xlsx) => {
+      const worksheet = xlsx.utils.json_to_sheet(this.StudentList);
+      const workbook = { Sheets: { data: worksheet }, SheetNames: ["data"] };
+      const excelBuffer: any = xlsx.write(workbook, {
+        bookType: "xlsx",
+        type: "array",
+      });
+      this.saveAsExcelFile(excelBuffer, "TransactionsList");
+    });
+  }
+
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE =
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+    let EXCEL_EXTENSION = ".xlsx";
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE,
+    });
+    FileSaver.saveAs(
+      data,
+      fileName + "_export_" + new Date().getTime() + EXCEL_EXTENSION
+    );
+  }
+
+  exportPdf(){
+    
+    const dialogRef = this.dialog.open(DueFeesReportComponent, {
+      data: {
+        transactions:this.StudentList
+      },
+      height: "88%",
+      width: "80%",
     });
   }
 }

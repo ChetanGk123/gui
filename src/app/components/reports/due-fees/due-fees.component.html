@@ -64,6 +64,12 @@
                   </div>
                   <p-table [value]="StudentList" *ngIf="!dataFetch" class="table" selectionMode="single" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll"
                   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]">
+                  <ng-template pTemplate="caption">
+                    <div class="flex">
+                      <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="btn-success mr-2" pTooltip="XLS" tooltipPosition="bottom"></button>
+                      <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-warning mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>
+                    </div>
+                  </ng-template>
                   <ng-template pTemplate="header" >
                       <tr>
                           <th>SlNo</th>

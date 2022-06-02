@@ -242,30 +242,6 @@ export class AccountHeadTransactionsComponent implements OnInit {
                       border: [false, true, false, true],
                     },
                   ],
-                  // [
-                  //   {
-                  //     colSpan: 2,
-                  //     text: `Closing Balance As On: ${toDate}`,
-                  //     margin: [5, 5, 10, 5],
-                  //     border: [false, false, false, true],
-                  //   },
-                  //   {},
-                  //   {
-                  //     text: " ",
-                  //     margin: [5, 5, 10, 5],
-                  //     border: [false, false, false, true],
-                  //   },
-                  //   {
-                  //     text: " ",
-                  //     margin: [5, 5, 10, 5],
-                  //     border: [false, false, false, true],
-                  //   },
-                  //   {
-                  //     text: `${(Number(this.dialogData.transactions[0].previous_balance) + totalCredit - totalDEBIT).toFixed(2)}`,
-                  //     margin: [0, 10, 10, 0],alignment: 'right',
-                  //     border: [false, false, false, true],
-                  //   },
-                  // ],
                 ],
               },
               layout:{

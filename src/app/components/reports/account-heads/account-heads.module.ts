@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { AccountHeadsRoutingModule } from './account-heads-routing.module';
 import { AccountHeadsComponent } from './account-heads.component';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from '../../../shared/shared.module';
+import { AccountHeadTransactionsComponent } from './account-head-transactions/account-head-transactions.component';
 
 
 @NgModule({
   declarations: [
-    AccountHeadsComponent
+    AccountHeadsComponent,
+    AccountHeadTransactionsComponent
   ],
   imports: [
     CommonModule,

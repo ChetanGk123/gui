@@ -313,7 +313,7 @@
               <div class="col-md-3 mb-3">
                 <div class="d-flex justify-content-between">
                   <label for="class_id"
-                    >Division <span class="font-danger">*</span></label
+                    >Division </label
                   >
                 </div>
                 <div class="row">
@@ -341,15 +341,6 @@
                     ngbTooltip="Add New Division"
                     (click)="addDivision()"
                   ></button>
-                </div>
-                <div
-                  *ngIf="
-                    promotionForm.controls.division_id.touched &&
-                    promotionForm.controls.division_id.errors?.required
-                  "
-                  class="text text-danger"
-                >
-                  Division is required.
                 </div>
               </div>
             </div>
