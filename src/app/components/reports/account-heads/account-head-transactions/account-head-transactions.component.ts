@@ -180,6 +180,8 @@ export class AccountHeadTransactionsComponent implements OnInit {
         {
               table: {
                 headerRows: 1,
+                dontBreakRows: true,
+				        keepWithHeaderRows: 1,
                 heights: 25,
                 widths: [75, '*',80, 80, 80],
                 body: [
@@ -191,31 +193,34 @@ export class AccountHeadTransactionsComponent implements OnInit {
                     },
                     {
                       text: 'Particulars',
-                      margin: [5, 5, 10, 5],
+                      margin: [5, 5, 5, 5],
                       border: [false, true, false, true],
                     },
                     {
                       text: "Dr Amount",
-                      margin: [5, 5, 10, 5],
+                      margin: [5, 5, 5, 5],
                       border: [false, true, false, true],
+                      alignment: 'right'
                     },
                     {
                       text: 'Cr Amount',
-                      margin: [5, 5, 10, 5],
+                      margin: [5, 5, 5, 5],
                       border: [false, true, false, true],
+                      alignment: 'right'
                     },
                     {
                       text: 'Total Amt',
-                      margin: [5, 5, 10, 5],
+                      margin: [5, 5, 5, 5],
                       border: [false, true, false, true],
+                      alignment: 'right'
                     },
                   ],
                   ...this.dialogData.transactions.map((p) => [
-                    {text:p.transaction_date,border: [false, false, false, false], margin: [5, 2, 0, 0],},
-                    {text:p.transaction_desc,border: [false, false, false, false], margin: [5, 2, 0, 0],},
-                    {text:p.transaction_type == "DEBIT"?p.transaction_amount:"",border: [false, false, false, false], margin: [0, 2, 0, 0],alignment: 'right',},
-                    {text:p.transaction_type == "CREDIT"?p.transaction_amount:"",border: [false, false, false, false], margin: [0, 2, 0, 0],alignment: 'right',},
-                    {text:p.current_balance,border: [false, false, false, false], margin: [0, 2, 0, 0],alignment: 'right',},
+                    {text:p.transaction_date,border: [false, false, false, false], margin: [5, 2, 5, 0],},
+                    {text:p.transaction_desc,border: [false, false, false, false], margin: [5, 2, 5, 0],},
+                    {text:p.transaction_type == "DEBIT"?p.transaction_amount:"",border: [false, false, false, false], margin: [0, 2, 5, 0],alignment: 'right',},
+                    {text:p.transaction_type == "CREDIT"?p.transaction_amount:"",border: [false, false, false, false], margin: [0, 2, 5, 0],alignment: 'right',},
+                    {text:p.current_balance,border: [false, false, false, false], margin: [0, 2, 5, 0],alignment: 'right',},
                   ]),
                   [
                     {

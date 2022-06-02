@@ -10,6 +10,9 @@ const toPascalCase = (sentence) => sentence
    .toUpperCase()
    .concat(word.slice(1)))
    .join(' ');
+
+   pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
 @Component({
   selector: 'app-due-fees-report',
   templateUrl: './due-fees-report.component.html',
@@ -34,6 +37,7 @@ export class DueFeesReportComponent implements OnInit {
       else
       this.dialogRef.close()
   }
+
 
   async generatePDF(action = "open") {
     let docDefinition = {
@@ -142,11 +146,11 @@ export class DueFeesReportComponent implements OnInit {
         {
           columns: [
             [
-              {text: `Account: ${this.dialogData.accountHead}`,fontSize: 16,margin:[0,2],bold:true},
+              {text: `Account: ${"Due Fees"}`,fontSize: 16,margin:[0,2],bold:true},
               {text: `Printed On: ${new Date().getDate()}/${+new Date().getMonth()+ 1}/${+new Date().getFullYear()}`,fontSize: 12,margin:[0,2]},
             ],
             [
-              {text: `ACCOUNT STATMENT`,fontSize: 16,margin:[0,2],bold:true,alignment: 'right'},
+              {text: `FEES STATMENT`,fontSize: 16,margin:[0,2],bold:true,alignment: 'right'},
             ]
           ]
         },
@@ -154,68 +158,99 @@ export class DueFeesReportComponent implements OnInit {
         {
               table: {
                 headerRows: 1,
-                heights: 25,
-                widths: [75, '*',80, 80, 80],
+                dontBreakRows: true,
+				        keepWithHeaderRows: 1,
+                heights: 15,
+                widths: ['auto', '*','auto', 'auto', 'auto'],
                 body: [
                   [
                     {
-                      text: "Date",
+                      text: "Sl No",
                       margin: [5, 5, 10, 5],
                       border: [false, true, false, true],
                     },
                     {
-                      text: 'Particulars',
+                      text: 'Name',
                       margin: [5, 5, 10, 5],
                       border: [false, true, false, true],
                     },
                     {
-                      text: "Dr Amount",
-                      margin: [5, 5, 10, 5],
+                      text: "Admission No",
+                      margin: [5, 5, 10, 5],alignment: 'right',
                       border: [false, true, false, true],
                     },
                     {
-                      text: 'Cr Amount',
-                      margin: [5, 5, 10, 5],
+                      text: 'Class',
+                      margin: [5, 5, 10, 5],alignment: 'right',
                       border: [false, true, false, true],
                     },
                     {
-                      text: 'Total Amt',
-                      margin: [5, 5, 10, 5],
+                      text: 'Amount',
+                      margin: [5, 5, 10, 5],alignment: 'right',
                       border: [false, true, false, true],
                     },
                   ],
+                  //   {
+//     "student_id": 19,
+//     "admission_no": "202229021104330003",
+//     "admission_date": "04-05-2022",
+//     "student_name": "SHREYAS GANGAPPA BALIKAI",
+//     "mobile": "8437986366",
+//     "academic_year": "2022-23",
+//     "department": "ENGLISH",
+//     "dept_code": "2902110433",
+//     "a_admission_date": "09-05-2022",
+//     "class": "2nd",
+//     "academic_year_status": 0,
+//     "division": "A",
+//     "student_photo": "https://stagespace.tech/school/uploads/general_docs/default_photo.png",
+//     "balance": "7500.00",
+//     "current_city": "MUDHOL ",
+//     "current_pin": "788978",
+//     "current_taluka": "MUDHOL ",
+//     "current_district": "BAGALKOT",
+//     "current_state": "Karnataka",
+//     "current_country": "India",
+//     "permanent_city": "MUDHOL ",
+//     "permanent_pin": "788978",
+//     "permanent_taluka": "MUDHOL ",
+//     "permanent_district": "BAGALKOT",
+//     "permanent_state": "Karnataka",
+//     "permanent_country": "India",
+//     "link": "a0drdGFPZ1hrRHFjaWZ3Sm40U21Eb3hjUk9ZcWNIb0NsZU1qbFJEVEYzZz0%3D",
+// }
                   ...this.dialogData.transactions.map((p) => [
-                    {text:p.transaction_date,border: [false, false, false, false], margin: [5, 2, 0, 0],},
-                    {text:p.transaction_desc,border: [false, false, false, false], margin: [5, 2, 0, 0],},
-                    {text:p.transaction_type == "DEBIT"?p.transaction_amount:"",border: [false, false, false, false], margin: [0, 2, 0, 0],alignment: 'right',},
-                    {text:p.transaction_type == "CREDIT"?p.transaction_amount:"",border: [false, false, false, false], margin: [0, 2, 0, 0],alignment: 'right',},
-                    {text:p.current_balance,border: [false, false, false, false], margin: [0, 2, 0, 0],alignment: 'right',},
+                    {text:this.dialogData.transactions.indexOf(p)+1,border: [false, false, false, false], margin: [5, 0, 10, 0],},
+                    {text:p.student_name,border: [false, false, false, false], margin: [5, 0, 10, 0],},
+                    {text:p.admission_no,border: [false, false, false, false], margin: [5, 0, 10, 0],alignment: 'right',},
+                    {text:p.class,border: [false, false, false, false], margin: [5, 0, 10, 0],alignment: 'right',},
+                    {text:p.balance,border: [false, false, false, false], margin: [5, 0, 10, 0],alignment: 'right',},
                   ]),
-                  [
-                    {
-                      colSpan: 2,
-                      text: "Total",
-                      margin: [5, 5, 0, 5],
-                      border: [false, true, false, true],
-                    },
-                    {},
-                    {
-                      text: "",
-                      margin: [5, 5, 0, 5],alignment: 'right',
-                      border: [false, true, false, true],
-                    },
-                    {
-                      text:"",
-                      // text: `${this.data.transactions.reduce((acc,cur) => acc + Number(cur.transaction_type == "CREDIT"?cur.transaction_amount:0),0)}`,
-                      margin: [5, 5, 0, 5],alignment: 'right',
-                      border: [false, true, false, true],
-                    },
-                    {
-                      text: `${this.dialogData.transactions[this.dialogData.transactions.length-1].current_balance}`,
-                      margin: [5, 5, 0, 5],alignment: 'right',
-                      border: [false, true, false, true],
-                    },
-                  ],
+                  // [
+                  //   {
+                  //     colSpan: 2,
+                  //     text: "Total",
+                  //     margin: [5, 5, 0, 5],
+                  //     border: [false, true, false, true],
+                  //   },
+                  //   {},
+                  //   {
+                  //     text: "",
+                  //     margin: [5, 5, 0, 5],alignment: 'right',
+                  //     border: [false, true, false, true],
+                  //   },
+                  //   {
+                  //     text:"",
+                  //     // text: `${this.data.transactions.reduce((acc,cur) => acc + Number(cur.transaction_type == "CREDIT"?cur.transaction_amount:0),0)}`,
+                  //     margin: [5, 5, 0, 5],alignment: 'right',
+                  //     border: [false, true, false, true],
+                  //   },
+                  //   {
+                  //     text: `${this.dialogData.transactions[this.dialogData.transactions.length-1].current_balance}`,
+                  //     margin: [5, 5, 0, 5],alignment: 'right',
+                  //     border: [false, true, false, true],
+                  //   },
+                  // ],
                 ],
               },
               layout:{
