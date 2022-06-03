@@ -12122,6 +12122,11 @@
     "regex-not" "^1.0.2"
     "safe-regex" "^1.1.0"
 
+"to-words@^3.2.0":
+  "integrity" "sha512-ikoKM8VQ1/uK5P74Nl6WcdKFTmYRVGlpcxm7BXWqG1+MwdtSJ285iir2P4rVrljTZbRmzIYytRcNv/37Pqb5kg=="
+  "resolved" "https://registry.npmjs.org/to-words/-/to-words-3.2.0.tgz"
+  "version" "3.2.0"
+
 "toidentifier@1.0.1":
   "integrity" "sha512-o5sSPKEkg/DIQNmH43V0/uerLrpzVedkUh8tGNvaeXpfpuwjKenlSox/2O/BTlZUtEe+JG7s5YhEz608PlAHRA=="
   "resolved" "https://registry.npmjs.org/toidentifier/-/toidentifier-1.0.1.tgz"

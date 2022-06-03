@@ -187,7 +187,7 @@ export class AssignFeesComponent implements OnInit {
         if (result.result) {
           this.toster.success("Data Updated");
           swalWithBootstrapButtons.fire("Added!", result.message, "success");
-          this.router.navigate(["/fees/dueFees"]);
+          this.router.navigate(["/reports/dueFees"]);
         } else {
           this.toster.error(result.message);
         }
