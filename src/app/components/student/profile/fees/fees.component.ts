@@ -143,9 +143,7 @@ export class FeesComponent implements OnInit {
     })
 
     dialogRef.afterClosed().subscribe((result:any)=>{
-      console.log(result.data['student']);
-      
-      if(result.result){
+      if(result?.result){
         const dialogRef = this.dialog.open(FeeVoucherComponent, {
           data: result.data['student'],
           height: "88%",
