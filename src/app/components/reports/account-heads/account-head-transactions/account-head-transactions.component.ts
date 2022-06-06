@@ -41,6 +41,7 @@ export class AccountHeadTransactionsComponent implements OnInit {
   }
 
   async generatePDF(action = "open") {
+    // margin: [left, top, right, bottom]
     let fromDate = this.dialogData.start_date.length>0?this.dialogData.start_date:this.dialogData.transactions[0].transaction_date;
     let toDate = this.dialogData.end_date.length>0?this.dialogData.end_date:this.dialogData.transactions[this.dialogData.transactions.length-1].transaction_date;
     let totalCredit = this.dialogData.transactions.reduce((acc,cur) => acc + Number(cur.transaction_type == "CREDIT"?cur.transaction_amount:0),0)
@@ -183,52 +184,59 @@ export class AccountHeadTransactionsComponent implements OnInit {
                 dontBreakRows: true,
 				        keepWithHeaderRows: 1,
                 heights: 25,
-                widths: [75, '*',80, 80, 80],
+                widths: [63, '*', 80, 65, 65, 65],
                 body: [
                   [
                     {
                       text: "Date",
-                      margin: [5, 5, 10, 5],
+                      margin: [5, 5, 0, 5],
                       border: [false, true, false, true],
                     },
                     {
                       text: 'Particulars',
-                      margin: [5, 5, 5, 5],
+                      margin: [5, 5, 0, 5],
+                      border: [false, true, false, true],
+                    },
+                    {
+                      text: 'Receipt No',
+                      margin: [5, 5, 0, 5],
                       border: [false, true, false, true],
                     },
                     {
                       text: "Dr Amount",
-                      margin: [5, 5, 5, 5],
+                      margin: [5, 5, 0, 5],
                       border: [false, true, false, true],
                       alignment: 'right'
                     },
                     {
                       text: 'Cr Amount',
-                      margin: [5, 5, 5, 5],
+                      margin: [5, 5, 0, 5],
                       border: [false, true, false, true],
                       alignment: 'right'
                     },
                     {
                       text: 'Total Amt',
-                      margin: [5, 5, 5, 5],
+                      margin: [5, 5, 0, 5],
                       border: [false, true, false, true],
                       alignment: 'right'
                     },
                   ],
                   ...this.dialogData.transactions.map((p) => [
-                    {text:p.transaction_date,border: [false, false, false, false], margin: [5, 2, 5, 0],},
-                    {text:p.transaction_desc,border: [false, false, false, false], margin: [5, 2, 5, 0],},
-                    {text:p.transaction_type == "DEBIT"?p.transaction_amount:"",border: [false, false, false, false], margin: [0, 2, 5, 0],alignment: 'right',},
-                    {text:p.transaction_type == "CREDIT"?p.transaction_amount:"",border: [false, false, false, false], margin: [0, 2, 5, 0],alignment: 'right',},
+                    {text:p.transaction_date,border: [false, false, false, false], margin: [5, 2, 0, 0],},
+                    {text:p.transaction_desc,border: [false, false, false, false], margin: [5, 2, 0, 0],},
+                    {text:p.receipt_no,border: [false, false, false, false], margin: [5, 2, 0, 0],},
+                    {text:p.transaction_type == "DEBIT"?p.transaction_amount:"",border: [false, false, false, false], margin: [0, 2, 0, 0],alignment: 'right',},
+                    {text:p.transaction_type == "CREDIT"?p.transaction_amount:"",border: [false, false, false, false], margin: [0, 2, 0, 0],alignment: 'right',},
                     {text:p.current_balance,border: [false, false, false, false], margin: [0, 2, 5, 0],alignment: 'right',},
                   ]),
                   [
                     {
-                      colSpan: 2,
+                      colSpan: 3,
                       text: "Total",
                       margin: [5, 5, 0, 5],
                       border: [false, true, false, true],
                     },
+                    {},
                     {},
                     {
                       text: totalDEBIT.toFixed(2),
@@ -237,7 +245,6 @@ export class AccountHeadTransactionsComponent implements OnInit {
                     },
                     {
                       text:totalCredit.toFixed(2),
-                      // text: `${this.data.transactions.reduce((acc,cur) => acc + Number(cur.transaction_type == "CREDIT"?cur.transaction_amount:0),0)}`,
                       margin: [5, 5, 0, 5],alignment: 'right',
                       border: [false, true, false, true],
                     },
