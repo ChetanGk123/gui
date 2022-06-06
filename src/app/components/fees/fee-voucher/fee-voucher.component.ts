@@ -562,7 +562,7 @@ export class FeeVoucherComponent implements OnInit {
                     ],
                   },
                   // margin: [left, top, right, bottom]
-                  margin: [10, 10, 20, 10],
+                  margin: [20, 10, 10, 10],
                 },
               ],
             ],
