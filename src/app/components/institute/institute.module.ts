@@ -33,16 +33,12 @@ import { PrimengModule } from 'src/app/shared/primeng.module';
   ],
   imports: [
     CommonModule,
-    PrimengModule,
     InstituteRoutingModule,
     SystemSettingsModule,
     NgxDatatableModule,
-    ReactiveFormsModule, 
-    FormsModule,
     NgxMaskModule.forRoot(),
     SharedModule,
     TableModule,
-    NgbModule
   ]
 })
 export class InstituteModule { }

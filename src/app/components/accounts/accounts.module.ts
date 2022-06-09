@@ -12,9 +12,11 @@ import { NgxMaskModule } from 'ngx-mask';
 import { TableModule } from 'primeng/table';
 import { PrimengModule } from 'src/app/shared/primeng.module';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { AddAccountHeadComponent } from './add-account-head/add-account-head.component';
 @NgModule({
   declarations: [
     AccountsComponent,
+    AddAccountHeadComponent
   ],
   imports: [
     CommonModule,

@@ -25,10 +25,7 @@ import { MarksGradingComponent } from './marks-grading/marks-grading.component';
     HttpClientModule,
     AngularEditorModule,
     GeneralSettingsRoutingModule,
-    ReactiveFormsModule, 
-    FormsModule,
     SharedModule,
-    NgbModule,
   ]
 })
 export class GeneralSettingsModule { }

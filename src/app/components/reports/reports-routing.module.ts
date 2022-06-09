@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AccountHeadsComponent } from './account-heads/account-heads.component';
+import { DueFeesComponent } from './due-fees/due-fees.component';
 import { ReportsComponent } from './reports.component';
 
 const routes: Routes = [
-  { path: '', component: ReportsComponent },
+  { path: '', component: ReportsComponent }, 
   {
     path: "accountHeads",
-    loadChildren: () => import('./account-heads/account-heads.module').then(m => m.AccountHeadsModule),
+    component: AccountHeadsComponent,
     data: {
       title: "Account Heads",
       breadcrumb: "Account Heads",
@@ -14,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: "dueFees",
-    loadChildren: () => import('../reports/due-fees/due-fees.module').then(m => m.DueFeesModule),
+    component:DueFeesComponent,
     data: {
       title: "Due Fees",
       breadcrumb: "Due Fees",

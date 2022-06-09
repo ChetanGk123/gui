@@ -34,7 +34,7 @@
           <span class="rotate dashed"></span>
         </div>
         <p-table [value]="CurrentFeeList" [(selection)]="selectedFees" selectionMode="multiple" *ngIf="!dataFetch" class="table" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]">
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [autoLayout]="true" [rowsPerPageOptions]="[10,25,50]">
           <ng-template pTemplate="header" >
             <tr>
               <th style="width: 3rem">

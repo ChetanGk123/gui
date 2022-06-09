@@ -24,11 +24,23 @@ import { TCComponent } from './tc/tc.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { CameraComponent } from 'src/app/shared/components/camera/camera.component';
+import { AddNewComponent } from './add-new/add-new.component';
+import { AllStudentsComponent } from './all-students/all-students.component';
+import { AssignTcComponent } from './assign-tc/assign-tc.component';
+import { TcDetailsComponent } from './assign-tc/tc-details/tc-details.component';
+import { AssignedTcComponent } from './assigned-tc/assigned-tc.component';
+import { PromoteStudentsComponent } from './promote-students/promote-students.component';
 
 
 @NgModule({
   declarations: [
     StudentComponent,
+    AddNewComponent,
+    AllStudentsComponent,
+    AssignTcComponent,
+    TcDetailsComponent,
+    AssignedTcComponent,
+    PromoteStudentsComponent,
     AdmissionLetterComponent,
     FeesComponent,
     ProfileComponent,
@@ -40,12 +52,11 @@ import { CameraComponent } from 'src/app/shared/components/camera/camera.compone
   ],
   imports: [
     CommonModule,
-    PrimengModule,
     AngularEditorModule,
     StudentRoutingModule,
+    ArchwizardModule,
     SharedModule,
     AccordionModule.forRoot(),
-    NgbModule,
     NgxDatatableModule,
     NgxMaskModule.forRoot(),
   ],

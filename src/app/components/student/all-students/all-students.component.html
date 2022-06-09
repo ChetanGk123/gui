@@ -200,6 +200,10 @@
         class="d-flex justify-content-center mb-3"
         #paginator
         [pageSize]="pageSize"
+        [rotate]="true"
+        [maxSize]="5"
+        [boundaryLinks]="true"
+        [ellipses]="false"
         [collectionSize]="StudentList.length"
         [(page)]="page"
       ></ngb-pagination>

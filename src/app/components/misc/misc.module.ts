@@ -36,7 +36,6 @@ import { PrimengModule } from 'src/app/shared/primeng.module';
   imports: [
     CommonModule,
     SharedModule,
-    PrimengModule,
     MiscRoutingModule
   ]
 })

@@ -23,9 +23,7 @@ import { DashboardComponent } from './dashboard.component'
   ],
   imports: [
     CommonModule,
-    FormsModule,
     CarouselModule,
-    NgbModule,
     //ChartistModule,
     ChartsModule,
     CountToModule,

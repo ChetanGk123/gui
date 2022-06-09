@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AccountsComponent } from './accounts.component';
-
+import { AddAccountHeadComponent } from './add-account-head/add-account-head.component'
 const routes: Routes = [
-  { path: '', component: AccountsComponent },
+  { path: '', redirectTo:'addAccountHeads', pathMatch:'full'},
   {
     path: "addAccountHeads",
-    loadChildren: () => import('./add-account-head/add-account-head.module').then(m => m.AddAccountHeadModule),
+    component: AddAccountHeadComponent,
     data: {
       title: "Add Account Heads",
       breadcrumb: "Add Account Heads",
