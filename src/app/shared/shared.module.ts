@@ -33,6 +33,7 @@ import { PrimengModule } from './primeng.module'
 import { NgxMaskModule } from 'ngx-mask';
 import {WebcamModule} from 'ngx-webcam';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { CameraComponent } from './components/camera/camera.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     CustomizerComponent,
     DialogComponent,
     DocViewerComponent,
+    CameraComponent
   ],
   imports: [
      CommonModule,
@@ -64,6 +66,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
      FormsModule,
      NgbModule,
      ReactiveFormsModule,
+     CameraComponent
   ],
   providers: [
     NavService,

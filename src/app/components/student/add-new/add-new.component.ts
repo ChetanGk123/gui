@@ -99,7 +99,16 @@ export class AddNewComponent implements OnInit {
   bloodGroupList:any[]
   docTypeList:any[]
   // admissionFormDetails:AdmissionForm 
-  constructor(private fb: FormBuilder,public datepipe: DatePipe,public toster: ToastrService,public apiService:ApiService, public dialog:MatDialog, public studentService:StudentService,public router:Router,public dialogRef: MatDialogRef<AddNewComponent>,@Inject(MAT_DIALOG_DATA) public dialogdata: any) { }
+  constructor(
+    private fb: FormBuilder,
+    public datepipe: DatePipe,
+    public toster: ToastrService,
+    public apiService:ApiService, 
+    public dialog:MatDialog, 
+    public studentService:StudentService,
+    public router:Router,
+    public dialogRef: MatDialogRef<AddNewComponent>,
+    @Inject(MAT_DIALOG_DATA) public dialogdata: any) { }
 
    async ngOnInit()  {
      this.submitDisable = false

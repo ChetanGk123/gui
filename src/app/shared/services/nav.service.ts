@@ -132,12 +132,12 @@ export class NavService {
 				{ path: '/student/assignedTc', icon: 'user-plus', title: 'Assigned TC', type: 'link',roles:['Admin','ADMISSION OFFICER'] },
 			]
 		},
-		// {
-		// 	title: 'Teacher', icon: 'users', type: 'sub', active: false,roles:['Admin','ADMISSION OFFICER'], children: [
-		// 		{ path: '/teacher/allTeachers', title: 'All Teachers', type: 'link',roles:['Admin','ADMISSION OFFICER'] },
-		// 		{ path: '/teacher/addNew', title: 'Add New Teacher', type: 'link',roles:['Admin','ADMISSION OFFICER'] },
-		// 	]
-		// },
+		{
+			title: 'Employees', icon: 'users', type: 'sub', active: false,roles:['Admin','ADMISSION OFFICER'], children: [
+				{ path: '/employee/allEmployees', title: 'All Employees', type: 'link',roles:['Admin','ADMISSION OFFICER'] },
+				{ path: '/employee/addNew', title: 'Add New Employee', type: 'link',roles:['Admin','ADMISSION OFFICER'] },
+			]
+		},
 		{
 			title: 'Reports', icon: 'folder', type: 'sub', active: false,roles:['Admin','ADMISSION OFFICER'], children: [
 				{ path: '/reports/accountHeads', title: 'Account Heads',icon: 'command', type: 'link',roles:['Admin'] },

@@ -23,7 +23,6 @@ import { EditComponent } from './profile/fees/edit/edit.component';
 import { TCComponent } from './tc/tc.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { CameraComponent } from 'src/app/shared/components/camera/camera.component';
 import { AddNewComponent } from './add-new/add-new.component';
 import { AllStudentsComponent } from './all-students/all-students.component';
 import { AssignTcComponent } from './assign-tc/assign-tc.component';
@@ -48,14 +47,13 @@ import { PromoteStudentsComponent } from './promote-students/promote-students.co
     DocumentsComponent,
     EditComponent,
     TCComponent,
-    CameraComponent
   ],
   imports: [
     CommonModule,
     AngularEditorModule,
     StudentRoutingModule,
-    ArchwizardModule,
     SharedModule,
+    ArchwizardModule,
     AccordionModule.forRoot(),
     NgxDatatableModule,
     NgxMaskModule.forRoot(),

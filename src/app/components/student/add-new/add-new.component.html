@@ -230,9 +230,9 @@
                                         <input type="text" class="form-control" id="mobile" prefix="+91"
                                             mask=" 00000 00000" placeholder="Phone Number"
                                             [formControl]="studentForm.controls['mobile']">
-                                        <div *ngIf="studentForm.controls.mobile.touched && studentForm.controls.mobile.errors?.minlength"
+                                        <div *ngIf="studentForm.controls.mobile.touched && studentForm.controls.mobile.value.length<10"
                                             class="text text-danger">
-                                            Number should be min 10 digits.
+                                            Number should be min 10 digits. 
                                         </div>
                                         <div *ngIf="studentForm.controls.mobile.touched && studentForm.controls.mobile.errors?.maxlength"
                                             class="text text-danger">

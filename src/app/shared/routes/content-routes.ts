@@ -36,12 +36,16 @@ export const content: Routes = [
     },
   },
   {
-    path: 'teacher',
-    loadChildren: () => import('../../components/teachers/teachers.module').then(m => m.TeachersModule),
-    canActivate:[AdminGuard],
+    path: "employee",
+    loadChildren: () =>
+      import("../../components/employee/employee.module").then(
+        (m) => m.EmployeeModule
+      ),
+    canActivate: [AdminGuard],
     data: {
-      breadcrumb: "Teachers", roles:['admin','su_user']
-    }
+      breadcrumb: "Employees",
+      roles: ["admin", "su_user"],
+    },
   },
   {
     path: "general_Settings",

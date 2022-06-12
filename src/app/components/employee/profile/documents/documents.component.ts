@@ -1,16 +1,15 @@
 import { Component, OnInit } from "@angular/core";
-import { StudentService } from "../../../../shared/services/student_services/student.service";
 import { ApiService } from "../../../../shared/services/auth/api.service";
 import { FormBuilder, Validators, FormGroup, FormControl } from "@angular/forms";
 import { map } from "rxjs/operators";
 import { DatePipe } from "@angular/common";
-import { admission_data, current_academic_details, parent_data, personal_data, previous_academic_data, student_documents } from "../../../../shared/model/profile";
 import { ToastrService } from "ngx-toastr";
 import { DocComponent } from "../../../misc/doc/doc.component";
 import { MatDialog } from "@angular/material/dialog";
 import { HttpClient } from "@angular/common/http";
 import { DocViewerComponent } from '../../../../shared/components/doc-viewer/doc-viewer.component'
 import { AuthService } from "../../../../shared/services/auth/auth.service";
+import { EmployeeService } from "src/app/shared/services/employee/employee.service";
 
 declare var require;
 const Swal = require("sweetalert2");
@@ -21,19 +20,18 @@ const Swal = require("sweetalert2");
   styleUrls: ["./documents.component.scss"],
 })
 export class DocumentsComponent implements OnInit {
-  student_documents: any = [];
+  employee_documents: any = [];
   DocumentList = [];
   update: boolean = false;
   showDoc: boolean = false;
   loader: boolean = false;
   dataFetch: boolean = false;
-  student: any = this.studentService.getSelectedStudent;
+  employee: any = this.employeeService.getSelectedEmployee;
   DocUrl: string = "";
   file?: File;
   file_data: FormData;
-  admission_data: admission_data;
   fileGroup: FormGroup = new FormGroup({
-    student_id: new FormControl(this.student?.student_id ?? this.student?.student_id),
+    employee_id: new FormControl(this.employee?.employee_id),
     doc_id: new FormControl("", [Validators.required]),
     doc_no: new FormControl("", [Validators.required]),
     doc_url: new FormControl(""),
@@ -48,7 +46,7 @@ export class DocumentsComponent implements OnInit {
   });
   constructor(
     public http:HttpClient, 
-    public studentService: StudentService, 
+    public employeeService: EmployeeService, 
     public dialog: MatDialog, 
     public toster: ToastrService, 
     public apiService: ApiService, 
@@ -64,27 +62,23 @@ export class DocumentsComponent implements OnInit {
 
   async fetchApi() {
     this.dataFetch = false;
-    var admissionId = this.student?.student_id ?? this.student?.student_id;
     this.apiService
       .getTypeRequest("dropdown_data/DOCUMENT")
       .subscribe((result: any) => {
         this.DocumentList = result.data;
       });
     await this.apiService
-      .getTypeRequest("student_profile/" + admissionId)
+      .getTypeRequest("employee_profile/" + this.employee?.employee_id)
       .subscribe((result: any) => {
         if (result.result) {
-          this.dataFetch = true;
-          this.admission_data = result.data["student_admission_data_by_student_id"];
-          this.studentService.admission_data = this.admission_data;
-          this.student_documents = result.data["student_documents_by_student_id"];
-          this.studentService.student_documents = this.student_documents;
+          this.employee_documents = result.data.employee_docments
         } else {
           if (result.error_code === "INVALID_LOGIN") {
             this.toster.error("Session Expired");
             this.authService.SignOut();
           }
         }
+        this.dataFetch = true;
       });
   }
 
@@ -98,6 +92,7 @@ export class DocumentsComponent implements OnInit {
       doc: "",
       doc_loc: "",
       act_doc_id: "",
+      employee_id: this.employee?.employee_id,
     });
     this.update = false;
     this.showDoc = false;
@@ -116,7 +111,9 @@ export class DocumentsComponent implements OnInit {
     this.fileGroup.patchValue({
       doc_url:''
     })
-    this.form.reset()
+    this.form.reset({
+      employee_id: this.employee?.employee_id
+    })
     this.fileGroup.updateValueAndValidity();
     this.updateDocument(this.fileGroup.value)
   }
@@ -179,7 +176,7 @@ export class DocumentsComponent implements OnInit {
 
       var loc;
       await this.apiService
-        .postFileTypeRequest("upload_student_document", formData)
+        .postFileTypeRequest("upload_employee_doc", formData)
         .toPromise()
         .then((result: any) => (
           loc = result.data?.file_loc ?? ""));
@@ -200,7 +197,7 @@ export class DocumentsComponent implements OnInit {
 
   async saveFile() {
     this.loader = true
-    await this.apiService.postTypeRequest("save_document_data/STUDENT", this.fileGroup.value).subscribe(async (result: any) => {
+    await this.apiService.postTypeRequest("save_document_data/EMPLOYEE", this.fileGroup.value).subscribe(async (result: any) => {
       if (result.result) {
         this.toster.success("Data added successfully");
         this.ngOnInit();
@@ -214,7 +211,8 @@ export class DocumentsComponent implements OnInit {
 
   async updateFile() {
     this.loader = true
-    await this.apiService.postTypeRequest("update_document_date/STUDENT", this.fileGroup.value).subscribe(async (result: any) => {
+    
+    await this.apiService.postTypeRequest("update_document_date/EMPLOYEE", this.fileGroup.value).subscribe(async (result: any) => {
       if (result.result) {
         this.toster.success("Data added successfully");
         this.ngOnInit();
@@ -235,7 +233,7 @@ export class DocumentsComponent implements OnInit {
           this.DocumentList = result.data;
         });
         this.DocumentList = this.DocumentList.filter((x) => {
-          !this.student_documents.includes((y) => {
+          !this.employee_documents.includes((y) => {
             y.id == x.id;
           });
         });
