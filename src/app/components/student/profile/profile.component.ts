@@ -76,7 +76,7 @@ export class ProfileComponent implements OnInit {
     public router: Router,
     public http: HttpClient
   ) {}
-
+ 
   getDataFromDataUrl(dataUrl: string, mimeType: string) {
     return dataUrl.replace(`data:${mimeType};base64,`, "");
   }

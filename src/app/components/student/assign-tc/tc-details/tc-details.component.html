@@ -73,7 +73,7 @@
               <!-- No Of Days Start -->
               <div class="col-md-4 mb-3">
                 <label for="no_of_days">No Of Days In Academic Year <span class="font-danger">*</span></label>
-                <input type="text" class="form-control" id="no_of_days" mask="000" placeholder="100" formControlName="no_of_days">
+                <input type="text" class="form-control" id="no_of_days" mask="000" [validation]="false" placeholder="100" formControlName="no_of_days">
                 <div *ngIf="tcForm.controls.no_of_days.touched && tcForm.controls.no_of_days.errors?.required"
                   class="text text-danger">
                   No Of Days is required.
@@ -83,7 +83,7 @@
               <!-- No Of Days Attended Start -->
               <div class="col-md-4 mb-3">
                 <label for="no_of_attended_days">No Of Days Attended  In Academic Year <span class="font-danger">*</span></label>
-                <input type="text" class="form-control" id="no_of_attended_days" mask="000" placeholder="100" formControlName="no_of_attended_days">
+                <input type="text" class="form-control" id="no_of_attended_days" mask="000" [validation]="false" placeholder="100" formControlName="no_of_attended_days">
                 <div *ngIf="tcForm.controls.no_of_attended_days.touched && tcForm.controls.no_of_attended_days.errors?.required"
                   class="text text-danger">
                   No Of Days Attended is required.

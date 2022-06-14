@@ -1,0 +1,192 @@
+<div class="loader-box center" *ngIf="!dataFetch">
+  <span class="rotate dashed"></span>
+</div>
+<div class="container-fluid" *ngIf="dataFetch">
+  <div class="row">
+    <div class="col-sm-12 col-md-4 col-lg-3 col-xl-3">
+      <div class="card custom-card">
+        <div class="card-profile">
+          <div class="card-header">
+            <img class="img-fluid" src="assets/images/faq/2.jpg" alt="" />
+          </div>
+          <img
+            class="rounded-circle"
+            style="margin-top: -4rem"
+            src="{{ employee.photo }}"
+            alt=""
+          />
+        </div>
+        <div class="text-center profile-details mt-3">
+          <div class="row">
+            <div class="col-6 d-flex justify-content-start">
+              <span>Name</span><br />
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+              <span>{{ employee.f_name ?? "" }}</span>
+            </div>
+          </div>
+          <hr style="font-weight: bold" />
+          <div class="row">
+            <div class="col-6 d-flex justify-content-start">
+              <span>ID</span><br />
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+              <span>{{ employee.employee_no ?? "" }}</span>
+            </div>
+          </div>
+          <hr style="font-weight: bold" />
+          <hr style="font-weight: bold" />
+          <div class="row">
+            <div class="col-12 d-flex justify-content-start">
+              <div class="form-group upload-space-sm">
+                <input
+                  type="file"
+                  #file
+                  class="form-control"
+                  style="padding-bottom: 35px"
+                  (change)="readProfilePhoto($event)"
+                  id="Logo"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <p-dialog
+              [(visible)]="cameraDialog"
+              [breakpoints]="{'960px': '75vw', '640px': '100vw'}"
+              [style]="{width: '50vw'}"
+              header="Transaction Details"
+              [modal]="true"
+              styleClass="p-fluid"
+            >
+              <ng-template pTemplate="content">
+                <app-camera (getPicture)="handleImage($event)"></app-camera>
+              </ng-template>
+            </p-dialog>
+            <div class="webcam-image" *ngIf="webcamImage">
+              <img [src]="webcamImage.imageAsDataUrl" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <button
+                class="btn btn-primary text-center mt-3"
+                (click)="cameraDialog = true"
+              >
+                Open Camera
+              </button>
+              <button
+                class="btn btn-primary text-center mt-3"
+                (click)="uploadProfilePhoto()"
+                [disabled]="ProfilePhotoloader"
+              >
+                Update Pic&nbsp;<i
+                  class="fa fa-circle-o-notch fa-spin"
+                  *ngIf="ProfilePhotoloader"
+                ></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer"></div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-8 col-lg-9 col-xl-9">
+      <div class="card">
+        <div class="card-header">
+          <!-- <h5 class="pull-left">{{student.name | uppercase}}</h5> -->
+        </div>
+        <div class="card-body">
+          <p-tabView [scrollable]="true">   
+            <p-tabPanel header="Profile" leftIcon="pi pi-user">
+                <div class="card">
+                    <div class="row">
+                      <h5 class="pull-left">PERSONAL INFO</h5>
+                      <button
+                        pButton
+                        pRipple
+                        type="button"
+                        icon="pi pi-pencil"
+                        class="p-button-rounded btn-primary ml-3"
+                        style="height: 35px; width: 35px"
+                        ngbTooltip="Update Record"
+                        (click)="updateStudentData()"
+                      ></button>
+                      <button
+                        pButton
+                        pRipple
+                        type="button"
+                        icon="pi pi-trash"
+                        class="p-button-rounded btn-danger ml-3"
+                        style="height: 35px; width: 35px"
+                        ngbTooltip="Delete Record"
+                        (click)="deleteStudentData()"
+                      ></button>
+                    </div>
+                    <hr style="font-weight: bold" />
+                    <div class="row">
+                      <div class="col-sm-12 col-md-6">
+                        <span>Phone No :- <b>{{ employee.mobile }}</b></span>
+                      </div>
+                      <div class="col-sm-12 col-md-6">
+                        <span>Email :- <b>{{ employee.email }}</b></span>
+                      </div>
+                    </div>
+                    <hr style="font-weight: bold" />
+                    <div class="row">
+                      <div class="col-sm-12 col-md-6">
+                        <span>Date Of Birth :- <b>{{ employee.dob }}</b></span>
+                      </div>
+                      <div class="col-sm-12 col-md-6">
+                        <span>Date Of Joining :- <b>{{ employee.joining_date }}</b></span>
+                      </div>
+                    </div>
+                    <hr style="font-weight: bold" />
+                    <div class="row">
+                      <div class="col-sm-12 col-md-4">
+                        <span>Nationality :- <b>{{ employee.nationality }}</b></span>
+                      </div>
+                      <div class="col-sm-12 col-md-4">
+                        <span>Gender :- <b>{{ employee.gender_name }}</b></span>
+                      </div>
+                      <div class="col-sm-12 col-md-4">
+                        <span>Blood Group :- <b>{{ employee.blood_group_name }}</b></span>
+                      </div>
+                    </div>
+                    <hr style="font-weight: bold" />
+                    <div class="row">
+                      <div class="col-sm-12 col-md-4">
+                        <span>Religion :- <b>{{ employee.religion_name }}</b></span>
+                      </div>
+                      <div class="col-sm-12 col-md-4">
+                        <span>Caste :- <b>{{ employee.caste_name }}</b></span>
+                      </div>
+                      <div class="col-sm-12 col-md-4">
+                        <span>Category :- <b>{{ employee.category_name }}</b></span>
+                      </div>
+                    </div>
+                    <hr style="font-weight: bold" />
+                    <div class="row">
+                        <h5 class="pull-left">Address Info</h5>
+                    </div>
+                    <hr style="font-weight: bold" />
+                    <div class="row">
+                      <div class="col-sm-12 col-md-6">
+                        <span>Date Of Birth :- <b>{{ employee.dob }}</b></span>
+                      </div>
+                      <div class="col-sm-12 col-md-6">
+                        <span>Date Of Joining :- <b>{{ employee.joining_date }}</b></span>
+                      </div>
+                    </div>
+                    <hr style="font-weight: bold" />
+                  </div>
+             </p-tabPanel>
+             <p-tabPanel header="Documents" leftIcon="pi pi-book">
+              <app-documents></app-documents>
+             </p-tabPanel>
+          </p-tabView>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

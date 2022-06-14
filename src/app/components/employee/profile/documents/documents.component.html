@@ -1,8 +1,7 @@
-<div class="card">
-    <div class="card-body filter-cards-view animate-chk">
+
       <div class=" row">
         <div class="col-md-3 mb-3">
-          <label for="gender_id">Document Type <span class="font-danger">*</span></label>
+          <label for="gender_id">Document <span class="font-danger">*</span></label>
           <div class="row">
             <select class="form-control col-9" id="doc_id" placeholder="Document" [formControl]="fileGroup.controls['doc_id']" (change)="docTypeChange()">
               <option value="">Select a Document</option>
@@ -72,7 +71,7 @@
                 </thead>
                 <tbody>
 
-                  <tr *ngFor="let data of student_documents; let i = index" >
+                  <tr *ngFor="let data of employee_documents; let i = index" >
                       <td>
                           {{ i+1}}
                       </td>
@@ -98,5 +97,3 @@
           </table>
       </div>
 
-    </div>
-  </div>
