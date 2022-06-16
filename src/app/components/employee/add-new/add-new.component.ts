@@ -107,26 +107,26 @@ export class AddNewComponent implements OnInit {
           console.log(result);
           if(result.result){
             
-            this.employee_info.setValue(result.data.employee)
+            this.employee_info.setValue(result.data.employee_info)
           }else{
             this.toster.error(result.message)
           }
           this.dataFetch = false
         })
       }
-      this.apiService.getTypeRequest('employee_profile/1').subscribe((result:any) =>{
-        console.log(result.data.employee);
-        if(result.result){
-          result.data.employee.generate_emp_no = false
-          this.employee_info.setValue(result.data.employee)
-          console.log(this.employeeForm);
+      // this.apiService.getTypeRequest('employee_profile/1').subscribe((result:any) =>{
+      //   console.log(result.data.employee);
+      //   if(result.result){
+      //     result.data.employee.generate_emp_no = false
+      //     this.employee_info.setValue(result.data.employee)
+      //     console.log(this.employeeForm);
           
 
-        }else{
-          this.toster.error(result.message)
-        }
-        this.dataFetch = false
-      })
+      //   }else{
+      //     this.toster.error(result.message)
+      //   }
+      //   this.dataFetch = false
+      // })
 
   }
 

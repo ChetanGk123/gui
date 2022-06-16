@@ -233,7 +233,7 @@
             <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
               <tr (click)="employeeDetails(product)" style="cursor: pointer;">
                 <td>{{rowIndex+1}}</td>
-                <td><img class="middle " src="{{'https:\/\/stagespace.tech\/school\/uploads\/'+product.photo}}" height="50px" style="border-radius: 50%;" width="50px" [alt]="product.employee_name"> {{product.first_name + product.middle_name+product.last_name}}</td>
+                <td><img class="middle " src="{{product.photo}}" height="50px" style="border-radius: 50%;" width="50px" [alt]="product.employee_name"> {{product.employee_name}}</td>
                 <td>{{product.employee_no}}</td>
                 <td>{{product.joining_date}}</td>
                 <td>{{product.mobile}}</td>
