@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/shared/services/auth/api.service';
@@ -19,6 +20,13 @@ export class AllEmployeesComponent implements OnInit {
   Employees: any = [];
   page = 1;
   pageSize = 12;
+  filterForm: FormGroup = new FormGroup({
+    employeeName: new FormControl(''),
+    EmpId: new FormControl(''),
+    JoinDate: new FormControl(''),
+    mobile: new FormControl(''),
+    
+  })
   constructor(
     public exportexcel: ExcelService,
     public router: Router,
@@ -51,5 +59,20 @@ export class AllEmployeesComponent implements OnInit {
     this.employeeService.setSelectedEmployee(employee);
     this.employeeService.setSelectedTab("Profile");
     this.router.navigate(["/employee/employeeInfo"]);
+  }
+
+  onFilterData(data:any){
+    console.log(data);
+    
+    this.EmployeeList = [];
+    this.Employees.some((x:any)=>{
+      if(x.employee_name.toLowerCase().includes(data) || x.joining_date.includes(data) || x.mobile.includes(data) || x.employee_no.includes(data)){
+        this.EmployeeList.push(x)
+      }
+    })
+  }
+
+  exportCsv() {
+    this.exportexcel.exportAsExcelFile(this.EmployeeList, "Employee List");
   }
 }

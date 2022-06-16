@@ -9,6 +9,7 @@ import { WebcamImage } from 'ngx-webcam';
 import { ApiService } from 'src/app/shared/services/auth/api.service';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { EmployeeService } from 'src/app/shared/services/employee/employee.service';
+import { AddNewComponent } from '../add-new/add-new.component';
 
 @Component({
   selector: 'app-profile',
@@ -110,4 +111,18 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  updateEmployeeData() {
+    const dialogRef = this.dialog.open(AddNewComponent, {
+      data: {
+        item_id: this.employee.employee_id,
+      },
+      height: "83.5%",
+      width: "80%",
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        this.ngOnInit();
+      }
+    });
+  }
 }

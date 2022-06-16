@@ -46,78 +46,58 @@
           <div class="collapse show" *ngIf="isFilter">
             <div class="card-body filter-cards-view animate-chk">
               <div class="row">
-                <!-- <div class="col-xl-3 col-md-6 col-sm-12">
-                  <label for="bg_id"
-                    >Academic Year <span class="font-danger">*</span></label
-                  >
-                  <select
-                    class="form-control"
-                    id="bg_id"
-                    placeholder="2021-2022"
-                    (change)="onFilterData('')"
-                    [formControl]="filterForm.controls['academicYear']"
-                  >
-                    <option value="">Select a Academic Year</option>
-                    <option
-                      *ngFor="let data of academicYearList"
-                      value="{{ data.name }}"
-                    >
-                      {{ data.name }}
-                    </option>
-                  </select>
-                </div>
                 <div class="col-xl-3 col-md-6 col-sm-12">
-                  <label for="bg_id"
-                    >Department <span class="font-danger">*</span></label
-                  >
-                  <select
-                    class="form-control"
-                    id="bg_id"
-                    placeholder="Kannada"
-                    (change)="onFilterData('')"
-                    [formControl]="filterForm.controls['department']"
-                  >
-                    <option value="">Select a Department</option>
-                    <option
-                      *ngFor="let data of departmentList"
-                      value="{{ data.name }}"
-                    >
-                      {{ data.name }}
-                    </option>
-                  </select>
-                </div>
-                <div class="col-xl-3 col-md-6 col-sm-12">
-                  <label for="bg_id"
-                    >Class <span class="font-danger">*</span></label
-                  >
-                  <select
-                    class="form-control"
-                    id="bg_id"
-                    placeholder="1"
-                    (change)="onFilterData('')"
-                    [formControl]="filterForm.controls['class']"
-                  >
-                    <option value="">Select a Class</option>
-                    <option
-                      *ngFor="let data of classList"
-                      value="{{ data.name }}"
-                    >
-                      {{ data.name }}
-                    </option>
-                  </select>
-                </div>
-                <div class="col-xl-3 col-md-6 col-sm-12 mb-3">
                   <div class="faq-form">
-                    <label for="bg_id">Name</label>
+                    <label for="emp_id">ID</label>
                     <input
                       class="form-control"
                       type="text"
+                      id="emp_id"
+                      [formControl]="filterForm.controls['EmpId']"
+                      (keyup)="onFilterData($event.target.value)"
+                      placeholder="Search.."
+                    />
+                  </div>
+                </div>
+                <div class="col-xl-3 col-md-6 col-sm-12">
+                  <div class="faq-form">
+                    <label for="emp_name">Name</label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      id="emp_name"
                       [formControl]="filterForm.controls['employeeName']"
                       (keyup)="onFilterData($event.target.value)"
                       placeholder="Search.."
                     />
                   </div>
-                </div> -->
+                </div>
+                <div class="col-xl-3 col-md-6 col-sm-12">
+                  <div class="faq-form">
+                    <label for="emp_jod">Join Date</label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      id="emp_jod"
+                      [formControl]="filterForm.controls['JoinDate']"
+                      (keyup)="onFilterData($event.target.value)"
+                      placeholder="Search.."
+                    />
+                  </div>
+                </div>
+                <div class="col-xl-3 col-md-6 col-sm-12 mb-3">
+                  <div class="faq-form">
+                    <label for="emp_no">Mobile</label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      id="emp_no"
+                      [formControl]="filterForm.controls['mobile']"
+                      (keyup)="onFilterData($event.target.value)"
+                      placeholder="Search.."
+                    />
+                  </div>
+                </div>
               </div>
               <div class="row d-flex align-items-center">
                 <div class="col-md-6 col-sm-12">
@@ -132,7 +112,7 @@
                 <div class="col-xl-3 col-md-6 col-sm-12 float-right">
                   <button
                     class="btn btn-primary text-center align-self-center"
-                    (click)="reset(); onFilterData('')"
+                    (click)="filterForm.reset(); onFilterData('')"
                   >
                     Clear
                   </button>
@@ -253,7 +233,7 @@
             <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
               <tr (click)="employeeDetails(product)" style="cursor: pointer;">
                 <td>{{rowIndex+1}}</td>
-                <td><img class="middle " src="{{'https:\/\/stagespace.tech\/school\/uploads\/'+product.photo}}" height="50px" style="border-radius: 50%;" width="50px" [alt]="product.employee_name"> {{product.first_name + product.middle_name+product.last_name}}</td>
+                <td><img class="middle " src="{{product.photo}}" height="50px" style="border-radius: 50%;" width="50px" [alt]="product.employee_name"> {{product.employee_name}}</td>
                 <td>{{product.employee_no}}</td>
                 <td>{{product.joining_date}}</td>
                 <td>{{product.mobile}}</td>
