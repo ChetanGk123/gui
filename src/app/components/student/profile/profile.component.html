@@ -52,7 +52,7 @@
               </div>
               <div class="row">
                 
-                <p-dialog [(visible)]="cameraDialog" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}" header="Transaction Details" [modal]="true" styleClass="p-fluid">
+                <p-dialog [(visible)]="cameraDialog" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}" header="Camera" [modal]="true" styleClass="p-fluid">
                   <ng-template pTemplate="content">
                 <app-camera (getPicture)="handleImage($event)"></app-camera>
               </ng-template>
@@ -86,281 +86,253 @@
 					<!-- <h5 class="pull-left">{{student.name | uppercase}}</h5> -->
 				</div>
 				<div class="card-body">
-					<ngb-tabset  [activeId]="selectedTab" type="pills" class="tabbed-card">
-						<ngb-tab title="Profile" id="Profile" class="pull-left nav nav-pills nav-primary">
-							<ng-template ngbTabContent class="tab-content">
-								<div class="tab-pane fade show">
-									<div class="card">
-                    <div class="row">
-                      <h5 class="pull-left">PERSONAL INFO</h5>
-                      <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded btn-primary ml-3" style="height: 35px; width: 35px;" ngbTooltip="Update Record" (click)="updateStudentData()"></button>
-                      <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded btn-danger ml-3" style="height: 35px; width: 35px;" ngbTooltip="Delete Record" (click)="deleteStudentData()"></button>
-                    </div>
-                    <hr style="font-weight: bold;" />
+          <p-tabView [scrollable]="true" >
+            <p-tabPanel header="Profile" leftIcon="pi pi-user">
+              <div class="card">
+                <div class="row">
+                  <h5 class="pull-left">PERSONAL INFO</h5>
+                  <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded btn-primary ml-3" style="height: 35px; width: 35px;" ngbTooltip="Update Record" (click)="updateStudentData()"></button>
+                  <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded btn-danger ml-3" style="height: 35px; width: 35px;" ngbTooltip="Delete Record" (click)="deleteStudentData()"></button>
+                </div>
+                <hr style="font-weight: bold;" />
 
-                    <div class="row">
-                      <div class="col-6">
-                          <span>Admission Date</span>
-                      </div>
-                      <div class="col-6">
-                          <span><b>{{admission_data.admission_date}}</b></span>
-                      </div>
-                    </div>
-                    <hr style="font-weight: bold;" />
-
-                    <div class="row">
-                      <div class="col-6">
-                          <span>Date Of Birth</span>
-                      </div>
-                      <div class="col-6">
-                          <span><b>{{personal_data.dob}}</b></span>
-                      </div>
-                    </div>
-                    <hr style="font-weight: bold;" />
-
-                    <div class="row">
-                      <div class="col-6">
-                          <span>Religion</span>
-                      </div>
-                      <div class="col-6">
-                          <span><b>{{personal_data.religion}}</b></span>
-                      </div>
-                    </div>
-                    <hr style="font-weight: bold;" />
-
-                    <div class="row">
-                      <div class="col-6">
-                          <span>Phone No</span>
-                      </div>
-                      <div class="col-6">
-                          <span><b>{{personal_data.student_mobile}}</b></span>
-                      </div>
-                    </div>
-                    <hr style="font-weight: bold;" />
-
-                    <div class="row">
-                      <div class="col-6">
-                          <span>Email</span>
-                      </div>
-                      <div class="col-6">
-                          <span><b>{{personal_data.student_email}}</b></span>
-                      </div>
-                    </div>
-                    <hr style="font-weight: bold;" />
-
-                    <div class="row">
-                      <div class="col-6">
-                          <span>Present Address</span>
-                      </div>
-                      <div class="col-6">
-                          <span><b>{{personal_data.stud_current_address}}</b></span>
-                      </div>
-                    </div>
-                    <hr style="font-weight: bold;" />
-
-                    <div class="row">
-                      <div class="col-6">
-                          <span>Permanent Address</span>
-                      </div>
-                      <div class="col-6">
-                          <span><b>{{personal_data.stud_permanent_address}}</b></span>
-                      </div>
-                    </div>
-                    <hr style="font-weight: bold;" />
-
-                    <div class="row">
-                      <h5 class="pull-left">PARENT / GUARDIAN DETAILS</h5>
-                    </div>
-                    <hr style="font-weight: bold;" />
-
-                    <div class="row">
-                      <div class="col-6">
-                          <span>Father's Name</span>
-                      </div>
-                      <div class="col-6">
-                          <span><b>{{parent_data.fathers_name}}</b></span>
-                      </div>
-                    </div>
-                    <hr style="font-weight: bold;" />
-
-                    <div class="row">
-                      <div class="col-6">
-                          <span>Phone No</span>
-                      </div>
-                      <div class="col-6">
-                          <span><b>{{parent_data.fathers_mobile}}</b></span>
-                      </div>
-                    </div>
-                    <hr style="font-weight: bold;" />
-
-                    <div class="row">
-                      <div class="col-6">
-                          <span>Occupation</span>
-                      </div>
-                      <div class="col-6">
-                          <span><b>{{parent_data.father_occupation}}</b></span>
-                      </div>
-                    </div>
-                    <hr style="font-weight: bold;" />
-
-                    <div class="row">
-                      <div class="col-6">
-                          <span>Mothers's Name</span>
-                      </div>
-                      <div class="col-6">
-                          <span><b>{{parent_data.mothers_name}}</b></span>
-                      </div>
-                    </div>
-                    <hr style="font-weight: bold;" />
-
-                    <div class="row">
-                      <div class="col-6">
-                          <span>Phone No</span>
-                      </div>
-                      <div class="col-6">
-                          <span><b>{{parent_data.mothers_mobile}}</b></span>
-                      </div>
-                    </div>
-                    <hr style="font-weight: bold;" />
-
-                    <div class="row">
-                      <div class="col-6">
-                          <span>Occupation</span>
-                      </div>
-                      <div class="col-6">
-                          <span><b>{{parent_data.mothers_occupation}}</b></span>
-                      </div>
-                    </div>
-                    <hr style="font-weight: bold;" />
-
-                    <div class="row">
-                      <div class="col-6">
-                          <span>Guardian's Name</span>
-                      </div>
-                      <div class="col-6">
-                          <span><b>{{parent_data.guardians_name}}</b></span>
-                      </div>
-                    </div>
-                    <hr style="font-weight: bold;" />
-
-                    <div class="row">
-                      <div class="col-6">
-                          <span>Email</span>
-                      </div>
-                      <div class="col-6">
-                          <span><b>{{parent_data.guardians_email}}</b></span>
-                      </div>
-                    </div>
-                    <hr style="font-weight: bold;" />
-
-                    <div class="row">
-                      <div class="col-6">
-                          <span>Phone No</span>
-                      </div>
-                      <div class="col-6">
-                          <span><b>{{parent_data.guardians_mobile}}</b></span>
-                      </div>
-                    </div>
-                    <hr style="font-weight: bold;" />
-
-                    <div class="row">
-                      <div class="col-6">
-                          <span>Relation with Guardian</span>
-                      </div>
-                      <div class="col-6">
-                          <span><b>{{parent_data.guardian_relation}}</b></span>
-                      </div>
-                    </div>
-                    <hr style="font-weight: bold;" />
-
-                    <div class="row">
-                      <div class="col-6">
-                          <span>Occupation</span>
-                      </div>
-                      <div class="col-6">
-                          <span><b>{{parent_data.guardians_occupation}}</b></span>
-                      </div>
-                    </div>
-                    <hr style="font-weight: bold;" />
-
-                    <div class="row">
-                      <h5 class="pull-left">OTHER INFORMATION</h5>
-                    </div>
-                    <hr style="font-weight: bold;" />
-
-                    <div class="row">
-                      <div class="col-6">
-                          <span>Blood Group</span>
-                      </div>
-                      <div class="col-6">
-                          <span><b>{{personal_data.bood_group}}</b></span>
-                      </div>
-                    </div>
-                    <hr style="font-weight: bold;" />
-
-                    <div class="row">
-                      <div class="col-6">
-                          <span>Height</span>
-                      </div>
-                      <div class="col-6">
-                          <span><b>{{personal_data.height}}</b></span>
-                      </div>
-                    </div>
-                    <hr style="font-weight: bold;" />
-
-                    <div class="row">
-                      <div class="col-6">
-                          <span>Weight</span>
-                      </div>
-                      <div class="col-6">
-                          <span><b>{{personal_data.weight}}</b></span>
-                      </div>
-                    </div>
-                    <hr style="font-weight: bold;" />
-
-
+                <div class="row">
+                  <div class="col-6">
+                      <span>Admission Date</span>
                   </div>
-								</div>
-							</ng-template>
-						</ngb-tab>
-            <ngb-tab title="Fees" id="Fees" ngbTabTitle class="pull-left nav nav-pills nav-primary">
-              <ng-template ngbTabContent class="tab-content">
-                <div class="tab-pane fade show">
-                  <app-fees></app-fees>
+                  <div class="col-6">
+                      <span><b>{{admission_data.admission_date}}</b></span>
+                  </div>
                 </div>
-              </ng-template>
-            </ngb-tab>
-            <ngb-tab title="Transactions" id="Transactions" ngbTabTitle class="pull-left nav nav-pills nav-primary">
-              <ng-template ngbTabContent class="tab-content">
-                <div class="tab-pane fade show">
-                  <app-transactions></app-transactions>
+                <hr style="font-weight: bold;" />
+
+                <div class="row">
+                  <div class="col-6">
+                      <span>Date Of Birth</span>
+                  </div>
+                  <div class="col-6">
+                      <span><b>{{personal_data.dob}}</b></span>
+                  </div>
                 </div>
-              </ng-template>
-            </ngb-tab>
-            <ngb-tab title="Exam" id="Exam" ngbTabTitle class="pull-left nav nav-pills nav-primary">
-							<ng-template ngbTabContent class="tab-content">
-								<div class="tab-pane fade show">
-									<p>
-										Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-										Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-										unknown printer took a galley of type and scrambled it to make a type specimen
-										book. It has survived not only five centuries, but also the leap into electronic
-										typesetting, remaining essentially unchanged. It was popularised in the 1960s
-										with the release of Letraset sheets containing Lorem Ipsum passages, and more
-										recently with desktop publishing software like Aldus PageMaker including
-										versions of Lorem Ipsum
-									</p>
-								</div>
-							</ng-template>
-						</ngb-tab>
-						<ngb-tab title="Documents" id="Documents" ngbTabTitle class="pull-left nav nav-pills nav-primary">
-							<ng-template ngbTabContent class="tab-content">
-								<div class="tab-pane fade show">
-									<app-documents></app-documents>
-								</div>
-							</ng-template>
-						</ngb-tab>
-					</ngb-tabset>
+                <hr style="font-weight: bold;" />
+
+                <div class="row">
+                  <div class="col-6">
+                      <span>Religion</span>
+                  </div>
+                  <div class="col-6">
+                      <span><b>{{personal_data.religion}}</b></span>
+                  </div>
+                </div>
+                <hr style="font-weight: bold;" />
+
+                <div class="row">
+                  <div class="col-6">
+                      <span>Phone No</span>
+                  </div>
+                  <div class="col-6">
+                      <span><b>{{personal_data.student_mobile}}</b></span>
+                  </div>
+                </div>
+                <hr style="font-weight: bold;" />
+
+                <div class="row">
+                  <div class="col-6">
+                      <span>Email</span>
+                  </div>
+                  <div class="col-6">
+                      <span><b>{{personal_data.student_email}}</b></span>
+                  </div>
+                </div>
+                <hr style="font-weight: bold;" />
+
+                <div class="row">
+                  <div class="col-6">
+                      <span>Present Address</span>
+                  </div>
+                  <div class="col-6">
+                      <span><b>{{personal_data.stud_current_address}}</b></span>
+                  </div>
+                </div>
+                <hr style="font-weight: bold;" />
+
+                <div class="row">
+                  <div class="col-6">
+                      <span>Permanent Address</span>
+                  </div>
+                  <div class="col-6">
+                      <span><b>{{personal_data.stud_permanent_address}}</b></span>
+                  </div>
+                </div>
+                <hr style="font-weight: bold;" />
+
+                <div class="row">
+                  <h5 class="pull-left">PARENT / GUARDIAN DETAILS</h5>
+                </div>
+                <hr style="font-weight: bold;" />
+
+                <div class="row">
+                  <div class="col-6">
+                      <span>Father's Name</span>
+                  </div>
+                  <div class="col-6">
+                      <span><b>{{parent_data.fathers_name}}</b></span>
+                  </div>
+                </div>
+                <hr style="font-weight: bold;" />
+
+                <div class="row">
+                  <div class="col-6">
+                      <span>Phone No</span>
+                  </div>
+                  <div class="col-6">
+                      <span><b>{{parent_data.fathers_mobile}}</b></span>
+                  </div>
+                </div>
+                <hr style="font-weight: bold;" />
+
+                <div class="row">
+                  <div class="col-6">
+                      <span>Occupation</span>
+                  </div>
+                  <div class="col-6">
+                      <span><b>{{parent_data.father_occupation}}</b></span>
+                  </div>
+                </div>
+                <hr style="font-weight: bold;" />
+
+                <div class="row">
+                  <div class="col-6">
+                      <span>Mothers's Name</span>
+                  </div>
+                  <div class="col-6">
+                      <span><b>{{parent_data.mothers_name}}</b></span>
+                  </div>
+                </div>
+                <hr style="font-weight: bold;" />
+
+                <div class="row">
+                  <div class="col-6">
+                      <span>Phone No</span>
+                  </div>
+                  <div class="col-6">
+                      <span><b>{{parent_data.mothers_mobile}}</b></span>
+                  </div>
+                </div>
+                <hr style="font-weight: bold;" />
+
+                <div class="row">
+                  <div class="col-6">
+                      <span>Occupation</span>
+                  </div>
+                  <div class="col-6">
+                      <span><b>{{parent_data.mothers_occupation}}</b></span>
+                  </div>
+                </div>
+                <hr style="font-weight: bold;" />
+
+                <div class="row">
+                  <div class="col-6">
+                      <span>Guardian's Name</span>
+                  </div>
+                  <div class="col-6">
+                      <span><b>{{parent_data.guardians_name}}</b></span>
+                  </div>
+                </div>
+                <hr style="font-weight: bold;" />
+
+                <div class="row">
+                  <div class="col-6">
+                      <span>Email</span>
+                  </div>
+                  <div class="col-6">
+                      <span><b>{{parent_data.guardians_email}}</b></span>
+                  </div>
+                </div>
+                <hr style="font-weight: bold;" />
+
+                <div class="row">
+                  <div class="col-6">
+                      <span>Phone No</span>
+                  </div>
+                  <div class="col-6">
+                      <span><b>{{parent_data.guardians_mobile}}</b></span>
+                  </div>
+                </div>
+                <hr style="font-weight: bold;" />
+
+                <div class="row">
+                  <div class="col-6">
+                      <span>Relation with Guardian</span>
+                  </div>
+                  <div class="col-6">
+                      <span><b>{{parent_data.guardian_relation}}</b></span>
+                  </div>
+                </div>
+                <hr style="font-weight: bold;" />
+
+                <div class="row">
+                  <div class="col-6">
+                      <span>Occupation</span>
+                  </div>
+                  <div class="col-6">
+                      <span><b>{{parent_data.guardians_occupation}}</b></span>
+                  </div>
+                </div>
+                <hr style="font-weight: bold;" />
+
+                <div class="row">
+                  <h5 class="pull-left">OTHER INFORMATION</h5>
+                </div>
+                <hr style="font-weight: bold;" />
+
+                <div class="row">
+                  <div class="col-6">
+                      <span>Blood Group</span>
+                  </div>
+                  <div class="col-6">
+                      <span><b>{{personal_data.bood_group}}</b></span>
+                  </div>
+                </div>
+                <hr style="font-weight: bold;" />
+
+                <div class="row">
+                  <div class="col-6">
+                      <span>Height</span>
+                  </div>
+                  <div class="col-6">
+                      <span><b>{{personal_data.height}}</b></span>
+                  </div>
+                </div>
+                <hr style="font-weight: bold;" />
+
+                <div class="row">
+                  <div class="col-6">
+                      <span>Weight</span>
+                  </div>
+                  <div class="col-6">
+                      <span><b>{{personal_data.weight}}</b></span>
+                  </div>
+                </div>
+                <hr style="font-weight: bold;" />
+
+
+              </div>
+            </p-tabPanel>
+            <p-tabPanel header="Fees" [cache]="false" leftIcon="pi pi-wallet">
+              <ng-template pTemplate="content">
+                <app-fees></app-fees>
+            </ng-template>
+             </p-tabPanel>
+            <p-tabPanel header="Transactions"  [cache]="false" leftIcon="pi pi-clock">
+              <ng-template pTemplate="content">
+                <app-transactions></app-transactions>
+            </ng-template>
+             </p-tabPanel>
+            <p-tabPanel header="Documents" [cache]="false" leftIcon="pi pi-book">
+              <app-documents></app-documents>
+             </p-tabPanel>
+          </p-tabView>
 				</div>
 			</div>
         </div>

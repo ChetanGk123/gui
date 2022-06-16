@@ -53,6 +53,7 @@ import { CameraComponent } from './components/camera/camera.component';
   ],
   imports: [
      CommonModule,
+     WebcamModule,
      RouterModule,
      MaterialModule,
      FormsModule,
