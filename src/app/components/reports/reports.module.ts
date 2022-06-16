@@ -9,6 +9,8 @@ import { AccountHeadTransactionsComponent } from './account-heads/account-head-t
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DueFeesReportComponent } from './due-fees/due-fees-report/due-fees-report.component';
 import { DueFeesComponent } from './due-fees/due-fees.component';
+import { StudentListComponent } from './studentList/studentList.component';
+import { StudentListReportComponent } from './studentList/student-list-report/student-list-report.component';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import { DueFeesComponent } from './due-fees/due-fees.component';
     AccountHeadsComponent,
     AccountHeadTransactionsComponent,
     DueFeesComponent,
-    DueFeesReportComponent
+    DueFeesReportComponent,
+    StudentListComponent,
+    StudentListReportComponent
   ],
   imports: [
     CommonModule,

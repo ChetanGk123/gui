@@ -142,6 +142,7 @@ export class NavService {
 			title: 'Reports', icon: 'folder', type: 'sub', active: false,roles:['Admin','ADMISSION OFFICER'], children: [
 				{ path: '/reports/accountHeads', title: 'Account Heads',icon: 'command', type: 'link',roles:['Admin'] },
 				{ path: '/reports/dueFees', title: 'Due Fees',icon: 'dollar-sign', type: 'link',roles:['Admin'] },
+				{ path: '/reports/studentsList', title: 'Students List',icon: 'user', type: 'link',roles:['Admin'] },
 			]
 		},
 		{

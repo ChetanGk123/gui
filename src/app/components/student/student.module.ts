@@ -57,6 +57,7 @@ import { PromoteStudentsComponent } from './promote-students/promote-students.co
     AccordionModule.forRoot(),
     NgxDatatableModule,
     NgxMaskModule.forRoot(),
+    
   ],
   providers: [ MessageService, ConfirmationService,WizardComponent,
     { provide: MAT_DIALOG_DATA, useValue: {} },

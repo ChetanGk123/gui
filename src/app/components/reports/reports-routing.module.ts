@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AccountHeadsComponent } from './account-heads/account-heads.component';
 import { DueFeesComponent } from './due-fees/due-fees.component';
 import { ReportsComponent } from './reports.component';
+import { StudentListComponent } from './studentList/studentList.component';
 
 const routes: Routes = [
   { path: '', component: ReportsComponent }, 
@@ -20,6 +21,14 @@ const routes: Routes = [
     data: {
       title: "Due Fees",
       breadcrumb: "Due Fees",
+    },
+  },
+  {
+    path: "studentsList",
+    component:StudentListComponent,
+    data: {
+      title: "Student List",
+      breadcrumb: "Student List",
     },
   },
 ];
