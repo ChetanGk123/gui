@@ -147,27 +147,29 @@ export class ProfileComponent implements OnInit {
     await this.apiService
       .postFileTypeRequest("upload_student_document", formData)
       .toPromise()
-      .then((result: any) => (loc = result.data.file_loc));
-    if (loc) {
-      var file = {
-        student_id: this.admission_data.student_id,
-        img_loc: loc,
-      };
-      await this.apiService
-        .postTypeRequest("save_student_photo", file)
-        .subscribe(async (result: any) => {
-          if (result.result) {
-            this.toster.success("Data added successfully");
-            this.fetchApi();
-            this.ProfilePhotoloader = false
-          } else {
-            this.toster.error(result.message);
-          }
-        });
-    }
-    else{
-      this.ProfilePhotoloader = false
-    }
+      .then((result: any) => {
+        if(result.result){
+          loc = result.data.file_loc
+          var file = {
+            student_id: this.admission_data.student_id,
+            img_loc: loc,
+          };
+          this.apiService
+            .postTypeRequest("save_student_photo", file)
+            .subscribe(async (result: any) => {
+              if (result.result) {
+                this.toster.success("Data added successfully");
+                this.fetchApi();
+                this.ProfilePhotoloader = false
+              } else {
+                this.toster.error(result.message);
+              }
+            });
+        }else{
+          this.ProfilePhotoloader = false
+          this.toster.error(result.message);
+        }
+      });
   }
 
   comparer(otherArray) {

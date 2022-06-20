@@ -89,7 +89,9 @@ export class DocumentsComponent implements OnInit {
   }
 
   resetFileGroup() {
+    this.file = null
     this.fileGroup.reset({
+      student_id: this.student?.student_id,
       doc_id: "",
       doc_no: "",
       doc_url: "",
@@ -181,14 +183,16 @@ export class DocumentsComponent implements OnInit {
       await this.apiService
         .postFileTypeRequest("upload_student_document", formData)
         .toPromise()
-        .then((result: any) => (
-          loc = result.data?.file_loc ?? ""));
-      if (loc) {
-        this.fileGroup.patchValue({
-          doc_loc: loc,
-        });
-      }
-    
+        .then((result: any) => {
+          if(result.result){
+            loc = result.data?.file_loc ?? "";
+            this.fileGroup.patchValue({
+              doc_loc: loc,
+            });
+          }else{
+            this.toster.error(result.message)
+          }
+        })
     }
     this.fileGroup.updateValueAndValidity();
     if (this.update) {

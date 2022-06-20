@@ -1,13 +1,18 @@
 import { Component, OnInit } from "@angular/core";
 import { ApiService } from "../../../../shared/services/auth/api.service";
-import { FormBuilder, Validators, FormGroup, FormControl } from "@angular/forms";
+import {
+  FormBuilder,
+  Validators,
+  FormGroup,
+  FormControl,
+} from "@angular/forms";
 import { map } from "rxjs/operators";
 import { DatePipe } from "@angular/common";
 import { ToastrService } from "ngx-toastr";
 import { DocComponent } from "../../../misc/doc/doc.component";
 import { MatDialog } from "@angular/material/dialog";
 import { HttpClient } from "@angular/common/http";
-import { DocViewerComponent } from '../../../../shared/components/doc-viewer/doc-viewer.component'
+import { DocViewerComponent } from "../../../../shared/components/doc-viewer/doc-viewer.component";
 import { AuthService } from "../../../../shared/services/auth/auth.service";
 import { EmployeeService } from "src/app/shared/services/employee/employee.service";
 
@@ -45,19 +50,19 @@ export class DocumentsComponent implements OnInit {
     file: new FormControl(""),
   });
   constructor(
-    public http:HttpClient, 
-    public employeeService: EmployeeService, 
-    public dialog: MatDialog, 
-    public toster: ToastrService, 
-    public apiService: ApiService, 
+    public http: HttpClient,
+    public employeeService: EmployeeService,
+    public dialog: MatDialog,
+    public toster: ToastrService,
+    public apiService: ApiService,
     public authService: AuthService,
     public datepipe: DatePipe
-    ) {}
+  ) {}
 
   ngOnInit(): void {
-    this.loader = false
-    this.update = false
-    this.fetchApi()
+    this.loader = false;
+    this.update = false;
+    this.fetchApi();
   }
 
   async fetchApi() {
@@ -71,7 +76,7 @@ export class DocumentsComponent implements OnInit {
       .getTypeRequest("employee_profile/" + this.employee?.employee_id)
       .subscribe((result: any) => {
         if (result.result) {
-          this.employee_documents = result.data.employee_docments
+          this.employee_documents = result.data.employee_docments;
         } else {
           if (result.error_code === "INVALID_LOGIN") {
             this.toster.error("Session Expired");
@@ -83,7 +88,9 @@ export class DocumentsComponent implements OnInit {
   }
 
   resetFileGroup() {
+    this.file = null
     this.fileGroup.reset({
+      employee_id: this.employee?.employee_id,
       doc_id: "",
       doc_no: "",
       doc_url: "",
@@ -92,7 +99,6 @@ export class DocumentsComponent implements OnInit {
       doc: "",
       doc_loc: "",
       act_doc_id: "",
-      employee_id: this.employee?.employee_id,
     });
     this.update = false;
     this.showDoc = false;
@@ -109,19 +115,19 @@ export class DocumentsComponent implements OnInit {
 
   deleteDocument() {
     this.fileGroup.patchValue({
-      doc_url:''
-    })
+      doc_url: "",
+    });
     this.form.reset({
-      employee_id: this.employee?.employee_id
-    })
+      employee_id: this.employee?.employee_id,
+    });
     this.fileGroup.updateValueAndValidity();
-    this.updateDocument(this.fileGroup.value)
+    this.updateDocument(this.fileGroup.value);
   }
 
-  deleteRecord(data){
+  deleteRecord(data) {
     var Request_Data = {
-      document_id:data.actual_doc_id,
-  }
+      document_id: data.actual_doc_id,
+    };
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: "btn btn-success",
@@ -178,14 +184,16 @@ export class DocumentsComponent implements OnInit {
       await this.apiService
         .postFileTypeRequest("upload_employee_doc", formData)
         .toPromise()
-        .then((result: any) => (
-          loc = result.data?.file_loc ?? ""));
-      if (loc) {
-        this.fileGroup.patchValue({
-          doc_loc: loc,
-        });
-      }
-    
+        .then((result: any) => {
+          if(result.result){
+            loc = result.data?.file_loc ?? "";
+            this.fileGroup.patchValue({
+              doc_loc: loc,
+            });
+          }else{
+            this.toster.error(result.message)
+          }
+        })
     }
     this.fileGroup.updateValueAndValidity();
     if (this.update) {
@@ -196,32 +204,36 @@ export class DocumentsComponent implements OnInit {
   }
 
   async saveFile() {
-    this.loader = true
-    await this.apiService.postTypeRequest("save_document_data/EMPLOYEE", this.fileGroup.value).subscribe(async (result: any) => {
-      if (result.result) {
-        this.toster.success("Data added successfully");
-        this.ngOnInit();
-      } else {
-        this.toster.error(result.message);
-        this.loader = false
-      }
-    });
+    this.loader = true;
+    await this.apiService
+      .postTypeRequest("save_document_data/EMPLOYEE", this.fileGroup.value)
+      .subscribe(async (result: any) => {
+        if (result.result) {
+          this.toster.success("Data added successfully");
+          this.ngOnInit();
+        } else {
+          this.toster.error(result.message);
+          this.loader = false;
+        }
+      });
     this.resetFileGroup();
   }
 
   async updateFile() {
-    this.loader = true
-    
-    await this.apiService.postTypeRequest("update_document_date/EMPLOYEE", this.fileGroup.value).subscribe(async (result: any) => {
-      if (result.result) {
-        this.toster.success("Data added successfully");
-        this.ngOnInit();
-        this.update = false;
-      } else {
-        this.toster.error(result.message);
-        this.loader = false
-      }
-    });
+    this.loader = true;
+
+    await this.apiService
+      .postTypeRequest("update_document_date/EMPLOYEE", this.fileGroup.value)
+      .subscribe(async (result: any) => {
+        if (result.result) {
+          this.toster.success("Data added successfully");
+          this.ngOnInit();
+          this.update = false;
+        } else {
+          this.toster.error(result.message);
+          this.loader = false;
+        }
+      });
     this.resetFileGroup();
   }
 
@@ -229,9 +241,11 @@ export class DocumentsComponent implements OnInit {
     const dialogRef = this.dialog.open(DocComponent);
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.apiService.getTypeRequest("dropdown_data/DOCUMENT").subscribe((result: any) => {
-          this.DocumentList = result.data;
-        });
+        this.apiService
+          .getTypeRequest("dropdown_data/DOCUMENT")
+          .subscribe((result: any) => {
+            this.DocumentList = result.data;
+          });
         this.DocumentList = this.DocumentList.filter((x) => {
           !this.employee_documents.includes((y) => {
             y.id == x.id;
@@ -261,13 +275,22 @@ export class DocumentsComponent implements OnInit {
       doc_url: data.doc_url,
       doc_no: data.doc_no ?? data.document_no ?? "",
 
-      issue_date: data.issued_date ? this.datepipe.transform(new Date(i[2] + "/" + i[1] + "/" + i[0]), "yyyy-MM-dd") : "",
-      expiry_date: data.expiry_date ? this.datepipe.transform(new Date(e[2] + "/" + e[1] + "/" + e[0]), "yyyy-MM-dd") : "",
+      issue_date: data.issued_date
+        ? this.datepipe.transform(
+            new Date(i[2] + "/" + i[1] + "/" + i[0]),
+            "yyyy-MM-dd"
+          )
+        : "",
+      expiry_date: data.expiry_date
+        ? this.datepipe.transform(
+            new Date(e[2] + "/" + e[1] + "/" + e[0]),
+            "yyyy-MM-dd"
+          )
+        : "",
       act_doc_id: data.act_doc_id ?? data.actual_doc_id ?? "",
     });
     this.fileGroup.updateValueAndValidity();
     console.log(this.fileGroup);
-    
   }
 
   downloadDocument(data) {

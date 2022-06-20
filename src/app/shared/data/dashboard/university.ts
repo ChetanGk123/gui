@@ -169,7 +169,7 @@ export interface Chart {
 //Admission chart
 export var admissionChartType = 'line';
 export var admissionChartLabels: Array<any> = ["", "1000", "2000", "3000", "4000", "5000", "6000"];
-export var admissionChartData: Array<any> = [20, 25, 22, 25, 35, 30, 38, 35, 20];
+export var admissionChartData: Array<any> = [20, 25, 22, 25, 35, 30, 48, 35, 20];
 export var admissionChartOptions: any = {
 	responsive: true,
 	animation: false,

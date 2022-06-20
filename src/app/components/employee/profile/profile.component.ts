@@ -88,27 +88,30 @@ export class ProfileComponent implements OnInit {
     await this.apiService
       .postFileTypeRequest("upload_employee_doc", formData)
       .toPromise()
-      .then((result: any) => (loc = result.data.file_loc));
-    if (loc) {
-      var file = {
-        employee_id: this.employee.employee_id,
-        img_loc: loc,
-      };
-      await this.apiService
-        .postTypeRequest("save_employee_photo", file)
-        .subscribe(async (result: any) => {
-          if (result.result) {
-            this.toster.success("Data added successfully");
-            this.ngOnInit();
-          } else {
-            this.toster.error(result.message);
-          }
+      .then((result: any) => {
+        if(result.result ){
+          loc = result.data.file_loc
+          var file = {
+            employee_id: this.employee.employee_id,
+            img_loc: loc,
+          };
+           this.apiService
+            .postTypeRequest("save_employee_photo", file)
+            .subscribe(async (result: any) => {
+              if (result.result) {
+                this.toster.success("Data added successfully");
+                this.ngOnInit();
+              } else {
+                this.toster.error(result.message);
+              }
+              this.ProfilePhotoloader = false
+            });
+        }
+        else{
+          this.toster.error(result.message);
           this.ProfilePhotoloader = false
-        });
-    }
-    else{
-      this.ProfilePhotoloader = false
-    }
+        }
+      });
   }
 
   updateEmployeeData() {
