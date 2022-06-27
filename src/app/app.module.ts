@@ -5,13 +5,13 @@ import { ToastrModule } from 'ngx-toastr';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SharedModule } from "./shared/shared.module";
 import { AuthenticationModule } from './components/authentication/authentication.module'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CookieService } from "ngx-cookie-service";
 import { NgxMaskModule, IConfig } from 'ngx-mask'
 import { CommonModule } from '@angular/common';
 import { TokenInterceptor } from './shared/Interceptor/http.interceptor';
+import { SharedModule } from './shared/shared.module';
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
 

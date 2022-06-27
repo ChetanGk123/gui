@@ -112,7 +112,6 @@ export class NavService {
 				{ path: '/fees/feeGroup', title: 'Fee Groups',icon: 'dollar-sign', type: 'link',roles:['Admin'] },
 				{ path: '/fees/feeComponents', title: 'Fee Components',icon: 'dollar-sign', type: 'link',roles:['Admin'] },
 				{ path: '/fees/assignFees', title: 'Assign Fees',icon: 'dollar-sign', type: 'link',roles:['Admin'] },
-				
 				{ path: '/fees/collectFees', title: 'Collect Fees',icon: 'dollar-sign', type: 'link',roles:['Admin'] },
 				
 			]
@@ -134,13 +133,13 @@ export class NavService {
 		},
 		{
 			title: 'Employees', icon: 'users', type: 'sub', active: false,roles:['Admin','ADMISSION OFFICER'], children: [
-				{ path: '/employee/allEmployees', title: 'All Employees', type: 'link',roles:['Admin','ADMISSION OFFICER'] },
-				{ path: '/employee/addNew', title: 'Add New Employee', type: 'link',roles:['Admin','ADMISSION OFFICER'] },
+				{ path: '/employee/allEmployees',icon: 'users',  title: 'All Employees', type: 'link',roles:['Admin','ADMISSION OFFICER'] },
+				{ path: '/employee/addNew',icon: 'users',  title: 'Add New Employee', type: 'link',roles:['Admin','ADMISSION OFFICER'] },
 			]
 		},
 		{
 			title: 'Reports', icon: 'folder', type: 'sub', active: false,roles:['Admin','ADMISSION OFFICER'], children: [
-				{ path: '/reports/accountHeads', title: 'Account Heads',icon: 'command', type: 'link',roles:['Admin'] },
+				{ path: '/reports/accountHeads', icon: 'folder', title: 'Account Heads', type: 'link',roles:['Admin'] },
 				{ path: '/reports/dueFees', title: 'Due Fees',icon: 'dollar-sign', type: 'link',roles:['Admin'] },
 				{ path: '/reports/studentsList', title: 'Students List',icon: 'user', type: 'link',roles:['Admin'] },
 			]

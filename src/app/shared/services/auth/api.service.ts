@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { User } from '../../model/user';
 import { AuthService } from './auth.service'; 
 import * as CryptoJS from 'crypto-js';
+import * as url from 'src/assets/data/url.json'
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,11 @@ import * as CryptoJS from 'crypto-js';
 export class ApiService {
 
   public token:string ="";
-  public baseUrl = environment.apiUrl;
+  public baseUrl = "";
   encPassword = environment.encPassword;
   constructor(private _http: HttpClient) {
+    const data = url;
+    this.baseUrl = data.apiUrl;
   }
    
   httpLoginOptions = {

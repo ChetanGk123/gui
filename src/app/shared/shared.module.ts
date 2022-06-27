@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import {NgxPrintModule} from 'ngx-print';
 
 import { DatePipe } from '@angular/common';
 
@@ -27,13 +26,11 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DocViewerComponent } from './components/doc-viewer/doc-viewer.component';
 import { ExcelService } from './services/excel.service';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { PrimengModule } from './primeng.module'
-import { NgxMaskModule } from 'ngx-mask';
 import {WebcamModule} from 'ngx-webcam';
-import { ImageCropperModule } from 'ngx-image-cropper';
 import { CameraComponent } from './components/camera/camera.component';
+import { NgxPrintModule } from 'ngx-print';
 
 @NgModule({
   declarations: [

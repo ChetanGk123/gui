@@ -3,16 +3,16 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "endless": {
-      "root": "",
-      "sourceRoot": "src",
+    "endless-starterkit": {
       "projectType": "application",
-      "prefix": "app",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
         }
       },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -49,17 +49,15 @@
               "@tweenjs/tween.js",
               "photoswipe",
               "photoswipe/dist/photoswipe-ui-default",
-              "angular-calendar/date-adapters/date-fns",
-              "@firebase/auth"
+              "angular-calendar/date-adapters/date-fns"
             ],
-            "outputPath": "dist",
+            "outputPath": "dist/endless-starterkit",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              { "glob": "**/*", "input": "node_modules/ngx-extended-pdf-viewer/assets/", "output": "/assets/" },
               "src/assets"
             ],
             "styles": [
@@ -107,13 +105,12 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "4mb",
-                  "maximumError": "11mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "20kb",
-                  "maximumError": "25kb"
+                  "maximumWarning": "6kb"
                 }
               ]
             }
@@ -122,18 +119,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "endless:build"
+            "browserTarget": "endless-starterkit:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "endless:build:production"
+              "browserTarget": "endless-starterkit:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "endless:build"
+            "browserTarget": "endless-starterkit:build"
           }
         },
         "test": {
@@ -141,41 +138,34 @@
           "options": {
             "main": "src/test.ts",
             "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.spec.json",
-            "karmaConfig": "src/karma.conf.js",
-            "styles": [
-              "src/styles.scss"
-            ],
-            "scripts": [],
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
               "src/assets"
-            ]
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": []
           }
-        }
-      }
-    },
-    "endless-e2e": {
-      "root": "e2e/",
-      "projectType": "application",
-      "prefix": "",
-      "architect": {
+        },
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "endless:serve"
+            "devServerTarget": "endless-starterkit:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "endless:serve:production"
+              "devServerTarget": "endless-starterkit:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "endless",
+  "defaultProject": "endless-starterkit",
   "cli": {
     "analytics": false
   }

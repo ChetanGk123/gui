@@ -10,8 +10,6 @@ import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 //import { ChartistModule } from 'ng-chartist';
 import { ChartsModule } from 'ng2-charts';
-import { CarouselModule } from 'ngx-owl-carousel-o';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { DashboardComponent } from './dashboard.component'
 
@@ -23,7 +21,6 @@ import { DashboardComponent } from './dashboard.component'
   ],
   imports: [
     CommonModule,
-    CarouselModule,
     //ChartistModule,
     ChartsModule,
     CountToModule,

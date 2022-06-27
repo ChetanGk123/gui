@@ -298,13 +298,11 @@ export class FeeComponentsComponent implements OnInit {
   }
 
   showErrors(){
-    // this.FeeComponent.controls.forEach(element => {
-      
-    // });
     for (var control in this.FeeComponent.controls) {
       if(this.FeeComponent.controls[control].invalid){
         console.log(control)
       }
     }
+    this.FeeComponent.touched == true;
   }
 }
