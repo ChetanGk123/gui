@@ -10,9 +10,7 @@ import { ArchwizardModule, WizardComponent } from 'angular-archwizard';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgxMaskModule } from 'ngx-mask';
-import { ConfirmationService, MessageService } from 'primeng/api';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { CameraComponent } from 'src/app/shared/components/camera/camera.component';
 import { DocumentsComponent } from './profile/documents/documents.component';
 
 
@@ -32,7 +30,7 @@ import { DocumentsComponent } from './profile/documents/documents.component';
     NgxMaskModule.forRoot(),
     EmployeeRoutingModule
   ],
-  providers: [ MessageService, ConfirmationService,WizardComponent,
+  providers: [ WizardComponent,
     { provide: MAT_DIALOG_DATA, useValue: {} },
     { provide: MatDialogRef, useValue: {} }
   ]

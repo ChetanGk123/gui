@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { WebcamImage } from 'ngx-webcam';
 import { ApiService } from 'src/app/shared/services/auth/api.service';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
+import { ConfirmationService } from 'src/app/shared/services/confirmation_service/confirmation.service';
 import { EmployeeService } from 'src/app/shared/services/employee/employee.service';
 import { AddNewComponent } from '../add-new/add-new.component';
 
@@ -38,7 +39,8 @@ export class ProfileComponent implements OnInit {
     public dialog: MatDialog,
     public datepipe: DatePipe,
     public router: Router,
-    public http: HttpClient
+    public http: HttpClient,
+    public confirmationService: ConfirmationService
   ) { }
 
   ngOnInit(): void {
@@ -127,5 +129,29 @@ export class ProfileComponent implements OnInit {
         this.ngOnInit();
       }
     });
+  }
+
+  deleteEmployeeData() {
+    var Request_Data = {
+      item_id: this.employee?.employee_id,
+    };
+    this.confirmationService.showConfirmMessage()
+      .then((result) => {
+        if (result.value) {
+          this.apiService
+            .postTypeRequest("delete_item/EMPLOYEE", Request_Data)
+            .toPromise()
+            .then((result: any) => {
+              if (result.result) {
+                this.toster.warning("Data deleted");
+                this.confirmationService.showSuccessMessage("Deleted!",result.message)
+                this.router.navigate(["/employee/allEmployees"]);
+              } else {
+                this.confirmationService.showErrorMessage("Cancelled",result.message)
+                this.toster.error(result.message);
+              }
+            });
+        }
+      });
   }
 }

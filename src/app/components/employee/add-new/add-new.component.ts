@@ -204,10 +204,13 @@ export class AddNewComponent implements OnInit {
   }
 
   submit(){
+    debugger
+    if(this.employeeForm.value){
+      console.log(this.employeeForm.value);
     this.submitDisable = true
-    console.log(this.employeeForm.value);
     if(!this.dialogdata?.item_id){
       this.apiService.postTypeRequest('register_employee',this.employeeForm.value).subscribe((result:any) => {
+        debugger
         if(result.result){
           this.toster.success("Data Added Successfully")
           this.employeeService.setSelectedEmployee(result.data)
@@ -228,6 +231,10 @@ export class AddNewComponent implements OnInit {
           this.submitDisable = false;
         }
       })
+    }
+    }
+    else{
+      this.employeeForm.markAllAsTouched()
     }
   }
 }

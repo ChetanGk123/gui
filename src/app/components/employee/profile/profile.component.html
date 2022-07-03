@@ -67,7 +67,7 @@
               <img [src]="webcamImage.imageAsDataUrl" />
             </div>
           </div>
-          <div class="row">
+          <div class="row d-flex justify-content-between">
             <div class="col">
               <button
                 class="btn btn-primary text-center mt-3"
@@ -75,6 +75,8 @@
               >
                 Open Camera
               </button>
+            </div>
+              <div class="col">
               <button
                 class="btn btn-primary text-center mt-3"
                 (click)="uploadProfilePhoto()"
@@ -100,8 +102,9 @@
           <p-tabView [scrollable]="true">   
             <p-tabPanel header="Profile" leftIcon="pi pi-user">
                 <div class="card">
-                    <div class="row">
-                      <h5 class="pull-left">PERSONAL INFO</h5>
+                  <div class="card-header d-flex justify-content-between mb-0">
+                    <h5 class="pull-left">PERSONAL INFO</h5>
+                    <div>
                       <button
                         pButton
                         pRipple
@@ -113,17 +116,18 @@
                         (click)="updateEmployeeData()"
                       ></button>
                       <button
-                        pButton
+                        pButton 
                         pRipple
                         type="button"
                         icon="pi pi-trash"
                         class="p-button-rounded btn-danger ml-3"
                         style="height: 35px; width: 35px"
                         ngbTooltip="Delete Record"
-                        (click)="deleteStudentData()"
+                        (click)="deleteEmployeeData()"
                       ></button>
                     </div>
-                    <hr style="font-weight: bold" />
+                  </div>
+                  <div class="card-body mt-0">
                     <div class="row">
                       <div class="col-sm-12 col-md-6">
                         <span>Phone No :- <b>{{ employee.mobile }}</b></span>
@@ -180,7 +184,17 @@
                     </div>
                     <hr style="font-weight: bold" />
                   </div>
+                  </div>
              </p-tabPanel>
+             <p-tabPanel
+              header="Bank Details"
+              [cache]="false"
+              leftIcon="pi pi-money-bill"
+            >
+              <ng-template pTemplate="content">
+                <app-bank-details [Type]="'EMPLOYEE'" [person_id]="this.employee?.employee_id"></app-bank-details>
+              </ng-template>
+            </p-tabPanel>
              <p-tabPanel header="Documents" leftIcon="pi pi-book">
               <app-documents></app-documents>
              </p-tabPanel>

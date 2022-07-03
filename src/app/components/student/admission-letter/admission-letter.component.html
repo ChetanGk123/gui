@@ -6,13 +6,10 @@
           <div class="d-flex justify-content-between">
             <h3>Admission Letter</h3>
             <div class="btn-group" role="group" ariatext-label="Basic example">
-              <button
-                class="icofont icofont-print mr-4"
-                style="cursor: pointer; font-size: 25px; font-weight: 400"
-                [useExistingCss]="true"
-                [printTitle]="admission_data.admission_no"  
-                printSectionId="admissionForm" ngxPrint
-              ></button>
+              <button pButton pRipple type="button" [useExistingCss]="true"
+              [printTitle]="admission_data.admission_no"  
+              printSectionId="admissionForm" ngxPrint icon="pi pi-print" class="p-button-rounded btn-success" style="height: 35px; width: 35px;"></button>
+
             </div>
           </div>
         </div>

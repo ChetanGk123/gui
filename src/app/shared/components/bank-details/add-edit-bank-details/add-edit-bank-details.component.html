@@ -1,0 +1,55 @@
+<div class="card">
+  <div class="card-header card-header d-flex justify-content-between">
+    <h5>Add/Edit Bank Details</h5>
+  </div>
+  <div class="card-body">
+    <form class="needs-validation" [formGroup]="bankDetails" autocomplete="off" novalidate>
+      <div class="form-row">
+        <!-- IFSC Start -->
+        <div class="col-md-6 mb-3">
+          <label for="ifsc">IFSC <span class="font-danger">*</span></label>
+          <input type="text" class="form-control" id="ifsc" placeholder="CNRB0000" formControlName="ifsc" />
+          <div *ngIf="bankDetails.controls.ifsc.touched && bankDetails.controls.ifsc.errors?.required" class="text text-danger">IFSC is required.</div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="micr">MICR</label>
+          <input type="text" class="form-control" id="micr" placeholder="CZ098" formControlName="micr" />
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="account_type">Account Type <span class="font-danger">*</span></label>
+          <input type="text" class="form-control" id="account_type" placeholder="Savings" formControlName="account_type" />
+          <div *ngIf="bankDetails.controls.account_type.touched && bankDetails.controls.account_type.errors?.required" class="text text-danger">Account Type is required.</div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="bank_name">Bank Name <span class="font-danger">*</span></label>
+          <input type="text" class="form-control" id="bank_name" placeholder="Canara Bank" formControlName="bank_name" />
+          <div *ngIf="bankDetails.controls.bank_name.touched && bankDetails.controls.bank_name.errors?.required" class="text text-danger">Bank Name is required.</div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="branch">Branch <span class="font-danger">*</span></label>
+          <input type="text" class="form-control" id="branch" placeholder="Hampi" formControlName="branch" />
+          <div *ngIf="bankDetails.controls.branch.touched && bankDetails.controls.branch.errors?.required" class="text text-danger">Branch is required.</div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="address">Address <span class="font-danger">*</span></label>
+          <input type="text" class="form-control" id="address" placeholder="XXXXXXXX" formControlName="address" />
+          <div *ngIf="bankDetails.controls.address.touched && bankDetails.controls.address.errors?.required" class="text text-danger">Address is required.</div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="account_number">Account Number <span class="font-danger">*</span></label>
+          <input type="text" class="form-control" id="account_number" placeholder="0987709797979" formControlName="account_number" />
+          <div *ngIf="bankDetails.controls.account_number.touched && bankDetails.controls.account_number.errors?.required" class="text text-danger">Account Number is required.</div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="acc_holder_name">A/c Holder Name <span class="font-danger">*</span></label>
+          <input type="text" class="form-control" id="acc_holder_name" placeholder="XXX XXX XXX" formControlName="acc_holder_name" />
+          <div *ngIf="bankDetails.controls.acc_holder_name.touched && bankDetails.controls.acc_holder_name.errors?.required" class="text text-danger">A/c Holder Name is required.</div>
+        </div>
+        <div class="col d-flex justify-content-around">
+          <button class="btn btn-primary float-right text-center mb-3" type="submit" [disabled]="loader" (click)="submitBankDetails()">Submit &nbsp;<i class="fa fa-circle-o-notch fa-spin" *ngIf="loader"></i></button>
+          <button class="btn btn-warning float-right text-center mb-3" type="button" (click)="resetBankDetails()">Clear</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

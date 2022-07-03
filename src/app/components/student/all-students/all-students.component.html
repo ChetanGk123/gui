@@ -108,12 +108,9 @@
               <div class="row d-flex align-items-center">
                 <div class="col-md-6 col-sm-12">
                   <p>Export :</p>
-                  <i
-                    class="icofont icofont-file-spreadsheet ml-2"
-                    ngbTooltip="Export As Excel"
-                    style="cursor: pointer; font-size: 28px; font-weight: 500"
-                    (click)="exportCsv()"
-                  ></i>
+                  <div class="flex col-2">
+                    <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportCsv()" class="btn-success mr-2" pTooltip="XLS" tooltipPosition="bottom"></button>
+                  </div>
                 </div>
                 <div class="col-xl-3 col-md-6 col-sm-12 float-right">
                   <button

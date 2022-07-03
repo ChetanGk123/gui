@@ -49,9 +49,10 @@
             <td>{{product.name}}</td>
             <td> 
               <div>
-                <button class="btn btn-primary btn-pill mr-3" style="width: 30px;" (click)="update(product)"><i class="icofont icofont-pencil-alt-5" style="margin-left: -6px;"></i></button>
-                <button class="btn btn-danger btn-pill" style="width: 30px;" (click)="onDelete(product.id)"><i class="icofont icofont-delete-alt" style="margin-left: -6px;"></i></button>
-          </div>
+                <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded btn-success" style="height: 35px; width: 35px;" (click)="update(product)"></button>
+                <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded btn-danger ml-2" style="height: 35px; width: 35px;" (click)="onDelete(product.id)"></button>
+              </div>
+
           </td>
         </tr>
     </ng-template>

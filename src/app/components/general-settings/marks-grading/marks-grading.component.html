@@ -59,21 +59,13 @@
                                     </td>
                                     <td style="width: 12rem;">
                                         <div *ngIf="editIndex != i">
-                                            <button class="btn btn-info btn-sm mr-2" (click)="editIndex = i">
-                                                <i class="icofont icofont-pencil-alt-5"></i>
-                                              </button>
-                                              <button class="btn btn-danger btn-sm" (click)="marksGrading.splice(i, 1)">
-                                                  <i class="icofont icofont-delete-alt"></i>
-                                                </button>
-                                        </div>
-                                        <div *ngIf="editIndex == i">
-                                            <button class="btn btn-success btn-sm mr-2" (click)="marksGrading[i] = school;editIndex = -1">
-                                                <i class="icofont icofont-ui-file"></i>
-                                            </button>
-                                            <button class="btn btn-danger btn-sm" (click)="marksGrading.splice(i, 1)">
-                                                <i class="icofont icofont-delete-alt"></i>
-                                              </button>
-                                        </div>
+                                          <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded btn-success" style="height: 35px; width: 35px;" (click)="editIndex = i"></button>
+                                          <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded btn-danger ml-2" style="height: 35px; width: 35px;" (click)="marksGrading.splice(i, 1)"></button>
+                                      </div>
+                                      <div *ngIf="editIndex == i">
+                                          <button pButton pRipple type="button" icon="pi pi-file" class="p-button-rounded btn-success" style="height: 35px; width: 35px;" (click)="marksGrading[i] = school;editIndex = -1"></button>
+                                          <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded btn-danger ml-2" style="height: 35px; width: 35px;" (click)="marksGrading.splice(i, 1)"></button>
+                                      </div>
                                     </td>
                                 </tr>
                               </tbody>

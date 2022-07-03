@@ -14,6 +14,10 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
 import { CustomizerComponent } from './components/customizer/customizer.component';
 import { BookmarkComponent } from './components/bookmark/bookmark.component';
 import { LoaderComponent } from './components/loader/loader.component'
+import { BankDetailsComponent } from './components/bank-details/bank-details.component'
+import { AddEditBankDetailsComponent } from './components/bank-details/add-edit-bank-details/add-edit-bank-details.component'
+import { ProfileDocumentsComponent } from './components/profile-documents/profile-documents.component'
+import { AddEditProfileDocumentsComponent } from './components/profile-documents/add-edit-profile-documents/add-edit-profile-documents.component'
 // services
 import { NavService } from "./services/nav.service";
 import { DialogService } from '../shared/services/dialog.service'
@@ -31,6 +35,7 @@ import { PrimengModule } from './primeng.module'
 import {WebcamModule} from 'ngx-webcam';
 import { CameraComponent } from './components/camera/camera.component';
 import { NgxPrintModule } from 'ngx-print';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
   declarations: [
@@ -46,12 +51,18 @@ import { NgxPrintModule } from 'ngx-print';
     CustomizerComponent,
     DialogComponent,
     DocViewerComponent,
-    CameraComponent
+    CameraComponent,
+    BankDetailsComponent,
+    AddEditBankDetailsComponent,
+    ProfileDocumentsComponent,
+    AddEditProfileDocumentsComponent
   ],
   imports: [
      CommonModule,
      WebcamModule,
+     ImageCropperModule,
      RouterModule,
+     PrimengModule,
      MaterialModule,
      FormsModule,
      NgbModule,
@@ -64,7 +75,11 @@ import { NgxPrintModule } from 'ngx-print';
      FormsModule,
      NgbModule,
      ReactiveFormsModule,
-     CameraComponent
+     CameraComponent,
+     BankDetailsComponent,
+     AddEditBankDetailsComponent,
+     ProfileDocumentsComponent,
+     AddEditProfileDocumentsComponent
   ],
   providers: [
     NavService,

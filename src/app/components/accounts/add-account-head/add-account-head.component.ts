@@ -36,7 +36,7 @@ export class AddAccountHeadComponent implements OnInit {
     this.dataFetch = true
     this.submitDisable = false
     this.addValue = ""
-    this.apiService.getTypeRequest('table_data/ACCOUNT_HEAD').subscribe((result:any) => {
+    const data = this.apiService.getTypeRequest('table_data/ACCOUNT_HEAD').subscribe((result:any) => {
       this.List = result.data
       this.feeGroup = result.data
       this.dataFetch = false

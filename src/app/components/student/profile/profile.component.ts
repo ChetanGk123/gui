@@ -211,6 +211,7 @@ export class ProfileComponent implements OnInit {
       }
     });
   }
+  
   deleteStudentData() {
     var Request_Data = {
       item_id: this.admission_data.student_id,

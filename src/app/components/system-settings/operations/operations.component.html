@@ -58,13 +58,13 @@
                                  </td>
                                  <td style="width: 12rem;">
                                      <div *ngIf="editIndex != i">
-                                           <button class="btn btn-primary btn-pill mr-3" style="width: 30px;" (click)="editClick(i,data)"><i class="icofont icofont-pencil-alt-5" style="margin-left: -6px;"></i></button>
-                                           <button class="btn btn-danger btn-pill" style="width: 30px;" (click)="onDelete(data.operation_id)"><i class="icofont icofont-delete-alt" style="margin-left: -6px;"></i></button>
-                                     </div>
-                                     <div *ngIf="editIndex == i">
-                                           <button class="btn btn-success btn-pill mr-3" style="width: 30px;" (click)="update(data.operation_id)"><i class="icofont icofont-ui-file" style="margin-left: -6px;"></i></button>
-                                           <button class="btn btn-danger btn-pill" style="width: 30px;" (click)="editIndex = -1"><i class="icofont icofont-close" style="margin-left: -6px;"></i></button>
-                                     </div>
+                                      <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded btn-success" style="height: 35px; width: 35px;" (click)="editClick(i,data)"></button>
+                                      <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded btn-danger ml-2" style="height: 35px; width: 35px;" (click)="onDelete(data.operation_id)"></button>
+                                  </div>
+                                  <div *ngIf="editIndex == i">
+                                      <button pButton pRipple type="button" icon="pi pi-file" class="p-button-rounded btn-success" style="height: 35px; width: 35px;" (click)="update(data.operation_id)"></button>
+                                      <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded btn-danger ml-2" style="height: 35px; width: 35px;" (click)="editIndex = -1"></button>
+                                  </div>
                                  </td>
                              </tr>
                            </tbody>

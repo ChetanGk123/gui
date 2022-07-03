@@ -17,7 +17,7 @@
       (click)="openCustomizerSetting(customizer == 'color'?'':'color')"
     >
       <div class="settings color-settings">
-        <i class="icofont icofont-ui-settings"></i>
+        <i class="fa fa-gear"></i>
       </div>
     </a>
   </div>
@@ -25,7 +25,7 @@
 <div class="customizer-contain" [ngClass]="{ open: customizer }">
   <div class="tab-content" id="c-pills-tabContent">
    <div class="customizer-header">
-      <i class="icofont-close icon-close" (click)="customizer = ''"></i>
+      <!-- <i class="-close icon-close" (click)="customizer = ''"></i> -->
       <h5>Customizer</h5>
       </div>
     <div class="customizer-body custom-scrollbar">

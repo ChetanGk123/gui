@@ -1,0 +1,160 @@
+<div class="card">
+  <div class="card-header d-flex justify-content-between">
+    <h5>Bank Account Details</h5>
+    <div *ngIf="dataFetch">
+      <div *ngIf="bankDetails.bank_id?.toString().length > 0; then IF; else ELSE"></div>
+        <ng-template #IF>
+          <div class="d-flex justify-content-end">
+            <button
+            pButton
+            pRipple
+            type="button"
+            icon="pi pi-pencil"
+            class="p-button-rounded btn-primary ml-3"
+            [disabled]="disableActions"
+            style="height: 35px; width: 35px"
+            ngbTooltip="Update Record"
+            (click)="editDetails()"
+          ></button>
+          <button
+            pButton
+            pRipple
+            type="button"
+            icon="pi pi-trash"
+            class="p-button-rounded btn-danger ml-3"
+            [disabled]="disableActions"
+            style="height: 35px; width: 35px"
+            ngbTooltip="Delete Record"
+            (click)="deleteDetails()"
+          ></button>
+          </div>
+          
+        </ng-template>
+        <ng-template #ELSE>
+          <button
+            pButton
+            pRipple
+            type="button"
+            icon="pi pi-plus"
+            class="p-button-rounded btn-primary ml-3"
+            style="height: 35px; width: 35px"
+            ngbTooltip="Add Record"
+            (click)="addDetails()"
+          ></button>
+        </ng-template>
+    </div>
+    
+  </div>
+  <div class="card-body">
+    <div class="loader-box center" *ngIf="!dataFetch">
+      <span class="rotate dashed"></span>
+    </div>
+
+    <div class="row mb-4 pl-3 pr-3" *ngIf="dataFetch">
+      <div class="col-md-6 col-sm-12">
+        <div class="row">
+          <div class="col-6 d-flex justify-content-between">
+            <span>IFSC</span>
+            <span>:</span>
+          </div>
+          <div class="col-6">
+            <span
+              ><b> {{ bankDetails.ifsc ?? "--" }}</b></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <div class="row">
+          <div class="col-6 d-flex justify-content-between">
+            <span>MICR</span>
+            <span>:</span>
+          </div>
+          <div class="col-6">
+            <span
+              ><b> {{ bankDetails.micr ?? "--" }}</b></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <div class="row">
+          <div class="col-6 d-flex justify-content-between">
+            <span>Account Type</span>
+            <span>:</span>
+          </div>
+          <div class="col-6">
+            <span
+              ><b> {{ bankDetails.account_type ?? "--" }}</b></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <div class="row">
+          <div class="col-6 d-flex justify-content-between">
+            <span>Bank Name</span>
+            <span>:</span>
+          </div>
+          <div class="col-6">
+            <span
+              ><b> {{ bankDetails.bank_name ?? "--" }}</b></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <div class="row">
+          <div class="col-6 d-flex justify-content-between">
+            <span>Branch</span>
+            <span>:</span>
+          </div>
+          <div class="col-6">
+            <span
+              ><b> {{ bankDetails.branch ?? "--" }}</b></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <div class="row">
+          <div class="col-6 d-flex justify-content-between">
+            <span>Account Number</span>
+            <span>:</span>
+          </div>
+          <div class="col-6">
+            <span
+              ><b> {{ bankDetails.account_number ?? "--" }}</b></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <div class="row">
+          <div class="col-6 d-flex justify-content-between">
+            <span>Address</span>
+            <span>:</span>
+          </div>
+          <div class="col-6">
+            <span
+              ><b> {{ bankDetails.address ?? "--" }}</b></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <div class="row">
+          <div class="col-6 d-flex justify-content-between">
+            <span>A/c Holder Name</span>
+            <span>:</span>
+          </div>
+          <div class="col-6">
+            <span
+              ><b> {{ bankDetails.acc_holder_name ?? "--" }}</b></span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

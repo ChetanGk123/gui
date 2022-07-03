@@ -114,10 +114,9 @@
                                                 <option *ngFor="let data of bloodGroupList" value="{{data.id}}">
                                                     {{data.name}}</option>
                                             </select>
-                                            <button class="btn btn-primary btn-circle1 ml-1"
-                                                style="height: 30px;width: 30px;" ngbTooltip="Add Blood Group"
-                                                (click)="addBlooadGroup()"><i class="icofont icofont-plus"
-                                                    style="height: 20px;width: 20px;"></i></button>
+                                            <button pButton pRipple type="button" icon="pi pi-plus"
+                                            class="p-button-rounded btn-primary ml-1" style="height: 35px; width: 35px;"
+                                            ngbTooltip="Add Blood Group" (click)="addBlooadGroup()"></button>
                                         </div>
                                     </div>
                                     <!-- Blood Group End -->
@@ -146,10 +145,9 @@
                                                 <option *ngFor="let data of genderList" value="{{data.id}}">
                                                     {{data.name}}</option>
                                             </select>
-                                            <button class="btn btn-primary btn-circle1 ml-1"
-                                                style="height: 30px;width: 30px;" ngbTooltip="Add Blood Group"
-                                                (click)="addGender()"><i class="icofont icofont-plus"
-                                                    style="height: 20px;width: 20px;"></i></button>
+                                                    <button pButton pRipple type="button" icon="pi pi-plus"
+                                            class="p-button-rounded btn-primary ml-1" style="height: 35px; width: 35px;"
+                                            ngbTooltip="Add Gender" (click)="addGender()"></button>
                                         </div>
                                         <div *ngIf="studentForm.controls.gender_id.touched && studentForm.controls.gender_id.errors?.required"
                                             class="text text-danger">
@@ -168,10 +166,9 @@
                                                 <option *ngFor="let data of religionList" value="{{data.id}}">
                                                     {{data.name}}</option>
                                             </select>
-                                            <button class="btn btn-primary btn-circle1 ml-1"
-                                                style="height: 30px;width: 30px;" ngbTooltip="Add New Religion"
-                                                (click)="addReligion()"><i class="icofont icofont-plus"
-                                                    style="height: 20px;width: 20px;"></i></button>
+                                                    <button pButton pRipple type="button" icon="pi pi-plus"
+                                            class="p-button-rounded btn-primary ml-1" style="height: 35px; width: 35px;"
+                                            ngbTooltip="Add Religion" (click)="addReligion()"></button>
                                         </div>
                                         <div *ngIf="studentForm.controls.religion_id.touched && studentForm.controls.religion_id.errors?.required"
                                             class="text text-danger">
@@ -190,10 +187,9 @@
                                                 <option *ngFor="let data of casteList" value="{{data.id}}">{{data.name}}
                                                 </option>
                                             </select>
-                                            <button class="btn btn-primary btn-circle1 ml-1"
-                                                style="height: 30px;width: 30px;" ngbTooltip="Add New Cast"
-                                                (click)="addCast()"><i class="icofont icofont-plus"
-                                                    style="height: 20px;width: 20px;"></i></button>
+                                                    <button pButton pRipple type="button" icon="pi pi-plus"
+                                            class="p-button-rounded btn-primary ml-1" style="height: 35px; width: 35px;"
+                                            ngbTooltip="Add Cast" (click)="addCast()"></button>
                                         </div>
                                         <div *ngIf="studentForm.controls.caste_id.touched && studentForm.controls.caste_id.errors?.required"
                                             class="text text-danger">
@@ -212,10 +208,9 @@
                                                 <option *ngFor="let data of categoryList" value="{{data.id}}">
                                                     {{data.name}}</option>
                                             </select>
-                                            <button class="btn btn-primary btn-circle1 ml-1"
-                                                style="height: 30px;width: 30px;" ngbTooltip="Add New Category"
-                                                (click)="addCategory()"><i class="icofont icofont-plus"
-                                                    style="height: 20px;width: 20px;"></i></button>
+                                                    <button pButton pRipple type="button" icon="pi pi-plus"
+                                                    class="p-button-rounded btn-primary ml-1" style="height: 35px; width: 35px;"
+                                                    ngbTooltip="Add Category" (click)="addCategory()"></button>
                                         </div>
                                         <div *ngIf="studentForm.controls.category_id.touched && studentForm.controls.category_id.errors?.required"
                                             class="text text-danger">
@@ -288,11 +283,11 @@
                                     <div class="col-5">
                                         <label for="special_needs">Disabilities</label>
                                         <textarea *ngIf="studentForm.controls['is_special_needs'].value"
-                                            class="form-control" id="special_needs" placeholder="Disabilities"
+                                            class="form-control" id="special_needs" placeholder="Disabilities" rows="1"
                                             [formControl]="studentForm.controls['special_needs']"></textarea>
                                         <textarea *ngIf="!studentForm.controls['is_special_needs'].value"
                                             disabled="true" class="form-control" id="special_needs"
-                                            placeholder="Disabilities"
+                                            placeholder="Disabilities" rows="1"
                                             [formControl]="studentForm.controls['special_needs']"></textarea>
                                     </div>
                                     <div class="col-3">
@@ -806,10 +801,9 @@
                                             <option *ngFor="let data of academinYearList" value="{{data.id}}">
                                                 {{data.name}}</option>
                                         </select>
-                                        <button class="btn btn-primary btn-circle1 ml-1"
-                                            style="height: 30px;width: 30px;" ngbTooltip="Add New Academin Year"
-                                            (click)="addAcademicYear()"><i class="icofont icofont-plus"
-                                                style="height: 20px;width: 20px;"></i></button>
+                                                <button pButton pRipple type="button" icon="pi pi-plus"
+                                                    class="p-button-rounded btn-primary ml-1" style="height: 35px; width: 35px;"
+                                                    ngbTooltip="Add Academic Year" (click)="addAcademicYear()"></button>
                                     </div>
                                     <div *ngIf="academicForm.controls.academic_year_id.touched && academicForm.controls.academic_year_id.errors?.required"
                                         class="text text-danger">
@@ -826,10 +820,9 @@
                                             <option *ngFor="let data of departmentList" value="{{data.id}}">
                                                 {{data.name}}</option>
                                         </select>
-                                        <button class="btn btn-primary btn-circle1 ml-1"
-                                            style="height: 30px;width: 30px;" ngbTooltip="Add New Department"
-                                            (click)="addDepartment()"><i class="icofont icofont-plus"
-                                                style="height: 20px;width: 20px;"></i></button>
+                                                <button pButton pRipple type="button" icon="pi pi-plus"
+                                                    class="p-button-rounded btn-primary ml-1" style="height: 35px; width: 35px;"
+                                                    ngbTooltip="Add Department" (click)="addDepartment()"></button>
                                     </div>
                                     <div *ngIf="academicForm.controls.dept_id.touched && academicForm.controls.dept_id.errors?.required"
                                         class="text text-danger">
@@ -846,10 +839,9 @@
                                             <option *ngFor="let data of classList" value="{{data.id}}">{{data.name}}
                                             </option>
                                         </select>
-                                        <button class="btn btn-primary btn-circle1 ml-1"
-                                            style="height: 30px;width: 30px;" ngbTooltip="Add New Class"
-                                            (click)="addClass()"><i class="icofont icofont-plus"
-                                                style="height: 20px;width: 20px;"></i></button>
+                                                <button pButton pRipple type="button" icon="pi pi-plus"
+                                                    class="p-button-rounded btn-primary ml-1" style="height: 35px; width: 35px;"
+                                                    ngbTooltip="Add Class" (click)="addClass()"></button>
                                     </div>
                                     <div *ngIf="academicForm.controls.class_id.touched && academicForm.controls.class_id.errors?.required"
                                         class="text text-danger">
@@ -866,10 +858,9 @@
                                             <option *ngFor="let data of divisionList" value="{{data.id}}">{{data.name}}
                                             </option>
                                         </select>
-                                        <button class="btn btn-primary btn-circle1 ml-1"
-                                            style="height: 30px;width: 30px;" ngbTooltip="Add New Division"
-                                            (click)="addDivision()"><i class="icofont icofont-plus"
-                                                style="height: 20px;width: 20px;"></i></button>
+                                                <button pButton pRipple type="button" icon="pi pi-plus"
+                                                    class="p-button-rounded btn-primary ml-1" style="height: 35px; width: 35px;"
+                                                    ngbTooltip="Add Division" (click)="addDivision()"></button>
                                     </div>
                                 </div>
                                 <div class="col-md-3 mb-3">
@@ -961,24 +952,12 @@
                                                     </td>
                                                     <td style="width: 12rem;">
                                                         <div *ngIf="editIndex != i">
-                                                            <button class="btn btn-info btn-sm mr-2"
-                                                                (click)="editIndex = i">
-                                                                <i class="icofont icofont-pencil-alt-5"></i>
-                                                            </button>
-                                                            <button class="btn btn-danger btn-sm"
-                                                                (click)="schoolHistoryList.splice(i, 1)">
-                                                                <i class="icofont icofont-delete-alt"></i>
-                                                            </button>
+                                                            <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded btn-success" style="height: 35px; width: 35px;" (click)="editIndex = i"></button>
+                                                            <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded btn-danger ml-2" style="height: 35px; width: 35px;" (click)="schoolHistoryList.splice(i, 1)"></button>
                                                         </div>
                                                         <div *ngIf="editIndex == i">
-                                                            <button class="btn btn-success btn-sm mr-2"
-                                                                (click)="schoolHistoryList[i] = school;editIndex = -1">
-                                                                <i class="icofont icofont-ui-file"></i>
-                                                            </button>
-                                                            <button class="btn btn-danger btn-sm"
-                                                                (click)="schoolHistoryList.splice(i, 1)">
-                                                                <i class="icofont icofont-delete-alt"></i>
-                                                            </button>
+                                                            <button pButton pRipple type="button" icon="pi pi-file" class="p-button-rounded btn-success" style="height: 35px; width: 35px;" (click)="schoolHistoryList[i] = school;editIndex = -1"></button>
+                                                            <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded btn-danger ml-2" style="height: 35px; width: 35px;" (click)="schoolHistoryList.splice(i, 1)"></button>
                                                         </div>
                                                     </td>
                                                 </tr>

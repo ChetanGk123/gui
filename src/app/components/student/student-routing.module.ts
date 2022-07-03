@@ -7,7 +7,6 @@ import { AssignTcComponent } from "./assign-tc/assign-tc.component";
 import { AssignedTcComponent } from "./assigned-tc/assigned-tc.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { PromoteStudentsComponent } from "./promote-students/promote-students.component";
-import { StudentComponent } from "./student.component";
 
 const routes: Routes = [
   { path: "", redirectTo:"allStudents" },

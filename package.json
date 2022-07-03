@@ -63,7 +63,7 @@
     "ngx-print": "^1.2.1",
     "ngx-spinner": "^8.1.0",
     "ngx-toastr": "^12.0.0",
-    "ngx-webcam": "^0.4.1",
+    "ngx-webcam": "^0.2.2",
     "node-sass": "^5.0.0",
     "pdfmake": "^0.2.5",
     "primeflex": "^3.2.1",

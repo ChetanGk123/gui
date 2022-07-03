@@ -458,7 +458,7 @@
                             </form>
                             <button class="btn btn-primary btn-previous mr-3" awPreviousStep 
                                 > Previous </button>
-                            <button class="btn btn-primary btn-next" [disabled]="!employeeForm.valid || submitDisable" awNextStep (click)="submit()"> {{submitDisable?"":"Submit"}} &nbsp;<i class="fa fa-circle-o-notch fa-spin"
+                            <button class="btn btn-primary btn-next" [disabled]="submitDisable" (click)="submit()"> {{submitDisable?"":"Submit"}} &nbsp;<i class="fa fa-circle-o-notch fa-spin"
                                 *ngIf="submitDisable"></i>
                             </button>
                         </aw-wizard-step>    
