@@ -24,9 +24,9 @@ import { DialogService } from '../shared/services/dialog.service'
 import { StudentService } from './services/student_services/student.service'
 // Directives
 import { ToggleFullscreenDirective } from "./directives/fullscreen.directive";
-import { MaterialModule } from './material.module'
 import { DialogComponent } from './components/dialog/dialog.component';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import {MatIconModule} from '@angular/material/icon';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DocViewerComponent } from './components/doc-viewer/doc-viewer.component';
 import { ExcelService } from './services/excel.service';
@@ -60,10 +60,11 @@ import { ImageCropperModule } from 'ngx-image-cropper';
   imports: [
      CommonModule,
      WebcamModule,
+     MatDialogModule,
+     MatIconModule,
      ImageCropperModule,
      RouterModule,
      PrimengModule,
-     MaterialModule,
      FormsModule,
      NgbModule,
      ReactiveFormsModule,

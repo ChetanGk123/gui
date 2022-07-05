@@ -2,11 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthenticationModule } from './components/authentication/authentication.module'
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CookieService } from "ngx-cookie-service";
 import { NgxMaskModule, IConfig } from 'ngx-mask'
 import { CommonModule } from '@angular/common';
@@ -24,8 +23,6 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     CommonModule,
     AppRoutingModule,
     SharedModule,
-    FormsModule,
-    ReactiveFormsModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
     HttpClientModule,

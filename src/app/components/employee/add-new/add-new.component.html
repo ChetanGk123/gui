@@ -9,7 +9,7 @@
                 <div class="card-body step-indicator">
                     <aw-wizard navBarLayout="large-filled-symbols" [awNavigationMode] [navigateForward]="navigation">
                         <aw-wizard-step [navigationSymbol]="{ symbol: '&#xf007;', fontFamily: 'FontAwesome' }"
-                            stepTitle="Employee Details">
+                            stepTitle="Employee Details" stepId="employee_info1">
                             <form class="needs-validation" [formGroup]="employeeForm" autocomplete="off" novalidate>
                                 <div class="form-row mt-3" formGroupName="employee_info">
                                     <div class="form-group mt-4 col-md-1 mb-3">
@@ -110,7 +110,7 @@
                                     <div class="col-md-3 mb-3"></div>
                                     <!-- gender Start -->
                                     <div class="col-md-3 mb-3">
-                                        <div class="d-flex justify-content-between"> <label for="gender_id">Gender </label></div>
+                                        <div class="d-flex justify-content-between"> <label for="gender_id">Gender <span class="font-danger">*</span></label></div>
                                         <div class="row">
                                             <select class="form-control col-9 ml-2 mr-2" id="gender_id" placeholder="gender"
                                                 formControlName="gender_id">
@@ -120,6 +120,10 @@
                                             </select>
                                             <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded btn-primary mt-1" style="height: 28px; width: 28px;" ngbTooltip="Add Gender" (click)="addGender()"></button>
                                         </div>
+                                        <div *ngIf="employeeForm.controls.employee_info.controls.gender_id.touched && employeeForm.controls.employee_info.controls.gender_id.errors?.required"
+                                        class="text text-danger">
+                                        Gender is required.
+                                    </div>
                                     </div>
                                     <!-- gender End -->
                                     <!-- religion Start -->
@@ -221,7 +225,7 @@
                             </form>
                         </aw-wizard-step>
                         <aw-wizard-step [navigationSymbol]="{ symbol: '&#xf279;', fontFamily: 'FontAwesome' }"
-                            stepTitle="Address Info">
+                            stepTitle="Address Info" stepId="employee_info2">
                             <form class="needs-validation" [formGroup]="employeeForm" autocomplete="off" novalidate>
                                 <div class="form-row mt-3" formGroupName="employee_info">
                                     <!-- Address Details Start -->
@@ -400,7 +404,7 @@
                             </form>
                         </aw-wizard-step>
                         <aw-wizard-step [navigationSymbol]="{ symbol: '&#xf2bd;', fontFamily: 'FontAwesome' }"
-                            stepTitle="Qualification Info">
+                            stepTitle="Qualification Info" stepId="qualification_info">
                             <form class="needs-validation" [formGroup]="employeeForm" autocomplete="off" novalidate>
                                 <div class="form-row mt-3" formGroupName="qualification_info">
                                     <!-- Institute Name Start -->

@@ -12,7 +12,6 @@ const routes: Routes = [
       {
         path: 'login',
         component: LoginComponent,
-        //canActivate: [SecureInnerPagesGuard]
       },
       {
         path: 'register',

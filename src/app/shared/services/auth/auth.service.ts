@@ -116,8 +116,12 @@ export class AuthService {
   }
 
   get getUserData(): User {
-    if (this.userData == null && localStorage.getItem("user")) {
-      this.userData = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("user"), this.encPassword.trim()).toString(CryptoJS.enc.Utf8));
+    if (localStorage.getItem("user")) {
+      try {
+        this.userData = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("user"), this.encPassword.trim()).toString(CryptoJS.enc.Utf8));
+      } catch (error) {
+        this.userData == null
+      } 
     }
     return this.userData;
   }

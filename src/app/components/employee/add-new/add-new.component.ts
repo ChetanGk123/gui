@@ -1,5 +1,5 @@
 import { DatePipe } from "@angular/common";
-import { Component, Inject, OnInit } from "@angular/core";
+import { Component, Inject, OnInit, ViewChild } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { Router } from "@angular/router";
@@ -11,6 +11,7 @@ import { CategoryComponent } from "../../misc/category/category.component";
 import { GenderComponent } from "../../misc/gender/gender.component";
 import { ReligionComponent } from "../../misc/religion/religion.component";
 import { EmployeeService } from '../../../shared/services/employee/employee.service';
+import { WizardComponent } from "angular-archwizard";
 
 @Component({
   selector: "app-add-new",
@@ -30,6 +31,9 @@ export class AddNewComponent implements OnInit {
   employeeForm: FormGroup = new FormGroup({
     employee_info: new FormGroup({
       employee_id: new FormControl(""),
+      institution_id: new FormControl(""),
+      serial_no: new FormControl(""),
+      photo: new FormControl(""),
       employee_no: new FormControl(""),
       generate_emp_no: new FormControl(true, [Validators.required]),
       joining_date: new FormControl(new Date().toISOString().substring(0, 10), [Validators.required,]),
@@ -53,11 +57,17 @@ export class AddNewComponent implements OnInit {
       permanent_district: new FormControl("", [Validators.required]),
       permanent_state: new FormControl("", [Validators.required]),
       permanent_country: new FormControl("", [Validators.required]),
-      gender_id: new FormControl(""),
+      gender_id: new FormControl("", [Validators.required]),
+      gender_name: new FormControl("", [Validators.required]),
       religion_id: new FormControl(""),
+      religion_name: new FormControl(""),
       caste_id: new FormControl(""),
+      caste_name: new FormControl(""),
       category_id: new FormControl(""),
+      category_name: new FormControl(""),
       blood_group_id: new FormControl(""),
+      blood_group_name: new FormControl(""),
+      link: new FormControl(""),
       nationality: new FormControl("India", [Validators.required]),
     }),
     qualification_info: new FormGroup({
@@ -106,7 +116,7 @@ export class AddNewComponent implements OnInit {
         this.apiService.getTypeRequest('employee_profile/'+this.dialogdata.item_id).subscribe((result:any) =>{
           console.log(result);
           if(result.result){
-            
+            result.data.employee_info.generate_emp_no = false
             this.employee_info.setValue(result.data.employee_info)
           }else{
             this.toster.error(result.message)
@@ -204,13 +214,11 @@ export class AddNewComponent implements OnInit {
   }
 
   submit(){
-    debugger
     if(this.employeeForm.value){
       console.log(this.employeeForm.value);
     this.submitDisable = true
     if(!this.dialogdata?.item_id){
       this.apiService.postTypeRequest('register_employee',this.employeeForm.value).subscribe((result:any) => {
-        debugger
         if(result.result){
           this.toster.success("Data Added Successfully")
           this.employeeService.setSelectedEmployee(result.data)
