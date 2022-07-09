@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { DatatableComponent, ColumnMode, SortType, id } from "@swimlane/ngx-datatable";
 
 import { ToastrService } from "ngx-toastr";
@@ -23,6 +24,12 @@ export class IncomeAccountsComponent implements OnInit {
   feeGroup: any[] = [];
   filterValue: string = "";
   addValue: string = "";
+
+  accountForm:FormGroup = new FormGroup({
+    account_id: new FormControl(),
+    account_name: new FormControl('',Validators.required),
+    opening_balance: new FormControl({value: '', disabled: false}, Validators.required),
+  })
   constructor(
     public apiService: ApiService,
     public spinner: SpinnerService,
@@ -44,24 +51,20 @@ export class IncomeAccountsComponent implements OnInit {
     });
   }
 
-  editClick(index, data) {
-    debugger;
-    this.editValue = data.name;
-    this.editIndex = index;
-  }
-
   onClear() {
     this.List = this.feeGroup;
   }
 
   update(data) {
-    this.addValue = data.account_name;
-    this.id = data.account_id;
-    this.institution_id = data.institution_id;
+    this.accountForm.patchValue({
+      account_id:data.account_id,
+      account_name:data.account_name,
+      opening_balance:data?.opening_balance,
+    })
+    this.accountForm.controls.opening_balance.disable()
   }
 
   onFilter(value) {
-    this.editValue = value;
     this.List = [];
     this.feeGroup.filter((x) => {
       if (x.name.toLowerCase().includes(value.toLowerCase())) this.List.push(x);
@@ -70,23 +73,20 @@ export class IncomeAccountsComponent implements OnInit {
 
   isValueAvailable() {
     var value = this.List.filter((x) => {
-      if (x.account_name.toLowerCase() == this.addValue.toLowerCase()) return x;
+      if (x.account_name.toLowerCase() == this.accountForm.get('account_name').value.toLowerCase()) return x;
     });
     return value.length > 0 ? false : true;
   }
 
   onAddNew() {
-    debugger
+    this.accountForm.markAllAsTouched()
     this.submitDisable = true;
-    if (this.addValue.length > 0 && this.id != null) {
-      var Request_Data = {
-        account_id: this.id,
-        account_name: this.addValue,
-      };
+    if (this.accountForm.valid && this.accountForm.get('account_id').value?.toString().length > 0) {
+      
       this.confirmationService.showUpdateConfirmDialog().then((result: any) => {
         if (result.value) {
           this.apiService
-            .postTypeRequest("account_head/update", Request_Data)
+            .postTypeRequest("account_head/update", this.accountForm.value)
             .toPromise()
             .then((result: any) => {
               if (result.result) {
@@ -104,16 +104,15 @@ export class IncomeAccountsComponent implements OnInit {
         } 
         
       });
-    }else if(this.addValue.length > 0 && this.isValueAvailable()){
+    }else if(this.accountForm.valid && this.isValueAvailable()){
       
-          var div = {
-            account_name:this.addValue
-          }
-          this.apiService.postTypeRequest('account_head/insert',div).subscribe((result:any) => {
+          
+          this.apiService.postTypeRequest('account_head/insert', this.accountForm.value).subscribe((result:any) => {
             if(result.result){
               this.feeGroup = result.data
               this.List = result.data
               this.ngOnInit();
+              this.Clear();
               this.toster.success("New Data Added")
               this.confirmationService.showSuccessMessage("Added", result.message);
             }
@@ -125,7 +124,7 @@ export class IncomeAccountsComponent implements OnInit {
           })
           this.addValue = ""
         } 
-        else if(this.addValue.length > 0){
+        else if(this.accountForm.valid){
           this.toster.error("Value alredy Exists")
           this.submitDisable = false
         }
@@ -136,7 +135,8 @@ export class IncomeAccountsComponent implements OnInit {
   }
 
   Clear(){
-    this.addValue="",
+    this.accountForm.reset()
+    this.accountForm.enable()
     this.id = null,
     this.institution_id = null
   }

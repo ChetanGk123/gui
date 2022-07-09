@@ -26,11 +26,11 @@ export class ExpenseAccountsComponent implements OnInit {
   addValue: string = "";
   balance: string = "";
 
-  accountForm:FormGroup = this.fb.group({
+  accountForm:FormGroup = new FormGroup({
     account_id: new FormControl(),
     isExpenseHead: new FormControl(1),
     account_name: new FormControl('',Validators.required),
-    opening_balance: new FormControl({value: '1221', disabled: false}, Validators.required),
+    opening_balance: new FormControl({value: '', disabled: false}, Validators.required),
   })
   constructor(
     public apiService: ApiService,
@@ -84,7 +84,7 @@ export class ExpenseAccountsComponent implements OnInit {
   }
 
   onAddNew() {
-    
+    this.accountForm.markAllAsTouched()
     this.submitDisable = true;
     if (this.accountForm.valid && this.accountForm.get('account_id').value?.toString().length > 0) {
       
