@@ -71,6 +71,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
   ],
   exports: [
      FeatherIconsComponent,
+     LoaderComponent,
      NgxPrintModule,
      PrimengModule,
      FormsModule,

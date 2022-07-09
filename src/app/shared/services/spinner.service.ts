@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class SpinnerService {
 
-  public showSpinner: boolean = false;
+  public showSpinner: boolean ;
 
   getValue(): boolean {
     return this.showSpinner;

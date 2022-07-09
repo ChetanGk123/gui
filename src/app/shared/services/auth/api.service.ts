@@ -57,6 +57,16 @@ export class ApiService {
       return res;
     }));
   }
+
+  getTypeRequest1(url: any) {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.GetTocken()}`,
+      }),
+    };
+    return this._http.get(`${this.baseUrl}${url}`, httpOptions ).toPromise().then(res => {return res});
+  }
   
   getFileTypeRequest(url: any) {
     
