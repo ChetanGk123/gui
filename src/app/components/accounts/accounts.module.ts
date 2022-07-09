@@ -13,10 +13,14 @@ import { TableModule } from 'primeng/table';
 import { PrimengModule } from 'src/app/shared/primeng.module';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AddAccountHeadComponent } from './add-account-head/add-account-head.component';
+import { IncomeAccountsComponent } from './income-accounts/income-accounts.component';
+import { ExpenseAccountsComponent } from './expense-accounts/expense-accounts.component';
 @NgModule({
   declarations: [
     AccountsComponent,
-    AddAccountHeadComponent
+    AddAccountHeadComponent,
+    IncomeAccountsComponent,
+    ExpenseAccountsComponent,
   ],
   imports: [
     CommonModule,

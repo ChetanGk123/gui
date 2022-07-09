@@ -89,6 +89,7 @@ export class AddAccountHeadComponent implements OnInit {
     if(this.addValue.length > 0 && this.id != null){    
       var Request_Data = {
         account_id:this.id,
+        isExpenseHead:1,
       account_name:this.addValue
     }
     const swalWithBootstrapButtons = Swal.mixin({

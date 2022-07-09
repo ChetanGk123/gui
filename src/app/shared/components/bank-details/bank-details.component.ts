@@ -111,7 +111,7 @@ export class BankDetailsComponent implements OnInit {
 
   async deleteDetails(){
     this.disableActions = true
-    this.confirmationService.showConfirmMessage().then((result:any)=>{
+    this.confirmationService.showConfirmDialog().then((result:any)=>{
       if(result.value){
         const data = {
           bank_id:this.bankDetails.bank_id

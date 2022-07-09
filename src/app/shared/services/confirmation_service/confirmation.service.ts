@@ -41,13 +41,41 @@ export class ConfirmationService {
     )
   }
 
-  showConfirmMessage(){
+  showConfirmDialog(){
     const confirmation = this.swalWithBootstrapButtons.fire({
       title: 'Are you sure, you want to delete?',
       text: "You won't be able to revert this!",
       type: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    })
+
+    return confirmation
+  }
+
+  showDeleteConfirmDialog(){
+    const confirmation = this.swalWithBootstrapButtons.fire({
+      title: 'Are you sure, you want to delete?',
+      text: "You won't be able to revert this!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    })
+
+    return confirmation
+  }
+
+  showUpdateConfirmDialog(){
+    const confirmation = this.swalWithBootstrapButtons.fire({
+      title: 'Are you sure, you want to update?',
+      text: "You won't be able to revert this!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, update it!',
       cancelButtonText: 'No, cancel!',
       reverseButtons: true
     })

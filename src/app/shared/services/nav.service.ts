@@ -118,7 +118,8 @@ export class NavService {
 		},
 		{
 			title: 'Accounts', icon: 'command', type: 'sub', active: false,roles:['Admin'] , children: [
-				{ path: '/accounts/addAccountHeads', title: 'Add Account Heads',icon: 'command', type: 'link',roles:['Admin'] },
+				{ path: '/accounts/addIncomeAccount', title: 'Income Account',icon: 'command', type: 'link',roles:['Admin'] },
+				{ path: '/accounts/addExpenseAccount', title: 'Expense Account',icon: 'command', type: 'link',roles:['Admin'] },
 				
 			]
 		},

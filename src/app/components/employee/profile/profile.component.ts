@@ -135,7 +135,7 @@ export class ProfileComponent implements OnInit {
     var Request_Data = {
       item_id: this.employee?.employee_id,
     };
-    this.confirmationService.showConfirmMessage()
+    this.confirmationService.showConfirmDialog()
       .then((result) => {
         if (result.value) {
           this.apiService
