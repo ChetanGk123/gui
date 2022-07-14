@@ -33,7 +33,7 @@ export class AddEditBankDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loader = false;
-    console.log(this.dialogdata);
+    // console.log(this.dialogdata);
     
   }
 
@@ -55,7 +55,7 @@ export class AddEditBankDetailsComponent implements OnInit {
     if(this.bankDetails.valid){
       this.loader = true
         this.apiService.postTypeRequest(`bank_info/${this.dialogdata.opertaion}/${this.dialogdata.personType}`,this.bankDetails.value).subscribe((result:any)=>{
-          console.log(result);
+          // console.log(result);
           if(result.result){
             this.dialogRef.close(true);
           }else{

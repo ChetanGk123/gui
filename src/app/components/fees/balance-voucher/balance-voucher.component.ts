@@ -39,7 +39,7 @@ export class BalanceVoucherComponent implements OnInit {
     this.dataFetch = true;
     this.apiService.postTypeRequest('transactions/TXN_ID',data).subscribe((result:any)=>{
       if(result.result){
-    console.log(result);
+    // console.log(result);
 
         this.pdfData = result.data['txn_res'];
         this.student = result.data['student_data']

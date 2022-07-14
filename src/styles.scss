@@ -4,3 +4,7 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+.blurred {
+  background-color: #424040f2;
+    //backdrop-filter: blur(4px);
+}

@@ -105,7 +105,7 @@ export class AuthService {
   lockScreen() {
     // var returnUrl = this.route.snapshot.outlet;
     var returnUrl = this.router.url;
-    const dialogRef = this.dialog.open(UnlockUserComponent, { disableClose: true, height:"60%" })
+    const dialogRef = this.dialog.open(UnlockUserComponent, { disableClose: true, height:"60%", backdropClass: "blurred" })
     localStorage.removeItem("user");
     //this.router.navigate(["/auth/unlock"], { queryParams: { returnUrl: returnUrl } });
   }
@@ -135,7 +135,7 @@ export class AuthService {
     const helper = new JwtHelperService();
     var day1:any = helper.getTokenExpirationDate(this.getUserData.token);
     var day2:any = new Date(); 
-    console.log("time left "+Math.floor((day1 - day2)-5000));
+    // console.log("time left "+Math.floor((day1 - day2)-5000));
     
     
     this.userActivity = setTimeout(() => {

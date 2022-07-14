@@ -74,5 +74,7 @@ export class AdmissionLetterComponent implements OnInit {
         this.student_documents = this.data.student_documents
    }
   
-
+   generatePdf(){
+    
+   }
 }

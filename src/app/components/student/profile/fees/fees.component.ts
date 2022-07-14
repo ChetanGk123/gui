@@ -110,7 +110,7 @@ export class FeesComponent implements OnInit {
   }
 
   printFee() {
-    console.log(this.selectedFees);
+    // console.log(this.selectedFees);
     
     if(this.selectedFees.length > 0){
       const data  = this.selectedFees
@@ -120,7 +120,7 @@ export class FeesComponent implements OnInit {
         width: "80%",
       });
       dialogRef.afterClosed().subscribe(()=>{
-        console.log(this.selectedFees);
+        // console.log(this.selectedFees);
       })
     }
     else{

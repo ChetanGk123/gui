@@ -41,7 +41,7 @@
         <div class="loader-box center" *ngIf="dataFetch">
           <span class="rotate dashed"></span>
         </div>
-        <p-table styleClass="p-datatable-sm" [value]="TransactionsList" *ngIf="!dataFetch" class="table" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll"
+        <p-table styleClass="p-datatable-sm" [value]="TransactionsList" *ngIf="!dataFetch" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]">
           <ng-template pTemplate="header" >
             <tr>

@@ -100,14 +100,14 @@
                   <div class="loader-box center" *ngIf="dataFetch">
                     <span class="rotate dashed"></span>
                   </div>
-                  <p-table [value]="List" class="table"  *ngIf="!dataFetch" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll"
+                  <p-table [value]="List" *ngIf="!dataFetch" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll"
                   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]">
                   <ng-template pTemplate="header" >
                       <tr>
-                          <th pSortableColumn="code">SlNo <p-sortIcon field="code"></p-sortIcon></th>
+                          <th style="width: 7rem" pSortableColumn="code">SlNo <p-sortIcon field="code"></p-sortIcon></th>
                           <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-                          <th pSortableColumn="balance">Balance <p-sortIcon field="balance"></p-sortIcon></th>
-                          <th >Actions</th>
+                          <th style="width: 11rem" pSortableColumn="balance">Balance <p-sortIcon field="balance"></p-sortIcon></th>
+                          <th style="width: 10rem" >Actions</th>
                       </tr>
                   </ng-template>
                   <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
@@ -117,7 +117,7 @@
                           <td>{{product.balance}}</td>
                           <td> 
                             <div>
-                              <button pButton pRipple type="button" *ngIf="product.isEditable == 1" icon="pi pi-pencil" class="p-button-rounded" style="height: 35px; width: 35px;" (click)="update(product)"></button> 
+                              <button pButton pRipple type="button" *ngIf="product.isEditable == 1" icon="pi pi-pencil" class="p-button-rounded btn-primary" style="height: 35px; width: 35px;" (click)="update(product)"></button> 
                         </div>
                         </td>
                       </tr>

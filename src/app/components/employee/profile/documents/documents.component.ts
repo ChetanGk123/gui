@@ -290,7 +290,7 @@ export class DocumentsComponent implements OnInit {
       act_doc_id: data.act_doc_id ?? data.actual_doc_id ?? "",
     });
     this.fileGroup.updateValueAndValidity();
-    console.log(this.fileGroup);
+    // console.log(this.fileGroup);
   }
 
   downloadDocument(data) {

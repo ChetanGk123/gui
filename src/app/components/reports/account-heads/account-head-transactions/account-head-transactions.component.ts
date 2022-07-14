@@ -28,12 +28,12 @@ export class AccountHeadTransactionsComponent implements OnInit {
   ngOnInit(): void {
     if(this.dialogData?.transactions.length>0){
       this.dataFetch = true;
-    console.log(this.dialogData);
+    // console.log(this.dialogData);
     this.dialogData?.transactions.sort((a, b) => (a.id < b.id ? -1 : 1));
     // let fromDate = this.dialogData.transactions[0].transaction_date;
     // let toDate = this.dialogData.transactions[this.dialogData.transactions.length-1].transaction_date;
-    console.log("fromDate: "+this.dialogData.start_date?.toString()??"");
-    console.log("toDate: "+ this.dialogData.end_date?.toString()??"");
+    // console.log("fromDate: "+this.dialogData.start_date?.toString()??"");
+    // console.log("toDate: "+ this.dialogData.end_date?.toString()??"");
       this.generatePDF();
     }
       else

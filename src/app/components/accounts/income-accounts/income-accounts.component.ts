@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { MatDialog } from "@angular/material/dialog";
 import { DatatableComponent, ColumnMode, SortType, id } from "@swimlane/ngx-datatable";
 
 import { ToastrService } from "ngx-toastr";
 import { ApiService } from "src/app/shared/services/auth/api.service";
 import { ConfirmationService } from "src/app/shared/services/confirmation_service/confirmation.service";
 import { SpinnerService } from "src/app/shared/services/spinner.service";
+import { AccountTransferComponent } from "../account-transfer/account-transfer.component";
 
 @Component({
   selector: "app-income-accounts",
@@ -34,7 +36,8 @@ export class IncomeAccountsComponent implements OnInit {
     public apiService: ApiService,
     public spinner: SpinnerService,
     public toster: ToastrService,
-    public confirmationService: ConfirmationService
+    public confirmationService: ConfirmationService,
+    public dialog:MatDialog
   ) {}
   @ViewChild(DatatableComponent, { static: false }) table: DatatableComponent;
   ColumnMode = ColumnMode;
@@ -139,5 +142,9 @@ export class IncomeAccountsComponent implements OnInit {
     this.accountForm.enable()
     this.id = null,
     this.institution_id = null
+  }
+
+  AccountTransfer(){
+const dialogRef = this.dialog.open(AccountTransferComponent,{ backdropClass: "blurred"})
   }
 }

@@ -58,7 +58,7 @@ export class TransactionsComponent implements OnInit {
   }
 
   printTransaction(product){
-    console.log(product);
+    // console.log(product);
     
     const dialogRef = this.dialog.open(FeeVoucherComponent, {
       data: product,
@@ -78,7 +78,7 @@ export class TransactionsComponent implements OnInit {
   deleteTransactionDialog(data){
     this.showDialog = true;
     this.selectedData = data;
-    console.log(data);
+    // console.log(data);
   }
 
   deleteTransaction(){

@@ -300,7 +300,7 @@ export class FeeComponentsComponent implements OnInit {
   showErrors(){
     for (var control in this.FeeComponent.controls) {
       if(this.FeeComponent.controls[control].invalid){
-        console.log(control)
+        // console.log(control)
       }
     }
     this.FeeComponent.touched == true;

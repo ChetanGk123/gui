@@ -28,7 +28,7 @@ export class StudentListReportComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public dialogData: any
   ) {}
   ngOnInit(): void {
-    console.log(this.dialogData);
+    // console.log(this.dialogData);
     if(this.dialogData?.transactions.length>0){
       this.dataFetch = true;
     this.dialogData?.transactions.sort((a, b) => (a.id < b.id ? -1 : 1));

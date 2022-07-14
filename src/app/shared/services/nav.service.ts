@@ -118,8 +118,10 @@ export class NavService {
 		},
 		{
 			title: 'Accounts', icon: 'command', type: 'sub', active: false,roles:['Admin'] , children: [
-				{ path: '/accounts/addIncomeAccount', title: 'Income Account',icon: 'command', type: 'link',roles:['Admin'] },
-				{ path: '/accounts/addExpenseAccount', title: 'Expense Account',icon: 'command', type: 'link',roles:['Admin'] },
+				{ path: '/accounts/addIncomeAccount', title: 'Income Accounts',icon: 'command', type: 'link',roles:['Admin'] },
+				{ path: '/accounts/addExpenseAccount', title: 'Expense Accounts',icon: 'command', type: 'link',roles:['Admin'] },
+				{ path: '/accounts/accountTransfer', title: 'Account Transfer',icon: 'command', type: 'link',roles:['Admin'] },
+				{ path: '/accounts/expences', title: 'Expences',icon: 'command', type: 'link',roles:['Admin'] },
 				
 			]
 		},

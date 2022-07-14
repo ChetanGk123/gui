@@ -77,7 +77,7 @@ export class CollectFeesComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result:any)=>{
       if(result?.result){
         this.ngOnInit()
-        console.log(result);
+        // console.log(result);
         const data = {
           id:result['data'].student.TXN_ID
         }

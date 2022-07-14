@@ -132,7 +132,7 @@ export class ProfileComponent implements OnInit {
 
   readProfilePhoto(event: any) {
     this.profilePhoto = event.target.files[0];
-    console.log(this.profilePhoto);
+    // console.log(this.profilePhoto);
 
     this.form.get("file").setValue(this.profilePhoto);
   }

@@ -48,7 +48,7 @@ export class TCComponent implements OnInit {
       .getTypeRequest(`tc_data/${this.data.id ?? "1"}`)
       .subscribe((result: any) => {
         if (result.result) {
-          console.log(result.data);
+          // console.log(result.data);
 
           this.student_data = result.data["student_data"];
           this.tc_data = result.data["tc_data"];
@@ -311,7 +311,7 @@ export class TCComponent implements OnInit {
                           border: [false, true, true, true],
                         },
                         {
-                          text: this.tc_data.first_studied_admission_date + " - "+ this.tc_data.first_studied+" Standard",
+                          text: this.student_data.student_admission_data_by_student_id.admission_date + " - "+ this.tc_data.first_studied+" Standard",
                           alignment: "center",
                           margin: [0, 5, 10, 5],
                           border: [true, true, false, true],

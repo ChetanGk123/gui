@@ -26,7 +26,7 @@ export class AdminGuard implements CanActivate {
       //   return false
       // }
       if(!TokenExpired){
-        console.log("time left "+this.authService.TockenExpiry.toFixed(2));
+        // console.log("time left "+this.authService.TockenExpiry.toFixed(2));
         this.authService.beginsesssion();
         return true
       }else{

@@ -18,7 +18,7 @@ export class EditComponent implements OnInit {
   constructor(public toster: ToastrService, public dialog: MatDialog, public dialogRef: MatDialogRef<EditComponent>, @Inject(MAT_DIALOG_DATA) public dialogdata: any, public apiService: ApiService) {}
 
   ngOnInit(): void {
-    console.log(this.dialogdata);
+    // console.log(this.dialogdata);
     
     this.dataFetch = true;
     let s = this.dialogdata.due_date.split("-");

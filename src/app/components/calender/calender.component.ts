@@ -144,7 +144,7 @@ export class CalenderComponent {
         afterEnd: true
       }
     });
-    console.log(this.events);
+    // console.log(this.events);
     
     this.refresh.next();
   }

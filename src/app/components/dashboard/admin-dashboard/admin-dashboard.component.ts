@@ -27,7 +27,7 @@ export class AdminDashboardComponent implements OnInit {
       this.dashboardData = res;
     });
     this.dashboardData.data.other.date_wise_admission_count.forEach(element => {
-      //console.log(this.getAcademicYear(element));
+      //// console.log(this.getAcademicYear(element));
       
     });
   }

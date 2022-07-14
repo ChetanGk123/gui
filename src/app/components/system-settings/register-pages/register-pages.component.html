@@ -124,7 +124,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="custom-datatable">
-                                <p-table [value]="List" class="table" *ngIf="!dataFetch" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll"
+                                <p-table [value]="List" *ngIf="!dataFetch" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll"
                                   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]">
                                     <ng-template pTemplate="header" >
                                         <tr>

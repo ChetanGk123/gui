@@ -43,7 +43,7 @@ export class AcknowledgementComponent implements OnInit {
       })
       this.totalFees += Number(p.total_fees)
     })
-    console.log(this.student);
+    // console.log(this.student);
     
     const toWords = new ToWords({
       localeCode: 'en-IN',
@@ -69,7 +69,7 @@ export class AcknowledgementComponent implements OnInit {
       });
     }
 
-    // console.log(this.dummyData);
+    // // console.log(this.dummyData);
     
     this.student.image = "assets/images/user.png";
     

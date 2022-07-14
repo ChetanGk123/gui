@@ -96,14 +96,11 @@
           </div>
           <p-table
             [value]="StudentList"
-            class="table"
             [(selection)]="selectedStudents"
             dataKey="student_id"
             *ngIf="!dataFetch"
-            [paginator]="true"
-            [rows]="10"
-            [showCurrentPageReport]="true"
-            responsiveLayout="scroll"
+            [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]"
           >
             <ng-template pTemplate="header">
               <tr>
@@ -154,6 +151,16 @@
                     style="height: 35px; width: 35px"
                     ngbTooltip="Delete TC"
                     (click)="deleteTc(data)"
+                  ></button>
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-eye"
+                    class="p-button-rounded btn-info ml-1"
+                    style="height: 35px; width: 35px"
+                    ngbTooltip="View Student Details"
+                    (click)="viewData(data)"
                   ></button>
                 </td>
               </tr>

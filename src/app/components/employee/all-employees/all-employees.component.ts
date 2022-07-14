@@ -62,7 +62,7 @@ export class AllEmployeesComponent implements OnInit {
   }
 
   onFilterData(data:any){
-    console.log(data);
+    // console.log(data);
     
     this.EmployeeList = [];
     this.Employees.some((x:any)=>{

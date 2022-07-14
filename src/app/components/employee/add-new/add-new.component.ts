@@ -102,7 +102,7 @@ export class AddNewComponent implements OnInit {
   ngOnInit(): void {
     this.submitDisable = false
     this.dataFetch = false
-    console.log(this.dialogdata);
+    // console.log(this.dialogdata);
     this.apiService.getTypeRequest('admission_form_data').toPromise().then((result:any) => {
       this.bloodGroupList = result.data['blood_group']
       this.genderList = result.data['gender']
@@ -114,7 +114,7 @@ export class AddNewComponent implements OnInit {
         this.navigation = "allow"
         this.dataFetch = true;
         this.apiService.getTypeRequest('employee_profile/'+this.dialogdata.item_id).subscribe((result:any) =>{
-          console.log(result);
+          // console.log(result);
           if(result.result){
             result.data.employee_info.generate_emp_no = false
             this.employee_info.setValue(result.data.employee_info)
@@ -125,11 +125,11 @@ export class AddNewComponent implements OnInit {
         })
       }
       // this.apiService.getTypeRequest('employee_profile/1').subscribe((result:any) =>{
-      //   console.log(result.data.employee);
+      //   // console.log(result.data.employee);
       //   if(result.result){
       //     result.data.employee.generate_emp_no = false
       //     this.employee_info.setValue(result.data.employee)
-      //     console.log(this.employeeForm);
+      //     // console.log(this.employeeForm);
           
 
       //   }else{
@@ -209,13 +209,13 @@ export class AddNewComponent implements OnInit {
   }
 
   logErrors(){
-    console.log(this.employee_info);
+    // console.log(this.employee_info);
     
   }
 
   submit(){
     if(this.employeeForm.value){
-      console.log(this.employeeForm.value);
+      // console.log(this.employeeForm.value);
     this.submitDisable = true
     if(!this.dialogdata?.item_id){
       this.apiService.postTypeRequest('register_employee',this.employeeForm.value).subscribe((result:any) => {

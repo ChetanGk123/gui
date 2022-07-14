@@ -48,7 +48,7 @@ export class TcDetailsComponent implements OnInit,OnChanges {
 
   patchValues(data:any){
     this.updateTC = data.application_date?true:false
-    console.log(data);
+    // console.log(data);
     let i = data.application_date?.split("-");
     let e = data.issued_date?.split("-");
     this.tcForm.patchValue({
@@ -88,7 +88,7 @@ export class TcDetailsComponent implements OnInit,OnChanges {
       this.submitLoader = true
     this.apiService.postTypeRequest("generate_tc",this.tcForm.value).subscribe((result:any)=>{
       if(result.result){
-        console.log(result.data);
+        // console.log(result.data);
         this.toster.success("Tc Assigned")
         this.ngOnInit()
         this.router.navigate(['/student/assignedTc']);

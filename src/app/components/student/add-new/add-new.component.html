@@ -885,7 +885,7 @@
                                 <div class="col-md-12 mb-3">
                                     <h5>
                                         School History
-                                        <button class="btn btn-primary pull-right" (click)="addSchoolHistory()">
+                                        <button class="btn btn-primary pull-right" *ngIf="!dialogdata?.disabled" (click)="addSchoolHistory()">
                                             Add new
                                         </button>
                                         <div class="clearfix"></div>
@@ -950,7 +950,7 @@
                                                                 [(ngModel)]="school.reason">
                                                         </div>
                                                     </td>
-                                                    <td style="width: 12rem;">
+                                                    <td style="width: 12rem;" *ngIf="!dialogdata?.disabled">
                                                         <div *ngIf="editIndex != i">
                                                             <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded btn-success" style="height: 35px; width: 35px;" (click)="editIndex = i"></button>
                                                             <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded btn-danger ml-2" style="height: 35px; width: 35px;" (click)="schoolHistoryList.splice(i, 1)"></button>
@@ -981,7 +981,7 @@
                                 </div>
                             </div>
                             <button class="btn btn-primary btn-previous mr-3" awPreviousStep> Previous </button>
-                            <button class="btn btn-primary btn-next" (click)="submit()"
+                            <button *ngIf="!dialogdata?.disabled" class="btn btn-primary btn-next" (click)="submit()"
                                 [disabled]="!studentForm.valid || !parentForm.valid || !academicForm.valid || !academicHistoryForm.valid || submitDisable">
                                 {{submitDisable?"":"Submit"}} &nbsp;<i class="fa fa-circle-o-notch fa-spin"
                                     *ngIf="submitDisable"></i>

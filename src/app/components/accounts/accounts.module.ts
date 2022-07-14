@@ -15,12 +15,14 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { AddAccountHeadComponent } from './add-account-head/add-account-head.component';
 import { IncomeAccountsComponent } from './income-accounts/income-accounts.component';
 import { ExpenseAccountsComponent } from './expense-accounts/expense-accounts.component';
+import { AccountTransferComponent } from './account-transfer/account-transfer.component';
 @NgModule({
   declarations: [
     AccountsComponent,
     AddAccountHeadComponent,
     IncomeAccountsComponent,
     ExpenseAccountsComponent,
+    AccountTransferComponent,
   ],
   imports: [
     CommonModule,

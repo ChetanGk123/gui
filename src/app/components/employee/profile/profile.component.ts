@@ -56,7 +56,7 @@ export class ProfileComponent implements OnInit {
   fetchApi(){
      this.dataFetch = false;
     var employeeId = this.employee?.employee_id;
-    console.log(employeeId);
+    // console.log(employeeId);
     if(employeeId){
       this.apiService
         .getTypeRequest("employee_profile/" + employeeId)
@@ -75,7 +75,7 @@ export class ProfileComponent implements OnInit {
 
   readProfilePhoto(event: any) {
     this.profilePhoto = event.target.files[0];
-    console.log(this.profilePhoto);
+    // console.log(this.profilePhoto);
 
     this.form.get("file").setValue(this.profilePhoto);
   }

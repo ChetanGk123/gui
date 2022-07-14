@@ -4,6 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/shared/services/auth/api.service';
 import { StudentService } from 'src/app/shared/services/student_services/student.service';
+import { AddNewComponent } from '../add-new/add-new.component';
+import { AdmissionLetterComponent } from '../admission-letter/admission-letter.component';
 import { TCComponent } from '../tc/tc.component';
 
 declare var require
@@ -33,6 +35,13 @@ export class AssignedTcComponent implements OnInit {
     division: new FormControl(""),
     studentName: new FormControl(""),
   });
+  admission_data: any;
+  current_academic_details: any;
+  personal_data: any;
+  parent_data: any;
+  previous_academic_data: any;
+  student_documents: any;
+  authService: any;
   constructor(
     public studentService: StudentService,
     public apiService: ApiService,
@@ -83,7 +92,7 @@ export class AssignedTcComponent implements OnInit {
   }
 
   updateTC(data){
-    console.log(data);
+    // console.log(data);
     this.selectedStudent = data
     this.updateTc = true
   }
@@ -134,5 +143,22 @@ export class AssignedTcComponent implements OnInit {
         this.dataFetch = false
       }
     })
+  }
+
+  viewData(data){
+    // console.log(data);
+    const dialogRef = this.dialog.open(AddNewComponent, {
+      data: {
+        item_id: data.student_id,
+        disabled:true
+      },
+      height: "83.5%",
+      width: "80%",
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        this.ngOnInit();
+      }
+    });
   }
 }

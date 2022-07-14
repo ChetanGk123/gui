@@ -44,7 +44,7 @@ export class BankDetailsComponent implements OnInit {
       account_number:"",
       acc_holder_name:"",
     };
-    console.log(this.Type);
+    // console.log(this.Type);
     this.loader = false
     this.disableActions = false
     await this.fetchApi()

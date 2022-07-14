@@ -11,7 +11,7 @@ export class ProfileDocumentsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.person_id);
+    // console.log(this.person_id);
     
   }
 
