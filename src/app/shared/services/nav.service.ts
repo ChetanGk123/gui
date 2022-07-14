@@ -99,6 +99,9 @@ export class NavService {
 			path: '/calender', title: 'Calender', icon: 'calendar', type: 'link', roles:['Admin','ADMISSION OFFICER','su_user']
 		},
 		{
+			path: '/expense', title: 'Expenses', icon: 'shopping-bag', type: 'link', roles:['Admin','ADMISSION OFFICER','su_user']
+		},
+		{
 			title: 'System Settings', icon: 'aperture', type: 'sub', active: false,roles:['su_user'] , children: [
 				{ path: '/system-settings/role', title: 'Role',icon: 'aperture', type: 'link',roles:['su_user'] },
 				{ path: '/system-settings/registerModule', title: 'Register Module',icon: 'aperture', type: 'link',roles:['su_user'] },
@@ -120,8 +123,6 @@ export class NavService {
 			title: 'Accounts', icon: 'command', type: 'sub', active: false,roles:['Admin'] , children: [
 				{ path: '/accounts/addIncomeAccount', title: 'Income Accounts',icon: 'command', type: 'link',roles:['Admin'] },
 				{ path: '/accounts/addExpenseAccount', title: 'Expense Accounts',icon: 'command', type: 'link',roles:['Admin'] },
-				{ path: '/accounts/accountTransfer', title: 'Account Transfer',icon: 'command', type: 'link',roles:['Admin'] },
-				{ path: '/accounts/expences', title: 'Expences',icon: 'command', type: 'link',roles:['Admin'] },
 				
 			]
 		},

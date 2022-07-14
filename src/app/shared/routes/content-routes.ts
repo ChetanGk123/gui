@@ -35,6 +35,11 @@ export const content: Routes = [
       roles: ["admin", "su_user"],
     },
   },
+  { path: 'expense', loadChildren: () => import('../../components/expences/expences.module').then(m => m.ExpencesModule),canActivate: [AdminGuard],
+  data: {
+    breadcrumb: "Expenses",
+    roles: ["admin", "su_user"],
+  }, },
   {
     path: "employee",
     loadChildren: () =>

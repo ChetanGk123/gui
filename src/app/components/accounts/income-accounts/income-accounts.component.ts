@@ -27,17 +27,17 @@ export class IncomeAccountsComponent implements OnInit {
   filterValue: string = "";
   addValue: string = "";
 
-  accountForm:FormGroup = new FormGroup({
+  accountForm: FormGroup = new FormGroup({
     account_id: new FormControl(),
-    account_name: new FormControl('',Validators.required),
-    opening_balance: new FormControl({value: '', disabled: false}, Validators.required),
-  })
+    account_name: new FormControl("", Validators.required),
+    opening_balance: new FormControl({ value: "", disabled: false }, Validators.required),
+  });
   constructor(
     public apiService: ApiService,
     public spinner: SpinnerService,
     public toster: ToastrService,
     public confirmationService: ConfirmationService,
-    public dialog:MatDialog
+    public dialog: MatDialog
   ) {}
   @ViewChild(DatatableComponent, { static: false }) table: DatatableComponent;
   ColumnMode = ColumnMode;
@@ -60,11 +60,11 @@ export class IncomeAccountsComponent implements OnInit {
 
   update(data) {
     this.accountForm.patchValue({
-      account_id:data.account_id,
-      account_name:data.account_name,
-      opening_balance:data?.opening_balance,
-    })
-    this.accountForm.controls.opening_balance.disable()
+      account_id: data.account_id,
+      account_name: data.account_name,
+      opening_balance: data?.opening_balance,
+    });
+    this.accountForm.controls.opening_balance.disable();
   }
 
   onFilter(value) {
@@ -76,16 +76,15 @@ export class IncomeAccountsComponent implements OnInit {
 
   isValueAvailable() {
     var value = this.List.filter((x) => {
-      if (x.account_name.toLowerCase() == this.accountForm.get('account_name').value.toLowerCase()) return x;
+      if (x.account_name.toLowerCase() == this.accountForm.get("account_name").value.toLowerCase()) return x;
     });
     return value.length > 0 ? false : true;
   }
 
   onAddNew() {
-    this.accountForm.markAllAsTouched()
+    this.accountForm.markAllAsTouched();
     this.submitDisable = true;
-    if (this.accountForm.valid && this.accountForm.get('account_id').value?.toString().length > 0) {
-      
+    if (this.accountForm.valid && this.accountForm.get("account_id").value?.toString().length > 0) {
       this.confirmationService.showUpdateConfirmDialog().then((result: any) => {
         if (result.value) {
           this.apiService
@@ -104,47 +103,67 @@ export class IncomeAccountsComponent implements OnInit {
                 this.submitDisable = false;
               }
             });
-        } 
-        
+        }
       });
-    }else if(this.accountForm.valid && this.isValueAvailable()){
-      
-          
-          this.apiService.postTypeRequest('account_head/insert', this.accountForm.value).subscribe((result:any) => {
-            if(result.result){
-              this.feeGroup = result.data
-              this.List = result.data
-              this.ngOnInit();
-              this.Clear();
-              this.toster.success("New Data Added")
-              this.confirmationService.showSuccessMessage("Added", result.message);
-            }
-            else{
-              this.toster.error(result.message)
-              this.confirmationService.showErrorMessage("Cancelled!", result.message);
-              this.submitDisable = false
-            }
-          })
-          this.addValue = ""
+    } else if (this.accountForm.valid && this.isValueAvailable()) {
+      this.apiService.postTypeRequest("account_head/insert", this.accountForm.value).subscribe((result: any) => {
+        if (result.result) {
+          this.feeGroup = result.data;
+          this.List = result.data;
+          this.ngOnInit();
+          this.Clear();
+          this.toster.success("New Data Added");
+          this.confirmationService.showSuccessMessage("Added", result.message);
+        } else {
+          this.toster.error(result.message);
+          this.confirmationService.showErrorMessage("Cancelled!", result.message);
+          this.submitDisable = false;
+        }
+      });
+      this.addValue = "";
+    } else if (this.accountForm.valid) {
+      this.toster.error("Value alredy Exists");
+      this.submitDisable = false;
+    } else {
+      this.toster.error("Cannot add empty value");
+      this.submitDisable = false;
+    }
+  }
+
+  Clear() {
+    this.accountForm.reset();
+    this.accountForm.enable();
+    (this.id = null), (this.institution_id = null);
+  }
+
+  AccountTransfer() {
+    const dialogRef = this.dialog.open(AccountTransferComponent, 
+      { 
+        backdropClass: "blurred", 
+        height:"80vH",
+        panelClass:["xl-40","sm-80","md-50"],
+        data: {
+          title:"BALANCE TRANSFER",
+          url:"BALANCE_TRANSFER",
+          sourceList:this.List,
+          destinationList:this.List
         } 
-        else if(this.accountForm.valid){
-          this.toster.error("Value alredy Exists")
-          this.submitDisable = false
-        }
-        else{
-          this.toster.error("Cannot add empty value")
-          this.submitDisable = false
-        }
+      });
   }
 
-  Clear(){
-    this.accountForm.reset()
-    this.accountForm.enable()
-    this.id = null,
-    this.institution_id = null
-  }
-
-  AccountTransfer(){
-const dialogRef = this.dialog.open(AccountTransferComponent,{ backdropClass: "blurred"})
+  updateBalance(data:any) {
+    var tempList:any[] = [data]
+    const dialogRef = this.dialog.open(AccountTransferComponent, 
+      { 
+        backdropClass: "blurred", 
+        height:"80vH",
+        panelClass:["xl-40","sm-80","md-50"],
+        data: {
+          title:"INCOME CREDIT",
+          url:"INCOME_CREDIT",
+          destinationList:tempList,
+          disableSource:true
+        } 
+      });
   }
 }

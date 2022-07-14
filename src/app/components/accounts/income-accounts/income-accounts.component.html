@@ -42,7 +42,7 @@
       <div class="card">
         <div class="card-header d-flex justify-content-between">
           <h5>Income Accounts</h5>
-          <button class="btn btn-primary" style="max-height: 36px" type="button" (click)="AccountTransfer()">Account Transfer</button>
+          <button class="btn btn-primary" style="max-height: 36px" *ngIf="!dataFetch" type="button" (click)="AccountTransfer()">Account Transfer</button>
         </div>
         <div class="collapse show">
           <div class="card-body">
@@ -96,7 +96,7 @@
                             style="height: 35px; width: 35px"
                             (click)="update(product)"
                           ></button>
-                          <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded btn-primary ml-1" style="height: 35px; width: 35px"></button>
+                          <button pButton pRipple type="button" pTooltip="Add Balance" icon="pi pi-dollar" class="p-button-rounded btn-success ml-1" style="height: 35px; width: 35px" (click)="updateBalance(product)"></button>
                         </div>
                       </td>
                     </tr>

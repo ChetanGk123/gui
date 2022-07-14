@@ -11,7 +11,7 @@ const routes: Routes = [
     path: "addIncomeAccount",
     component: IncomeAccountsComponent,
     data: {
-      title: "Add Income Account",
+      title: "Income Account",
       breadcrumb: "Add Income Account",
     },
   },
@@ -19,7 +19,7 @@ const routes: Routes = [
     path: "addExpenseAccount",
     component: ExpenseAccountsComponent,
     data: {
-      title: "Add Expense Account",
+      title: "Expense Account",
       breadcrumb: "Add Expense Account",
     },
   },

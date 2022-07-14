@@ -1,0 +1,136 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between">
+            <h5>Expenses</h5>
+            <button class="btn btn-primary" style="max-height: 36px" *ngIf="!dataFetch" type="button" (click)="AddExpences()">Add Expenses</button>
+          </div>
+          <div class="card-body">
+            <p-table
+            #dt
+            [value]="expenseList"
+            *ngIf="!dataFetch"
+            [paginator]="true"
+            [rows]="10"
+            [showCurrentPageReport]="true"
+            responsiveLayout="scroll"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[10, 25, 50]"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Receipt No</th>
+                <th>Txn Date</th>
+                <th>Txn Type</th>
+                <th>Previous Bal</th>
+                <th>Txn Amout</th>
+                <th>Current Bal</th>
+                <th>View</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
+              <tr>
+                <td>{{ product.receipt_no }}</td>
+                <td>{{ product.transaction_date }}</td>
+                <!-- <td>{{product.transaction_type}}</td> -->
+                <td>
+                  <font [color]="product.transaction_type == 'DEBIT' ? 'red' : 'green'"
+                    ><b>{{ product.transaction_type }}</b></font
+                  >
+                </td>
+                <td>{{ product.previous_balance | currency: "INR" }}</td>
+                <td>{{ product.transaction_amount | currency: "INR" }}</td>
+                <td>{{ product.current_balance | currency: "INR" }}</td>
+                <td>
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-search"
+                    class="p-button-rounded btn-success ml-1"
+                    style="height: 35px; width: 35px"
+                    ngbTooltip="View"
+                    (click)="openDialog(product)"
+                  ></button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<p-dialog [(visible)]="productDialog" [style]="{ width: '550px' }" header="Transaction Details" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <div class="card">
+      <div class="col">
+        <div class="row">
+          <div class="col-6">
+            <label
+              >Receipt No:&nbsp;<b>{{ selectedData.receipt_no }}</b></label
+            >
+          </div>
+          <div class="col-6">
+            <label
+              >Txn Date:&nbsp; <b>{{ selectedData.transaction_date }}</b>
+            </label>
+          </div>
+          <div class="col-6">
+            <label
+              >Txn Type:&nbsp;
+              <font [color]="selectedData.transaction_type == 'DEBIT' ? 'red' : 'green'"
+                ><b>{{ selectedData.transaction_type }}</b></font
+              ></label
+            >
+          </div>
+          <div class="col-6">
+            <label
+              >Previous Bal:&nbsp; <b>{{ selectedData.previous_balance | currency:'INR' }}</b>
+            </label>
+          </div>
+          <div class="col-6">
+            <label
+              >Txn Amout:&nbsp; <b>{{ selectedData.transaction_amount | currency:'INR' }}</b>
+            </label>
+          </div>
+          <div class="col-6">
+            <label
+              >Current Bal:&nbsp; <b>{{ selectedData.current_balance | currency:'INR' }}</b>
+            </label>
+          </div>
+          <div class="col-12">
+            <label
+              >Description:&nbsp; <b>{{ selectedData.transaction_desc }}</b>
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <br />
+          <div class="col-12">
+            <label><b>Payment Details</b> </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <label
+              >Payment Mode:&nbsp; <b>{{ selectedData.payment_mode ?? "--" }}</b>
+            </label>
+          </div>
+          <div class="col-6">
+            <label
+              >Payment Ref No:&nbsp; <b>{{ selectedData.payment_ref ?? "--" }}</b>
+            </label>
+          </div>
+          <div class="col-12">
+            <label
+              >User Comments:&nbsp; <b>{{ selectedData.user_comments ?? "--" }}</b>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-dialog>

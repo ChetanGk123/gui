@@ -26,7 +26,12 @@ export class FeePaymentComponent implements OnInit {
     payment_date: new FormControl("",[Validators.required]),
   });
   accountHeadList:any = [];
-  constructor(public apiService: ApiService, public toster:ToastrService,public dialog:MatDialog,public dialogRef: MatDialogRef<FeePaymentComponent>,@Inject(MAT_DIALOG_DATA) public dialogdata: any) { }
+  constructor(
+    public apiService: ApiService, 
+    public toster:ToastrService,
+    public dialog:MatDialog,
+    public dialogRef: MatDialogRef<FeePaymentComponent>,
+    @Inject(MAT_DIALOG_DATA) public dialogdata: any) { }
 
   ngOnInit(): void {
     this.apiService.getTypeRequest("dropdown_data/ACCOUNT_HEAD").subscribe((result: any) => {
