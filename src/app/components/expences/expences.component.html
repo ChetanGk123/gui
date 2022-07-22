@@ -7,6 +7,8 @@
             <button class="btn btn-primary" style="max-height: 36px" *ngIf="!dataFetch" type="button" (click)="AddExpences()">Add Expenses</button>
           </div>
           <div class="card-body">
+            <div class="loader-box center" *ngIf="dataFetch">
+              <span class="rotate dashed"></span></div>
             <p-table
             #dt
             [value]="expenseList"

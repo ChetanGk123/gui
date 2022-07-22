@@ -11,6 +11,8 @@ import { DueFeesReportComponent } from './due-fees/due-fees-report/due-fees-repo
 import { DueFeesComponent } from './due-fees/due-fees.component';
 import { StudentListComponent } from './studentList/studentList.component';
 import { StudentListReportComponent } from './studentList/student-list-report/student-list-report.component';
+import { IncomeAccountsComponent } from './accounts/income-accounts/income-accounts.component';
+import { ExpenseAccountsComponent } from './accounts/expense-accounts/expense-accounts.component';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { StudentListReportComponent } from './studentList/student-list-report/st
     DueFeesComponent,
     DueFeesReportComponent,
     StudentListComponent,
-    StudentListReportComponent
+    StudentListReportComponent,
+    IncomeAccountsComponent,
+    ExpenseAccountsComponent
   ],
   imports: [
     CommonModule,

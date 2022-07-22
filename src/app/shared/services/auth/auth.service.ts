@@ -72,8 +72,7 @@ export class AuthService {
           this.router.navigateByUrl(this.returnUrl);
         }
         this.toster.success("Welcomeback " + response.data.full_name);
-        var enc = CryptoJS.AES.encrypt(JSON.stringify(response.data), this.encPassword).toString();
-        localStorage.setItem("user", enc);
+        
         return true;
       } else {
         this.spinnerService.hide();
@@ -128,6 +127,8 @@ export class AuthService {
 
   async setUserData(data: any) {
     this.userData = await data;
+    var enc = CryptoJS.AES.encrypt(JSON.stringify(this.userData), this.encPassword).toString();
+        localStorage.setItem("user", enc);
   }
 
 

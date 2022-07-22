@@ -40,17 +40,29 @@
             </div>
           </div>
           <div class="form-group col-sm-12 col-md-6">
-            <label for="payment_mode">Transaction Mode</label>
+            <label for="payment_mode">Transaction Mode <span class="font-danger">*</span></label>
             <input type="text" class="form-control" formControlName="payment_mode" id="payment_mode" placeholder="PhonePe" />
+            <div *ngIf="transactionForm.controls.payment_mode.touched && transactionForm.controls.payment_mode.errors?.required"
+                class="text text-danger">
+                Transaction Mode is required.
+            </div>
           </div>
           <div class="form-group col-sm-12 col-md-6">
-            <label for="payment_ref">Transaction Ref No</label>
+            <label for="payment_ref">Transaction Ref No <span class="font-danger">*</span></label>
             <input type="text" class="form-control" formControlName="payment_ref" id="payment_ref" placeholder="UTR132156" />
+            <div *ngIf="transactionForm.controls.payment_ref.touched && transactionForm.controls.payment_ref.errors?.required"
+                class="text text-danger">
+                Transaction Ref is required.
+            </div>
           </div>
           <div class="form-group col-12 p-r-0">
             <label for="user_comments">Transaction Description <span class="font-danger">*</span></label>
             <textarea class="form-control" id="user_comments" [formControl]="transactionForm.controls['user_comments']" rows="2" cols="5" class="form-control"
                                       placeholder="Description..."></textarea>
+                                      <div *ngIf="transactionForm.controls.user_comments.touched && transactionForm.controls.user_comments.errors?.required"
+                class="text text-danger">
+                Comments required.
+            </div>
           </div>
           <div class="col-12">
             <button class="btn btn-primary-gradien btn-block" [disabled]="clicked" type="button"  (click)="OnSubmit()">{{clicked?"":"Submit"}} <i class="fa fa-circle-o-notch fa-spin" *ngIf="clicked"></i></button>

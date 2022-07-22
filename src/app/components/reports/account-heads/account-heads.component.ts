@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
@@ -12,6 +12,8 @@ import { AccountHeadTransactionsComponent } from "./account-head-transactions/ac
   styleUrls: ["./account-heads.component.scss"],
 })
 export class AccountHeadsComponent implements OnInit {
+  @Input() Url
+  @Input() AccountType
   from_date;
   to_date;
   filterValue: any = "";
@@ -37,7 +39,7 @@ export class AccountHeadsComponent implements OnInit {
 
   ngOnInit(): void {
     this.apiService
-      .getTypeRequest("table_data/ACCOUNT_HEAD")
+      .getTypeRequest(`${this.Url}`)
       .subscribe((result: any) => {
         this.AccountHeadList = result.data;
       });
@@ -47,7 +49,7 @@ export class AccountHeadsComponent implements OnInit {
     this.dataFetch = true;
     if (this.form.get("account_id").value.length > 0) {
       this.apiService
-        .postTypeRequest("transactions/ACCOUNT_HEAD", this.form.value)
+        .postTypeRequest('transactions/ACCOUNT_HEAD', this.form.value)
         .subscribe((result: any) => {
           if (result.result) {
             this.dataFetch = false;

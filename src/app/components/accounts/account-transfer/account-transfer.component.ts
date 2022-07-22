@@ -17,8 +17,8 @@ export class AccountTransferComponent implements OnInit {
     source_id: new FormControl("",[Validators.required]),
     destination_id: new FormControl("",[Validators.required]),
     transaction_amount: new FormControl("",[Validators.required]),
-    payment_mode: new FormControl(""),
-    payment_ref: new FormControl(""),
+    payment_mode: new FormControl("",[Validators.required]),
+    payment_ref: new FormControl("",[Validators.required]),
     user_comments: new FormControl("",[Validators.required]),
     txn_date: new FormControl("",[Validators.required]),
   });
@@ -41,7 +41,7 @@ export class AccountTransferComponent implements OnInit {
   }
 
   OnSubmit(){
-    if(this.transactionForm.controls.destination_id.value == this.transactionForm.controls.source_id.value){
+    if(this.transactionForm.controls.destination_id.value.toString().length > 0 && this.transactionForm.controls.destination_id.value == this.transactionForm.controls.source_id.value){
       this.transactionForm.controls.source_id.markAsDirty()
       this.transactionForm.controls.destination_id.markAsDirty()
       this.toster.error("Source A/c and Destination A/c cannot be same.","Invalid Missing");

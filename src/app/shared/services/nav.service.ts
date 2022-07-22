@@ -99,9 +99,6 @@ export class NavService {
 			path: '/calender', title: 'Calender', icon: 'calendar', type: 'link', roles:['Admin','ADMISSION OFFICER','su_user']
 		},
 		{
-			path: '/expense', title: 'Expenses', icon: 'shopping-bag', type: 'link', roles:['Admin','ADMISSION OFFICER','su_user']
-		},
-		{
 			title: 'System Settings', icon: 'aperture', type: 'sub', active: false,roles:['su_user'] , children: [
 				{ path: '/system-settings/role', title: 'Role',icon: 'aperture', type: 'link',roles:['su_user'] },
 				{ path: '/system-settings/registerModule', title: 'Register Module',icon: 'aperture', type: 'link',roles:['su_user'] },
@@ -127,6 +124,9 @@ export class NavService {
 			]
 		},
 		{
+			path: '/expense', title: 'Expenses', icon: 'shopping-bag', type: 'link', roles:['Admin','ADMISSION OFFICER','su_user']
+		},
+		{
 			title: 'Student', icon: 'user', type: 'sub', active: false,roles:['Admin','ADMISSION OFFICER'], children: [
 				{ path: '/student/allStudents', icon: 'users', title: 'All Students', type: 'link',roles:['Admin','ADMISSION OFFICER'] },
 				{ path: '/student/addNew', icon: 'user-plus', title: 'Add New Student', type: 'link',roles:['Admin','ADMISSION OFFICER'] },
@@ -143,7 +143,8 @@ export class NavService {
 		},
 		{
 			title: 'Reports', icon: 'folder', type: 'sub', active: false,roles:['Admin','ADMISSION OFFICER'], children: [
-				{ path: '/reports/accountHeads', icon: 'folder', title: 'Account Heads', type: 'link',roles:['Admin'] },
+				{ path: '/reports/incomeAccounts', icon: 'folder', title: 'Income Accounts', type: 'link',roles:['Admin'] },
+				{ path: '/reports/expenseAccounts', icon: 'folder', title: 'Expense Accounts', type: 'link',roles:['Admin'] },
 				{ path: '/reports/dueFees', title: 'Due Fees',icon: 'dollar-sign', type: 'link',roles:['Admin'] },
 				{ path: '/reports/studentsList', title: 'Students List',icon: 'user', type: 'link',roles:['Admin'] },
 			]
