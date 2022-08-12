@@ -13,25 +13,40 @@ export interface current_academic_details {
 }
 
 export interface personal_data {
-  student_name: string;
-  dob: string;
-  dob_in_words: string;
-  religion: string;
+  bood_group: string;
   caste: string;
   category: string;
-  bood_group: string;
+  current_city: string;
+  current_country: string;
+  current_district: string;
+  current_pin: string;
+  current_state: string;
+  current_taluka: string;
+  dob: string;
+  dob_in_words: string;
   gender: string;
-  student_mobile: string;
-  student_email: string;
+  height: string;
+  is_special_needs: string;
+  languages_studied: string;
+  nationality: string;
+  permanent_city: string;
+  permanent_country: string;
+  permanent_district: string;
+  permanent_pin: string;
+  permanent_state: string;
+  permanent_taluka: string;
+  place_of_birth: string;
+  previous_medium_of_instrutcion: string;
+  religion: string;
+  special_needs: string;
   stud_current_address: string;
   stud_permanent_address: string;
-  height: string;
-  weight: string;
+  student_email: string;
+  student_mobile: string;
+  student_name: string;
   student_photo: string;
-  is_special_needs: number;
-  languages_studied: string;
-  previous_medium_of_instrutcion: string;
-  special_needs: string;
+  student_photo_base64: string;
+  weight: string;
 }
 
 export interface parent_data {
