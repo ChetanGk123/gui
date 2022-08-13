@@ -1,12 +1,12 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ImageCroppedEvent, ImageTransform } from 'ngx-image-cropper';
-import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
-import { Subject, Observable } from 'rxjs';
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { ImageCroppedEvent, ImageTransform } from "ngx-image-cropper";
+import { WebcamImage, WebcamInitError, WebcamUtil } from "ngx-webcam";
+import { Subject, Observable } from "rxjs";
 
 @Component({
-  selector: 'app-camera',
-  templateUrl: './camera.component.html',
-  styleUrls: ['./camera.component.scss']
+  selector: "app-camera",
+  templateUrl: "./camera.component.html",
+  styleUrls: ["./camera.component.scss"],
 })
 export class CameraComponent implements OnInit {
   @Output() getPicture = new EventEmitter<File>();
@@ -14,9 +14,9 @@ export class CameraComponent implements OnInit {
   isCameraExist = true;
 
   errors: WebcamInitError[] = [];
-  public cropImage:File
-  public imageChangedEvent : any = '';
-  public croppedImage : any = '';
+  public cropImage: File;
+  public imageChangedEvent: any = "";
+  public croppedImage: any = "";
   public showCropper = false;
   public canvasRotation = 0;
   public rotation = 0;
@@ -28,14 +28,12 @@ export class CameraComponent implements OnInit {
   private trigger: Subject<void> = new Subject<void>();
   private nextWebcam: Subject<boolean | string> = new Subject<boolean | string>();
 
-  constructor() { }
-
+  constructor() {}
 
   ngOnInit(): void {
-    WebcamUtil.getAvailableVideoInputs()
-      .then((mediaDevices: MediaDeviceInfo[]) => {
-        this.isCameraExist = mediaDevices && mediaDevices.length > 0;
-      });
+    WebcamUtil.getAvailableVideoInputs().then((mediaDevices: MediaDeviceInfo[]) => {
+      this.isCameraExist = mediaDevices && mediaDevices.length > 0;
+    });
   }
 
   takeSnapshot(): void {
@@ -43,7 +41,7 @@ export class CameraComponent implements OnInit {
   }
 
   onOffWebCame() {
-    this.cropImage = null
+    this.cropImage = null;
     this.showWebcam = !this.showWebcam;
   }
 
@@ -77,7 +75,6 @@ export class CameraComponent implements OnInit {
     return this.nextWebcam.asObservable();
   }
 
-
   public imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = event.base64;
   }
@@ -87,8 +84,13 @@ export class CameraComponent implements OnInit {
     this.showCropper = true;
   }
 
+  selectFile(event) {
+    this.cropImage = event.target.files[0];
+    this.showWebcam = false;
+  }
+
   public uploadImage() {
-    let image:WebcamImage = this.croppedImage;
+    let image: WebcamImage = this.croppedImage;
     const arr = String(image).split(",");
     const mime = arr[0].match(/:(.*?);/)[1];
     const bstr = atob(arr[1]);
@@ -97,7 +99,7 @@ export class CameraComponent implements OnInit {
     while (n--) {
       u8arr[n] = bstr.charCodeAt(n);
     }
-    let file:File = new File([u8arr], "Profile.png", { type: "Image/jpeg" });
+    let file: File = new File([u8arr], "Profile.png", { type: "Image/jpeg" });
     this.getPicture.emit(file);
   }
 
@@ -106,76 +108,75 @@ export class CameraComponent implements OnInit {
     this.imageChangedEvent = event;
   }
 
-  cropperReady() { }
+  cropperReady() {}
 
-  loadImageFailed() {  }
+  loadImageFailed() {}
 
   rotateLeft() {
     this.canvasRotation--;
     this.flipAfterRotate();
-}
+  }
 
-rotateRight() {
+  rotateRight() {
     this.canvasRotation++;
     this.flipAfterRotate();
-}
+  }
 
-private flipAfterRotate() {
+  private flipAfterRotate() {
     const flippedH = this.transform.flipH;
     const flippedV = this.transform.flipV;
     this.transform = {
-        ...this.transform,
-        flipH: flippedV,
-        flipV: flippedH
+      ...this.transform,
+      flipH: flippedV,
+      flipV: flippedH,
     };
-}
+  }
 
-
-flipHorizontal() {
+  flipHorizontal() {
     this.transform = {
-        ...this.transform,
-        flipH: !this.transform.flipH
+      ...this.transform,
+      flipH: !this.transform.flipH,
     };
-}
+  }
 
-flipVertical() {
+  flipVertical() {
     this.transform = {
-        ...this.transform,
-        flipV: !this.transform.flipV
+      ...this.transform,
+      flipV: !this.transform.flipV,
     };
-}
+  }
 
-resetImage() {
+  resetImage() {
     this.scale = 1;
     this.rotation = 0;
     this.canvasRotation = 0;
     this.transform = {};
-}
+  }
 
-zoomOut() {
-    this.scale -= .1;
+  zoomOut() {
+    this.scale -= 0.1;
     this.transform = {
-        ...this.transform,
-        scale: this.scale
+      ...this.transform,
+      scale: this.scale,
     };
-}
+  }
 
-zoomIn() {
-    this.scale += .1;
+  zoomIn() {
+    this.scale += 0.1;
     this.transform = {
-        ...this.transform,
-        scale: this.scale
+      ...this.transform,
+      scale: this.scale,
     };
-}
+  }
 
-toggleContainWithinAspectRatio() {
+  toggleContainWithinAspectRatio() {
     this.containWithinAspectRatio = !this.containWithinAspectRatio;
-}
+  }
 
-updateRotation() {
+  updateRotation() {
     this.transform = {
-        ...this.transform,
-        rotate: this.rotation
+      ...this.transform,
+      rotate: this.rotation,
     };
-}
+  }
 }
