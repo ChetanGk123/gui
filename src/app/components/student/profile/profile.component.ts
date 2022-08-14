@@ -1,28 +1,10 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import {
-  FormBuilder,
-  Validators,
-  FormGroup,
-  FormControl,
-} from "@angular/forms";
+import { FormBuilder, Validators, FormGroup, FormControl } from "@angular/forms";
 import { DatePipe } from "@angular/common";
 import { StudentService } from "src/app/shared/services/student_services/student.service";
 import { ToastrService } from "ngx-toastr";
-import {
-  academic_info,
-  AdmissionForm,
-  parent_info,
-  schoolHistory,
-  student_info,
-} from "src/app/shared/model/admissionForm";
-import {
-  admission_data,
-  current_academic_details,
-  parent_data,
-  personal_data,
-  previous_academic_data,
-  student_documents,
-} from "src/app/shared/model/Profile";
+import { academic_info, AdmissionForm, parent_info, schoolHistory, student_info } from "src/app/shared/model/admissionForm";
+import { admission_data, current_academic_details, parent_data, personal_data, previous_academic_data, student_documents } from "src/app/shared/model/Profile";
 import { ApiService } from "src/app/shared/services/auth/api.service";
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/shared/services/auth/auth.service";
@@ -65,61 +47,43 @@ export class ProfileComponent implements OnInit {
   profilePhoto?: File;
   url: string | ArrayBuffer = "assets/images/user.png";
   file_data: FormData;
-  constructor(
-    public studentService: StudentService,
-    private fb: FormBuilder,
-    public toster: ToastrService,
-    public apiService: ApiService,
-    public authService: AuthService,
-    public dialog: MatDialog,
-    public datepipe: DatePipe,
-    public router: Router,
-    public http: HttpClient
-  ) {}
- 
+  constructor(public studentService: StudentService, private fb: FormBuilder, public toster: ToastrService, public apiService: ApiService, public authService: AuthService, public dialog: MatDialog, public datepipe: DatePipe, public router: Router, public http: HttpClient) {}
+
   getDataFromDataUrl(dataUrl: string, mimeType: string) {
     return dataUrl.replace(`data:${mimeType};base64,`, "");
   }
   handleImage(file: any) {
-    this.cameraDialog = false
+    this.cameraDialog = false;
     this.form.get("file").setValue(file);
-    this.uploadProfilePhoto()
+    this.uploadProfilePhoto();
   }
 
   async fetchApi() {
     this.dataFetch = false;
     var admissionId = this.student?.student_id ?? this.student?.student_id;
     if (admissionId) {
-      await this.apiService
-        .getTypeRequest("student_profile/" + admissionId)
-        .subscribe((result: any) => {
-          if (result.result) {
-            this.dataFetch = true;
-            this.admission_data =
-              result.data["student_admission_data_by_student_id"];
-            this.studentService.admission_data = this.admission_data;
-            this.current_academic_details =
-              result.data["current_academic_details_by_student_id"];
-            this.studentService.current_academic_details =
-              this.current_academic_details;
-            this.personal_data =
-              result.data["student_personal_data_by_student_id"];
-            this.studentService.personal_data = this.personal_data;
-            this.parent_data = result.data["student_parent_data_by_student_id"];
-            this.studentService.parent_data = this.parent_data;
-            this.previous_academic_data = result.data["previous_academic_data"];
-            this.studentService.previous_academic_data =
-              this.previous_academic_data;
-            this.student_documents =
-              result.data["student_documents_by_student_id"];
-            this.studentService.student_documents = this.student_documents;
-          } else {
-            if (result.error_code === "INVALID_LOGIN") {
-              this.toster.error("Session Expired");
-              this.authService.SignOut();
-            }
+      await this.apiService.getTypeRequest("student_profile/" + admissionId).subscribe((result: any) => {
+        if (result.result) {
+          this.dataFetch = true;
+          this.admission_data = result.data["student_admission_data_by_student_id"];
+          this.studentService.admission_data = this.admission_data;
+          this.current_academic_details = result.data["current_academic_details_by_student_id"];
+          this.studentService.current_academic_details = this.current_academic_details;
+          this.personal_data = result.data["student_personal_data_by_student_id"];
+          this.studentService.personal_data = this.personal_data;
+          this.parent_data = result.data["student_parent_data_by_student_id"];
+          this.studentService.parent_data = this.parent_data;
+          this.previous_academic_data = result.data["previous_academic_data"];
+          this.studentService.previous_academic_data = this.previous_academic_data;
+          this.student_documents = result.data["student_documents_by_student_id"];
+          this.studentService.student_documents = this.student_documents;
+        } else {
+          if (result.error_code === "INVALID_LOGIN") {
+            this.toster.error("Session Expired");
+            this.authService.SignOut();
           }
-        });
+        }
+      });
     } else {
       this.router.navigate(["/student/allStudents"]);
     }
@@ -127,7 +91,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.fetchApi();
-    this.ProfilePhotoloader = false
+    this.ProfilePhotoloader = false;
   }
 
   readProfilePhoto(event: any) {
@@ -138,7 +102,7 @@ export class ProfileComponent implements OnInit {
   }
 
   async uploadProfilePhoto() {
-    this.ProfilePhotoloader = true
+    this.ProfilePhotoloader = true;
     const formData: FormData = new FormData();
     formData.append("file", this.form.get("file").value);
     formData.append("token", this.apiService.getTocken);
@@ -148,26 +112,22 @@ export class ProfileComponent implements OnInit {
       .postFileTypeRequest("upload_student_document", formData)
       .toPromise()
       .then((result: any) => {
-        if(result.result){
-          loc = result.data.file_loc
+        if (result.result) {
+          loc = result.data.file_loc;
           var file = {
             student_id: this.admission_data.student_id,
             img_loc: loc,
           };
-          this.apiService
-            .postTypeRequest("save_student_photo", file)
-            .subscribe(async (result: any) => {
-              if (result.result) {
-                this.toster.success("Data added successfully");
-                this.fetchApi();
-                this.ProfilePhotoloader = false
-              } else {
-                this.toster.error(result.message);
-              }
-            });
-        }else{
-          this.ProfilePhotoloader = false
-          this.toster.error(result.message);
+          this.apiService.postTypeRequest("save_student_photo", file).subscribe(async (result: any) => {
+            if (result.result) {
+              this.toster.success("Data added successfully");
+              this.fetchApi();
+              this.ProfilePhotoloader = false;
+            } else {
+            }
+          });
+        } else {
+          this.ProfilePhotoloader = false;
         }
       });
   }
@@ -211,7 +171,7 @@ export class ProfileComponent implements OnInit {
       }
     });
   }
-  
+
   deleteStudentData() {
     var Request_Data = {
       item_id: this.admission_data.student_id,
@@ -241,19 +201,10 @@ export class ProfileComponent implements OnInit {
             .then((result: any) => {
               if (result.result) {
                 this.toster.warning("Data deleted");
-                swalWithBootstrapButtons.fire(
-                  "Deleted!",
-                  result.message,
-                  "success"
-                );
+                swalWithBootstrapButtons.fire("Deleted!", result.message, "success");
                 this.router.navigate(["/student/allStudents"]);
               } else {
-                swalWithBootstrapButtons.fire(
-                  "Cancelled",
-                  result.message,
-                  "error"
-                );
-                this.toster.error(result.message);
+                swalWithBootstrapButtons.fire("Cancelled", result.message, "error");
               }
             });
         }

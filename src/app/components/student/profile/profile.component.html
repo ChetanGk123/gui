@@ -4,53 +4,6 @@
 <div class="container-fluid" *ngIf="dataFetch">
   <div class="row">
     <div class="col-sm-12 col-md-4 col-lg-3 col-xl-3">
-      <!-- <div class="card custom-card">
-        <div class="card-profile">
-          <div class="card-header">
-            <img class="img-fluid" src="assets/images/faq/2.jpg" alt="" />
-          </div>
-          <img class="rounded-circle" style="margin-top: -4rem" src="{{ personal_data.student_photo }}" alt="" />
-          <div class="profile-edit" style="margin-top: -1rem">
-            <a>
-              <i class="icofont icofont-pencil-alt-5"><input class="upload" type="file" (change)="readUrl($event)" /></i>
-            </a>
-          </div>
-        </div>
-        <div class="text-center profile-details mt-3">
-          <div class="row">
-            <div class="col-6 d-flex justify-content-start"><span>Name</span><br /></div>
-            <div class="col-6 d-flex justify-content-end">
-              <span>{{ personal_data.student_name ?? "" }}</span>
-            </div>
-          </div>
-          <hr style="font-weight: bold" />
-          <div class="row">
-            <div class="col-6 d-flex justify-content-start"><span>ID</span><br /></div>
-            <div class="col-6 d-flex justify-content-end">
-              <span>{{ admission_data.admission_no ?? "" }}</span>
-            </div>
-          </div>
-          <hr style="font-weight: bold" />
-          <div class="row">
-            
-            <div class="webcam-image" *ngIf="webcamImage">
-              <img [src]="webcamImage.imageAsDataUrl" />
-            </div>
-          </div>
-          <div class="row d-flex justify-content-between">
-            <div class="col-12">
-              <button class="btn btn-primary text-center mt-3" (click)="cameraDialog = true">Open Camera</button>
-            </div>
-            <div class="col-12">
-              <button class="btn btn-primary text-center mt-3" (click)="uploadProfilePhoto()" [disabled]="ProfilePhotoloader">Update Profile Pic&nbsp;<i class="fa fa-circle-o-notch fa-spin" *ngIf="ProfilePhotoloader"></i></button>
-            </div>
-            <div class="col-12">
-              <button class="btn btn-primary text-center mt-3" (click)="openAdmissionForm()">Open Admission Form</button>
-            </div>
-          </div>
-        </div>
-        <div class="card-footer"></div>
-      </div> -->
       <div class="card custom-card">
         <div class="card-header"><img class="img-fluid" src="assets/images/faq/2.jpg" alt="" /></div>
         <div class="card-profile">
@@ -62,6 +15,9 @@
           <h4>{{ personal_data.student_name ?? "" }}</h4>
           <h6>{{ admission_data.admission_no ?? "" }}</h6>
         </div>
+        <hr />
+        <h6><i class="pi pi-star"></i>&emsp;{{ personal_data.dob ?? "" }}</h6>
+        <h6><i class="pi pi-map-marker"></i>&emsp;{{ personal_data.current_city ?? "" }},&nbsp;{{ personal_data.current_state ?? "" }}</h6>
         <div class="row text-center">
           <div class="col-12">
             <button class="btn btn-primary text-center mt-3" (click)="openAdmissionForm()">Admission Form &nbsp;&nbsp;<i class="pi pi-window-maximize"></i></button>

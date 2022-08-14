@@ -21,7 +21,7 @@ export class FeesComponent implements OnInit {
   public dataFetch: boolean = false;
   student: any = this.studentService.getSelectedStudent;
   CurrentFeeList = [];
-  selectedFees:any = [];
+  selectedFees: any = [];
   TempCurrentFeeList = [];
   PreviousFeeList = [];
   filterValue: any = "";
@@ -37,13 +37,13 @@ export class FeesComponent implements OnInit {
     this.dataFetch = true;
 
     this.apiService.getTypeRequest(`assigned_fee/${this.student.student_id}`).subscribe((result: any) => {
-      if(result.result){
+      if (result.result) {
         this.CurrentFeeList = result.data.current_academic_fees;
         this.TempCurrentFeeList = result.data.current_academic_fees;
         this.PreviousFeeList = result.data.previous_academic_fee;
         this.dataFetch = false;
-      }else{
-        this.toster.error(result.message)
+      } else {
+        this.toster.error(result.message);
         this.dataFetch = false;
       }
     });
@@ -102,7 +102,6 @@ export class FeesComponent implements OnInit {
               this.toster.success(result.message);
               this.ngOnInit();
             } else {
-              this.toster.error(result.message);
             }
           });
         }
@@ -111,46 +110,45 @@ export class FeesComponent implements OnInit {
 
   printFee() {
     // console.log(this.selectedFees);
-    
-    if(this.selectedFees.length > 0){
-      const data  = this.selectedFees
+
+    if (this.selectedFees.length > 0) {
+      const data = this.selectedFees;
       const dialogRef = this.dialog.open(AcknowledgementComponent, {
         data: data,
         height: "88%",
         width: "80%",
       });
-      dialogRef.afterClosed().subscribe(()=>{
+      dialogRef.afterClosed().subscribe(() => {
         // console.log(this.selectedFees);
-      })
-    }
-    else{
-      this.toster.error("Select fee groups to print")
+      });
+    } else {
+      this.toster.error("Select fee groups to print");
     }
   }
 
-  payFees(product){
-    const dialogRef = this.dialog.open(FeePaymentComponent,{
-      data:{
-        student_name:this.student.student_name,
-        fee_allocation_id:product.fee_allocation_id,
-        fee_group_name:product.fee_group_name,
-        student_id:this.student.student_id,
-        current_academic_name:product.current_academic_name,
-        fee_component_data:product.fee_component_data
+  payFees(product) {
+    const dialogRef = this.dialog.open(FeePaymentComponent, {
+      data: {
+        student_name: this.student.student_name,
+        fee_allocation_id: product.fee_allocation_id,
+        fee_group_name: product.fee_group_name,
+        student_id: this.student.student_id,
+        current_academic_name: product.current_academic_name,
+        fee_component_data: product.fee_component_data,
       },
-      width:"50%",
-      height:"80%"
-    })
+      width: "50%",
+      height: "80%",
+    });
 
-    dialogRef.afterClosed().subscribe((result:any)=>{
-      if(result?.result){
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result?.result) {
         const dialogRef = this.dialog.open(FeeVoucherComponent, {
-          data: result.data['student'],
+          data: result.data["student"],
           height: "88%",
           width: "80%",
         });
-        this.ngOnInit()
+        this.ngOnInit();
       }
-    })
+    });
   }
 }

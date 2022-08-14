@@ -23,13 +23,7 @@ export class DepartmentComponent implements OnInit {
   DepList: any = [];
   dep: any = [];
 
-  constructor(
-    public apiService: ApiService,
-    private dialog: DialogService,
-    public spinner: SpinnerService,
-    public toster: ToastrService,
-    public dialogRef: MatDialogRef<DepartmentComponent>
-  ) {}
+  constructor(public apiService: ApiService, private dialog: DialogService, public spinner: SpinnerService, public toster: ToastrService, public dialogRef: MatDialogRef<DepartmentComponent>) {}
 
   ngOnInit(): void {
     this.clear();
@@ -37,13 +31,11 @@ export class DepartmentComponent implements OnInit {
     this.addLoader = false;
     this.DepeditValue = "";
     this.DepCodeeditValue = "";
-    this.apiService
-      .getTypeRequest("dropdown_data/DEPARTMENT")
-      .subscribe((result: any) => {
-        this.DepList = result.data;
-        this.dep = result.data;
-        this.dataFetch = false;
-      });
+    this.apiService.getTypeRequest("dropdown_data/DEPARTMENT").subscribe((result: any) => {
+      this.DepList = result.data;
+      this.dep = result.data;
+      this.dataFetch = false;
+    });
   }
 
   clear() {
@@ -90,19 +82,11 @@ export class DepartmentComponent implements OnInit {
             .then((result: any) => {
               if (result.result) {
                 this.toster.warning("Data Updated");
-                swalWithBootstrapButtons.fire(
-                  "Updated!",
-                  result.message,
-                  "success"
-                );
+                swalWithBootstrapButtons.fire("Updated!", result.message, "success");
                 this.ngOnInit();
               } else {
-                swalWithBootstrapButtons.fire(
-                  "Cancelled",
-                  result.message,
-                  "error"
-                );
-                this.toster.error(result.message);
+                swalWithBootstrapButtons.fire("Cancelled", result.message, "error");
+
                 this.addLoader = false;
                 this.dataFetch = false;
               }
@@ -120,16 +104,14 @@ export class DepartmentComponent implements OnInit {
     //this.DepeditValue = value;
     this.DepList = [];
     this.dep.filter((x) => {
-      if (x.name.toLowerCase().includes(value.toLowerCase()))
-        this.DepList.push(x);
+      if (x.name.toLowerCase().includes(value.toLowerCase())) this.DepList.push(x);
     });
   }
   onDepCodeFilter(value) {
     //this.DepeditValue = value;
     this.DepList = [];
     this.dep.filter((x) => {
-      if (x.dept_code.toLowerCase().includes(value.toLowerCase()))
-        this.DepList.push(x);
+      if (x.dept_code.toLowerCase().includes(value.toLowerCase())) this.DepList.push(x);
     });
   }
 
@@ -148,21 +130,18 @@ export class DepartmentComponent implements OnInit {
         dept_name: this.DepeditValue,
         dept_code: this.DepCodeeditValue,
       };
-      this.apiService
-        .postTypeRequest("register_dept", castData)
-        .subscribe((result: any) => {
-          if (result.result) {
-            this.DepList = result.data;
-            this.dep = result.data;
-            this.ngOnInit();
-            this.toster.success("New Data Added");
-            swalWithBootstrapButtons.fire("Added!", result.message, "success");
-          } else {
-            this.toster.error(result.message);
-            this.addLoader = false;
-            this.dataFetch = false;
-          }
-        });
+      this.apiService.postTypeRequest("register_dept", castData).subscribe((result: any) => {
+        if (result.result) {
+          this.DepList = result.data;
+          this.dep = result.data;
+          this.ngOnInit();
+          this.toster.success("New Data Added");
+          swalWithBootstrapButtons.fire("Added!", result.message, "success");
+        } else {
+          this.addLoader = false;
+          this.dataFetch = false;
+        }
+      });
     }
     this.DepeditValue = "";
     this.dialogRef.close(true);
@@ -198,19 +177,11 @@ export class DepartmentComponent implements OnInit {
             .then((result: any) => {
               if (result.result) {
                 this.toster.warning("Data deleted");
-                swalWithBootstrapButtons.fire(
-                  "Deleted!",
-                  result.message,
-                  "success"
-                );
+                swalWithBootstrapButtons.fire("Deleted!", result.message, "success");
                 this.ngOnInit();
               } else {
-                swalWithBootstrapButtons.fire(
-                  "Cancelled",
-                  result.message,
-                  "error"
-                );
-                this.toster.error(result.message);
+                swalWithBootstrapButtons.fire("Cancelled", result.message, "error");
+
                 this.addLoader = false;
                 this.dataFetch = false;
               }

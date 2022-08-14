@@ -1,11 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ApiService } from "../../../../shared/services/auth/api.service";
-import {
-  FormBuilder,
-  Validators,
-  FormGroup,
-  FormControl,
-} from "@angular/forms";
+import { FormBuilder, Validators, FormGroup, FormControl } from "@angular/forms";
 import { map } from "rxjs/operators";
 import { DatePipe } from "@angular/common";
 import { ToastrService } from "ngx-toastr";
@@ -15,9 +10,7 @@ import { HttpClient } from "@angular/common/http";
 import { DocViewerComponent } from "../../../../shared/components/doc-viewer/doc-viewer.component";
 import { AuthService } from "../../../../shared/services/auth/auth.service";
 import { EmployeeService } from "src/app/shared/services/employee/employee.service";
-
-declare var require;
-const Swal = require("sweetalert2");
+import { ConfirmationService } from "src/app/shared/services/confirmation_service/confirmation.service";
 
 @Component({
   selector: "app-documents",
@@ -49,15 +42,7 @@ export class DocumentsComponent implements OnInit {
   form: FormGroup = new FormGroup({
     file: new FormControl(""),
   });
-  constructor(
-    public http: HttpClient,
-    public employeeService: EmployeeService,
-    public dialog: MatDialog,
-    public toster: ToastrService,
-    public apiService: ApiService,
-    public authService: AuthService,
-    public datepipe: DatePipe
-  ) {}
+  constructor(public http: HttpClient, public employeeService: EmployeeService, public dialog: MatDialog, public toster: ToastrService, public apiService: ApiService, public authService: AuthService, public datepipe: DatePipe, public confirmationService: ConfirmationService) {}
 
   ngOnInit(): void {
     this.loader = false;
@@ -67,28 +52,24 @@ export class DocumentsComponent implements OnInit {
 
   async fetchApi() {
     this.dataFetch = false;
-    this.apiService
-      .getTypeRequest("dropdown_data/DOCUMENT")
-      .subscribe((result: any) => {
-        this.DocumentList = result.data;
-      });
-    await this.apiService
-      .getTypeRequest("employee_profile/" + this.employee?.employee_id)
-      .subscribe((result: any) => {
-        if (result.result) {
-          this.employee_documents = result.data.employee_docments;
-        } else {
-          if (result.error_code === "INVALID_LOGIN") {
-            this.toster.error("Session Expired");
-            this.authService.SignOut();
-          }
+    this.apiService.getTypeRequest("dropdown_data/DOCUMENT").subscribe((result: any) => {
+      this.DocumentList = result.data;
+    });
+    await this.apiService.getTypeRequest("employee_profile/" + this.employee?.employee_id).subscribe((result: any) => {
+      if (result.result) {
+        this.employee_documents = result.data.employee_docments;
+      } else {
+        if (result.error_code === "INVALID_LOGIN") {
+          this.toster.error("Session Expired");
+          this.authService.SignOut();
         }
-        this.dataFetch = true;
-      });
+      }
+      this.dataFetch = true;
+    });
   }
 
   resetFileGroup() {
-    this.file = null
+    this.file = null;
     this.fileGroup.reset({
       employee_id: this.employee?.employee_id,
       doc_id: "",
@@ -128,52 +109,26 @@ export class DocumentsComponent implements OnInit {
     var Request_Data = {
       document_id: data.actual_doc_id,
     };
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger",
-      },
-      buttonsStyling: false,
+    this.confirmationService.showDeleteConfirmDialog().then((result) => {
+      if (result.value) {
+        this.apiService
+          .postTypeRequest("delete_document", Request_Data)
+          .toPromise()
+          .then((result: any) => {
+            if (result.result) {
+              this.toster.warning("Data deleted");
+              this.confirmationService.showSuccessMessage("Deleted!", result.message);
+              this.ngOnInit();
+            } else {
+              this.confirmationService.showErrorMessage("Cancelled!", result.message);
+            }
+          });
+      }
     });
-    swalWithBootstrapButtons
-      .fire({
-        title: "Are you sure, you want to delete?",
-        text: "You won't be able to revert this!",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, cancel!",
-        reverseButtons: true,
-      })
-      .then((result) => {
-        if (result.value) {
-          this.apiService
-            .postTypeRequest("delete_document", Request_Data)
-            .toPromise()
-            .then((result: any) => {
-              if (result.result) {
-                this.toster.warning("Data deleted");
-                swalWithBootstrapButtons.fire(
-                  "Deleted!",
-                  result.message,
-                  "success"
-                );
-                this.ngOnInit();
-              } else {
-                swalWithBootstrapButtons.fire(
-                  "Cancelled",
-                  result.message,
-                  "error"
-                );
-                this.toster.error(result.message);
-              }
-            });
-        }
-      });
   }
 
   async uploadFile() {
-    this.loader = true
+    this.loader = true;
     if (this.file) {
       const formData: FormData = new FormData();
       formData.append("file", this.form.get("file").value);
@@ -185,15 +140,14 @@ export class DocumentsComponent implements OnInit {
         .postFileTypeRequest("upload_employee_doc", formData)
         .toPromise()
         .then((result: any) => {
-          if(result.result){
+          if (result.result) {
             loc = result.data?.file_loc ?? "";
             this.fileGroup.patchValue({
               doc_loc: loc,
             });
-          }else{
-            this.toster.error(result.message)
+          } else {
           }
-        })
+        });
     }
     this.fileGroup.updateValueAndValidity();
     if (this.update) {
@@ -205,35 +159,29 @@ export class DocumentsComponent implements OnInit {
 
   async saveFile() {
     this.loader = true;
-    await this.apiService
-      .postTypeRequest("save_document_data/EMPLOYEE", this.fileGroup.value)
-      .subscribe(async (result: any) => {
-        if (result.result) {
-          this.toster.success("Data added successfully");
-          this.ngOnInit();
-        } else {
-          this.toster.error(result.message);
-          this.loader = false;
-        }
-      });
+    await this.apiService.postTypeRequest("save_document_data/EMPLOYEE", this.fileGroup.value).subscribe(async (result: any) => {
+      if (result.result) {
+        this.toster.success("Data added successfully");
+        this.ngOnInit();
+      } else {
+        this.loader = false;
+      }
+    });
     this.resetFileGroup();
   }
 
   async updateFile() {
     this.loader = true;
 
-    await this.apiService
-      .postTypeRequest("update_document_date/EMPLOYEE", this.fileGroup.value)
-      .subscribe(async (result: any) => {
-        if (result.result) {
-          this.toster.success("Data added successfully");
-          this.ngOnInit();
-          this.update = false;
-        } else {
-          this.toster.error(result.message);
-          this.loader = false;
-        }
-      });
+    await this.apiService.postTypeRequest("update_document_date/EMPLOYEE", this.fileGroup.value).subscribe(async (result: any) => {
+      if (result.result) {
+        this.toster.success("Data added successfully");
+        this.ngOnInit();
+        this.update = false;
+      } else {
+        this.loader = false;
+      }
+    });
     this.resetFileGroup();
   }
 
@@ -241,11 +189,9 @@ export class DocumentsComponent implements OnInit {
     const dialogRef = this.dialog.open(DocComponent);
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.apiService
-          .getTypeRequest("dropdown_data/DOCUMENT")
-          .subscribe((result: any) => {
-            this.DocumentList = result.data;
-          });
+        this.apiService.getTypeRequest("dropdown_data/DOCUMENT").subscribe((result: any) => {
+          this.DocumentList = result.data;
+        });
         this.DocumentList = this.DocumentList.filter((x) => {
           !this.employee_documents.includes((y) => {
             y.id == x.id;
@@ -275,18 +221,8 @@ export class DocumentsComponent implements OnInit {
       doc_url: data.doc_url,
       doc_no: data.doc_no ?? data.document_no ?? "",
 
-      issue_date: data.issued_date
-        ? this.datepipe.transform(
-            new Date(i[2] + "/" + i[1] + "/" + i[0]),
-            "yyyy-MM-dd"
-          )
-        : "",
-      expiry_date: data.expiry_date
-        ? this.datepipe.transform(
-            new Date(e[2] + "/" + e[1] + "/" + e[0]),
-            "yyyy-MM-dd"
-          )
-        : "",
+      issue_date: data.issued_date ? this.datepipe.transform(new Date(i[2] + "/" + i[1] + "/" + i[0]), "yyyy-MM-dd") : "",
+      expiry_date: data.expiry_date ? this.datepipe.transform(new Date(e[2] + "/" + e[1] + "/" + e[0]), "yyyy-MM-dd") : "",
       act_doc_id: data.act_doc_id ?? data.actual_doc_id ?? "",
     });
     this.fileGroup.updateValueAndValidity();

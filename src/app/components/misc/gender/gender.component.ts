@@ -20,25 +20,17 @@ export class GenderComponent implements OnInit {
   genderList: any = [];
   gender: any = [];
 
-  constructor(
-    public apiService: ApiService,
-    private dialog: DialogService,
-    public spinner: SpinnerService,
-    public toster: ToastrService,
-    public dialogRef: MatDialogRef<GenderComponent>
-  ) {}
+  constructor(public apiService: ApiService, private dialog: DialogService, public spinner: SpinnerService, public toster: ToastrService, public dialogRef: MatDialogRef<GenderComponent>) {}
 
   ngOnInit(): void {
     this.clear();
     this.dataFetch = true;
     this.addLoader = false;
-    this.apiService
-      .getTypeRequest("dropdown_data/GENDER")
-      .subscribe((result: any) => {
-        this.genderList = result.data;
-        this.gender = result.data;
-        this.dataFetch = false;
-      });
+    this.apiService.getTypeRequest("dropdown_data/GENDER").subscribe((result: any) => {
+      this.genderList = result.data;
+      this.gender = result.data;
+      this.dataFetch = false;
+    });
   }
 
   clear() {
@@ -82,19 +74,11 @@ export class GenderComponent implements OnInit {
             .then((result: any) => {
               if (result.result) {
                 this.toster.warning("Data Updated");
-                swalWithBootstrapButtons.fire(
-                  "Updated!",
-                  result.message,
-                  "success"
-                );
+                swalWithBootstrapButtons.fire("Updated!", result.message, "success");
                 this.ngOnInit();
               } else {
-                swalWithBootstrapButtons.fire(
-                  "Cancelled",
-                  result.message,
-                  "error"
-                );
-                this.toster.error(result.message);
+                swalWithBootstrapButtons.fire("Cancelled", result.message, "error");
+
                 this.addLoader = false;
                 this.dataFetch = false;
               }
@@ -112,8 +96,7 @@ export class GenderComponent implements OnInit {
     this.gendereditValue = value;
     this.genderList = [];
     this.gender.filter((x) => {
-      if (x.name.toLowerCase().includes(value.toLowerCase()))
-        this.genderList.push(x);
+      if (x.name.toLowerCase().includes(value.toLowerCase())) this.genderList.push(x);
     });
   }
 
@@ -131,21 +114,18 @@ export class GenderComponent implements OnInit {
       var castData = {
         item_name: this.gendereditValue,
       };
-      this.apiService
-        .postTypeRequest("register_new_item/GENDER", castData)
-        .subscribe((result: any) => {
-          if (result.result) {
-            this.genderList = result.data;
-            this.gender = result.data;
-            this.ngOnInit();
-            this.toster.success("New Data Added");
-            swalWithBootstrapButtons.fire("Added!", result.message, "success");
-          } else {
-            this.toster.error(result.message);
-            this.addLoader = false;
-            this.dataFetch = false;
-          }
-        });
+      this.apiService.postTypeRequest("register_new_item/GENDER", castData).subscribe((result: any) => {
+        if (result.result) {
+          this.genderList = result.data;
+          this.gender = result.data;
+          this.ngOnInit();
+          this.toster.success("New Data Added");
+          swalWithBootstrapButtons.fire("Added!", result.message, "success");
+        } else {
+          this.addLoader = false;
+          this.dataFetch = false;
+        }
+      });
     }
     this.gendereditValue = "";
     this.dialogRef.close(true);
@@ -191,19 +171,10 @@ export class GenderComponent implements OnInit {
             .then((result: any) => {
               if (result.result) {
                 this.toster.warning("Data deleted");
-                swalWithBootstrapButtons.fire(
-                  "Deleted!",
-                  result.message,
-                  "success"
-                );
+                swalWithBootstrapButtons.fire("Deleted!", result.message, "success");
                 this.ngOnInit();
               } else {
-                swalWithBootstrapButtons.fire(
-                  "Cancelled",
-                  result.message,
-                  "error"
-                );
-                this.toster.warning(result.message);
+                swalWithBootstrapButtons.fire("Cancelled", result.message, "error");
                 this.addLoader = false;
                 this.dataFetch = false;
               }

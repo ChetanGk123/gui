@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { ToastrService } from "ngx-toastr";
+import { DynamicDialogRef, DynamicDialogConfig } from "primeng/dynamicdialog";
 import { ApiService } from "src/app/shared/services/auth/api.service";
 
 @Component({
@@ -52,7 +53,6 @@ export class AccountTransferComponent implements OnInit {
             this.toster.success(result.message);
             this.dialogRef.close(true);
           } else {
-            this.toster.error(result.message);
             this.clicked = false;
           }
         });

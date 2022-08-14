@@ -19,25 +19,17 @@ export class DocComponent implements OnInit {
   docditValue: string;
   docList: any = [];
   doc: any = [];
-  constructor(
-    public apiService: ApiService,
-    private dialog: DialogService,
-    public spinner: SpinnerService,
-    public toster: ToastrService,
-    public dialogRef: MatDialogRef<DocComponent>
-  ) {}
+  constructor(public apiService: ApiService, private dialog: DialogService, public spinner: SpinnerService, public toster: ToastrService, public dialogRef: MatDialogRef<DocComponent>) {}
 
   ngOnInit(): void {
     this.clear();
     this.dataFetch = true;
     this.addLoader = false;
-    this.apiService
-      .getTypeRequest("dropdown_data/DOCUMENT")
-      .subscribe((result: any) => {
-        this.docList = result.data;
-        this.doc = result.data;
-        this.dataFetch = false;
-      });
+    this.apiService.getTypeRequest("dropdown_data/DOCUMENT").subscribe((result: any) => {
+      this.docList = result.data;
+      this.doc = result.data;
+      this.dataFetch = false;
+    });
   }
 
   clear() {
@@ -81,19 +73,11 @@ export class DocComponent implements OnInit {
             .then((result: any) => {
               if (result.result) {
                 this.toster.warning("Data Updated");
-                swalWithBootstrapButtons.fire(
-                  "Updated!",
-                  result.message,
-                  "success"
-                );
+                swalWithBootstrapButtons.fire("Updated!", result.message, "success");
                 this.ngOnInit();
               } else {
-                swalWithBootstrapButtons.fire(
-                  "Cancelled",
-                  result.message,
-                  "error"
-                );
-                this.toster.error(result.message);
+                swalWithBootstrapButtons.fire("Cancelled", result.message, "error");
+
                 this.addLoader = false;
                 this.dataFetch = false;
               }
@@ -111,8 +95,7 @@ export class DocComponent implements OnInit {
     this.docditValue = value;
     this.docList = [];
     this.doc.filter((x) => {
-      if (x.name.toLowerCase().includes(value.toLowerCase()))
-        this.docList.push(x);
+      if (x.name.toLowerCase().includes(value.toLowerCase())) this.docList.push(x);
     });
   }
 
@@ -130,21 +113,18 @@ export class DocComponent implements OnInit {
       var doc = {
         item_name: this.docditValue,
       };
-      this.apiService
-        .postTypeRequest("register_new_item/DOCUMENT", doc)
-        .subscribe((result: any) => {
-          if (result.result) {
-            this.doc = result.data;
-            this.docList = result.data;
-            this.ngOnInit();
-            this.toster.success("New Data Added");
-            swalWithBootstrapButtons.fire("Added!", result.message, "success");
-          } else {
-            this.toster.error(result.message);
-            this.addLoader = false;
-            this.dataFetch = false;
-          }
-        });
+      this.apiService.postTypeRequest("register_new_item/DOCUMENT", doc).subscribe((result: any) => {
+        if (result.result) {
+          this.doc = result.data;
+          this.docList = result.data;
+          this.ngOnInit();
+          this.toster.success("New Data Added");
+          swalWithBootstrapButtons.fire("Added!", result.message, "success");
+        } else {
+          this.addLoader = false;
+          this.dataFetch = false;
+        }
+      });
     }
     this.docditValue = "";
     this.dialogRef.close(true);
@@ -180,19 +160,11 @@ export class DocComponent implements OnInit {
             .then((result: any) => {
               if (result.result) {
                 this.toster.warning("Data deleted");
-                swalWithBootstrapButtons.fire(
-                  "Deleted!",
-                  result.message,
-                  "success"
-                );
+                swalWithBootstrapButtons.fire("Deleted!", result.message, "success");
                 this.ngOnInit();
               } else {
-                swalWithBootstrapButtons.fire(
-                  "Cancelled",
-                  result.message,
-                  "error"
-                );
-                this.toster.error(result.message);
+                swalWithBootstrapButtons.fire("Cancelled", result.message, "error");
+
                 this.addLoader = false;
                 this.dataFetch = false;
               }

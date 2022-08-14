@@ -21,25 +21,17 @@ export class DivisionComponent implements OnInit {
   divList: any = [];
   div: any = [];
 
-  constructor(
-    public apiService: ApiService,
-    private dialog: DialogService,
-    public spinner: SpinnerService,
-    public toster: ToastrService,
-    public dialogRef: MatDialogRef<DivisionComponent>
-  ) {}
+  constructor(public apiService: ApiService, private dialog: DialogService, public spinner: SpinnerService, public toster: ToastrService, public dialogRef: MatDialogRef<DivisionComponent>) {}
 
   ngOnInit(): void {
     this.clear();
     this.dataFetch = true;
     this.addLoader = false;
-    this.apiService
-      .getTypeRequest("dropdown_data/DIVISION")
-      .subscribe((result: any) => {
-        this.divList = result.data;
-        this.div = result.data;
-        this.dataFetch = false;
-      });
+    this.apiService.getTypeRequest("dropdown_data/DIVISION").subscribe((result: any) => {
+      this.divList = result.data;
+      this.div = result.data;
+      this.dataFetch = false;
+    });
   }
 
   clear() {
@@ -83,19 +75,11 @@ export class DivisionComponent implements OnInit {
             .then((result: any) => {
               if (result.result) {
                 this.toster.warning("Data Updated");
-                swalWithBootstrapButtons.fire(
-                  "Updated!",
-                  result.message,
-                  "success"
-                );
+                swalWithBootstrapButtons.fire("Updated!", result.message, "success");
                 this.ngOnInit();
               } else {
-                swalWithBootstrapButtons.fire(
-                  "Cancelled",
-                  result.message,
-                  "error"
-                );
-                this.toster.error(result.message);
+                swalWithBootstrapButtons.fire("Cancelled", result.message, "error");
+
                 this.addLoader = false;
                 this.dataFetch = false;
               }
@@ -113,8 +97,7 @@ export class DivisionComponent implements OnInit {
     this.diveditValue = value;
     this.divList = [];
     this.div.filter((x) => {
-      if (x.name.toLowerCase().includes(value.toLowerCase()))
-        this.divList.push(x);
+      if (x.name.toLowerCase().includes(value.toLowerCase())) this.divList.push(x);
     });
   }
 
@@ -132,21 +115,18 @@ export class DivisionComponent implements OnInit {
       var div = {
         item_name: this.diveditValue,
       };
-      this.apiService
-        .postTypeRequest("register_new_item/DIVISION", div)
-        .subscribe((result: any) => {
-          if (result.result) {
-            this.div = result.data;
-            this.divList = result.data;
-            this.ngOnInit();
-            this.toster.success("New Data Added");
-            swalWithBootstrapButtons.fire("Added!", result.message, "success");
-          } else {
-            this.toster.error(result.message);
-            this.addLoader = false;
-            this.dataFetch = false;
-          }
-        });
+      this.apiService.postTypeRequest("register_new_item/DIVISION", div).subscribe((result: any) => {
+        if (result.result) {
+          this.div = result.data;
+          this.divList = result.data;
+          this.ngOnInit();
+          this.toster.success("New Data Added");
+          swalWithBootstrapButtons.fire("Added!", result.message, "success");
+        } else {
+          this.addLoader = false;
+          this.dataFetch = false;
+        }
+      });
     }
     this.diveditValue = "";
     this.dialogRef.close(true);
@@ -182,19 +162,11 @@ export class DivisionComponent implements OnInit {
             .then((result: any) => {
               if (result.result) {
                 this.toster.warning("Data deleted");
-                swalWithBootstrapButtons.fire(
-                  "Deleted!",
-                  result.message,
-                  "success"
-                );
+                swalWithBootstrapButtons.fire("Deleted!", result.message, "success");
                 this.ngOnInit();
               } else {
-                swalWithBootstrapButtons.fire(
-                  "Cancelled",
-                  result.message,
-                  "error"
-                );
-                this.toster.error(result.message);
+                swalWithBootstrapButtons.fire("Cancelled", result.message, "error");
+
                 this.addLoader = false;
                 this.dataFetch = false;
               }

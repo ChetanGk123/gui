@@ -19,25 +19,17 @@ export class ReligionComponent implements OnInit {
   religioneditValue: string;
   religionList: any = [];
   religion: any = [];
-  constructor(
-    public apiService: ApiService,
-    private dialog: DialogService,
-    public spinner: SpinnerService,
-    public toster: ToastrService,
-    public dialogRef: MatDialogRef<ReligionComponent>
-  ) {}
+  constructor(public apiService: ApiService, private dialog: DialogService, public spinner: SpinnerService, public toster: ToastrService, public dialogRef: MatDialogRef<ReligionComponent>) {}
 
   ngOnInit(): void {
     this.clear();
     this.dataFetch = true;
     this.addLoader = false;
-    this.apiService
-      .getTypeRequest("dropdown_data/RELIGION")
-      .subscribe((result: any) => {
-        this.religionList = result.data;
-        this.religion = result.data;
-        this.dataFetch = false;
-      });
+    this.apiService.getTypeRequest("dropdown_data/RELIGION").subscribe((result: any) => {
+      this.religionList = result.data;
+      this.religion = result.data;
+      this.dataFetch = false;
+    });
   }
 
   religioneditClick(index, data) {
@@ -77,19 +69,11 @@ export class ReligionComponent implements OnInit {
             .then((result: any) => {
               if (result.result) {
                 this.toster.warning("Data Updated");
-                swalWithBootstrapButtons.fire(
-                  "Updated!",
-                  result.message,
-                  "success"
-                );
+                swalWithBootstrapButtons.fire("Updated!", result.message, "success");
                 this.ngOnInit();
               } else {
-                swalWithBootstrapButtons.fire(
-                  "Cancelled",
-                  result.message,
-                  "error"
-                );
-                this.toster.error(result.message);
+                swalWithBootstrapButtons.fire("Cancelled", result.message, "error");
+
                 this.addLoader = false;
                 this.dataFetch = false;
               }
@@ -107,8 +91,7 @@ export class ReligionComponent implements OnInit {
     this.religioneditValue = value;
     this.religionList = [];
     this.religion.filter((x) => {
-      if (x.name.toLowerCase().includes(value.toLowerCase()))
-        this.religionList.push(x);
+      if (x.name.toLowerCase().includes(value.toLowerCase())) this.religionList.push(x);
     });
   }
 
@@ -130,22 +113,19 @@ export class ReligionComponent implements OnInit {
       var religion = {
         item_name: this.religioneditValue,
       };
-      this.apiService
-        .postTypeRequest("register_new_item/RELIGION", religion)
-        .subscribe((result: any) => {
-          if (result.result) {
-            this.religion = result.data;
-            this.religionList = result.data;
-            this.ngOnInit();
-            this.toster.success("New Data Added");
-            swalWithBootstrapButtons.fire("Added!", result.message, "success");
-            this.dialogRef.close(true);
-          } else {
-            this.toster.error(result.message);
-            this.addLoader = false;
-            this.dataFetch = false;
-          }
-        });
+      this.apiService.postTypeRequest("register_new_item/RELIGION", religion).subscribe((result: any) => {
+        if (result.result) {
+          this.religion = result.data;
+          this.religionList = result.data;
+          this.ngOnInit();
+          this.toster.success("New Data Added");
+          swalWithBootstrapButtons.fire("Added!", result.message, "success");
+          this.dialogRef.close(true);
+        } else {
+          this.addLoader = false;
+          this.dataFetch = false;
+        }
+      });
     }
     this.religioneditValue = "";
   }
@@ -180,24 +160,16 @@ export class ReligionComponent implements OnInit {
             .then((result: any) => {
               if (result.result) {
                 this.toster.warning("Data deleted");
-                swalWithBootstrapButtons.fire(
-                  "Deleted!",
-                  result.message,
-                  "success"
-                );
+                swalWithBootstrapButtons.fire("Deleted!", result.message, "success");
                 this.ngOnInit();
               } else {
-                swalWithBootstrapButtons.fire(
-                  "Cancelled",
-                  result.message,
-                  "error"
-                );
-                this.toster.error(result.message);
+                swalWithBootstrapButtons.fire("Cancelled", result.message, "error");
+
                 this.dataFetch = false;
                 this.addLoader = false;
               }
             });
-        }else {
+        } else {
           this.addLoader = false;
           this.dataFetch = false;
         }

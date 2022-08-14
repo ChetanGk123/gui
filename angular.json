@@ -50,12 +50,12 @@
               "src/assets/scss/app.scss",
               "src/styles.scss",
               {
-                "input": "src/theme-bootstrap4-light-blue.scss",
+                "input": "src/assets/scss/theme/lara-light-indigo/theme.css",
                 "bundleName": "bootstrap4-light-blue",
                 "inject": false
               },
               {
-                "input": "src/theme-bootstrap4-dark-blue.scss",
+                "input": "src/assets/scss/theme/lara-dark-indigo/theme.css",
                 "bundleName": "bootstrap4-dark-blue",
                 "inject": false
               }

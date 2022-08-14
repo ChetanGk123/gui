@@ -20,25 +20,17 @@ export class ClassComponent implements OnInit {
   classList: any = [];
   class: any = [];
 
-  constructor(
-    public apiService: ApiService,
-    private dialog: DialogService,
-    public spinner: SpinnerService,
-    public toster: ToastrService,
-    public dialogRef: MatDialogRef<ClassComponent>
-  ) {}
+  constructor(public apiService: ApiService, private dialog: DialogService, public spinner: SpinnerService, public toster: ToastrService, public dialogRef: MatDialogRef<ClassComponent>) {}
 
   ngOnInit(): void {
     this.clear();
     this.dataFetch = true;
     this.addLoader = false;
-    this.apiService
-      .getTypeRequest("dropdown_data/CLASS")
-      .subscribe((result: any) => {
-        this.classList = result.data;
-        this.class = result.data;
-        this.dataFetch = false;
-      });
+    this.apiService.getTypeRequest("dropdown_data/CLASS").subscribe((result: any) => {
+      this.classList = result.data;
+      this.class = result.data;
+      this.dataFetch = false;
+    });
   }
 
   clear() {
@@ -82,19 +74,11 @@ export class ClassComponent implements OnInit {
             .then((result: any) => {
               if (result.result) {
                 this.toster.warning("Data Updated");
-                swalWithBootstrapButtons.fire(
-                  "Updated!",
-                  result.message,
-                  "success"
-                );
+                swalWithBootstrapButtons.fire("Updated!", result.message, "success");
                 this.ngOnInit();
               } else {
-                swalWithBootstrapButtons.fire(
-                  "Cancelled",
-                  result.message,
-                  "error"
-                );
-                this.toster.error(result.message);
+                swalWithBootstrapButtons.fire("Cancelled", result.message, "error");
+
                 this.addLoader = false;
                 this.dataFetch = false;
               }
@@ -112,8 +96,7 @@ export class ClassComponent implements OnInit {
     this.classeditValue = value;
     this.classList = [];
     this.class.filter((x) => {
-      if (x.name.toLowerCase().includes(value.toLowerCase()))
-        this.classList.push(x);
+      if (x.name.toLowerCase().includes(value.toLowerCase())) this.classList.push(x);
     });
   }
 
@@ -131,21 +114,18 @@ export class ClassComponent implements OnInit {
       var classData = {
         item_name: this.classeditValue,
       };
-      this.apiService
-        .postTypeRequest("register_new_item/CLASS", classData)
-        .subscribe((result: any) => {
-          if (result.result) {
-            this.class = result.data;
-            this.classList = result.data;
-            this.ngOnInit();
-            this.toster.success("New Data Added");
-            swalWithBootstrapButtons.fire("Added!", result.message, "success");
-          } else {
-            this.toster.error(result.message);
-            this.addLoader = false;
-            this.dataFetch = false;
-          }
-        });
+      this.apiService.postTypeRequest("register_new_item/CLASS", classData).subscribe((result: any) => {
+        if (result.result) {
+          this.class = result.data;
+          this.classList = result.data;
+          this.ngOnInit();
+          this.toster.success("New Data Added");
+          swalWithBootstrapButtons.fire("Added!", result.message, "success");
+        } else {
+          this.addLoader = false;
+          this.dataFetch = false;
+        }
+      });
     }
     this.classeditValue = "";
     this.dialogRef.close(true);
@@ -181,19 +161,11 @@ export class ClassComponent implements OnInit {
             .then((result: any) => {
               if (result.result) {
                 this.toster.warning("Data deleted");
-                swalWithBootstrapButtons.fire(
-                  "Deleted!",
-                  result.message,
-                  "success"
-                );
+                swalWithBootstrapButtons.fire("Deleted!", result.message, "success");
                 this.ngOnInit();
               } else {
-                swalWithBootstrapButtons.fire(
-                  "Cancelled",
-                  result.message,
-                  "error"
-                );
-                this.toster.error(result.message);
+                swalWithBootstrapButtons.fire("Cancelled", result.message, "error");
+
                 this.addLoader = false;
                 this.dataFetch = false;
               }

@@ -9,7 +9,7 @@ import { ToastrService } from "ngx-toastr";
 import { DocComponent } from "../../../misc/doc/doc.component";
 import { MatDialog } from "@angular/material/dialog";
 import { HttpClient } from "@angular/common/http";
-import { DocViewerComponent } from '../../../../shared/components/doc-viewer/doc-viewer.component'
+import { DocViewerComponent } from "../../../../shared/components/doc-viewer/doc-viewer.component";
 import { AuthService } from "../../../../shared/services/auth/auth.service";
 
 declare var require;
@@ -46,50 +46,38 @@ export class DocumentsComponent implements OnInit {
   form: FormGroup = new FormGroup({
     file: new FormControl(""),
   });
-  constructor(
-    public http:HttpClient, 
-    public studentService: StudentService, 
-    public dialog: MatDialog, 
-    public toster: ToastrService, 
-    public apiService: ApiService, 
-    public authService: AuthService,
-    public datepipe: DatePipe
-    ) {}
+  constructor(public http: HttpClient, public studentService: StudentService, public dialog: MatDialog, public toster: ToastrService, public apiService: ApiService, public authService: AuthService, public datepipe: DatePipe) {}
 
   ngOnInit(): void {
-    this.loader = false
-    this.update = false
-    this.fetchApi()
+    this.loader = false;
+    this.update = false;
+    this.fetchApi();
   }
 
   async fetchApi() {
     this.dataFetch = false;
     var admissionId = this.student?.student_id ?? this.student?.student_id;
-    this.apiService
-      .getTypeRequest("dropdown_data/DOCUMENT")
-      .subscribe((result: any) => {
-        this.DocumentList = result.data;
-      });
-    await this.apiService
-      .getTypeRequest("student_profile/" + admissionId)
-      .subscribe((result: any) => {
-        if (result.result) {
-          this.dataFetch = true;
-          this.admission_data = result.data["student_admission_data_by_student_id"];
-          this.studentService.admission_data = this.admission_data;
-          this.student_documents = result.data["student_documents_by_student_id"];
-          this.studentService.student_documents = this.student_documents;
-        } else {
-          if (result.error_code === "INVALID_LOGIN") {
-            this.toster.error("Session Expired");
-            this.authService.SignOut();
-          }
+    this.apiService.getTypeRequest("dropdown_data/DOCUMENT").subscribe((result: any) => {
+      this.DocumentList = result.data;
+    });
+    await this.apiService.getTypeRequest("student_profile/" + admissionId).subscribe((result: any) => {
+      if (result.result) {
+        this.dataFetch = true;
+        this.admission_data = result.data["student_admission_data_by_student_id"];
+        this.studentService.admission_data = this.admission_data;
+        this.student_documents = result.data["student_documents_by_student_id"];
+        this.studentService.student_documents = this.student_documents;
+      } else {
+        if (result.error_code === "INVALID_LOGIN") {
+          this.toster.error("Session Expired");
+          this.authService.SignOut();
         }
-      });
+      }
+    });
   }
 
   resetFileGroup() {
-    this.file = null
+    this.file = null;
     this.fileGroup.reset({
       student_id: this.student?.student_id,
       doc_id: "",
@@ -116,17 +104,17 @@ export class DocumentsComponent implements OnInit {
 
   deleteDocument() {
     this.fileGroup.patchValue({
-      doc_url:''
-    })
-    this.form.reset()
+      doc_url: "",
+    });
+    this.form.reset();
     this.fileGroup.updateValueAndValidity();
-    this.updateDocument(this.fileGroup.value)
+    this.updateDocument(this.fileGroup.value);
   }
 
-  deleteRecord(data){
+  deleteRecord(data) {
     var Request_Data = {
-      document_id:data.actual_doc_id,
-  }
+      document_id: data.actual_doc_id,
+    };
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: "btn btn-success",
@@ -152,19 +140,10 @@ export class DocumentsComponent implements OnInit {
             .then((result: any) => {
               if (result.result) {
                 this.toster.warning("Data deleted");
-                swalWithBootstrapButtons.fire(
-                  "Deleted!",
-                  result.message,
-                  "success"
-                );
+                swalWithBootstrapButtons.fire("Deleted!", result.message, "success");
                 this.ngOnInit();
               } else {
-                swalWithBootstrapButtons.fire(
-                  "Cancelled",
-                  result.message,
-                  "error"
-                );
-                this.toster.error(result.message);
+                swalWithBootstrapButtons.fire("Cancelled", result.message, "error");
               }
             });
         }
@@ -172,7 +151,7 @@ export class DocumentsComponent implements OnInit {
   }
 
   async uploadFile() {
-    this.loader = true
+    this.loader = true;
     if (this.file) {
       const formData: FormData = new FormData();
       formData.append("file", this.form.get("file").value);
@@ -184,15 +163,15 @@ export class DocumentsComponent implements OnInit {
         .postFileTypeRequest("upload_student_document", formData)
         .toPromise()
         .then((result: any) => {
-          if(result.result){
+          if (result.result) {
             loc = result.data?.file_loc ?? "";
             this.fileGroup.patchValue({
               doc_loc: loc,
             });
-          }else{
-            this.toster.error(result.message)
+          } else {
+            this.toster.error(result.message);
           }
-        })
+        });
     }
     this.fileGroup.updateValueAndValidity();
     if (this.update) {
@@ -203,29 +182,27 @@ export class DocumentsComponent implements OnInit {
   }
 
   async saveFile() {
-    this.loader = true
+    this.loader = true;
     await this.apiService.postTypeRequest("save_document_data/STUDENT", this.fileGroup.value).subscribe(async (result: any) => {
       if (result.result) {
         this.toster.success("Data added successfully");
         this.ngOnInit();
       } else {
-        this.toster.error(result.message);
-        this.loader = false
+        this.loader = false;
       }
     });
     this.resetFileGroup();
   }
 
   async updateFile() {
-    this.loader = true
+    this.loader = true;
     await this.apiService.postTypeRequest("update_document_date/STUDENT", this.fileGroup.value).subscribe(async (result: any) => {
       if (result.result) {
         this.toster.success("Data added successfully");
         this.ngOnInit();
         this.update = false;
       } else {
-        this.toster.error(result.message);
-        this.loader = false
+        this.loader = false;
       }
     });
     this.resetFileGroup();
@@ -273,7 +250,6 @@ export class DocumentsComponent implements OnInit {
     });
     this.fileGroup.updateValueAndValidity();
     // console.log(this.fileGroup);
-    
   }
 
   downloadDocument(data) {

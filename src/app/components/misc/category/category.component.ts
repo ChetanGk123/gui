@@ -19,25 +19,17 @@ export class CategoryComponent implements OnInit {
   categoryeditValue: string;
   categoryList: any = [];
   category: any = [];
-  constructor(
-    public apiService: ApiService,
-    private dialog: DialogService,
-    public spinner: SpinnerService,
-    public toster: ToastrService,
-    public dialogRef: MatDialogRef<CategoryComponent>
-  ) {}
+  constructor(public apiService: ApiService, private dialog: DialogService, public spinner: SpinnerService, public toster: ToastrService, public dialogRef: MatDialogRef<CategoryComponent>) {}
 
   ngOnInit(): void {
     this.clear();
     this.dataFetch = true;
     this.addLoader = false;
-    this.apiService
-      .getTypeRequest("dropdown_data/CATEGORY")
-      .subscribe((result: any) => {
-        this.categoryList = result.data;
-        this.category = result.data;
-        this.dataFetch = false;
-      });
+    this.apiService.getTypeRequest("dropdown_data/CATEGORY").subscribe((result: any) => {
+      this.categoryList = result.data;
+      this.category = result.data;
+      this.dataFetch = false;
+    });
   }
 
   clear() {
@@ -81,19 +73,11 @@ export class CategoryComponent implements OnInit {
             .then((result: any) => {
               if (result.result) {
                 this.toster.warning("Data Updated");
-                swalWithBootstrapButtons.fire(
-                  "Updated!",
-                  result.message,
-                  "success"
-                );
+                swalWithBootstrapButtons.fire("Updated!", result.message, "success");
                 this.ngOnInit();
               } else {
-                swalWithBootstrapButtons.fire(
-                  "Cancelled",
-                  result.message,
-                  "error"
-                );
-                this.toster.error(result.message);
+                swalWithBootstrapButtons.fire("Cancelled", result.message, "error");
+
                 this.addLoader = true;
                 this.dataFetch = true;
               }
@@ -111,8 +95,7 @@ export class CategoryComponent implements OnInit {
     this.categoryeditValue = value;
     this.categoryList = [];
     this.category.filter((x) => {
-      if (x.name.toLowerCase().includes(value.toLowerCase()))
-        this.categoryList.push(x);
+      if (x.name.toLowerCase().includes(value.toLowerCase())) this.categoryList.push(x);
     });
   }
 
@@ -130,20 +113,17 @@ export class CategoryComponent implements OnInit {
       var category = {
         item_name: this.categoryeditValue,
       };
-      this.apiService
-        .postTypeRequest("register_new_item/CATEGORY", category)
-        .subscribe((result: any) => {
-          if (result.result) {
-            this.category = result.data;
-            this.categoryList = result.data;
-            this.ngOnInit();
-            this.toster.success("New Data Added");
-            swalWithBootstrapButtons.fire("Added!", result.message, "success");
-          } else {
-            this.toster.error(result.message);
-            this.addLoader = false;
-          }
-        });
+      this.apiService.postTypeRequest("register_new_item/CATEGORY", category).subscribe((result: any) => {
+        if (result.result) {
+          this.category = result.data;
+          this.categoryList = result.data;
+          this.ngOnInit();
+          this.toster.success("New Data Added");
+          swalWithBootstrapButtons.fire("Added!", result.message, "success");
+        } else {
+          this.addLoader = false;
+        }
+      });
     }
     this.categoryeditValue = "";
     this.dialogRef.close(true);
@@ -179,19 +159,11 @@ export class CategoryComponent implements OnInit {
             .then((result: any) => {
               if (result.result) {
                 this.toster.warning("Data deleted");
-                swalWithBootstrapButtons.fire(
-                  "Deleted!",
-                  result.message,
-                  "success"
-                );
+                swalWithBootstrapButtons.fire("Deleted!", result.message, "success");
                 this.ngOnInit();
               } else {
-                swalWithBootstrapButtons.fire(
-                  "Cancelled",
-                  result.message,
-                  "error"
-                );
-                this.toster.error(result.message);
+                swalWithBootstrapButtons.fire("Cancelled", result.message, "error");
+
                 this.addLoader = true;
                 this.dataFetch = true;
               }

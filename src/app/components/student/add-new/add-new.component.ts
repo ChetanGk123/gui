@@ -259,11 +259,11 @@ export class AddNewComponent implements OnInit {
       leave_date: [""],
       reason: [""],
     });
-    if(this.dialogdata?.disabled){
-      this.studentForm.disable()
-      this.parentForm.disable()
-      this.academicForm.disable()
-      this.academicForm.disable()
+    if (this.dialogdata?.disabled) {
+      this.studentForm.disable();
+      this.parentForm.disable();
+      this.academicForm.disable();
+      this.academicForm.disable();
     }
   }
 
@@ -396,7 +396,6 @@ export class AddNewComponent implements OnInit {
             this.studentService.setSelectedStudent(result.data);
             this.router.navigate(["/student/studentInfo"]);
           } else {
-            this.toster.error(result.message);
             this.submitDisable = false;
           }
         });
@@ -406,7 +405,6 @@ export class AddNewComponent implements OnInit {
             this.toster.success("Data Added Successfully");
             this.dialogRef.close(true);
           } else {
-            this.toster.error(result.message);
             this.submitDisable = false;
           }
         });

@@ -27,30 +27,20 @@ export class DueFeesComponent implements OnInit {
   StudentList: any = [];
   Students: any = [];
   dataFetch: boolean = false;
-  constructor(
-    public studentService: StudentService, 
-    public apiService: ApiService, 
-    public feeService: FeeService, 
-    public router: Router, 
-    public toster: ToastrService,
-    public dialog:MatDialog
-    ) {}
-
+  constructor(public studentService: StudentService, public apiService: ApiService, public feeService: FeeService, public router: Router, public toster: ToastrService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.dataFetch = true
+    this.dataFetch = true;
     this.apiService.getTypeRequest("dropdown_data/DEPARTMENT").subscribe((result: any) => {
       if (result.result) {
         this.departmentList = result.data;
       } else {
-        this.toster.error(result.message);
       }
     });
     this.apiService.getTypeRequest("dropdown_data/CLASS").subscribe((result: any) => {
       if (result.result) {
         this.classList = result.data;
       } else {
-        this.toster.error(result.message);
       }
     });
     this.apiService.getTypeRequest("get_due_fees").subscribe((result: any) => {
@@ -104,23 +94,18 @@ export class DueFeesComponent implements OnInit {
   }
 
   saveAsExcelFile(buffer: any, fileName: string): void {
-    let EXCEL_TYPE =
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+    let EXCEL_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
     let EXCEL_EXTENSION = ".xlsx";
     const data: Blob = new Blob([buffer], {
       type: EXCEL_TYPE,
     });
-    FileSaver.saveAs(
-      data,
-      fileName + "_export_" + new Date().getTime() + EXCEL_EXTENSION
-    );
+    FileSaver.saveAs(data, fileName + "_export_" + new Date().getTime() + EXCEL_EXTENSION);
   }
 
-  exportPdf(){
-    
+  exportPdf() {
     const dialogRef = this.dialog.open(DueFeesReportComponent, {
       data: {
-        transactions:this.StudentList
+        transactions: this.StudentList,
       },
       height: "88%",
       width: "80%",

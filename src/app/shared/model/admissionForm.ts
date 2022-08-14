@@ -1,7 +1,7 @@
 export interface AdmissionForm {
-  student_info:student_info,
-  parent_info:parent_info,
-  academic_info:academic_info,
+  student_info: student_info;
+  parent_info: parent_info;
+  academic_info: academic_info;
   previous_academic: schoolHistory[];
 }
 
@@ -34,10 +34,10 @@ export interface student_info {
   height: string;
   weight: string;
   bg_id: string;
-  languages_studied: string;  
-  previous_medium_of_instrutcion: string,
+  languages_studied: string;
+  previous_medium_of_instrutcion: string;
   is_special_needs: string;
-  special_needs: string
+  special_needs: string;
 }
 export interface parent_info {
   fathers_name: string;
@@ -48,35 +48,30 @@ export interface parent_info {
   guardians_doc_id: string;
   guardian_doc_no: string;
   guardian_address: string;
-
   fathers_mobile: string;
   fathers_email: string;
   father_occupation: string;
   fathers_doc_id: string;
   fathers_doc_no: string;
-
   father_education: string;
   father_income: string;
   mother_education: string;
   mother_income: string;
-
   no_of_family_members: number;
   no_of_brothers: number;
   no_of_sisters: number;
-
   mothers_occupation: string;
   mothers_mobile: string;
   mothers_email: string;
   mothers_doc_id: string;
   mothers_doc_no: string;
-
   guardians_email: string;
   guardians_occupation: string;
 }
 export interface academic_info {
-  academic_year_id:string,
-  dept_id:string,
-  class_id:string,
-  division_id:string,
+  academic_year_id: string;
+  dept_id: string;
+  class_id: string;
+  division_id: string;
 }
 export interface academic_history_info {}

@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
-import { DatatableComponent, ColumnMode, SortType, id } from "@swimlane/ngx-datatable";
 
 import { ToastrService } from "ngx-toastr";
 import { ApiService } from "src/app/shared/services/auth/api.service";
@@ -32,16 +31,7 @@ export class IncomeAccountsComponent implements OnInit {
     account_name: new FormControl("", Validators.required),
     opening_balance: new FormControl({ value: "", disabled: false }, Validators.required),
   });
-  constructor(
-    public apiService: ApiService,
-    public spinner: SpinnerService,
-    public toster: ToastrService,
-    public confirmationService: ConfirmationService,
-    public dialog: MatDialog
-  ) {}
-  @ViewChild(DatatableComponent, { static: false }) table: DatatableComponent;
-  ColumnMode = ColumnMode;
-  SortType = SortType;
+  constructor(public apiService: ApiService, public spinner: SpinnerService, public toster: ToastrService, public confirmationService: ConfirmationService, public dialog: MatDialog) {}
 
   ngOnInit() {
     this.dataFetch = true;
@@ -93,13 +83,12 @@ export class IncomeAccountsComponent implements OnInit {
             .then((result: any) => {
               if (result.result) {
                 this.toster.warning("Data Updated");
-                this.confirmationService.showSuccessMessage("Data Updated", result.message);
+                this.confirmationService.showWarningMessage("Data Updated", result.message);
 
                 this.ngOnInit();
                 this.Clear();
               } else {
                 this.confirmationService.showErrorMessage("Cancelled!", result.message);
-                this.toster.error(result.message);
                 this.submitDisable = false;
               }
             });
@@ -115,7 +104,6 @@ export class IncomeAccountsComponent implements OnInit {
           this.toster.success("New Data Added");
           this.confirmationService.showSuccessMessage("Added", result.message);
         } else {
-          this.toster.error(result.message);
           this.confirmationService.showErrorMessage("Cancelled!", result.message);
           this.submitDisable = false;
         }
@@ -137,33 +125,31 @@ export class IncomeAccountsComponent implements OnInit {
   }
 
   AccountTransfer() {
-    const dialogRef = this.dialog.open(AccountTransferComponent, 
-      { 
-        backdropClass: "blurred", 
-        height:"80vH",
-        panelClass:["xl-40","sm-80","md-50"],
-        data: {
-          title:"BALANCE TRANSFER",
-          url:"BALANCE_TRANSFER",
-          sourceList:this.List,
-          destinationList:this.List
-        } 
-      });
+    const dialogRef = this.dialog.open(AccountTransferComponent, {
+      backdropClass: "blurred",
+      height: "80vH",
+      panelClass: ["xl-40", "sm-80", "md-50"],
+      data: {
+        title: "BALANCE TRANSFER",
+        url: "BALANCE_TRANSFER",
+        sourceList: this.List,
+        destinationList: this.List,
+      },
+    });
   }
 
-  updateBalance(data:any) {
-    var tempList:any[] = [data]
-    const dialogRef = this.dialog.open(AccountTransferComponent, 
-      { 
-        backdropClass: "blurred", 
-        height:"80vH",
-        panelClass:["xl-40","sm-80","md-50"],
-        data: {
-          title:"INCOME CREDIT",
-          url:"INCOME_CREDIT",
-          destinationList:tempList,
-          disableSource:true
-        } 
-      });
+  updateBalance(data: any) {
+    var tempList: any[] = [data];
+    const dialogRef = this.dialog.open(AccountTransferComponent, {
+      backdropClass: "blurred",
+      height: "80vH",
+      panelClass: ["xl-40", "sm-80", "md-50"],
+      data: {
+        title: "INCOME CREDIT",
+        url: "INCOME_CREDIT",
+        destinationList: tempList,
+        disableSource: true,
+      },
+    });
   }
 }

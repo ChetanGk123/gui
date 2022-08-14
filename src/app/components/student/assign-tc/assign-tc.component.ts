@@ -1,20 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { ApiService } from 'src/app/shared/services/auth/api.service';
-import { StudentService } from 'src/app/shared/services/student_services/student.service';
-import { FeeService } from '../../fees/Service/fee.service';
-import { TCComponent } from '../tc/tc.component';
+import { Component, OnInit } from "@angular/core";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { MatDialog } from "@angular/material/dialog";
+import { Router } from "@angular/router";
+import { ToastrService } from "ngx-toastr";
+import { ApiService } from "src/app/shared/services/auth/api.service";
+import { StudentService } from "src/app/shared/services/student_services/student.service";
+import { FeeService } from "../../fees/Service/fee.service";
+import { TCComponent } from "../tc/tc.component";
 
 @Component({
-  selector: 'app-assign-tc',
-  templateUrl: './assign-tc.component.html',
-  styleUrls: ['./assign-tc.component.scss']
+  selector: "app-assign-tc",
+  templateUrl: "./assign-tc.component.html",
+  styleUrls: ["./assign-tc.component.scss"],
 })
 export class AssignTcComponent implements OnInit {
-
   public isFilter: boolean = true;
   // public submitLoader: boolean = false;
   filterForm: FormGroup = new FormGroup({
@@ -43,38 +42,28 @@ export class AssignTcComponent implements OnInit {
   selectedStudents: any = [];
   Students: any = [];
   dataFetch: boolean = false;
-  selectedStudent:any = ""
-  constructor(
-    public studentService: StudentService,
-    public apiService: ApiService,
-    public feeService: FeeService,
-    public router: Router,
-    public toster: ToastrService,
-    public dialog: MatDialog
-  ) { }
+  selectedStudent: any = "";
+  constructor(public studentService: StudentService, public apiService: ApiService, public feeService: FeeService, public router: Router, public toster: ToastrService, public dialog: MatDialog) {}
 
   ngOnInit() {
-    this.dataFetch = true
+    this.dataFetch = true;
     // this.submitLoader = false
     this.apiService.getTypeRequest("dropdown_data/DEPARTMENT").subscribe((result: any) => {
       if (result.result) {
         this.departmentList = result.data;
       } else {
-        this.toster.error(result.message);
       }
     });
     this.apiService.getTypeRequest("dropdown_data/CLASS").subscribe((result: any) => {
       if (result.result) {
         this.classList = result.data;
       } else {
-        this.toster.error(result.message);
       }
     });
     this.apiService.getTypeRequest("dropdown_data/DIVISION").subscribe((result: any) => {
       if (result.result) {
         this.divisionList = result.data;
       } else {
-        this.toster.error(result.message);
       }
     });
     this.apiService.getTypeRequest("table_data/ALL_ACTIVE_STUDENTS").subscribe((result: any) => {
@@ -111,11 +100,11 @@ export class AssignTcComponent implements OnInit {
     });
   }
 
-  selectStudent(data){
-    const studentData  = {
-      student_name:data.student_name,
-      student_id:data.student_id
-    }
+  selectStudent(data) {
+    const studentData = {
+      student_name: data.student_name,
+      student_id: data.student_id,
+    };
     this.selectedStudent = studentData;
   }
 

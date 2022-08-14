@@ -3,11 +3,9 @@ import { FormControl, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 import { Toast, ToastrService } from "ngx-toastr";
 import { ApiService } from "src/app/shared/services/auth/api.service";
+import { ConfirmationService } from "src/app/shared/services/confirmation_service/confirmation.service";
 import { profileListDetails } from "../../student/all-students/all-students.component";
 import { FeeService } from "../Service/fee.service";
-
-declare var require;
-const Swal = require("sweetalert2");
 
 @Component({
   selector: "app-assign-fees",
@@ -15,7 +13,7 @@ const Swal = require("sweetalert2");
   styleUrls: ["./assign-fees.component.scss"],
 })
 export class AssignFeesComponent implements OnInit {
-  loader:boolean = false;
+  loader: boolean = false;
   public isFilter: boolean = true;
   StudentList: any = [];
   Students: any = [];
@@ -41,11 +39,7 @@ export class AssignFeesComponent implements OnInit {
     studentName: new FormControl(""),
   });
   profileList: profileListDetails;
-  constructor(
-    public apiService: ApiService, 
-    public feeService: FeeService, 
-    public router: Router, 
-    public toster: ToastrService) {
+  constructor(public apiService: ApiService, public feeService: FeeService, public router: Router, public toster: ToastrService, public confirmationService: ConfirmationService) {
     this.isRowSelectable = this.isRowSelectable.bind(this);
   }
 
@@ -58,7 +52,6 @@ export class AssignFeesComponent implements OnInit {
         this.feeGroups = this.CompList = [];
         this.feeGroups = this.CompList = result.data;
       } else {
-        this.toster.error(result.message);
       }
     });
 
@@ -67,7 +60,6 @@ export class AssignFeesComponent implements OnInit {
         this.departmentList = [];
         this.departmentList = result.data;
       } else {
-        this.toster.error(result.message);
       }
     });
     this.apiService.getTypeRequest("dropdown_data/CLASS").subscribe((result: any) => {
@@ -75,7 +67,6 @@ export class AssignFeesComponent implements OnInit {
         this.classList = [];
         this.classList = result.data;
       } else {
-        this.toster.error(result.message);
       }
     });
     this.apiService.getTypeRequest("all_student_for_fee").subscribe((result: any) => {
@@ -88,13 +79,12 @@ export class AssignFeesComponent implements OnInit {
         });
         this.StudentList = this.Students;
       } else {
-        this.toster.error(result.message);
       }
     });
   }
 
   assignFees(data) {
-    this.feeComponent = data
+    this.feeComponent = data;
     this.dataFetch = true;
     this.apiService.getTypeRequest(`fee_component/by_group/${data.id}`).subscribe((result: any) => {
       if (result.result) {
@@ -107,13 +97,12 @@ export class AssignFeesComponent implements OnInit {
             fee_component_id: element.fee_component_id,
             discount: 0,
             applicable_fees: element.fees,
-            actual_fees:element.fees
+            actual_fees: element.fees,
           };
           this.feeComponentList.push(feecomp);
           this.ngOnInit();
         });
       } else {
-        this.toster.error(result.message);
       }
     });
   }
@@ -154,13 +143,6 @@ export class AssignFeesComponent implements OnInit {
 
   assignFee() {
     this.loader = true;
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger",
-      },
-      buttonsStyling: false,
-    });
 
     let studentIdList: any = [];
     let feeComponentList: any = [];
@@ -186,10 +168,9 @@ export class AssignFeesComponent implements OnInit {
       this.apiService.postTypeRequest("assign_fee/by_student", feeDetails).subscribe((result: any) => {
         if (result.result) {
           this.toster.success("Data Updated");
-          swalWithBootstrapButtons.fire("Added!", result.message, "success");
+          this.confirmationService.showSuccessMessage("Added!", result.message);
           this.router.navigate(["/reports/dueFees"]);
         } else {
-          this.toster.error(result.message);
         }
       });
     } else {
@@ -197,22 +178,22 @@ export class AssignFeesComponent implements OnInit {
   }
 
   isRowSelectable(event: any) {
-      return !this.isFeeAsigned(event.data);
+    return !this.isFeeAsigned(event.data);
   }
 
   isFeeAsigned(data: any) {
     let feeAvailable = false;
-      for (const iterator of data.assigned_fee) {
-        if (iterator.fee_group_id == this.feeComponent.id) {
-          feeAvailable = true;
-          break;
-        }
+    for (const iterator of data.assigned_fee) {
+      if (iterator.fee_group_id == this.feeComponent.id) {
+        feeAvailable = true;
+        break;
       }
+    }
     return feeAvailable;
   }
 
-  dateChange(event,field){
-    this.due_date = event.day+'-'+event.month+'-'+event.year;
+  dateChange(event, field) {
+    this.due_date = event.day + "-" + event.month + "-" + event.year;
   }
 
   onFilter(value) {
