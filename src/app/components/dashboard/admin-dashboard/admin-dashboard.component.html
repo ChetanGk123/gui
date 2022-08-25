@@ -1,103 +1,81 @@
 <app-loader *ngIf="spinner"></app-loader>
 <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-6 col-xl-3 col-lg-6">
-        <div class="card o-hidden">
-          <div class="bg-primary b-r-4 card-body">
-            <div class="media static-top-widget">
-              <img src="assets/images/profile-img.png" style="height: 100px; margin-top: -52px;margin-left: -50px;" alt="">
-              <div class="align-self-center text-center">
-              </div>
-              <div class="media-body">
-                <span class="m-0">Welcome Back</span>
-                <h6>
-                  <b>{{user.full_name}}</b> 
-                </h6>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6 col-xl-3 col-lg-6">
-        <div class="card o-hidden">
-          <div class="bg-primary b-r-4 card-body">
-            <div class="media static-top-widget">
-              <div class="align-self-center text-center">
-                <app-feather-icons [icon]="'users'"></app-feather-icons>
-              </div>
-              <div class="media-body">
-                <span class="m-0" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Total Students</span>
-                <h4
-                  class="mb-0 counter"
-                  [CountTo]="dashboardData?.data.student.num_of_active_students || 0"
-                  [from]="0"
-                  [duration]="1"
-                >{{dashboardData?.data.student.num_of_active_students || 0}}</h4>
-                <i class="icon-bg" data-feather="users"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6 col-xl-3 col-lg-6">
-        <div class="card o-hidden">
-          <div class="bg-primary b-r-4 card-body">
-            <div class="media static-top-widget">
-              <div class="align-self-center text-center">
-                <app-feather-icons [icon]="'briefcase'"></app-feather-icons>
-              </div>
-              <div class="media-body">
-                <span class="m-0" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Total Employees</span>
-                <h4
-                  class="mb-0 counter"
-                  [CountTo]="dashboardData?.data.employee.num_of_active_employees || 0"
-                  [from]="0"
-                  [duration]="1"
-                >
-                  {{dashboardData?.data.employee.num_of_active_employees || 0}}
-                </h4>
-                <i class="icon-bg" data-feather="briefcase"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6 col-xl-3 col-lg-6">
-        <div class="card o-hidden">
-          <div class="bg-primary b-r-4 card-body">
-            <div class="media static-top-widget">
-              <div class="align-self-center text-center">
-                <app-feather-icons [icon]="'refresh-ccw'"></app-feather-icons>
-              </div>
-              <div class="media-body">
-                <span class="m-0">Revenue</span>
-                <h4
-                  class="mb-0 counter"
-                  [CountTo]="893"
-                  [from]="0"
-                  [duration]="1"
-                >
-                  893
-                </h4>
-                <i class="icon-bg" data-feather="refresh-ccw"></i>
-              </div>
+  <div class="row">
+    <div class="col-sm-6 col-xl-3 col-lg-6">
+      <div class="card o-hidden">
+        <div class="bg-primary b-r-4 card-body">
+          <div class="media static-top-widget">
+            <img src="assets/images/profile-img.png" style="height: 100px; margin-top: -52px; margin-left: -50px" alt="" />
+            <div class="align-self-center text-center"></div>
+            <div class="media-body">
+              <span class="m-0">Welcome Back</span>
+              <h6>
+                <b>{{ user.full_name }}</b>
+              </h6>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-12">
-          <div class="card">
-            <div class="card-header">
-              <h5>Admission Ratio</h5>
+    <div class="col-sm-6 col-xl-3 col-lg-6">
+      <div class="card o-hidden">
+        <div class="bg-primary b-r-4 card-body">
+          <div class="media static-top-widget">
+            <div class="align-self-center text-center">
+              <app-feather-icons [icon]="'users'"></app-feather-icons>
             </div>
-            <div class="card-body chart-block admission-chart">
-              <canvas baseChart class="chart" [datasets]="barChartData" [labels]="barChartLabels"
-                        [options]="barChartOptions" [colors]="barChartColors" [legend]="barChartLegend"
-                        [chartType]="barChartType"></canvas>
+            <div class="media-body">
+              <span class="m-0" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">Total Students</span>
+              <h4 class="mb-0 counter" [CountTo]="dashboardData?.data.student.num_of_active_students || 0" [from]="0" [duration]="1">{{ dashboardData?.data.student.num_of_active_students || 0 }}</h4>
+              <i class="icon-bg" data-feather="users"></i>
             </div>
           </div>
         </div>
+      </div>
     </div>
+    <div class="col-sm-6 col-xl-3 col-lg-6">
+      <div class="card o-hidden">
+        <div class="bg-primary b-r-4 card-body">
+          <div class="media static-top-widget">
+            <div class="align-self-center text-center">
+              <app-feather-icons [icon]="'briefcase'"></app-feather-icons>
+            </div>
+            <div class="media-body">
+              <span class="m-0" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">Total Employees</span>
+              <h4 class="mb-0 counter" [CountTo]="dashboardData?.data.employee.num_of_active_employees || 0" [from]="0" [duration]="1">
+                {{ dashboardData?.data.employee.num_of_active_employees || 0 }}
+              </h4>
+              <i class="icon-bg" data-feather="briefcase"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-xl-3 col-lg-6">
+      <div class="card o-hidden">
+        <div class="bg-primary b-r-4 card-body">
+          <div class="media static-top-widget">
+            <div class="align-self-center text-center">
+              <app-feather-icons [icon]="'refresh-ccw'"></app-feather-icons>
+            </div>
+            <div class="media-body">
+              <span class="m-0">Revenue</span>
+              <h4 class="mb-0 counter" [CountTo]="893" [from]="0" [duration]="1">893</h4>
+              <i class="icon-bg" data-feather="refresh-ccw"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h5>Admission Ratio</h5>
+        </div>
+        <div class="card-body chart-block admission-chart"></div>
+      </div>
+    </div>
+  </div>
 </div>
