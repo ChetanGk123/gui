@@ -58,8 +58,9 @@ export class AuthService {
         // if (this.dialog.openDialogs.length > 0){
         //   this.dialog.closeAll();
         // }else{
-        //   this.router.navigateByUrl(this.returnUrl);
+        //
         // }
+        this.router.navigateByUrl(this.returnUrl);
         this.toster.success("Welcomeback " + response.data.full_name);
 
         return true;
