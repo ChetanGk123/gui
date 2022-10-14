@@ -12,8 +12,8 @@ import { AccountHeadTransactionsComponent } from "./account-head-transactions/ac
   styleUrls: ["./account-heads.component.scss"],
 })
 export class AccountHeadsComponent implements OnInit {
-  @Input() Url
-  @Input() AccountType
+  @Input() Url;
+  @Input() AccountType;
   from_date;
   to_date;
   filterValue: any = "";
@@ -31,36 +31,28 @@ export class AccountHeadsComponent implements OnInit {
     start_date: new FormControl(""),
     end_date: new FormControl(""),
   });
-  constructor(
-    public apiService: ApiService, 
-    public toastr: ToastrService,
-    public dialog: MatDialog
-    ) {}
+  constructor(public apiService: ApiService, public toastr: ToastrService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.apiService
-      .getTypeRequest(`${this.Url}`)
-      .subscribe((result: any) => {
-        this.AccountHeadList = result.data;
-      });
+    this.apiService.getTypeRequest(`${this.Url}`).subscribe((result: any) => {
+      this.AccountHeadList = result.data;
+    });
   }
 
   fetchData() {
     this.dataFetch = true;
     if (this.form.get("account_id").value.length > 0) {
-      this.apiService
-        .postTypeRequest('transactions/ACCOUNT_HEAD', this.form.value)
-        .subscribe((result: any) => {
-          if (result.result) {
-            this.dataFetch = false;
-            this.TransactionsList = result.data.transactions;
-            this.tempTransactionsList = result.data.transactions;
-            this.exportColumns = this.TransactionsList.map((col) => ({
-              title: "Receipt No",
-              dataKey: col.receipt_no,
-            }));
-          }
-        });
+      this.apiService.postTypeRequest("transactions/ACCOUNT_HEAD", this.form.value).subscribe((result: any) => {
+        if (result.result) {
+          this.dataFetch = false;
+          this.TransactionsList = result.data.transactions;
+          this.tempTransactionsList = result.data.transactions;
+          this.exportColumns = this.TransactionsList.map((col) => ({
+            title: "Receipt No",
+            dataKey: col.receipt_no,
+          }));
+        }
+      });
     } else {
       this.toastr.error("Select Required Data");
     }
@@ -69,8 +61,7 @@ export class AccountHeadsComponent implements OnInit {
   onFilter() {
     this.TransactionsList = [];
     this.tempTransactionsList.forEach((element) => {
-      if (element.transaction_type.includes(this.filterValue))
-        this.TransactionsList.push(element);
+      if (element.transaction_type.includes(this.filterValue)) this.TransactionsList.push(element);
     });
   }
 
@@ -92,9 +83,7 @@ export class AccountHeadsComponent implements OnInit {
 
   dateChange(event, field) {
     if (this.form.get("account_id").value.length > 0) {
-      this.form
-        .get(field)
-        .setValue(event.day + "-" + event.month + "-" + event.year);
+      this.form.get(field).setValue(event.day + "-" + event.month + "-" + event.year);
     } else {
       this.toastr.error("Select Required Data");
     }
@@ -113,30 +102,25 @@ export class AccountHeadsComponent implements OnInit {
   }
 
   saveAsExcelFile(buffer: any, fileName: string): void {
-    let EXCEL_TYPE =
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+    let EXCEL_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
     let EXCEL_EXTENSION = ".xlsx";
     const data: Blob = new Blob([buffer], {
       type: EXCEL_TYPE,
     });
-    FileSaver.saveAs(
-      data,
-      fileName + "_export_" + new Date().getTime() + EXCEL_EXTENSION
-    );
+    FileSaver.saveAs(data, fileName + "_export_" + new Date().getTime() + EXCEL_EXTENSION);
   }
 
-  exportPdf(){
-    const name = this.AccountHeadList.find((p)=>{
-      if(p.account_id == this.form.get("account_id").value)
-      return p.account_name
-    })
-    
+  exportPdf() {
+    const name = this.AccountHeadList.find((p) => {
+      if (p.account_id == this.form.get("account_id").value) return p.account_name;
+    });
+
     const dialogRef = this.dialog.open(AccountHeadTransactionsComponent, {
       data: {
-        accountHead:name.account_name,
-        start_date:this.form.get("start_date").value,
-        end_date:this.form.get("end_date").value,
-        transactions:this.TransactionsList
+        accountHead: name.account_name,
+        start_date: this.form.get("start_date").value,
+        end_date: this.form.get("end_date").value,
+        transactions: this.TransactionsList,
       },
       height: "88%",
       width: "80%",

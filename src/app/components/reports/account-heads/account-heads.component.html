@@ -73,17 +73,7 @@
               </select>
             </div>
           </div>
-          <p-table
-            #dt
-            [value]="TransactionsList"
-            *ngIf="!dataFetch"
-            [paginator]="true"
-            [rows]="10"
-            [showCurrentPageReport]="true"
-            responsiveLayout="scroll"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-            [rowsPerPageOptions]="[10, 25, 50]"
-          >
+          <p-table #dt [value]="TransactionsList" *ngIf="!dataFetch" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10, 25, 50]">
             <ng-template pTemplate="caption">
               <div class="flex">
                 <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="btn-success mr-2" pTooltip="XLS" tooltipPosition="bottom"></button>
@@ -95,9 +85,9 @@
                 <th>Receipt No</th>
                 <th>Txn Date</th>
                 <th>Txn Type</th>
-                <th>Previous Bal</th>
+                <th>Paid By</th>
+                <th>Paid To</th>
                 <th>Txn Amout</th>
-                <th>Current Bal</th>
                 <th>View</th>
               </tr>
             </ng-template>
@@ -111,20 +101,11 @@
                     ><b>{{ product.transaction_type }}</b></font
                   >
                 </td>
-                <td>{{ product.previous_balance | currency: "INR" }}</td>
+                <td>{{ product.paid_by }}</td>
+                <td>{{ product.paid_to }}</td>
                 <td>{{ product.transaction_amount | currency: "INR" }}</td>
-                <td>{{ product.current_balance | currency: "INR" }}</td>
                 <td>
-                  <button
-                    pButton
-                    pRipple
-                    type="button"
-                    icon="pi pi-search"
-                    class="p-button-rounded btn-success ml-1"
-                    style="height: 35px; width: 35px"
-                    ngbTooltip="View"
-                    (click)="openDialog(product)"
-                  ></button>
+                  <button pButton pRipple type="button" icon="pi pi-search" class="p-button-rounded btn-success ml-1" style="height: 35px; width: 35px" ngbTooltip="View" (click)="openDialog(product)"></button>
                 </td>
               </tr>
             </ng-template>
@@ -152,6 +133,16 @@
           </div>
           <div class="col-6">
             <label
+              >Paid By:&nbsp;<b>{{ selectedData.paid_by }}</b></label
+            >
+          </div>
+          <div class="col-6">
+            <label
+              >Paid To:&nbsp; <b>{{ selectedData.paid_to }}</b>
+            </label>
+          </div>
+          <div class="col-6">
+            <label
               >Txn Type:&nbsp;
               <font [color]="selectedData.transaction_type == 'DEBIT' ? 'red' : 'green'"
                 ><b>{{ selectedData.transaction_type }}</b></font
@@ -160,17 +151,17 @@
           </div>
           <div class="col-6">
             <label
-              >Previous Bal:&nbsp; <b>{{ selectedData.previous_balance | currency:'INR' }}</b>
+              >Paid By:&nbsp; <b>{{ selectedData.previous_balance | currency: "INR" }}</b>
             </label>
           </div>
           <div class="col-6">
             <label
-              >Txn Amout:&nbsp; <b>{{ selectedData.transaction_amount | currency:'INR' }}</b>
+              >Txn Amout:&nbsp; <b>{{ selectedData.transaction_amount | currency: "INR" }}</b>
             </label>
           </div>
           <div class="col-6">
             <label
-              >Current Bal:&nbsp; <b>{{ selectedData.current_balance | currency:'INR' }}</b>
+              >Paid To:&nbsp; <b>{{ selectedData.current_balance | currency: "INR" }}</b>
             </label>
           </div>
           <div class="col-12">

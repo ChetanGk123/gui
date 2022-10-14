@@ -52,7 +52,7 @@ export class AuthService {
     try {
       this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
       this.spinnerService.show();
-      var login: ILogin = {
+      var login: ILogin = { 
         username: email,
         password: password,
       };
