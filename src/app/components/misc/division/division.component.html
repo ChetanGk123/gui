@@ -1,79 +1,65 @@
 <div class="row">
-    <div class="col">
-        <div
-          class="default-according style-1 faq-accordion job-accordion"
-          id="accordionoc"
-        >
-          <div class="row">
-            <div class="col-xl-12">
-              <div class="card">
-                <div class="card-header">
-                  <h5 class="mb-0">
-                    <button class="btn btn-link pl-0" (click)="isDivFilter = !isDivFilter" [attr.aria-expanded]="!isDivFilter"
-                      aria-controls="collapse"><h5>Divisions</h5></button>
-                  </h5>
-                </div>
-                <div class="collapse show" *ngIf="isDivFilter">
-                  <div class="card-body filter-cards-view animate-chk">
-                    <div class="job-filter row">
-                      <div class="faq-form col-8">
-                        <input
-                          class="form-control"
-                          type="text"
-                          [(ngModel)]="diveditValue"
-                          (keyup)="onDivFilter($event.target.value)"
-                          placeholder="data"
-                        />
-                      </div>
-                      <div class="col-4">
-                        <button class="btn btn-success text-center float-right" type="button" [disabled]="divList.length>0 || addLoader" (click)="onAddNewDiv()">
-                          {{!addLoader?"Add":""}}&nbsp;<i class="fa fa-circle-o-notch fa-spin" *ngIf="addLoader"></i>
-                        </button>
-                      </div>
-                    </div>
-                   
-                    
-                      <div class="table-responsive mt-3 mb-3" style="height: 40.5vh;">
-                        <div class="loader-box center" *ngIf="dataFetch"><span class="rotate dashed"></span></div>
-                        <table class="table" *ngIf="!dataFetch">
-                            <thead>
-                                <tr>
-                                  <th>SlNo</th>
-                                  <th>Name</th>
-                                  <th>Actions</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr *ngFor="let data of divList; let i = index">
-                                    <td>
-                                        {{i+1}}
-                                    </td>
-                                    <td>
-                                        <div *ngIf="diveditIndex != i">{{data.name}}</div>
-                                        <div *ngIf="diveditIndex == i">
-                                            <input type="text" class="form-control" (keyup)="diveditValue = $event.target.value" [ngModelOptions]="{standalone: true}" value="{{diveditValue}}">
-                                        </div>
-                                    </td>
-                                    <td style="width: 12rem;">
-                                        <div *ngIf="diveditIndex != i">
-                                          <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded btn-success" style="height: 35px; width: 35px;" (click)="diveditClick(i,data)"></button>
-                                          <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded btn-danger ml-2" style="height: 35px; width: 35px;" (click)="onDeleteDiv(data.id)"></button>
-                                        </div>
-                                        <div *ngIf="diveditIndex == i">
-                                          <button pButton pRipple type="button" icon="pi pi-file" class="p-button-rounded btn-success" style="height: 35px; width: 35px;" (click)="updateDiv(data.id)"></button>
-                                          <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded btn-danger ml-2" style="height: 35px; width: 35px;" (click)="diveditIndex = -1;clear()"></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                              </tbody>
-                        </table>
-                    </div>
-                    
+  <div class="col">
+    <div class="default-according style-1 faq-accordion job-accordion" id="accordionoc">
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="mb-0">
+                <button class="btn btn-link pl-0" (click)="isDivFilter = !isDivFilter" [attr.aria-expanded]="!isDivFilter" aria-controls="collapse"><h5>Divisions</h5></button>
+              </h5>
+            </div>
+            <div class="collapse show" *ngIf="isDivFilter">
+              <div class="card-body filter-cards-view animate-chk">
+                <div class="job-filter row">
+                  <div class="faq-form col-8">
+                    <input class="form-control" type="text" [(ngModel)]="diveditValue" (keyup)="onDivFilter($event.target.value)" placeholder="Division" />
                   </div>
+                  <div class="col-4">
+                    <button class="btn btn-success text-center float-right" type="button" [disabled]="divList.length > 0 || addLoader" (click)="onAddNewDiv()">{{ !addLoader ? "Add" : "" }}&nbsp;<i class="fa fa-circle-o-notch fa-spin" *ngIf="addLoader"></i></button>
+                  </div>
+                </div>
+
+                <div class="table-responsive mt-3 mb-3" style="height: 40.5vh">
+                  <div class="loader-box center" *ngIf="dataFetch"><span class="rotate dashed"></span></div>
+                  <table class="table" *ngIf="!dataFetch">
+                    <thead>
+                      <tr>
+                        <th>SlNo</th>
+                        <th>Name</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let data of divList; let i = index">
+                        <td>
+                          {{ i + 1 }}
+                        </td>
+                        <td>
+                          <div *ngIf="diveditIndex != i">{{ data.name }}</div>
+                          <div *ngIf="diveditIndex == i">
+                            <input type="text" class="form-control" (keyup)="diveditValue = $event.target.value" [ngModelOptions]="{ standalone: true }" value="{{ diveditValue }}" />
+                          </div>
+                        </td>
+                        <td style="width: 12rem">
+                          <div *ngIf="diveditIndex != i">
+                            <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded btn-success" style="height: 35px; width: 35px" (click)="diveditClick(i, data)"></button>
+                            <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded btn-danger ml-2" style="height: 35px; width: 35px" (click)="onDeleteDiv(data.id)"></button>
+                          </div>
+                          <div *ngIf="diveditIndex == i">
+                            <button pButton pRipple type="button" icon="pi pi-file" class="p-button-rounded btn-success" style="height: 35px; width: 35px" (click)="updateDiv(data.id)"></button>
+                            <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded btn-danger ml-2" style="height: 35px; width: 35px" (click)="diveditIndex = -1; clear()"></button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
