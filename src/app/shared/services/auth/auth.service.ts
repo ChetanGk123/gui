@@ -10,7 +10,8 @@ import { environment } from "src/environments/environment";
 import { ApiService } from "./api.service";
 import { SpinnerService } from "../spinner.service";  
 import * as CryptoJS from 'crypto-js'; 
-import { MatDialog } from "@angular/material/dialog";
+import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
+
 import { UnlockUserComponent } from "src/app/components/authentication/unlock-user/unlock-user.component";
 import { JwtHelperService } from "@auth0/angular-jwt";
 
@@ -34,7 +35,8 @@ export class AuthService {
     private http: HttpClient,
     private route: ActivatedRoute,
     public router: Router,
-    public dialog: MatDialog,
+    public ref: DynamicDialogRef,
+    public dialogService: DialogService,
     public toster: ToastrService,
     private cookieService: CookieService,
     public spinnerService: SpinnerService,
@@ -51,6 +53,7 @@ export class AuthService {
   async SignIn(email, password) {
     try {
       this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
+      debugger
       this.spinnerService.show();
       var login: ILogin = { 
         username: email,
@@ -66,11 +69,8 @@ export class AuthService {
         await this.setUserData(response.data);
         this.beginsesssion();
         
-        if (this.dialog.openDialogs.length > 0){
-          this.dialog.closeAll();
-        }else{
+        if (this.ref) this.ref.close();
           this.router.navigateByUrl(this.returnUrl);
-        }
         this.toster.success("Welcomeback " + response.data.full_name);
         
         return true;
@@ -93,9 +93,7 @@ export class AuthService {
   }
 
   SignOut() {
-    if (this.dialog.openDialogs.length > 0){
-      this.dialog.closeAll();
-    }
+    if (this.ref) this.ref.close();
     localStorage.removeItem("user");
     localStorage.removeItem("selectedStudent");
     this.router.navigate(["/auth/login"]);
@@ -104,7 +102,12 @@ export class AuthService {
   lockScreen() {
     // var returnUrl = this.route.snapshot.outlet;
     var returnUrl = this.router.url;
-    const dialogRef = this.dialog.open(UnlockUserComponent, { disableClose: true, height:"60%", backdropClass: "blurred" })
+    this.ref = this.dialogService.open(UnlockUserComponent, {
+      width: '50%',
+      contentStyle: { 'max-height': '500px', overflow: 'auto' },
+      baseZIndex: 10000,
+      closable: false,
+  });
     localStorage.removeItem("user");
     //this.router.navigate(["/auth/unlock"], { queryParams: { returnUrl: returnUrl } });
   }

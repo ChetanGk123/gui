@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'primeng/dynamicdialog';
 import { ToastrService } from 'ngx-toastr';
 import { ConfirmationService } from 'src/app/shared/services/confirmation_service/confirmation.service';
 import { ApiService } from 'src/app/shared/services/auth/api.service';
@@ -24,7 +24,7 @@ export class BankDetailsComponent implements OnInit {
   bankDetails: any 
   constructor(
     public http:HttpClient, 
-    public dialog: MatDialog, 
+    public dialog: DialogService, 
     public toster: ToastrService, 
     public apiService: ApiService, 
     public authService: AuthService,
@@ -79,7 +79,7 @@ export class BankDetailsComponent implements OnInit {
       }
     })
 
-    dialogRef.afterClosed().subscribe((result:any)=>{
+    dialogRef.onClose.subscribe((result:any)=>{
       if(result){
         this.toster.success("Data added successfully")
         this.confirmationService.showSuccessMessage("Added!","Data added Successfully!!!")
@@ -99,7 +99,7 @@ export class BankDetailsComponent implements OnInit {
       }
     })
 
-    dialogRef.afterClosed().subscribe((result:any)=>{
+    dialogRef.onClose.subscribe((result:any)=>{
       if(result){
         this.toster.success("Data updated successfully")
         this.confirmationService.showSuccessMessage("Updated!","Data updated Successfully!!!")

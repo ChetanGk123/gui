@@ -1,4 +1,4 @@
 
-<a href="{{this.dialogdata}}" download>
-<img [src]="this.dialogdata" alt="" *ngIf="!isPdf" class="center" style="object-fit: contain;height: 98%;width: 100%;"></a>
+<a href="{{this.config.data}}" download>
+<img [src]="this.config.data" alt="" *ngIf="!isPdf" class="center" style="object-fit: contain;height: 98%;width: 100%;"></a>
 <iframe [src]='pdfUrl' style="object-fit: contain;height: 98%;width: 100%;" frameborder="0" *ngIf="isPdf"></iframe>

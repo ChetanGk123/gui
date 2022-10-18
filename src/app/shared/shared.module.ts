@@ -20,13 +20,9 @@ import { ProfileDocumentsComponent } from './components/profile-documents/profil
 import { AddEditProfileDocumentsComponent } from './components/profile-documents/add-edit-profile-documents/add-edit-profile-documents.component'
 // services
 import { NavService } from "./services/nav.service";
-import { DialogService } from '../shared/services/dialog.service'
 import { StudentService } from './services/student_services/student.service'
 // Directives
 import { ToggleFullscreenDirective } from "./directives/fullscreen.directive";
-import { DialogComponent } from './components/dialog/dialog.component';
-import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
-import {MatIconModule} from '@angular/material/icon';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DocViewerComponent } from './components/doc-viewer/doc-viewer.component';
 import { ExcelService } from './services/excel.service';
@@ -49,7 +45,6 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     BreadcrumbComponent,
     ToggleFullscreenDirective,
     CustomizerComponent,
-    DialogComponent,
     DocViewerComponent,
     CameraComponent,
     BankDetailsComponent,
@@ -60,8 +55,6 @@ import { ImageCropperModule } from 'ngx-image-cropper';
   imports: [
      CommonModule,
      WebcamModule,
-     MatDialogModule,
-     MatIconModule,
      ImageCropperModule,
      RouterModule,
      PrimengModule,
@@ -87,9 +80,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     NavService,
     DatePipe,
     ExcelService,
-    DialogService,
     StudentService,
-    { provide: MatDialogRef, useValue: {} },
   ]
 })
 export class SharedModule { }
