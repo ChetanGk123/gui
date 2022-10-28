@@ -26,7 +26,7 @@ export class PasswordresetComponent implements OnInit, AfterViewInit {
    public submitted = false;
 
    // Private
-   private _unsubscribeAll: Subject<any>;
+   private _unsubscribeAll: Subject<void>;
 
    /**
     * Constructor

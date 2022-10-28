@@ -18,6 +18,7 @@ import { PagesRoutingModule } from './pages-routing.module';
 
 import { DashboardsModule } from './dashboards/dashboards.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { SharedModule } from '../shared/shared.module';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -44,7 +45,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     NgbTooltipModule,
     NgbCollapseModule,
     SimplebarAngularModule,
-    LightboxModule
+    LightboxModule,
+    SharedModule
   ],
 })
 export class PagesModule { }

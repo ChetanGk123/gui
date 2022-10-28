@@ -23,6 +23,9 @@ import { FakeBackendInterceptor } from './core/helpers/fake-backend';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CoreModule } from './core/core.module';
 import { coreConfig } from './app-config';
+import { AuthUtils } from './core/utils/auth.utils';
+import { SharedModule } from './shared/shared.module';
+import { LoadingInterceptor } from './core/helpers/loading.interceptor';
 
 if (environment.defaultauth === 'firebase') {
   initFirebaseBackend(environment.firebaseConfig);
@@ -57,6 +60,7 @@ export function createTranslateLoader(http: HttpClient): any {
     NgbAccordionModule,
     NgbNavModule,
     NgbTooltipModule,
+    SharedModule,
     CoreModule.forRoot(coreConfig),
     ScrollToModule.forRoot(),
     NgbModule
@@ -64,10 +68,11 @@ export function createTranslateLoader(http: HttpClient): any {
   bootstrap: [AppComponent],
   providers: [
     DialogService,
-
+    AuthUtils,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
   ],
 })
 export class AppModule { }

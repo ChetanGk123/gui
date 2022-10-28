@@ -22,7 +22,7 @@ export class SignupComponent implements OnInit {
    public submitted = false;
 
    // Private
-   private _unsubscribeAll: Subject<any>;
+   private _unsubscribeAll: Subject<void>;
 
    /**
     * Constructor

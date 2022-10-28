@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   public passwordTextType: boolean;
 
   // Private
-  private _unsubscribeAll: Subject<any>;
+  private _unsubscribeAll: Subject<void>;
 
   /**
    * Constructor
@@ -42,9 +42,9 @@ export class LoginComponent implements OnInit {
     private _authenticationService: AuthenticationService
   ) {
     // redirect to home if already logged in
-    if (this._authenticationService.currentUserValue) {
-      this._router.navigate(["/"]);
-    }
+    // if (this._authenticationService.currentUserValue.token) {
+    //   this._router.navigate(["/"]);
+    // }
 
     this._unsubscribeAll = new Subject();
 
@@ -93,7 +93,13 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          this._router.navigate([this.returnUrl]);
+          console.log(data);
+          if (data?.result == false) {
+            this.error = data.message;
+            this.loading = false;
+          } else {
+            this._router.navigate([this.returnUrl]);
+          }
         },
         (error) => {
           this.error = error;
@@ -125,7 +131,6 @@ export class LoginComponent implements OnInit {
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe((config) => {
         this.coreConfig = config;
-        console.log(config);
       });
   }
 

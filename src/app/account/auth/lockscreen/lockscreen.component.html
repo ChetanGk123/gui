@@ -41,27 +41,30 @@
             <form>
               <div class="user-thumb text-center">
                 <img
-                  src="assets/images/users/avatar-1.jpg"
+                  [src]="currentUser.dp_location"
                   class="rounded-circle img-thumbnail avatar-md"
                   alt="thumbnail"
                 />
-                <h5 class="font-size-15 mt-3">Maria Laird</h5>
+                <h5 class="font-size-15 mt-3">{{ currentUser.full_name }}</h5>
               </div>
+              <ngb-alert type="danger" *ngIf="error" [dismissible]="false">{{ error }}</ngb-alert>
               <div class="mb-3">
                 <label for="userpassword">Password</label>
                 <input
                   type="password"
                   class="form-control"
+                  [(ngModel)]="password"
+                  [ngModelOptions]="{ standalone: true }"
                   id="userpassword"
                   placeholder="Enter password"
                 />
               </div>
 
               <div class="text-center">
-                <button class="btn btn-primary w-md mr-5" type="submit">
+                <button class="btn btn-primary w-md mr-5" type="submit" (click)="unlock()">
                   Unlock
                 </button>
-                <button class="btn btn-primary w-md">Logout</button>
+                <button class="btn btn-primary w-md" (click)="logout()">Logout</button>
               </div>
             </form>
           </div>

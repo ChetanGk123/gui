@@ -1,43 +1,48 @@
-import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { DOCUMENT } from '@angular/common';
-import { AuthenticationService } from '../../core/services/auth.service';
-import { AuthfakeauthenticationService } from '../../core/services/authfake.service';
-import { environment } from '../../../environments/environment';
-import { CookieService } from 'ngx-cookie-service';
-import { LanguageService } from '../../core/services/language.service';
-import { TranslateService } from '@ngx-translate/core';
+import { Component, OnInit, Output, EventEmitter, Inject } from "@angular/core";
+import { Router } from "@angular/router";
+import { DOCUMENT } from "@angular/common";
+import { AuthenticationService } from "../../core/services/auth.service";
+import { environment } from "../../../environments/environment";
+import { CookieService } from "ngx-cookie-service";
+import { LanguageService } from "../../core/services/language.service";
+import { TranslateService } from "@ngx-translate/core";
+import { User } from "src/app/core/types";
 
 @Component({
-  selector: 'app-topbar',
-  templateUrl: './topbar.component.html',
-  styleUrls: ['./topbar.component.scss']
+  selector: "app-topbar",
+  templateUrl: "./topbar.component.html",
+  styleUrls: ["./topbar.component.scss"],
 })
 
 /**
  * Topbar component
  */
 export class TopbarComponent implements OnInit {
-
   element;
   cookieValue;
   flagvalue;
   countryName;
   valueset;
+  public currentUser:User
 
-  constructor(@Inject(DOCUMENT) private document: any, private router: Router, public authService: AuthenticationService,
-              private authFackservice: AuthfakeauthenticationService,
-              public languageService: LanguageService,
-              public translate: TranslateService,
-              public _cookiesService: CookieService) {
+  constructor(
+    @Inject(DOCUMENT) private document: any,
+    private router: Router,
+    public authService: AuthenticationService,
+    private authservice: AuthenticationService,
+    public languageService: LanguageService,
+    public translate: TranslateService,
+    public _cookiesService: CookieService
+  ) {
+    this.currentUser = this.authService.currentUserValue;
   }
 
   listLang = [
-    { text: 'English', flag: 'assets/images/flags/us.jpg', lang: 'en' },
-    { text: 'Spanish', flag: 'assets/images/flags/spain.jpg', lang: 'es' },
-    { text: 'German', flag: 'assets/images/flags/germany.jpg', lang: 'de' },
-    { text: 'Italian', flag: 'assets/images/flags/italy.jpg', lang: 'it' },
-    { text: 'Russian', flag: 'assets/images/flags/russia.jpg', lang: 'ru' },
+    { text: "English", flag: "assets/images/flags/us.jpg", lang: "en" },
+    { text: "Spanish", flag: "assets/images/flags/spain.jpg", lang: "es" },
+    { text: "German", flag: "assets/images/flags/germany.jpg", lang: "de" },
+    { text: "Italian", flag: "assets/images/flags/italy.jpg", lang: "it" },
+    { text: "Russian", flag: "assets/images/flags/russia.jpg", lang: "ru" },
   ];
 
   openMobileMenu: boolean;
@@ -49,13 +54,15 @@ export class TopbarComponent implements OnInit {
     this.openMobileMenu = false;
     this.element = document.documentElement;
 
-    this.cookieValue = this._cookiesService.get('lang');
-    const val = this.listLang.filter(x => x.lang === this.cookieValue);
-    this.countryName = val.map(element => element.text);
+    this.cookieValue = this._cookiesService.get("lang");
+    const val = this.listLang.filter((x) => x.lang === this.cookieValue);
+    this.countryName = val.map((element) => element.text);
     if (val.length === 0) {
-      if (this.flagvalue === undefined) { this.valueset = 'assets/images/flags/us.jpg'; }
+      if (this.flagvalue === undefined) {
+        this.valueset = "assets/images/flags/us.jpg";
+      }
     } else {
-      this.flagvalue = val.map(element => element.flag);
+      this.flagvalue = val.map((element) => element.flag);
     }
   }
 
@@ -85,22 +92,27 @@ export class TopbarComponent implements OnInit {
    * Logout the user
    */
   logout() {
-    if (environment.defaultauth === 'firebase') {
-      this.authService.logout();
-    } else {
-      this.authFackservice.logout();
-    }
-    this.router.navigate(['/account/login']);
+    // if (environment.defaultauth === 'firebase') {
+    //   this.authService.logout();
+    // } else {
+    // }
+    // this.router.navigate(['/account/login']);
+    localStorage.removeItem("currentUser");
+    this.router.navigate(["/account/login"], {
+      queryParams: { returnUrl: "" },
+    });
   }
 
   /**
    * Fullscreen method
    */
   fullscreen() {
-    document.body.classList.toggle('fullscreen-enable');
+    document.body.classList.toggle("fullscreen-enable");
     if (
-      !document.fullscreenElement && !this.element.mozFullScreenElement &&
-      !this.element.webkitFullscreenElement) {
+      !document.fullscreenElement &&
+      !this.element.mozFullScreenElement &&
+      !this.element.webkitFullscreenElement
+    ) {
       if (this.element.requestFullscreen) {
         this.element.requestFullscreen();
       } else if (this.element.mozRequestFullScreen) {

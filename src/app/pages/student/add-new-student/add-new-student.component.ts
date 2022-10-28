@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/core/services/api.service';
 
 @Component({
   selector: 'app-add-new-student',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddNewStudentComponent implements OnInit {
 
-  constructor() { }
+  constructor(private apiService:ApiService) { }
 
   ngOnInit(): void {
+    this.apiService.getTypeRequest('check_token').subscribe((data:any)=>{
+      console.log(data);
+
+    })
   }
 
 }
