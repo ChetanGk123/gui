@@ -7,12 +7,12 @@ export interface CoreConfig {
     appLogoImage: string;
     logo?:{
       logo_dark:{
-        logo_sm:string
-        logo_lg:string
+        logo_sm:string //only logo
+        logo_lg:string //logo with name
       },
       logo_light:{
-        logo_sm:string
-        logo_lg:string
+        logo_sm:string //only logo
+        logo_lg:string //logo with name
       }
     }
   };
