@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, Observable, Subject } from "rxjs";
 // import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import { map } from "rxjs/operators";
 
@@ -13,6 +13,7 @@ import { UserService } from "./user.service";
 import { environment } from "src/environments/environment";
 import { User } from "../types";
 import { Router } from "@angular/router";
+import { AuthUtils } from "../utils/auth.utils";
 
 @Injectable({ providedIn: "root" })
 export class AuthenticationService {
@@ -22,6 +23,8 @@ export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<User>;
   private _authenticated: boolean = false;
   ref: DynamicDialogRef;
+  public userActivity;
+  public userInactive: Subject<any> = new Subject();
   /**
    *
    * @param {HttpClient} _http
@@ -31,7 +34,8 @@ export class AuthenticationService {
     private _http: ApiService,
     public dialogService: DialogService,
     private _userService: UserService,
-    private _router: Router
+    private _router: Router,
+    private _utils: AuthUtils
   ) {
     this.currentUserSubject = new BehaviorSubject<User>(this.getUser());
     this.currentUser = this.currentUserSubject.asObservable();
@@ -73,16 +77,16 @@ export class AuthenticationService {
           var user = result.data;
           // store result details and jwt token in local storage to keep result logged in between page refreshes
           this.setUser(user);
+          this.beginsesssion();
 
           // Display welcome toast!
           // this._toastrService.success("You have successfully logged in as an " + user.user_role + " user to Vuexy. Now you can start to explore. Enjoy! 🎉", "👋 Welcome, " + user.full_name + "!", { toastClass: "toast ngx-toastr", closeButton: true });
           // notify
           this.currentUserSubject.next(user);
           return user;
-        }else{
-          return result
+        } else {
+          return result;
         }
-
       })
     );
   }
@@ -109,7 +113,6 @@ export class AuthenticationService {
             ).toString(CryptoJS.enc.Utf8)
           )
         : null;
-
       if (user) {
         return user;
       } else {
@@ -138,7 +141,7 @@ export class AuthenticationService {
   lockScreen() {
     var data = this.getUser();
     if (data?.token) {
-      localStorage.removeItem("user");
+      localStorage.removeItem("currentUser");
       data.token = null;
       this.setUser(data);
     }
@@ -151,6 +154,22 @@ export class AuthenticationService {
   }
 
   unlockScreen(email: string, password: string) {
-    return this.login(email, password)
+    return this.login(email, password);
+  }
+
+  beginsesssion() {
+    this.setTimeout();
+    this.userInactive.subscribe(() => {
+      this.lockScreen();
+    });
+  }
+  setTimeout() {
+    var day1: any = AuthUtils.getTokenExpirationDate(this.getUser().token);
+    var day2: any = new Date();
+    this.userActivity = setTimeout(() => {
+      if (this.getUser()) {
+        this.userInactive.next(undefined);
+      }
+    }, Math.floor(day1 - day2) - 5000);
   }
 }

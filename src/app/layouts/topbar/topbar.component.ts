@@ -54,8 +54,6 @@ export class TopbarComponent implements OnInit {
   @Output() mobileMenuButtonClicked = new EventEmitter();
 
   ngOnInit() {
-    console.log( this.coreConfig);
-
     this.openMobileMenu = false;
     this.element = document.documentElement;
 
