@@ -93,7 +93,6 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          console.log(data);
           if (data?.result == false) {
             this.error = data.message;
             this.loading = false;

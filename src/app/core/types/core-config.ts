@@ -18,5 +18,6 @@ export interface CoreConfig {
   };
   layout: {
     enableLocalStorage: boolean;
-  }
+  };
+  url:string
 }

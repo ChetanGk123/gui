@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import * as CryptoJS from 'crypto-js';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/auth.models';
-
+import CoreConfigData from "../../../assets/config/config.data.json"
 
 
 @Injectable({
@@ -13,7 +13,7 @@ import { User } from '../models/auth.models';
 export class ApiService {
 
   public token:string ="";
-  public baseUrl = environment.apiUrl;
+  public baseUrl = CoreConfigData.url;
   encPassword = environment.encPassword;
   constructor(private _http: HttpClient) {
 

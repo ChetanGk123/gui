@@ -17,6 +17,7 @@
     },
     "layout":{
       "enableLocalStorage": true
-    }
+    },
+    "url":"https://stagespace.tech/school/api/v1/"
   }
 

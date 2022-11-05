@@ -28,12 +28,7 @@ import { SharedModule } from './shared/shared.module';
 import { LoadingInterceptor } from './core/helpers/loading.interceptor';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
-if (environment.defaultauth === 'firebase') {
-  initFirebaseBackend(environment.firebaseConfig);
-} else {
-  // tslint:disable-next-line: no-unused-expression
-  FakeBackendInterceptor;
-}
+
 
 export function createTranslateLoader(http: HttpClient): any {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
