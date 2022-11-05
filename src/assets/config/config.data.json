@@ -1,0 +1,22 @@
+
+  {
+    "app": {
+      "appName"     : "Royal Palace",
+      "appTitle"    : "Royal Palace - Angular 14+ Bootstrap Admin Template",
+      "appLogoImage": "assets/images/logo.svg",
+      "logo":{
+        "logo_dark":{
+          "logo_sm":"string",
+          "logo_lg":"string"
+        },
+        "logo_light":{
+          "logo_sm":"assets/images/logo-light.svg",
+          "logo_lg":"assets/images/logo-light.png"
+        }
+      }
+    },
+    "layout":{
+      "enableLocalStorage": true
+    }
+  }
+

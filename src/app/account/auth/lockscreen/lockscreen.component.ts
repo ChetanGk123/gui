@@ -18,7 +18,8 @@ export class LockscreenComponent implements OnInit {
   year: number = new Date().getFullYear();
   currentUser: User;
   public error = "";
-  password: string;
+  loading: boolean = false;
+  password: string = "";
   ref: DynamicDialogRef;
 
   constructor(
@@ -29,7 +30,7 @@ export class LockscreenComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.currentUser);
+    this.loading = false;
   }
 
   //   {
@@ -39,15 +40,22 @@ export class LockscreenComponent implements OnInit {
   //     "icon": "error"
   // }
   async unlock() {
-    this._authService
-      .unlockScreen(this.currentUser.user_name, this.password)
-      .subscribe((data: any) => {
-        if (data?.result == false) {
-          this.error = data.message;
-        } else {
-          if (this.ref) this.ref.close();
-        }
-      });
+    if (this.password.length > 0) {
+      this.error = "";
+      this.loading = true;
+      this._authService
+        .unlockScreen(this.currentUser.user_name, this.password)
+        .subscribe((data: any) => {
+          if (data?.result == false) {
+            this.error = data.message;
+          } else {
+            if (this.ref) this.ref.close();
+          }
+          this.loading = false;
+        });
+    } else {
+      this.error = "Please enter the password";
+    }
   }
 
   logout() {

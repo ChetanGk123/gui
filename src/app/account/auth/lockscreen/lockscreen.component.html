@@ -37,12 +37,12 @@
               </div>
             </a>
           </div>
-          <div class="p-2">
+          <div class="p-2" style="margin-top: -35px;">
             <form>
               <div class="user-thumb text-center">
                 <img
                   [src]="currentUser.dp_location"
-                  class="rounded-circle img-thumbnail avatar-md"
+                  class="rounded-circle img-thumbnail avatar-lg "
                   alt="thumbnail"
                 />
                 <h5 class="font-size-15 mt-3">{{ currentUser.full_name }}</h5>
@@ -54,6 +54,7 @@
                   type="password"
                   class="form-control"
                   [(ngModel)]="password"
+                  [ngClass]="{ 'is-invalid': error }" aria-label="Password"
                   [ngModelOptions]="{ standalone: true }"
                   id="userpassword"
                   placeholder="Enter password"
@@ -61,10 +62,10 @@
               </div>
 
               <div class="text-center">
-                <button class="btn btn-primary w-md mr-5" type="submit" (click)="unlock()">
-                  Unlock
+                <button class="btn btn-primary btn-rounded w-md mr-5" type="submit" (click)="unlock()">
+                  Unlock <i  *ngIf="loading" class="bx bx-loader bx-spin font-size-16 align-middle me-2"></i>
                 </button>
-                <button class="btn btn-primary w-md" (click)="logout()">Logout</button>
+                <button class="btn btn-primary btn-rounded w-md" (click)="logout()">Logout</button>
               </div>
             </form>
           </div>

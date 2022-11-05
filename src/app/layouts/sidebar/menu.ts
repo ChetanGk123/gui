@@ -10,7 +10,7 @@ export const MENU: MenuItem[] = [
     id: 2,
     label: "Dashboard",
     icon: "bx-home-circle",
-    link: "/",
+    link: "/dashboard",
   },
   {
     id: 3,
@@ -26,14 +26,14 @@ export const MENU: MenuItem[] = [
       {
         id: 5,
         label: "All Students",
-        link: "/student",
-        parentId: 2,
+        link: "/student/allStudents",
+        parentId: 4,
       },
       {
         id: 6,
         label: "Add",
         link: "/student/addNew",
-        parentId: 2,
+        parentId: 4,
       },
     ],
   },

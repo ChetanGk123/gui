@@ -6,7 +6,8 @@ import { environment } from "../../../environments/environment";
 import { CookieService } from "ngx-cookie-service";
 import { LanguageService } from "../../core/services/language.service";
 import { TranslateService } from "@ngx-translate/core";
-import { User } from "src/app/core/types";
+import { CoreConfig, User } from "src/app/core/types";
+import { CoreConfigService } from "src/app/core/services/config.service";
 
 @Component({
   selector: "app-topbar",
@@ -24,17 +25,19 @@ export class TopbarComponent implements OnInit {
   countryName;
   valueset;
   public currentUser:User
+  public coreConfig:CoreConfig
 
   constructor(
     @Inject(DOCUMENT) private document: any,
     private router: Router,
     public authService: AuthenticationService,
-    private authservice: AuthenticationService,
     public languageService: LanguageService,
     public translate: TranslateService,
-    public _cookiesService: CookieService
+    public _cookiesService: CookieService,
+    public _coreConfigService: CoreConfigService,
   ) {
     this.currentUser = this.authService.currentUserValue;
+     _coreConfigService.getConfig().subscribe((result: any)=> this.coreConfig = result)
   }
 
   listLang = [
@@ -51,6 +54,8 @@ export class TopbarComponent implements OnInit {
   @Output() mobileMenuButtonClicked = new EventEmitter();
 
   ngOnInit() {
+    console.log( this.coreConfig);
+
     this.openMobileMenu = false;
     this.element = document.documentElement;
 

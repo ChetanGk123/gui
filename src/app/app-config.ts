@@ -12,15 +12,16 @@
  */
 
 import { CoreConfig } from "./core/types";
+import CoreConfigData from "../assets/config/config.data.json"
 
 // prettier-ignore
-export const coreConfig: CoreConfig = {
-  app: {
-    appName     : 'Vuexy',                                        // App Name
-    appTitle    : 'Vuexy - Angular 14+ Bootstrap Admin Template', // App Title
-    appLogoImage: 'assets/images/logo.svg',                  // App Logo
-  },
-  layout:{
-    enableLocalStorage: true,
-  }
-}
+export const coreConfig: CoreConfig = CoreConfigData
+//   app: {
+//     appName     : 'Vuexy',                                        // App Name
+//     appTitle    : 'Vuexy - Angular 14+ Bootstrap Admin Template', // App Title
+//     appLogoImage: 'assets/images/logo.svg',                  // App Logo
+//   },
+//   layout:{
+//     enableLocalStorage: true,
+//   }
+// }

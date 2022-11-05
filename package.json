@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build-prod": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng build --prod"
+    "build-prod": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng build --prod",
+    "start-pwa": "http-server dist/skote"
   },
   "private": true,
   "dependencies": {
@@ -22,7 +23,9 @@
     "@angular/localize": "^13.0.2",
     "@angular/platform-browser": "~13.0.2",
     "@angular/platform-browser-dynamic": "~13.0.2",
+    "@angular/pwa": "^13.3.9",
     "@angular/router": "~13.0.2",
+    "@angular/service-worker": "~13.0.2",
     "@ckeditor/ckeditor5-angular": "^2.0.1",
     "@ckeditor/ckeditor5-build-classic": "^26.0.0",
     "@fullcalendar/angular": "^5.8.0",
@@ -37,6 +40,7 @@
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
     "@nicky-lenaers/ngx-scroll-to": "^9.0.0",
+    "@schematics/angular": "^14.2.8",
     "@types/chartist": "^0.11.0",
     "angular-archwizard": "^7.0.0",
     "apexcharts": "^3.27.1",
