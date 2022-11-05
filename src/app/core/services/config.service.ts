@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable } from "rxjs";
 import { filter } from "rxjs/operators";
 
 import * as _ from "lodash";
+import { Title } from "@angular/platform-browser";
 
 // Injection token for the core custom settings
 export const CORE_CUSTOM_CONFIG = new InjectionToken("coreCustomConfig");
@@ -25,6 +26,7 @@ export class CoreConfigService {
    * @param {Router} _router
    */
   constructor(
+    private titleService:Title,
     private _router: Router,
     @Inject(CORE_CUSTOM_CONFIG) private _config
   ) {
@@ -63,7 +65,7 @@ export class CoreConfigService {
     if (config.layout.enableLocalStorage) {
       localStorage.setItem("config", JSON.stringify(config));
     }
-
+    this.titleService.setTitle(config.app.appTitle);
     // Inform the observers
     this._configSubject.next(config);
   }
