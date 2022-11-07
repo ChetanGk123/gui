@@ -26,5 +26,20 @@
         ]
       }
     }
+  ],
+  "dataGroups": [
+    {
+        "name": "api-freshness",
+        "urls": [
+            "/table_data/**",
+            "admission_form_data"
+        ],
+        "cacheConfig": {
+          "strategy": "freshness",
+          "timeout": "3s",
+          "maxSize": 100,
+          "maxAge": "3h"
+        }
+      }
   ]
 }

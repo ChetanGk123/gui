@@ -1,14 +1,17 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-import { StudentRoutingModule } from "./student-routing.module";
-import { StudentComponent } from "./student.component";
+import { StudentRoutingModule } from './student-routing.module';
+import { AllStudentsComponent } from './all-students/all-students.component';
 
-import { DynamicDialogModule } from "primeng/dynamicdialog";
-import { AddNewStudentComponent } from './add-new-student/add-new-student.component';
 
 @NgModule({
-  declarations: [StudentComponent, AddNewStudentComponent],
-  imports: [CommonModule, DynamicDialogModule, StudentRoutingModule],
+  declarations: [
+    AllStudentsComponent
+  ],
+  imports: [
+    CommonModule,
+    StudentRoutingModule
+  ]
 })
-export class StudentModule {}
+export class StudentModule { }

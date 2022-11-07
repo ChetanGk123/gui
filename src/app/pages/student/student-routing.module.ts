@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AddNewStudentComponent } from './add-new-student/add-new-student.component';
-import { StudentComponent } from './student.component';
+import { AllStudentsComponent } from './all-students/all-students.component';
+import { StudentResolver } from './student.resolver';
 
 const routes: Routes = [
-  { path: 'allStudents', component: StudentComponent },
-  { path: 'addNew', component: AddNewStudentComponent },
+  {
+    path:'allStudents',
+    component:AllStudentsComponent,
+    resolve:{
+      data: StudentResolver
+    }
+  }
 ];
 
 @NgModule({

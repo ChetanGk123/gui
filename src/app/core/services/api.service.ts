@@ -1,10 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import * as CryptoJS from 'crypto-js';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/auth.models';
 import CoreConfigData from "../../../assets/config/config.data.json"
+import { of } from 'rxjs';
 
 
 @Injectable({
@@ -52,9 +53,10 @@ export class ApiService {
         Authorization: `Bearer ${this.GetTocken()}`,
       }),
     };
-    return this._http.get(`${this.baseUrl}${url}`, httpOptions ).pipe(map(res => {
+    return this._http.get(`${this.baseUrl}${url}`, httpOptions ).pipe(map((res:any) => {
       return res;
-    }));
+    }),
+      );
   }
 
   getTypeRequest1(url: any) {

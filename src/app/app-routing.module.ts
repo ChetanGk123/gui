@@ -18,7 +18,7 @@ const routes: Routes = [
     loadChildren: () =>
       import("./pages/pages.module").then((m) => m.PagesModule),
     canActivate: [AuthGuard],
-    canActivateChild:[AuthGuard]
+    canActivateChild: [AuthGuard],
   },
   {
     path: "pages",
@@ -30,7 +30,7 @@ const routes: Routes = [
     path: "student",
     loadChildren: () =>
       import("./pages/student/student.module").then((m) => m.StudentModule),
-      canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   { path: "**", component: Page404Component },
 ];
