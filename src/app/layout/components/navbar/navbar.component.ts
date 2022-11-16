@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, HostBinding, HostListener, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, HostBinding, HostListener, ViewEncapsulation, Inject } from '@angular/core';
 import { MediaObserver } from '@angular/flex-layout';
 
 import * as _ from 'lodash';
@@ -15,6 +15,7 @@ import { User } from 'app/auth/models';
 
 import { coreConfig } from 'app/app-config';
 import { Router } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
@@ -75,6 +76,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
    * @param {TranslateService} _translateService
    */
   constructor(
+    @Inject(DOCUMENT) private document: Document,
     private _router: Router,
     private _authenticationService: AuthenticationService,
     private _coreConfigService: CoreConfigService,
@@ -149,13 +151,15 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
     // Toggle Dark skin with prevSkin skin
     this.prevSkin = localStorage.getItem('prevSkin');
-
+    let themeLink = this.document.getElementById('app-theme') as HTMLLinkElement;
     if (this.currentSkin === 'dark') {
+      themeLink.href = 'bootstrap4-light-blue.css';
       this._coreConfigService.setConfig(
         { layout: { skin: this.prevSkin ? this.prevSkin : 'default' } },
         { emitEvent: true }
       );
     } else {
+      themeLink.href = 'bootstrap4-dark-blue.css';
       localStorage.setItem('prevSkin', this.currentSkin);
       this._coreConfigService.setConfig({ layout: { skin: 'dark' } }, { emitEvent: true });
     }
@@ -213,6 +217,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.selectedLanguage = _.find(this.languageOptions, {
       id: this._translateService.currentLang
     });
+  }
+
+  lockScreen(){
+    this._authenticationService.lockScreen()
   }
 
   /**

@@ -1,34 +1,35 @@
-import { Component, Inject, OnDestroy, OnInit, ElementRef, Renderer2 } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { Title } from '@angular/platform-browser';
+import { Component, Inject, OnDestroy, OnInit, ElementRef, Renderer2 } from "@angular/core";
+import { DOCUMENT } from "@angular/common";
+import { Title } from "@angular/platform-browser";
 
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { TranslateService } from '@ngx-translate/core';
-import * as Waves from 'node-waves';
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
+import { TranslateService } from "@ngx-translate/core";
+import * as Waves from "node-waves";
 
-import { CoreMenuService } from '@core/components/core-menu/core-menu.service';
-import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
-import { CoreConfigService } from '@core/services/config.service';
-import { CoreLoadingScreenService } from '@core/services/loading-screen.service';
-import { CoreTranslationService } from '@core/services/translation.service';
+import { CoreMenuService } from "@core/components/core-menu/core-menu.service";
+import { CoreSidebarService } from "@core/components/core-sidebar/core-sidebar.service";
+import { CoreConfigService } from "@core/services/config.service";
+import { CoreLoadingScreenService } from "@core/services/loading-screen.service";
+import { CoreTranslationService } from "@core/services/translation.service";
 
-import { menu } from 'app/menu/menu';
-import { locale as menuEnglish } from 'app/menu/i18n/en';
-import { locale as menuFrench } from 'app/menu/i18n/fr';
-import { locale as menuGerman } from 'app/menu/i18n/de';
-import { locale as menuPortuguese } from 'app/menu/i18n/pt';
+import { menu } from "app/menu/menu";
+import { locale as menuEnglish } from "app/menu/i18n/en";
+import { locale as menuFrench } from "app/menu/i18n/fr";
+import { locale as menuGerman } from "app/menu/i18n/de";
+import { locale as menuPortuguese } from "app/menu/i18n/pt";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"],
 })
 export class AppComponent implements OnInit, OnDestroy {
   coreConfig: any;
   menu: any;
-  defaultLanguage: 'en'; // This language will be used as a fallback when a translation isn't found in the current language
-  appLanguage: 'en'; // Set application default language i.e fr
+  public currentSkin: string;
+  defaultLanguage: "en"; // This language will be used as a fallback when a translation isn't found in the current language
+  appLanguage: "en"; // Set application default language i.e fr
 
   // Private
   private _unsubscribeAll: Subject<any>;
@@ -48,7 +49,7 @@ export class AppComponent implements OnInit, OnDestroy {
    * @param {TranslateService} _translateService
    */
   constructor(
-    @Inject(DOCUMENT) private document: any,
+    @Inject(DOCUMENT) private document: Document,
     private _title: Title,
     private _renderer: Renderer2,
     private _elementRef: ElementRef,
@@ -63,16 +64,16 @@ export class AppComponent implements OnInit, OnDestroy {
     this.menu = menu;
 
     // Register the menu to the menu service
-    this._coreMenuService.register('main', this.menu);
+    this._coreMenuService.register("main", this.menu);
 
     // Set the main menu as our current menu
-    this._coreMenuService.setCurrentMenu('main');
+    this._coreMenuService.setCurrentMenu("main");
 
     // Add languages to the translation service
-    this._translateService.addLangs(['en', 'fr', 'de', 'pt']);
+    this._translateService.addLangs(["en", "fr", "de", "pt"]);
 
     // This language will be used as a fallback when a translation isn't found in the current language
-    this._translateService.setDefaultLang('en');
+    this._translateService.setDefaultLang("en");
 
     // Set the translations for the menu
     this._coreTranslationService.translate(menuEnglish, menuFrench, menuGerman, menuPortuguese);
@@ -92,15 +93,21 @@ export class AppComponent implements OnInit, OnDestroy {
     Waves.init();
 
     // Subscribe to config changes
-    this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
+    this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe((config) => {
       this.coreConfig = config;
-
+      this.currentSkin = config.layout.skin;
+      let themeLink = this.document.getElementById("app-theme") as HTMLLinkElement;
+      if (this.currentSkin === "dark") {
+        themeLink.href = "bootstrap4-dark-blue.css";
+      } else {
+        themeLink.href = "bootstrap4-light-blue.css";
+      }
       // Set application default language.
 
       // Change application language? Read the ngxTranslate Fix
 
       // ? Use app-config.ts file to set default language
-      const appLanguage = this.coreConfig.app.appLanguage || 'en';
+      const appLanguage = this.coreConfig.app.appLanguage || "en";
       this._translateService.use(appLanguage);
 
       // ? OR
@@ -126,7 +133,7 @@ export class AppComponent implements OnInit, OnDestroy {
       // Set the default language to 'en' and then back to 'fr'.
 
       setTimeout(() => {
-        this._translateService.setDefaultLang('en');
+        this._translateService.setDefaultLang("en");
         this._translateService.setDefaultLang(appLanguage);
       });
 
@@ -139,99 +146,77 @@ export class AppComponent implements OnInit, OnDestroy {
       //--------
 
       // Remove default classes first
-      this._elementRef.nativeElement.classList.remove(
-        'vertical-layout',
-        'vertical-menu-modern',
-        'horizontal-layout',
-        'horizontal-menu'
-      );
+      this._elementRef.nativeElement.classList.remove("vertical-layout", "vertical-menu-modern", "horizontal-layout", "horizontal-menu");
       // Add class based on config options
-      if (this.coreConfig.layout.type === 'vertical') {
-        this._elementRef.nativeElement.classList.add('vertical-layout', 'vertical-menu-modern');
-      } else if (this.coreConfig.layout.type === 'horizontal') {
-        this._elementRef.nativeElement.classList.add('horizontal-layout', 'horizontal-menu');
+      if (this.coreConfig.layout.type === "vertical") {
+        this._elementRef.nativeElement.classList.add("vertical-layout", "vertical-menu-modern");
+      } else if (this.coreConfig.layout.type === "horizontal") {
+        this._elementRef.nativeElement.classList.add("horizontal-layout", "horizontal-menu");
       }
 
       // Navbar
       //--------
 
       // Remove default classes first
-      this._elementRef.nativeElement.classList.remove(
-        'navbar-floating',
-        'navbar-static',
-        'navbar-sticky',
-        'navbar-hidden'
-      );
+      this._elementRef.nativeElement.classList.remove("navbar-floating", "navbar-static", "navbar-sticky", "navbar-hidden");
 
       // Add class based on config options
-      if (this.coreConfig.layout.navbar.type === 'navbar-static-top') {
-        this._elementRef.nativeElement.classList.add('navbar-static');
-      } else if (this.coreConfig.layout.navbar.type === 'fixed-top') {
-        this._elementRef.nativeElement.classList.add('navbar-sticky');
-      } else if (this.coreConfig.layout.navbar.type === 'floating-nav') {
-        this._elementRef.nativeElement.classList.add('navbar-floating');
+      if (this.coreConfig.layout.navbar.type === "navbar-static-top") {
+        this._elementRef.nativeElement.classList.add("navbar-static");
+      } else if (this.coreConfig.layout.navbar.type === "fixed-top") {
+        this._elementRef.nativeElement.classList.add("navbar-sticky");
+      } else if (this.coreConfig.layout.navbar.type === "floating-nav") {
+        this._elementRef.nativeElement.classList.add("navbar-floating");
       } else {
-        this._elementRef.nativeElement.classList.add('navbar-hidden');
+        this._elementRef.nativeElement.classList.add("navbar-hidden");
       }
 
       // Footer
       //--------
 
       // Remove default classes first
-      this._elementRef.nativeElement.classList.remove('footer-fixed', 'footer-static', 'footer-hidden');
+      this._elementRef.nativeElement.classList.remove("footer-fixed", "footer-static", "footer-hidden");
 
       // Add class based on config options
-      if (this.coreConfig.layout.footer.type === 'footer-sticky') {
-        this._elementRef.nativeElement.classList.add('footer-fixed');
-      } else if (this.coreConfig.layout.footer.type === 'footer-static') {
-        this._elementRef.nativeElement.classList.add('footer-static');
+      if (this.coreConfig.layout.footer.type === "footer-sticky") {
+        this._elementRef.nativeElement.classList.add("footer-fixed");
+      } else if (this.coreConfig.layout.footer.type === "footer-static") {
+        this._elementRef.nativeElement.classList.add("footer-static");
       } else {
-        this._elementRef.nativeElement.classList.add('footer-hidden');
+        this._elementRef.nativeElement.classList.add("footer-hidden");
       }
 
       // Blank layout
-      if (
-        this.coreConfig.layout.menu.hidden &&
-        this.coreConfig.layout.navbar.hidden &&
-        this.coreConfig.layout.footer.hidden
-      ) {
-        this._elementRef.nativeElement.classList.add('blank-page');
+      if (this.coreConfig.layout.menu.hidden && this.coreConfig.layout.navbar.hidden && this.coreConfig.layout.footer.hidden) {
+        this._elementRef.nativeElement.classList.add("blank-page");
         // ! Fix: Transition issue while coming from blank page
-        this._renderer.setAttribute(
-          this._elementRef.nativeElement.getElementsByClassName('app-content')[0],
-          'style',
-          'transition:none'
-        );
+        this._renderer.setAttribute(this._elementRef.nativeElement.getElementsByClassName("app-content")[0], "style", "transition:none");
       } else {
-        this._elementRef.nativeElement.classList.remove('blank-page');
+        this._elementRef.nativeElement.classList.remove("blank-page");
         // ! Fix: Transition issue while coming from blank page
         setTimeout(() => {
-          this._renderer.setAttribute(
-            this._elementRef.nativeElement.getElementsByClassName('app-content')[0],
-            'style',
-            'transition:300ms ease all'
-          );
+          this._renderer.setAttribute(this._elementRef.nativeElement.getElementsByClassName("app-content")[0], "style", "transition:300ms ease all");
         }, 0);
         // If navbar hidden
         if (this.coreConfig.layout.navbar.hidden) {
-          this._elementRef.nativeElement.classList.add('navbar-hidden');
+          this._elementRef.nativeElement.classList.add("navbar-hidden");
         }
         // Menu (Vertical menu hidden)
         if (this.coreConfig.layout.menu.hidden) {
-          this._renderer.setAttribute(this._elementRef.nativeElement, 'data-col', '1-column');
+          this._renderer.setAttribute(this._elementRef.nativeElement, "data-col", "1-column");
         } else {
-          this._renderer.removeAttribute(this._elementRef.nativeElement, 'data-col');
+          this._renderer.removeAttribute(this._elementRef.nativeElement, "data-col");
         }
         // Footer
         if (this.coreConfig.layout.footer.hidden) {
-          this._elementRef.nativeElement.classList.add('footer-hidden');
+          this._elementRef.nativeElement.classList.add("footer-hidden");
         }
       }
 
       // Skin Class (Adding to body as it requires highest priority)
-      if (this.coreConfig.layout.skin !== '' && this.coreConfig.layout.skin !== undefined) {
-        this.document.body.classList.remove('default-layout', 'bordered-layout', 'dark-layout', 'semi-dark-layout');
-        this.document.body.classList.add(this.coreConfig.layout.skin + '-layout');
+      if (this.coreConfig.layout.skin !== "" && this.coreConfig.layout.skin !== undefined) {
+        this.document.body.classList.remove("default-layout", "bordered-layout", "dark-layout", "semi-dark-layout");
+        this.document.body.classList.add(this.coreConfig.layout.skin + "-layout");
       }
     });
 

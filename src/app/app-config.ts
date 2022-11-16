@@ -1,4 +1,4 @@
-import { CoreConfig } from '@core/types';
+import { CoreConfig } from "@core/types";
 
 /**
  * Default App Config
@@ -18,7 +18,7 @@ export const coreConfig: CoreConfig = {
   app: {
     appName     : 'RoyalPalace',                                        // App Name
     appTitle    : 'Royal Palace', // App Title
-    appLogoImage: 'assets/images/logo/logo.svg',                  // App Logo
+    appLogoImage: 'assets/images/logo/logo.svg',  //Also change in index.html file                // App Logo
     appLanguage : 'en',                                           // App Default Language (en, fr, de, pt etc..)
   },
   layout: {

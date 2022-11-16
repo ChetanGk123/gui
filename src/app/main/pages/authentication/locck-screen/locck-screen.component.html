@@ -1,0 +1,34 @@
+<div class="card">
+  <div class="card-body">
+    <!-- form -->
+    <form class="validate-form">
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="account-old-password"> Password</label>
+            <div class="input-group form-password-toggle input-group-merge">
+              <input [type]="passwordTextType ? 'text' : 'password'" class="form-control" id="account-old-password" name="password" placeholder=" Password" />
+              <div class="input-group-append">
+                <span class="input-group-text cursor-pointer"
+                  ><i
+                    class="feather font-small-4"
+                    [ngClass]="{
+                      'icon-eye-off': passwordTextType,
+                      'icon-eye': !passwordTextType
+                    }"
+                    (click)="togglePasswordTextType()"
+                  ></i
+                ></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 justify-content-center">
+          <button type="submit" class="btn btn-primary mr-1 mt-1" rippleEffect>Unlock</button>
+          <button type="reset" class="btn btn-outline-secondary mt-1" rippleEffect (click)="logout()">Logout</button>
+        </div>
+      </div>
+    </form>
+    <!--/ form -->
+  </div>
+</div>

@@ -1,16 +1,16 @@
-import { Inject, Injectable, InjectionToken } from '@angular/core';
-import { ResolveEnd, Router } from '@angular/router';
+import { Inject, Injectable, InjectionToken } from "@angular/core";
+import { ResolveEnd, Router } from "@angular/router";
 
-import { BehaviorSubject, Observable } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from "rxjs";
+import { filter } from "rxjs/operators";
 
-import * as _ from 'lodash';
+import * as _ from "lodash";
 
 // Injection token for the core custom settings
-export const CORE_CUSTOM_CONFIG = new InjectionToken('coreCustomConfig');
+export const CORE_CUSTOM_CONFIG = new InjectionToken("coreCustomConfig");
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class CoreConfigService {
   // Private
@@ -27,9 +27,9 @@ export class CoreConfigService {
   constructor(private _router: Router, @Inject(CORE_CUSTOM_CONFIG) private _config) {
     // Get the config from local storage
     if (_config.layout.enableLocalStorage) {
-      this.localConfig = JSON.parse(localStorage.getItem('config'));
+      this.localConfig = JSON.parse(localStorage.getItem("config"));
     } else {
-      localStorage.removeItem('config');
+      localStorage.removeItem("config");
     }
 
     // Set the defaultConfig to localConfig if we have else appConfig (app-config.ts)
@@ -58,7 +58,7 @@ export class CoreConfigService {
 
     // Set config to local storage if enableLocalStorage parameter is true
     if (config.layout.enableLocalStorage) {
-      localStorage.setItem('config', JSON.stringify(config));
+      localStorage.setItem("config", JSON.stringify(config));
     }
 
     // Inform the observers
@@ -93,9 +93,9 @@ export class CoreConfigService {
 
     // On every RoutesRecognized event
     // Check if localDefault (localStorage if we have else defaultConfig) is different form the default one
-    this._router.events.pipe(filter(event => event instanceof ResolveEnd)).subscribe(() => {
+    this._router.events.pipe(filter((event) => event instanceof ResolveEnd)).subscribe(() => {
       // Get the local config from local storage
-      this.localConfig = JSON.parse(localStorage.getItem('config'));
+      this.localConfig = JSON.parse(localStorage.getItem("config"));
 
       // Set localDefault to localConfig if we have else defaultConfig
       let localDefault = this.localConfig ? this.localConfig : this._defaultConfig;
@@ -127,7 +127,7 @@ export class CoreConfigService {
     let config;
 
     // Set config = localConfig, If we have else defaultConfig
-    this.localConfig = JSON.parse(localStorage.getItem('config'));
+    this.localConfig = JSON.parse(localStorage.getItem("config"));
     if (this.localConfig) {
       config = this.localConfig;
     } else {
@@ -139,7 +139,7 @@ export class CoreConfigService {
 
     // Set config to local storage if enableLocalStorage parameter is true
     if (config.layout.enableLocalStorage) {
-      localStorage.setItem('config', JSON.stringify(config));
+      localStorage.setItem("config", JSON.stringify(config));
     }
 
     // If emitEvent option is true...

@@ -31,7 +31,7 @@
   </div>
   <ul class="nav navbar-nav align-items-center ml-auto">
     <!-- Language selection -->
-    <li ngbDropdown class="nav-item dropdown dropdown-language">
+    <!-- <li ngbDropdown class="nav-item dropdown dropdown-language">
       <a class="nav-link dropdown-toggle" id="dropdown-flag" ngbDropdownToggle>
         <i class="flag-icon flag-icon-{{ languageOptions[_translateService.currentLang].flag }}"></i
         ><span class="selected-language">{{ languageOptions[_translateService.currentLang].title }}</span></a
@@ -41,7 +41,7 @@
           <i class="flag-icon flag-icon-{{ languageOptions[lang].flag }}"></i> {{ languageOptions[lang].title }}
         </a>
       </div>
-    </li>
+    </li> -->
     <!--/ Language selection -->
 
     <!-- Toggle skin -->
@@ -111,9 +111,14 @@
           ><span [data-feather]="'settings'" [class]="'mr-50'"></span> Settings</a
         ><a ngbDropdownItem [routerLink]="['/pages/pricing']"
           ><span [data-feather]="'credit-card'" [class]="'mr-50'"></span> Pricing</a
-        ><a ngbDropdownItem [routerLink]="['/pages/faq']"
+        >
+        <a ngbDropdownItem [routerLink]="['/pages/faq']"
           ><span [data-feather]="'help-circle'" [class]="'mr-50'"></span> FAQ</a
-        ><a ngbDropdownItem (click)="logout()"><span [data-feather]="'power'" [class]="'mr-50'"></span> Logout</a>
+        >
+        <a ngbDropdownItem (click)="lockScreen()"
+          ><span [data-feather]="'lock'" [class]="'mr-50'"></span> Lock Screen</a
+        >
+        <a ngbDropdownItem (click)="logout()"><span [data-feather]="'power'" [class]="'mr-50'"></span> Logout</a>
       </div>
     </li>
     <!--/ User Dropdown -->

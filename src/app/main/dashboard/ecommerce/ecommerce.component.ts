@@ -684,7 +684,6 @@ export class EcommerceComponent implements OnInit {
     // Get the dashboard service data
     this._dashboardService.onApiDataChanged.subscribe(response => {
       this.data = response;
-      console.log(response);
       
     });
   }

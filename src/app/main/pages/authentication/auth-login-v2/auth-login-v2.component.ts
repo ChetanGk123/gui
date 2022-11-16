@@ -90,7 +90,14 @@ export class AuthLoginV2Component implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this._router.navigate([this.returnUrl]);
+          if(data?.result == false){
+            this.error = data.message;
+          this.loading = false;
+          }else{
+
+            this._router.navigate([this.returnUrl]);
+          }
+          
         },
         error => {
           this.error = error;
