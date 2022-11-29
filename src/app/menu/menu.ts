@@ -53,12 +53,11 @@ export const menu: CoreMenu[] = [
     icon: 'user',
     children: [
       {
-        id: 'email',
-        title: 'Email',
-        translate: 'MENU.APPS.EMAIL',
+        id: 'Student_List',
+        title: 'Student List',
         type: 'item',
         icon: 'user',
-        url: 'apps/email'
+        url: 'students/AllStudents'
       },
     ]
   },

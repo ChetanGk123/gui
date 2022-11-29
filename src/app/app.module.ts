@@ -26,6 +26,7 @@ import { LayoutModule } from "app/layout/layout.module";
 import { ContentHeaderModule } from "app/layout/components/content-header/content-header.module";
 import { FakeDbService } from "@fake-db/fake-db.service";
 import { DialogService } from "primeng/dynamicdialog";
+import { HotToastModule } from "@ngneat/hot-toast";
 
 const appRoutes: Routes = [
   {
@@ -46,6 +47,7 @@ const appRoutes: Routes = [
     pathMatch: "full",
   },
   { path: "misc", loadChildren: () => import("./main/misc/misc.module").then((m) => m.MiscModule) },
+  { path: 'students', loadChildren: () => import('./main/students/students.module').then(m => m.StudentsModule) },
   {
     path: "**",
     redirectTo: "/pages/miscellaneous/error", //Error 404 - Page not found
@@ -68,6 +70,10 @@ const appRoutes: Routes = [
     }),
     NgbModule,
     ToastrModule.forRoot(),
+    HotToastModule.forRoot({
+      position: "top-right",
+      dismissible: true,
+    }),
     TranslateModule.forRoot(),
     ContextMenuModule,
     CoreModule.forRoot(coreConfig),
