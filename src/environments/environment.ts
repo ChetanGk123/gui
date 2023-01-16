@@ -4,7 +4,7 @@
 
 export const environment = {
   //apiUrl: 'https://royalpalacelkp.com/app/api/v1/',
-  apiUrl: 'https://stagespace.tech/school/api/v1/',
+  apiUrl: 'https://thetechvaidya.com/school/api/v1/',
   production: false,
   loc: window.location.origin,
   encPassword : "enc_RoyalPalace_Lkp"

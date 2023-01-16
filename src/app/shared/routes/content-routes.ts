@@ -109,6 +109,15 @@ export const content: Routes = [
     },
   },
   {
+    
+path: 'subjects', loadChildren: () => import('../../components/subjects/subjects.module').then(m => m.SubjectsModule),
+    canActivate: [AdminGuard],
+    data: {
+      breadcrumb: "Subjects",
+      roles: ["admin", "su_user"],
+    },
+  },
+  {
     path: "system-settings",
     loadChildren: () =>
       import("../../components/system-settings/system-settings.module").then(

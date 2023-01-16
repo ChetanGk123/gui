@@ -58,7 +58,7 @@ export class AddNewComponent implements OnInit {
       permanent_state: new FormControl("", [Validators.required]),
       permanent_country: new FormControl("", [Validators.required]),
       gender_id: new FormControl("", [Validators.required]),
-      gender_name: new FormControl("", [Validators.required]),
+      gender_name: new FormControl(""),
       religion_id: new FormControl(""),
       religion_name: new FormControl(""),
       caste_id: new FormControl(""),
