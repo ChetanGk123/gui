@@ -1,1 +1,129 @@
-<p>map-subjects works!</p>
+<div class="container-fluid">
+  <div class="default-according style-1 faq-accordion job-accordion" id="accordionoc">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">
+              <button class="btn btn-link pl-0" (click)="isFilter = !isFilter" [attr.aria-expanded]="!isFilter" aria-controls="collapse">Filter</button>
+            </h5>
+          </div>
+          <div class="collapse show" *ngIf="isFilter">
+            <div class="card-body filter-cards-view animate-chk">
+              <div class="row">
+                <div class="col-xl-3 col-md-6 col-sm-12 mb-3">
+                  <div class="faq-form">
+                    <label for="bg_id">Academic Year</label>
+                    <select class="form-control" id="bg_id" [formControl]="commonForm.controls['academic_id']" placeholder="2021-2022">
+                      <option value="">Select a academic</option>
+                      <option *ngFor="let data of academinYearList" value="{{ data.id }}" label="{{ data.name }}">
+                        {{ data.name }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-xl-3 col-md-6 col-sm-12 mb-3">
+                  <div class="faq-form">
+                    <label for="bg_id">Department</label>
+                    <select class="form-control" id="bg_id" [formControl]="commonForm.controls['department_id']" placeholder="2021-2022">
+                      <option value="">Select a department</option>
+                      <option *ngFor="let data of departmentList" value="{{ data.id }}" label="{{ data.name }}">
+                        {{ data.name }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-xl-3 col-md-6 col-sm-12 mb-3">
+                  <div class="faq-form">
+                    <label for="bg_id">Class</label>
+                    <select class="form-control" id="bg_id" [formControl]="commonForm.controls['class_id']" placeholder="2021-2022">
+                      <option value="">Select a class</option>
+                      <option *ngFor="let data of classList" value="{{ data.id }}" label="{{ data.name }}">
+                        {{ data.name }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-xl-3 col-md-6 col-sm-12 mb-3">
+                  <div class="faq-form">
+                    <label for="bg_id">Division</label>
+                    <select class="form-control" id="bg_id" [formControl]="commonForm.controls['division_id']" placeholder="2021-2022">
+                      <option value="">Select a division</option>
+                      <option *ngFor="let data of divisionList" value="{{ data.id }}" label="{{ data.name }}">
+                        {{ data.name }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                </div>
+                <div class="row float-right mb-1">
+                <div class="col">
+                    <button class="btn btn-primary text-center align-self-center align-bottom" (click)="fetchFilterData()">Search</button>
+                </div>
+                <div class="col ">
+                  <button class="btn btn-warning text-center align-self-center align-bottom" (click)="clearData()">Clear</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <div class="loader-box center" *ngIf="dataFetch">
+            <span class="rotate dashed"></span>
+          </div>
+          <p-table #dt [value]="mappedSubjects" *ngIf="!dataFetch" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10, 25, 50]">
+            <ng-template pTemplate="caption">
+              <div class="flex justify-content-between">
+                List of Allocated Subjects
+<button
+                class="btn btn-primary"
+                style="max-height: 36px;"
+                type="button"
+                (click)="addSubjects()"
+              >
+                +&nbsp;Add
+              </button>
+            </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Slno</th>
+                <th>Academin Year</th>
+                <th>Department</th>
+                <th>Class</th>
+                <th>Division</th>
+                <th>Subject</th>
+                <th>View</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
+              <tr>
+                <td>{{ rowIndex + 1 }}</td>
+                <td>{{ product.academic_year_name }}</td>
+                <td>{{ product.department }}</td>
+                <!-- <td>
+                                <font [color]="product.transaction_type == 'DEBIT' ? 'red' : 'green'"
+                                  ><b>{{ product.transaction_type }}</b></font
+                                >
+                              </td> -->
+                <td>{{ product.class_name }}</td>
+                <td>{{ product.division_name }}</td>
+                <td>{{ product.subject_name }}</td>
+                <td>
+                  <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded btn-primary ml-1" style="height: 35px; width: 35px" ngbTooltip="Update Subject" (click)="updateSubject(product)"></button>
+                  <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded btn-danger ml-1" style="height: 35px; width: 35px" ngbTooltip="Delete Subject" (click)="deleteSubject(product)"></button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

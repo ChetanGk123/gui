@@ -3,10 +3,7 @@ import { AdminGuard } from "../guard/admin.guard";
 export const content: Routes = [
   {
     path: "dashboard",
-    loadChildren: () =>
-      import("../../components/dashboard/dashboard.module").then(
-        (m) => m.DashboardModule
-      ),
+    loadChildren: () => import("../../components/dashboard/dashboard.module").then((m) => m.DashboardModule),
     data: {
       breadcrumb: "Dashboard",
       roles: ["admin", "su_user"],
@@ -14,10 +11,7 @@ export const content: Routes = [
   },
   {
     path: "profile",
-    loadChildren: () =>
-      import("../../components/profile/profile.module").then(
-        (m) => m.ProfileModule
-      ),
+    loadChildren: () => import("../../components/profile/profile.module").then((m) => m.ProfileModule),
     canActivate: [AdminGuard],
     data: {
       roles: ["admin", "su_user"],
@@ -25,27 +19,25 @@ export const content: Routes = [
   },
   {
     path: "student",
-    loadChildren: () =>
-      import("../../components/student/student.module").then(
-        (m) => m.StudentModule
-      ),
+    loadChildren: () => import("../../components/student/student.module").then((m) => m.StudentModule),
     canActivate: [AdminGuard],
     data: {
       breadcrumb: "Students",
       roles: ["admin", "su_user"],
     },
   },
-  { path: 'expense', loadChildren: () => import('../../components/expences/expences.module').then(m => m.ExpencesModule),canActivate: [AdminGuard],
-  data: {
-    breadcrumb: "Expenses",
-    roles: ["admin", "su_user"],
-  }, },
+  {
+    path: "expense",
+    loadChildren: () => import("../../components/expences/expences.module").then((m) => m.ExpencesModule),
+    canActivate: [AdminGuard],
+    data: {
+      breadcrumb: "Expenses",
+      roles: ["admin", "su_user"],
+    },
+  },
   {
     path: "employee",
-    loadChildren: () =>
-      import("../../components/employee/employee.module").then(
-        (m) => m.EmployeeModule
-      ),
+    loadChildren: () => import("../../components/employee/employee.module").then((m) => m.EmployeeModule),
     canActivate: [AdminGuard],
     data: {
       breadcrumb: "Employees",
@@ -54,10 +46,7 @@ export const content: Routes = [
   },
   {
     path: "general_Settings",
-    loadChildren: () =>
-      import("../../components/general-settings/general-settings.module").then(
-        (m) => m.GeneralSettingsModule
-      ),
+    loadChildren: () => import("../../components/general-settings/general-settings.module").then((m) => m.GeneralSettingsModule),
     canActivate: [AdminGuard],
     data: {
       breadcrumb: "General Settings",
@@ -66,8 +55,7 @@ export const content: Routes = [
   },
   {
     path: "misc",
-    loadChildren: () =>
-      import("../../components/misc/misc.module").then((m) => m.MiscModule),
+    loadChildren: () => import("../../components/misc/misc.module").then((m) => m.MiscModule),
     canActivate: [AdminGuard],
     data: {
       breadcrumb: "Misc",
@@ -76,10 +64,7 @@ export const content: Routes = [
   },
   {
     path: "calender",
-    loadChildren: () =>
-      import("../../components/calender/calender.module").then(
-        (m) => m.CalenderModule
-      ),
+    loadChildren: () => import("../../components/calender/calender.module").then((m) => m.CalenderModule),
     canActivate: [AdminGuard],
     data: {
       breadcrumb: "Calender",
@@ -88,8 +73,7 @@ export const content: Routes = [
   },
   {
     path: "fees",
-    loadChildren: () =>
-      import("../../components/fees/fees.module").then((m) => m.FeesModule),
+    loadChildren: () => import("../../components/fees/fees.module").then((m) => m.FeesModule),
     canActivate: [AdminGuard],
     data: {
       breadcrumb: "Fees",
@@ -98,10 +82,7 @@ export const content: Routes = [
   },
   {
     path: "accounts",
-    loadChildren: () =>
-      import("../../components/accounts/accounts.module").then(
-        (m) => m.AccountsModule
-      ),
+    loadChildren: () => import("../../components/accounts/accounts.module").then((m) => m.AccountsModule),
     canActivate: [AdminGuard],
     data: {
       breadcrumb: "Accounts",
@@ -109,8 +90,8 @@ export const content: Routes = [
     },
   },
   {
-    
-path: 'subjects', loadChildren: () => import('../../components/subjects/subjects.module').then(m => m.SubjectsModule),
+    path: "subjects",
+    loadChildren: () => import("../../components/subjects/subjects.module").then((m) => m.SubjectsModule),
     canActivate: [AdminGuard],
     data: {
       breadcrumb: "Subjects",
@@ -119,16 +100,23 @@ path: 'subjects', loadChildren: () => import('../../components/subjects/subjects
   },
   {
     path: "system-settings",
-    loadChildren: () =>
-      import("../../components/system-settings/system-settings.module").then(
-        (m) => m.SystemSettingsModule
-      ),
+    loadChildren: () => import("../../components/system-settings/system-settings.module").then((m) => m.SystemSettingsModule),
     canActivate: [AdminGuard],
     data: {
       breadcrumb: "System Settings",
       roles: ["su_user"],
     },
   },
+  {
+    path: "result-report",
+    loadChildren: () => import("../../components/result-report/result-report.module").then((m) => m.ResultReportModule),
+    canActivate: [AdminGuard],
+    data: {
+      breadcrumb: "Result Report",
+      roles: ["admin", "su_user"],
+    },
+  },
+
   // {
   //   path: "institute",
   //   loadChildren: () =>
@@ -143,11 +131,8 @@ path: 'subjects', loadChildren: () => import('../../components/subjects/subjects
   // },
   {
     path: "reports",
-    loadChildren: () =>
-      import("../../components/reports/reports.module").then(
-        (m) => m.ReportsModule
-      ),
-      canActivate: [AdminGuard],
+    loadChildren: () => import("../../components/reports/reports.module").then((m) => m.ReportsModule),
+    canActivate: [AdminGuard],
     data: {
       breadcrumb: "Reports",
       roles: ["admin", "su_user"],
@@ -155,9 +140,6 @@ path: 'subjects', loadChildren: () => import('../../components/subjects/subjects
   },
   {
     path: "error",
-    loadChildren: () =>
-      import("../components/error-pages/error-pages.module").then(
-        (m) => m.ErrorPagesModule
-      ),
+    loadChildren: () => import("../components/error-pages/error-pages.module").then((m) => m.ErrorPagesModule),
   },
 ];

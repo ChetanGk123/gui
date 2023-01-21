@@ -8,9 +8,12 @@ import { ArchwizardModule } from "angular-archwizard";
 import { SharedModule } from "src/app/shared/shared.module";
 import { NgxMaskModule } from "ngx-mask";
 import { MapSubjectsComponent } from './map-subjects/map-subjects.component';
+import { MapNewSubjectComponent } from './map-subjects/map-new-subject/map-new-subject.component';
+import { DynamicDialogRef, DynamicDialogConfig, DialogService } from "primeng/dynamicdialog";
 
 @NgModule({
-  declarations: [SubjectsComponent, AddSubjectComponent, MapSubjectsComponent],
+  declarations: [SubjectsComponent, AddSubjectComponent, MapSubjectsComponent, MapNewSubjectComponent],
   imports: [CommonModule, SubjectsRoutingModule, ArchwizardModule, SharedModule, NgxMaskModule.forRoot()],
+  providers: [DynamicDialogRef, DynamicDialogConfig, DialogService],
 })
 export class SubjectsModule {}

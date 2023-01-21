@@ -1,0 +1,69 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-xl-4 col-md-6 col-sm-12 mb-4">
+              <div class="faq-form">
+                <label for="bg_id">Department <span class="font-danger">*</span></label>
+                <select class="form-control" id="bg_id" [formControl]="form.controls['department_id']" placeholder="2021-2022">
+                  <option value="">Select a Department</option>
+                  <option *ngFor="let data of config.data.departmentList" value="{{ data.id }}" label="{{ data.name }}">
+                    {{ data }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-xl-4 col-md-6 col-sm-12 mb-4">
+              <div class="faq-form">
+                <label for="bg_id">Class<span class="font-danger">*</span></label>
+                <select class="form-control" id="bg_id" [formControl]="form.controls['class_id']" placeholder="2021-2022">
+                  <option value="">Select a Class</option>
+                  <option *ngFor="let data of config.data.classList" value="{{ data.id }}" label="{{ data.name }}">
+                    {{ data }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-xl-4 col-md-6 col-sm-12 mb-4">
+              <div class="faq-form">
+                <label for="bg_id">ADivision <span class="font-danger">*</span></label>
+                <select class="form-control" id="bg_id" [formControl]="form.controls['division_id']" placeholder="2021-2022">
+                  <option value="">Select a Division</option>
+                  <option *ngFor="let data of config.data.divisionList" value="{{ data.id }}" label="{{ data.name }}">
+                    {{ data }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <p-table [value]="config.data.subjectList" [(selection)]="selectedSubjects" [rows]="5" [showCurrentPageReport]="true" responsiveLayout="scroll" [autoLayout]="true" [paginator]="true" [rowsPerPageOptions]="[5, 10, 15]">
+            <ng-template pTemplate="header">
+              <tr>
+                <th style="width: 3rem">
+                  <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th>Fee Group</th>
+                <th>Total Fees</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
+              <tr>
+                <td>
+                  <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                </td>
+                <td>{{ product.id }}</td>
+                <td>{{ product.name }}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-around">
+    <button class="btn btn-primary" (click)="submit()">Submit</button>
+    <button class="btn btn-warning" (click)="cancel()">Cancel</button>
+  </div>
+</div>

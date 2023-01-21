@@ -136,16 +136,21 @@ export class NavService {
 			]
 		},
 		{
+			title: 'Employees', icon: 'users', type: 'sub', active: false,roles:['Admin','ADMISSION OFFICER'], children: [
+				{ path: '/employee/allEmployees',icon: 'users',  title: 'All Employees', type: 'link',roles:['Admin','ADMISSION OFFICER'] },
+				{ path: '/employee/addNew',icon: 'users',  title: 'Add New Employee', type: 'link',roles:['Admin','ADMISSION OFFICER'] },
+			]
+		},
+		{
 			title: 'Subjects', icon: 'book', type: 'sub', active: false,roles:['Admin','ADMISSION OFFICER'], children: [
 				{ path: '/subjects/AllSubjects', icon: 'book', title: 'All Subjects', type: 'link',roles:['Admin','ADMISSION OFFICER'] },
 				{ path: '/subjects/MapSubjects', icon: 'book', title: 'Map Subjects', type: 'link',roles:['Admin','ADMISSION OFFICER'] },
 				]
 		},
 		{
-			title: 'Employees', icon: 'users', type: 'sub', active: false,roles:['Admin','ADMISSION OFFICER'], children: [
-				{ path: '/employee/allEmployees',icon: 'users',  title: 'All Employees', type: 'link',roles:['Admin','ADMISSION OFFICER'] },
-				{ path: '/employee/addNew',icon: 'users',  title: 'Add New Employee', type: 'link',roles:['Admin','ADMISSION OFFICER'] },
-			]
+			title: 'Result Reports', icon: 'tablet', type: 'sub', active: false,roles:['Admin','ADMISSION OFFICER'], children: [
+				{ path: '/result-report/AllReports', icon: 'book', title: 'All Reports', type: 'link',roles:['Admin','ADMISSION OFFICER'] },
+				]
 		},
 		{
 			title: 'Reports', icon: 'folder', type: 'sub', active: false,roles:['Admin','ADMISSION OFFICER'], children: [
