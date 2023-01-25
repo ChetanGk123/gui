@@ -3,7 +3,7 @@
     <div class="card-body">
       <form [formGroup]="commonForm">
         <div class="row">
-            <div class="form-group col-sm-12 col-md-6 col-md-6">
+            <div class="form-group col-12">
                 <label for="report_name">Report name <span class="font-danger">*</span></label>
                 <input type="text" class="form-control" id="report_name" placeholder="Report"
                     formControlName="report_name">
@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="form-group col-sm-12 col-md-6 col-md-6">
-                <label for="result_date">Date <span class="font-danger">*</span></label>
+                <label for="result_date">Test Date <span class="font-danger">*</span></label>
                 <input type="date" class="form-control" id="result_date" placeholder="12-12-2020"
                     formControlName="result_date">
                 <div *ngIf="commonForm.controls.result_date.touched && commonForm.controls.result_date.errors?.required"
@@ -44,14 +44,6 @@
                 <option *ngFor="let data of config.data.classList" value="{{ data.id }}">{{ data.name }}</option>
               </select>
               <div *ngIf="commonForm.controls.class_id.touched && commonForm.controls.class_id.errors?.required" class="text text-danger">Class is required.</div>
-            </div>
-            <div class="form-group col-sm-12 col-md-6 col-md-6">
-              <label for="division_id">Division<span class="font-danger">*</span></label>
-              <select class="form-control" formControlName="division_id" id="division_id" size="1">
-                <option value="">Select Division</option>
-                <option *ngFor="let data of config.data.divisionList" value="{{ data.id }}">{{ data.name }}</option>
-              </select>
-              <div *ngIf="commonForm.controls.division_id.touched && commonForm.controls.division_id.errors?.required" class="text text-danger">Division is required.</div>
             </div>
         </div>
         <div class="row justify-content-around">

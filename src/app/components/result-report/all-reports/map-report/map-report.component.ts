@@ -19,7 +19,6 @@ export class MapReportComponent implements OnInit {
     academic_id: new FormControl("",[Validators.required]),
     department_id: new FormControl("",[Validators.required]),
     class_id: new FormControl("",[Validators.required]),
-    division_id: new FormControl("",[Validators.required]),
   });
   constructor(public datepipe: DatePipe,public config: DynamicDialogConfig, public apiService: ApiService, public toster:ToastrService,public ref: DynamicDialogRef) { }
 

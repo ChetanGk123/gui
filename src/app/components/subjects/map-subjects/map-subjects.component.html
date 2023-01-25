@@ -13,8 +13,8 @@
               <div class="row">
                 <div class="col-xl-3 col-md-6 col-sm-12 mb-3">
                   <div class="faq-form">
-                    <label for="bg_id">Academic Year</label>
-                    <select class="form-control" id="bg_id" [formControl]="commonForm.controls['academic_id']" placeholder="2021-2022">
+                    <label for="academic_id">Academic Year</label>
+                    <select class="form-control" id="academic_id" [formControl]="commonForm.controls['academic_id']" placeholder="2021-2022">
                       <option value="">Select a academic</option>
                       <option *ngFor="let data of academinYearList" value="{{ data.id }}" label="{{ data.name }}">
                         {{ data.name }}
@@ -24,8 +24,8 @@
                 </div>
                 <div class="col-xl-3 col-md-6 col-sm-12 mb-3">
                   <div class="faq-form">
-                    <label for="bg_id">Department</label>
-                    <select class="form-control" id="bg_id" [formControl]="commonForm.controls['department_id']" placeholder="2021-2022">
+                    <label for="department_id">Department</label>
+                    <select class="form-control" id="department_id" [formControl]="commonForm.controls['department_id']" placeholder="2021-2022">
                       <option value="">Select a department</option>
                       <option *ngFor="let data of departmentList" value="{{ data.id }}" label="{{ data.name }}">
                         {{ data.name }}
@@ -35,8 +35,8 @@
                 </div>
                 <div class="col-xl-3 col-md-6 col-sm-12 mb-3">
                   <div class="faq-form">
-                    <label for="bg_id">Class</label>
-                    <select class="form-control" id="bg_id" [formControl]="commonForm.controls['class_id']" placeholder="2021-2022">
+                    <label for="class_id">Class</label>
+                    <select class="form-control" id="class_id" [formControl]="commonForm.controls['class_id']" placeholder="2021-2022">
                       <option value="">Select a class</option>
                       <option *ngFor="let data of classList" value="{{ data.id }}" label="{{ data.name }}">
                         {{ data.name }}
@@ -46,8 +46,8 @@
                 </div>
                 <div class="col-xl-3 col-md-6 col-sm-12 mb-3">
                   <div class="faq-form">
-                    <label for="bg_id">Division</label>
-                    <select class="form-control" id="bg_id" [formControl]="commonForm.controls['division_id']" placeholder="2021-2022">
+                    <label for="division_id">Division</label>
+                    <select class="form-control" id="division_id" [formControl]="commonForm.controls['division_id']" placeholder="2021-2022">
                       <option value="">Select a division</option>
                       <option *ngFor="let data of divisionList" value="{{ data.id }}" label="{{ data.name }}">
                         {{ data.name }}
@@ -116,6 +116,7 @@
                 <td>{{ product.division_name }}</td>
                 <td>{{ product.subject_name }}</td>
                 <td>
+                  <button pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded btn-success ml-1" style="height: 35px; width: 35px" ngbTooltip="Teacher" (click)="updateTeacher(product)"></button>
                   <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded btn-primary ml-1" style="height: 35px; width: 35px" ngbTooltip="Update Subject" (click)="updateSubject(product)"></button>
                   <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded btn-danger ml-1" style="height: 35px; width: 35px" ngbTooltip="Delete Subject" (click)="deleteSubject(product)"></button>
                 </td>

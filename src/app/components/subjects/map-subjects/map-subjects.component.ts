@@ -7,6 +7,7 @@ import { forkJoin } from "rxjs";
 import { ApiService } from "src/app/shared/services/auth/api.service";
 import { SpinnerService } from "src/app/shared/services/spinner.service";
 import { MapNewSubjectComponent } from "./map-new-subject/map-new-subject.component";
+import { MapTeachersComponent } from "./map-teachers/map-teachers.component";
 
 @Component({
   selector: "app-map-subjects",
@@ -14,10 +15,9 @@ import { MapNewSubjectComponent } from "./map-new-subject/map-new-subject.compon
   styleUrls: ["./map-subjects.component.scss"],
 })
 export class MapSubjectsComponent implements OnInit {
-
-  dataFetch:boolean = false;
+  dataFetch: boolean = false;
   public isFilter: boolean = true;
-  currentAcademicYear
+  currentAcademicYear;
   academinYearList: any[] = [];
   departmentList: any[] = [];
   classList: any[] = [];
@@ -25,8 +25,7 @@ export class MapSubjectsComponent implements OnInit {
   subjectList: any[] = [];
   teacherList: any[] = [];
   mappedSubjects: any[] = [];
-  constructor(public apiService: ApiService, public spinner: SpinnerService, public toster: ToastrService,
-    public dialogService: DialogService,) {}
+  constructor(public apiService: ApiService, public spinner: SpinnerService, public toster: ToastrService, public dialogService: DialogService) {}
 
   commonForm: FormGroup = new FormGroup({
     subject_allocation_id: new FormControl(""),
@@ -36,23 +35,13 @@ export class MapSubjectsComponent implements OnInit {
     division_id: new FormControl(""),
   });
   ngOnInit(): void {
-    this.dataFetch = true,
-    this.apiService.getTypeRequest("dropdown_data/ACADEMIC_YEAR").subscribe((result: any) => {
-      this.academinYearList = result.data;
-      this.fetchData()
-      });
+    (this.dataFetch = true), this.fetchData();
   }
 
-  fetchFilterData(){
-    this.fetchData()
-  }
-
-  fetchData() {
-    forkJoin([
-      (
-        this.dataFetch = true,
-        this.apiService
-      .postTypeRequest("subject_allocation_data",this.commonForm.value)
+  fetchFilterData() {
+    this.dataFetch = true;
+    this.apiService
+      .postTypeRequest("subject_allocation_data", this.commonForm.value)
       .toPromise()
       .then((result: any) => {
         this.dataFetch = false;
@@ -72,21 +61,54 @@ export class MapSubjectsComponent implements OnInit {
           "teachers": [],
           "max_marks": null
       } */
-      })
-      ),
-      (
-        this.dataFetch = true,
-        this.apiService
-      .getTypeRequest("admission_form_data")
-      .toPromise()
-      .then((result: any) => {
-        this.dataFetch = false;
-        this.academinYearList = result.data["academic_year"];
-        this.departmentList = result.data["department"];
-        this.classList = result.data["class"];
-        this.divisionList = result.data["division"];
+      });
+  }
 
-        /* this.academinYearList = result.data["academic_year"];
+  fetchData() {
+    this.commonForm.patchValue({
+      subject_allocation_id: this.commonForm.controls.subject_allocation_id.value ?? null,
+      academic_id: this.commonForm.controls.academic_id.value ?? null,
+      department_id: this.commonForm.controls.department_id.value ?? null,
+      class_id: this.commonForm.controls.class_id.value ?? null,
+      division_id: this.commonForm.controls.division_id.value ?? null,
+    });
+
+    forkJoin([
+      ((this.dataFetch = true),
+      this.apiService
+        .postTypeRequest("subject_allocation_data", this.commonForm.value)
+        .toPromise()
+        .then((result: any) => {
+          this.dataFetch = false;
+          this.mappedSubjects = result.data;
+          /* {
+          "subject_allocation_id": 4,
+          "academic_id": 1,
+          "academic_year_name": "2022-23",
+          "department_id": 1,
+          "department": "ENGLISH",
+          "class_id": 1,
+          "class_name": "UKG",
+          "division_id": 1,
+          "division_name": "A",
+          "subject_id": 1,
+          "subject_name": "English",
+          "teachers": [],
+          "max_marks": null
+      } */
+        })),
+      ((this.dataFetch = true),
+      this.apiService
+        .getTypeRequest("admission_form_data")
+        .toPromise()
+        .then((result: any) => {
+          this.dataFetch = false;
+          this.academinYearList = result.data["academic_year"];
+          this.departmentList = result.data["department"];
+          this.classList = result.data["class"];
+          this.divisionList = result.data["division"];
+
+          /* this.academinYearList = result.data["academic_year"];
         this.bloodGroupList = result.data["blood_group"];
         this.genderList = result.data["gender"];
         this.categoryList = result.data["category"];
@@ -95,92 +117,127 @@ export class MapSubjectsComponent implements OnInit {
         this.departmentList = result.data["department"];
         this.classList = result.data["class"];
         this.divisionList = result.data["division"]; */
-      })
-      )
-      ,(
-        this.apiService
-      .getTypeRequest("table_data/SUBJECT")
-      .toPromise()
-      .then((result: any) => {
-        this.subjectList = result.data;
-      })
-      )
+        })),
+      this.apiService
+        .getTypeRequest("table_data/SUBJECT")
+        .toPromise()
+        .then((result: any) => {
+          this.subjectList = result.data;
+        }),
+      this.apiService
+        .getTypeRequest("new_table_data/ALL_EMPLOYEES")
+        .toPromise()
+        .then((result: any) => {
+          this.teacherList = result.data;
+        }),
     ]);
   }
 
-  clearData(){
-        this.commonForm.reset({
-          subject_allocation_id:"",
-          academic_id:"",
-          department_id:"",
-          class_id:"",
-          division_id:"",
+  clearData() {
+    this.commonForm.reset({
+      subject_allocation_id: "",
+      academic_id: "",
+      department_id: "",
+      class_id: "",
+      division_id: "",
+    });
+    this.fetchData();
+  }
+
+  addSubjects() {
+    const ref = this.dialogService.open(MapNewSubjectComponent, {
+      data: {
+        operation: "insert",
+        academinYearList: this.academinYearList,
+        departmentList: this.departmentList,
+        classList: this.classList,
+        divisionList: this.divisionList,
+        subjectList: this.subjectList,
+      },
+      header: `Subject Class Mapping`,
+      styleClass: "w-10 sm:w-10 md:w-10 lg:w-6",
+    });
+    ref.onClose.subscribe((result: any) => {
+      if (result) {
+        this.fetchData();
+      }
+    });
+  }
+
+  updateSubject(data: any) {
+    const ref = this.dialogService.open(MapNewSubjectComponent, {
+      data: {
+        operation: "update",
+        updateDeleteData: data,
+        academinYearList: this.academinYearList,
+        departmentList: this.departmentList,
+        classList: this.classList,
+        divisionList: this.divisionList,
+        subjectList: this.subjectList,
+      },
+      header: `Update Mapped Subjects`,
+      styleClass: "w-10 sm:w-10 md:w-10 lg:w-6",
+    });
+    ref.onClose.subscribe((result: any) => {
+      if (result) {
+        this.fetchData();
+      }
+    });
+  }
+  deleteSubject(data: any) {
+    const ref = this.dialogService.open(MapNewSubjectComponent, {
+      data: {
+        operation: "delete",
+        updateDeleteData: data,
+        academinYearList: this.academinYearList,
+        departmentList: this.departmentList,
+        classList: this.classList,
+        divisionList: this.divisionList,
+        subjectList: this.subjectList,
+      },
+      header: `Delete Mapped Subjects`,
+      styleClass: "w-10 sm:w-10 md:w-10 lg:w-6",
+    });
+    ref.onClose.subscribe((result: any) => {
+      if (result) {
+        this.fetchData();
+      }
+    });
+  }
+
+  updateTeacher(data: any) {
+    var selectedTeachers:any[] =[]
+    this.apiService
+        .getTypeRequest(`specific_data/TEACHER_ALLOCATION/${data.subject_allocation_id}`)
+        .toPromise()
+        .then((result: any) => {
+          if(result.result){
+            for (const iterator of this.teacherList) {
+              if(iterator.employee_id == result.data.teacher_id){
+                selectedTeachers.push(iterator)
+                break
+              }
+            }
+          }
+            const ref = this.dialogService.open(MapTeachersComponent, {
+              data: {
+                data: data,
+                teacherList: this.teacherList,
+                selectedTeachers:selectedTeachers
+              },
+              header: `Subject Teacher Mapping`,
+              styleClass: "w-10 sm:w-10 md:w-10 lg:w-6",
+            });
+            ref.onClose.subscribe((result: any) => {
+              if (result) {
+                this.fetchData();
+              }
+            });
         })
-    }
-
-  addSubjects(){
-    const ref = this.dialogService.open(MapNewSubjectComponent, {
-      data: {
-        operation:'insert',
-        academinYearList:this.academinYearList ,
-        departmentList:this.departmentList ,
-        classList:this.classList ,
-        divisionList:this.divisionList ,
-        subjectList:this.subjectList ,
-      },
-      header: `Map New Subjects`,
-      styleClass: 'w-10 sm:w-10 md:w-10 lg:w-6',
-  });
-  ref.onClose.subscribe((result: any) => {
-      if (result) {
-          this.fetchData();
-      }
-  });
+   
   }
 
-  updateSubject(data:any){
-    const ref = this.dialogService.open(MapNewSubjectComponent, {
-      data: {
-        operation:'update',
-        updateDeleteData:data,
-        academinYearList:this.academinYearList ,
-        departmentList:this.departmentList ,
-        classList:this.classList ,
-        divisionList:this.divisionList ,
-        subjectList:this.subjectList ,
-      },
-      header: `Map New Subjects`,
-      styleClass: 'w-10 sm:w-10 md:w-10 lg:w-6',
-  });
-  ref.onClose.subscribe((result: any) => {
-      if (result) {
-          this.fetchData();
-      }
-  });
-    
-  }
-  deleteSubject(data:any){
-    const ref = this.dialogService.open(MapNewSubjectComponent, {
-      data: {
-        operation:'delete',
-        updateDeleteData:data,
-        academinYearList:this.academinYearList ,
-        departmentList:this.departmentList ,
-        classList:this.classList ,
-        divisionList:this.divisionList ,
-        subjectList:this.subjectList ,
-      },
-      header: `Map New Subjects`,
-      styleClass: 'w-10 sm:w-10 md:w-10 lg:w-6',
-  });
-  ref.onClose.subscribe((result: any) => {
-      if (result) {
-          this.fetchData();
-      }
-  });
-  }
-
-  submit(){
+  submit() {
     /* {   
       "subject_allocation_id":13,
       "academic_id":2,

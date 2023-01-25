@@ -27,7 +27,6 @@
                     <th>Academic Year</th>
                     <th>Department</th>
                     <th>Class</th>
-                    <th>Division</th>
                     <th>Result Date</th>
                     <th>View</th>
                   </tr>
@@ -39,7 +38,6 @@
                     <td>{{ product.academic_year }}</td>
                     <td>{{ product.department }}</td>
                     <td>{{ product.class }}</td>
-                    <td>{{ product.division }}</td>
                     <td>{{ product.result_date }}</td>
                     <td>
                       <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded btn-primary ml-1" style="height: 35px; width: 35px" ngbTooltip="Update Report" (click)="updateReport(product)"></button>

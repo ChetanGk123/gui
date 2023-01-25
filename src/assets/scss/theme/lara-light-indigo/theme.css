@@ -2329,7 +2329,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   color: #343a40;
   border: 1px solid #dee2e6;
   border-width: 1px 0 1px 0;
-  padding: 1rem 1rem;
+  padding: 0.3rem 0.3rem;
   font-weight: 700;
 }
 .p-datatable .p-datatable-footer {

@@ -28,7 +28,7 @@
             </div>
             <div class="col-xl-4 col-md-6 col-sm-12 mb-4">
               <div class="faq-form">
-                <label for="bg_id">ADivision <span class="font-danger">*</span></label>
+                <label for="bg_id">Division <span class="font-danger">*</span></label>
                 <select class="form-control" id="bg_id" [formControl]="form.controls['division_id']" placeholder="2021-2022">
                   <option value="">Select a Division</option>
                   <option *ngFor="let data of config.data.divisionList" value="{{ data.id }}" label="{{ data.name }}">

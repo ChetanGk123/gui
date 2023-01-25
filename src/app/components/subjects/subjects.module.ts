@@ -10,9 +10,10 @@ import { NgxMaskModule } from "ngx-mask";
 import { MapSubjectsComponent } from './map-subjects/map-subjects.component';
 import { MapNewSubjectComponent } from './map-subjects/map-new-subject/map-new-subject.component';
 import { DynamicDialogRef, DynamicDialogConfig, DialogService } from "primeng/dynamicdialog";
+import { MapTeachersComponent } from './map-subjects/map-teachers/map-teachers.component';
 
 @NgModule({
-  declarations: [SubjectsComponent, AddSubjectComponent, MapSubjectsComponent, MapNewSubjectComponent],
+  declarations: [SubjectsComponent, AddSubjectComponent, MapSubjectsComponent, MapNewSubjectComponent, MapTeachersComponent],
   imports: [CommonModule, SubjectsRoutingModule, ArchwizardModule, SharedModule, NgxMaskModule.forRoot()],
   providers: [DynamicDialogRef, DynamicDialogConfig, DialogService],
 })

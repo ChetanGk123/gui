@@ -89,7 +89,6 @@ export class AllReportsComponent implements OnInit {
       styleClass: "w-10 sm:w-10 md:w-10 lg:w-6",
     });
     ref.onClose.subscribe((result: any) => {
-      debugger
       if (result) {
         this.ngOnInit();
       }

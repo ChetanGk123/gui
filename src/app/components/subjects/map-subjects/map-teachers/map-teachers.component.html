@@ -1,0 +1,99 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+                <!-- {
+                    "subject_allocation_id": 9,
+                    "academic_id": 1,
+                    "academic_year_name": "2022-23",
+                    "department_id": 1,
+                    "department": "ENGLISH",
+                    "class_id": 1,
+                    "class_name": "UKG",
+                    "division_id": 1,
+                    "division_name": "A",
+                    "subject_id": 1,
+                    "subject_name": "English",
+                    "teachers": {
+                        "teacher_allocation_id": 3,
+                        "subject_allocation_id": 9,
+                        "employee_id": 2,
+                        "teacher_id": 2,
+                        "serial_no": 1,
+                        "employee_no": "0001",
+                        "employee_name": "chetan g k",
+                        "photo": "https://thetechvaidya.com/school/uploads/general_docs/default_photo.png"
+                    },
+                    "max_marks": null
+                } -->
+              <div class="col-xl-6 col-md-6 col-sm-12 mb-4">
+                <div class="faq-form">
+                  <label for="department">Department <span class="font-danger">*</span></label>
+                  <input type="text" class="form-control" id="department" placeholder="Report"
+                    [value]="config.data.data.department" readonly>
+                </div>
+              </div>
+              <div class="col-xl-6 col-md-6 col-sm-12 mb-4">
+                <div class="faq-form">
+                  <label for="class_name">Class<span class="font-danger">*</span></label>
+                  <input type="text" class="form-control" id="class_name" placeholder="Report"
+                    [value]="config.data.data.class_name" readonly>
+                </div>
+              </div>
+              <div class="col-xl-6 col-md-6 col-sm-12 mb-4">
+                <div class="faq-form">
+                  <label for="division_name">Division <span class="font-danger">*</span></label>
+                  <input type="text" class="form-control" id="division_name" placeholder="Report"
+                    [value]="config.data.data.division_name" readonly>
+                </div>
+              </div>
+              <div class="col-xl-6 col-md-6 col-sm-12 mb-4">
+                <div class="faq-form">
+                  <label for="subject_name">Subject <span class="font-danger">*</span></label>
+                  <input type="text" class="form-control" id="subject_name" placeholder="Report"
+                    [value]="config.data.data.subject_name" readonly>
+                </div>
+              </div>
+            </div>
+            <p-table #dt1 [value]="config.data.teacherList" [(selection)]="selectedTeachers" [rows]="5" [showCurrentPageReport]="true" responsiveLayout="scroll" [autoLayout]="true" [paginator]="true" [rowsPerPageOptions]="[5, 10, 15]" [globalFilterFields]="['employee_name','employee_id','representative.name','status']">
+                <ng-template pTemplate="caption">
+                    <div class="flex">
+                        <span class="p-input-icon-left ml-auto mt-0 mb-0 p-0">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                <tr>
+                  <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                  </th>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Mobile</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
+                <tr>
+                  <td>
+                    <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                  </td>
+                  <td>{{ product.employee_id }}</td>
+                  <td>{{ product.employee_name }}</td>
+                  <td>{{ product.mobile }}</td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-around">
+      <button class="btn btn-primary" (click)="submit()">Submit</button>
+      <button class="btn btn-warning" (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+  
