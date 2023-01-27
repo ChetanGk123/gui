@@ -23,25 +23,31 @@
             </div>
             <div class="form-group col-sm-12 col-md-6 col-md-6">
               <label for="academic_id">Academic Year<span class="font-danger">*</span></label>
-              <select class="form-control" formControlName="academic_id" id="academic_id" size="1">
-                <option value="">Select Academic Year</option>
-                <option *ngFor="let data of config.data.academinYearList" value="{{ data.id }}">{{ data.name }}</option>
+              <select class="form-control" id="academic_id" [formControl]="commonForm.controls['academic_id']" (ngModelChange)="getDepartments($event)" placeholder="2021-2022">
+                <option value="">Select a academic</option>
+                <option *ngFor="let data of academinYearList" value="{{ data.academic_year_id }}" label="{{ data.academic_year_name }}">
+                  {{ data.academic_year_name }}
+                </option>
               </select>
               <div *ngIf="commonForm.controls.academic_id.touched && commonForm.controls.academic_id.errors?.required" class="text text-danger">Academic Year is required.</div>
             </div>
             <div class="form-group col-sm-12 col-md-6 col-md-6">
               <label for="department_id">Department<span class="font-danger">*</span></label>
-              <select class="form-control" formControlName="department_id" id="department_id" size="1">
-                <option value="">Select Department</option>
-                <option *ngFor="let data of config.data.departmentList" value="{{ data.id }}">{{ data.name }}</option>
+              <select class="form-control" id="department_id" [formControl]="commonForm.controls['department_id']" placeholder="2021-2022" (ngModelChange)="getClasses($event)">
+                <option value="">Select a department</option>
+                <option *ngFor="let data of departmentList" value="{{ data.department_id }}" label="{{ data.department_name }}">
+                  {{ data.department_name }}
+                </option>
               </select>
               <div *ngIf="commonForm.controls.department_id.touched && commonForm.controls.department_id.errors?.required" class="text text-danger">Department is required.</div>
             </div>
             <div class="form-group col-sm-12 col-md-6 col-md-6">
               <label for="class_id">Class<span class="font-danger">*</span></label>
-              <select class="form-control" formControlName="class_id" id="class_id" size="1">
-                <option value="">Select Class</option>
-                <option *ngFor="let data of config.data.classList" value="{{ data.id }}">{{ data.name }}</option>
+              <select class="form-control" id="class_id" [formControl]="commonForm.controls['class_id']" placeholder="2021-2022">
+                <option value="">Select a class</option>
+                <option *ngFor="let data of classList" value="{{ data.class_id }}" label="{{ data.class_name }}">
+                  {{ data.class_name }}
+                </option>
               </select>
               <div *ngIf="commonForm.controls.class_id.touched && commonForm.controls.class_id.errors?.required" class="text text-danger">Class is required.</div>
             </div>

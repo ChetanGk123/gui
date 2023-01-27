@@ -4,57 +4,170 @@
       <div class="card">
         <div class="card-body">
           <div class="row">
-            <div class="col-xl-4 col-md-6 col-sm-12 mb-4">
+            <div class="col-xl-3 col-md-6 col-sm-12 mb-4">
+              <div class="faq-form">
+                <label for="academic_id">Academic Year <span class="font-danger">*</span></label>
+                <select ng-disabled="config.data.operation != 'insert'" class="form-control" id="academic_id" [formControl]="commonForm.controls['academic_id']" placeholder="2021-2022" (ngModelChange)="checkForm($event)">
+                  <option value="">Select a academic</option>
+                  <option *ngFor="let data of config.data.academinYearList" value="{{ data.id }}" label="{{ data.name }}">
+                    {{ data.name }}
+                  </option>
+                </select>
+                <div *ngIf="commonForm.controls.academic_id.touched && commonForm.controls.academic_id.errors?.required" class="text text-danger">Year is required.</div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-sm-12 mb-4">
               <div class="faq-form">
                 <label for="bg_id">Department <span class="font-danger">*</span></label>
-                <select class="form-control" id="bg_id" [formControl]="form.controls['department_id']" placeholder="2021-2022">
+                <select class="form-control" id="bg_id" [formControl]="commonForm.controls['department_id']" placeholder="2021-2022" (ngModelChange)="checkForm($event)">
                   <option value="">Select a Department</option>
                   <option *ngFor="let data of config.data.departmentList" value="{{ data.id }}" label="{{ data.name }}">
                     {{ data }}
                   </option>
                 </select>
+                <div *ngIf="commonForm.controls.department_id.touched && commonForm.controls.department_id.errors?.required" class="text text-danger">Department is required.</div>
               </div>
             </div>
-            <div class="col-xl-4 col-md-6 col-sm-12 mb-4">
+            <div class="col-xl-3 col-md-6 col-sm-12 mb-4">
               <div class="faq-form">
                 <label for="bg_id">Class<span class="font-danger">*</span></label>
-                <select class="form-control" id="bg_id" [formControl]="form.controls['class_id']" placeholder="2021-2022">
+                <select class="form-control" id="bg_id" [formControl]="commonForm.controls['class_id']" placeholder="2021-2022"(ngModelChange)="checkForm($event)">
                   <option value="">Select a Class</option>
                   <option *ngFor="let data of config.data.classList" value="{{ data.id }}" label="{{ data.name }}">
                     {{ data }}
                   </option>
                 </select>
+                <div *ngIf="commonForm.controls.class_id.touched && commonForm.controls.class_id.errors?.required" class="text text-danger">Class is required.</div>
               </div>
             </div>
-            <div class="col-xl-4 col-md-6 col-sm-12 mb-4">
+            <div class="col-xl-3 col-md-6 col-sm-12 mb-4">
               <div class="faq-form">
                 <label for="bg_id">Division <span class="font-danger">*</span></label>
-                <select class="form-control" id="bg_id" [formControl]="form.controls['division_id']" placeholder="2021-2022">
+                <select class="form-control" id="bg_id" [formControl]="commonForm.controls['division_id']" placeholder="2021-2022" (ngModelChange)="getSubjects($event)">
                   <option value="">Select a Division</option>
                   <option *ngFor="let data of config.data.divisionList" value="{{ data.id }}" label="{{ data.name }}">
                     {{ data }}
                   </option>
                 </select>
+                <div *ngIf="commonForm.controls.division_id.touched && commonForm.controls.division_id.errors?.required" class="text text-danger">Division is required.</div>
               </div>
             </div>
           </div>
-          <p-table [value]="config.data.subjectList" [(selection)]="selectedSubjects" [rows]="5" [showCurrentPageReport]="true" responsiveLayout="scroll" [autoLayout]="true" [paginator]="true" [rowsPerPageOptions]="[5, 10, 15]">
+          <div class="row">
+            <div class="col-xl-3 col-md-6 col-sm-12 mb-4">
+              <div class="field p-fluid">
+                <label for="Subject_id">Subject <span class="font-danger">*</span></label>
+                <select class="form-control" id="Subject_id" placeholder="2021-2022" [(ngModel)]="subjectsToAsign">
+                  <option value="">Select a Division</option>
+                  <option *ngFor="let data of subjectList" value="{{ data.id }}" label="{{ data.name }}">
+                    {{ data }}
+                  </option>
+                </select>
+                <!-- <p-dropdown [options]="subjectList" [(ngModel)]="subjectsToAsign" optionLabel="name" optionValue="id" placeholder="Select a subject"></p-dropdown> -->
+                <div *ngIf="commonForm.controls.academic_id.touched && commonForm.controls.academic_id.errors?.required" class="text text-danger">Year is required.</div>
+              </div>
+            </div>
+            <!-- <div class="col-xl-3 col-md-6 col-sm-12 mb-4">
+              <div class="field p-fluid">
+                <label for="academic_id">Teachers <span class="font-danger">*</span></label>
+                <p-multiSelect [options]="teacherList" [(ngModel)]="teachersToAsign" optionLabel="employee_name" optionValue="employee_id" placeholder="Select teachers" (ngModelChange)="teacherChange($event)"></p-multiSelect>
+                <div *ngIf="commonForm.controls.academic_id.touched && commonForm.controls.academic_id.errors?.required" class="text text-danger">Year is required.</div>
+              </div>
+            </div> -->
+            <div class="col-xl-3 col-md-6 col-sm-12 float-right">
+              <div class="field p-fluid">
+                <label for="bg_id">&nbsp;</label>
+                <button class="btn btn-primary text-center flex align-content-end" (click)="addNewRecord()">Add</button>
+              </div>
+            </div>
+          </div>
+          <div class="loader-box center" *ngIf="Loading">
+            <span class="rotate dashed"></span>
+          </div>
+          <p-table [value]="assignedSubjectList"  dataKey="subject_name" *ngIf="!Loading" [(selection)]="selectedSubjects" [rows]="5" [showCurrentPageReport]="true" responsiveLayout="scroll" [autoLayout]="true" [paginator]="true" [rowsPerPageOptions]="[5, 10, 15]">
             <ng-template pTemplate="header">
               <tr>
-                <th style="width: 3rem">
-                  <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                </th>
-                <th>Fee Group</th>
-                <th>Total Fees</th>
+                <th></th>
+                <th>Sl No</th>
+                <th>Subject</th>
+                <th>Teacher</th>
+                <th>Actions</th>
               </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
+            <ng-template pTemplate="body" let-product let-rowIndex="rowIndex" let-expanded="expanded">
               <tr>
                 <td>
-                  <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                  <button type="button" pButton pRipple [pRowToggler]="product" class="p-button-text p-button-rounded p-button-plain p-button-sm" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+              </td>
+                <td>{{ rowIndex+1 }}</td>
+                <td>{{ product.subject_name }}</td>
+                <td>
+                  <div class="flex">
+                    <div *ngFor="let teacher of product.teachers">
+                    {{ teacher.employee_name + "," }}
+                  </div>
+                  </div>
+              </td>
+                <td>
+                  <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded btn-danger ml-1" style="height: 35px; width: 35px" ngbTooltip="Delete Subject" (click)="getTeacherData(product)"></button>
+                  <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded btn-danger ml-1" style="height: 35px; width: 35px" ngbTooltip="Delete Subject" *ngIf="!product.teachers.length>0" (click)="deleteSubject(product)"></button>
                 </td>
-                <td>{{ product.id }}</td>
-                <td>{{ product.name }}</td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="rowexpansion" let-product let-rowIndex="rowIndex">
+              <tr>
+                <td colspan="8">
+                  <div class="p-3">
+                    <h5>
+                       {{"Teacher List for "+ product.subject_name }}
+                      <button class="btn btn-primary pull-right" (click)="addTempTeacher(product,rowIndex)">
+                          Add new
+                      </button>
+                      <div class="clearfix"></div>
+                  </h5>
+                    <p-table [value]="product.teachers" dataKey="employee_id">
+                      <ng-template pTemplate="header">
+                        <tr>
+                            <th>Id </th>
+                            <th>Name </th>
+                            <th >Actions</th>
+                            <th style="width: 4rem"></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-teacher let-rowIndex1="rowIndex">
+                      <tr>
+                          <td>{{rowIndex1+1}}</td>
+                          <td>
+                            <div *ngIf="subjectIndex == product.subject_allocation_id && teacherIndex == rowIndex1;else editName">
+                              <select class="form-control" id="bg_id" [(ngModel)]="teachersToAsign" placeholder="2021-2022">
+                                <option value="">Select a Class</option>
+                                <option *ngFor="let data of teacherList" value="{{ data.employee_id }}" label="{{ data.employee_name }}">
+                                  {{ data.employee_name }}
+                                </option>
+                              </select>
+                              <!-- <p-dropdown required [baseZIndex]="10000" [options]="teacherList" [(ngModel)]="teachersToAsign" optionLabel="employee_name" optionValue="employee_id" placeholder="Select teachers" (ngModelChange)="teacherChange(product.subject_allocation_id,rowIndex1)"></p-dropdown> -->
+                            
+                          </div>
+                          <ng-template #editName>
+                            {{teacher.employee_name}}
+                          </ng-template>
+                            </td>
+                          <td>
+                            <div  *ngIf="subjectIndex == product.subject_allocation_id && teacherIndex == rowIndex1;else elseMenu">
+                              <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded btn-danger ml-1" style="height: 35px; width: 35px" ngbTooltip="Save Teacher" (click)="teacherChange(product.subject_allocation_id,rowIndex1,rowIndex)"></button>
+                              <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded btn-danger ml-1" style="height: 35px; width: 35px" ngbTooltip="Cancel Teacher" (click)="canceleChange(rowIndex,rowIndex1)"></button>
+                            </div>
+                            <ng-template #elseMenu>
+                              <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded btn-danger ml-1" style="height: 35px; width: 35px" ngbTooltip="Change Teacher" (click)="subjectIndex=product.subject_allocation_id;teacherIndex=rowIndex1;operation='update';teachersToAsign=teacher.employee_id;teacher_allocation_id = teacher?.teacher_allocation_id"></button>
+                              <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded btn-danger ml-1" style="height: 35px; width: 35px" ngbTooltip="Delete Teacher" (click)="deleteTeacher(teacher)"></button>
+                              
+                            </ng-template>
+                          </td>
+                      </tr>
+                  </ng-template>
+                    </p-table>
+                  </div>
+                </td>
               </tr>
             </ng-template>
           </p-table>
@@ -63,7 +176,8 @@
     </div>
   </div>
   <div class="row justify-content-around">
-    <button class="btn btn-primary" (click)="submit()">Submit</button>
+    <!-- <button class="btn btn-primary" (click)="submit()">Submit</button> -->
     <button class="btn btn-warning" (click)="cancel()">Cancel</button>
   </div>
 </div>
+<p-confirmDialog [style]="{width: '40vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>

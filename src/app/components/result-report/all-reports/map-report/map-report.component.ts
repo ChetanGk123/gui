@@ -12,6 +12,10 @@ import { ApiService } from 'src/app/shared/services/auth/api.service';
 })
 export class MapReportComponent implements OnInit {
 
+  academinYearList: any[] = [];
+  departmentList: any[] = [];
+  classList: any[] = [];
+  data: any;
   commonForm: FormGroup = new FormGroup({
     report_id: new FormControl(""),
     report_name: new FormControl("",[Validators.required]),
@@ -23,6 +27,7 @@ export class MapReportComponent implements OnInit {
   constructor(public datepipe: DatePipe,public config: DynamicDialogConfig, public apiService: ApiService, public toster:ToastrService,public ref: DynamicDialogRef) { }
 
   ngOnInit(): void {
+    this.getAcademicYears();
     if(this.config.data.operation != "insert"){
       var data = this.config.data.data;
       console.log(this.config.data);
@@ -44,6 +49,42 @@ export class MapReportComponent implements OnInit {
     for (const control in controls) {
       controls[control].disable()
     }
+      }
+    }
+  }
+
+  getAcademicYears() {
+    this.apiService
+      .getTypeRequest("academic_attributes_tree")
+      .toPromise()
+      .then((result: any) => {
+        this.data = result.data;
+        this.academinYearList = [];
+        this.data.forEach((element) => {
+          this.academinYearList.push(element);
+        });
+      });
+  }
+
+  getDepartments(val: any) {
+    for (const academic_year of this.data) {
+      if (academic_year.academic_year_id == this.commonForm.controls.academic_id.value) {
+        this.departmentList = [];
+        academic_year.department_data.forEach((department) => {
+          this.departmentList.push(department);
+        });
+        break;
+      }
+    }
+  }
+  getClasses(val: any) {
+    for (const department of this.departmentList) {
+      if (department.department_id == this.commonForm.controls.department_id.value) {
+        this.classList = [];
+        department.class_data.forEach((clas) => {
+          this.classList.push(clas);
+        });
+        break;
       }
     }
   }

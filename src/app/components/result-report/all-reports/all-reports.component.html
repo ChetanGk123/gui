@@ -40,6 +40,7 @@
                     <td>{{ product.class }}</td>
                     <td>{{ product.result_date }}</td>
                     <td>
+                      <button pButton pRipple type="button" icon="pi pi-cog" class="p-button-rounded btn-primary ml-1" style="height: 35px; width: 35px" ngbTooltip="Configure Report" (click)="configReport(product)"></button>
                       <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded btn-primary ml-1" style="height: 35px; width: 35px" ngbTooltip="Update Report" (click)="updateReport(product)"></button>
                       <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded btn-danger ml-1" style="height: 35px; width: 35px" ngbTooltip="Delete Report" (click)="deleteReport(product)"></button>
                     </td>

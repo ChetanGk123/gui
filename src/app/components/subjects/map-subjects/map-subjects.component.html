@@ -13,11 +13,11 @@
               <div class="row">
                 <div class="col-xl-3 col-md-6 col-sm-12 mb-3">
                   <div class="faq-form">
-                    <label for="academic_id">Academic Year</label>
-                    <select class="form-control" id="academic_id" [formControl]="commonForm.controls['academic_id']" placeholder="2021-2022">
+                    <label for="academic_year_id">Academic Year</label>
+                    <select class="form-control" id="academic_year_id" [formControl]="commonForm.controls['academic_id']" (ngModelChange)="getDepartments($event)" placeholder="2021-2022">
                       <option value="">Select a academic</option>
-                      <option *ngFor="let data of academinYearList" value="{{ data.id }}" label="{{ data.name }}">
-                        {{ data.name }}
+                      <option *ngFor="let data of academinYearList" value="{{ data.academic_year_id }}" label="{{ data.academic_year_name }}">
+                        {{ data.academic_year_name }}
                       </option>
                     </select>
                   </div>
@@ -25,10 +25,10 @@
                 <div class="col-xl-3 col-md-6 col-sm-12 mb-3">
                   <div class="faq-form">
                     <label for="department_id">Department</label>
-                    <select class="form-control" id="department_id" [formControl]="commonForm.controls['department_id']" placeholder="2021-2022">
+                    <select class="form-control" id="department_id" [formControl]="commonForm.controls['department_id']" placeholder="2021-2022" (ngModelChange)="getClasses($event)">
                       <option value="">Select a department</option>
-                      <option *ngFor="let data of departmentList" value="{{ data.id }}" label="{{ data.name }}">
-                        {{ data.name }}
+                      <option *ngFor="let data of departmentList" value="{{ data.department_id }}" label="{{ data.department_name }}">
+                        {{ data.department_name }}
                       </option>
                     </select>
                   </div>
@@ -36,10 +36,10 @@
                 <div class="col-xl-3 col-md-6 col-sm-12 mb-3">
                   <div class="faq-form">
                     <label for="class_id">Class</label>
-                    <select class="form-control" id="class_id" [formControl]="commonForm.controls['class_id']" placeholder="2021-2022">
+                    <select class="form-control" id="class_id" [formControl]="commonForm.controls['class_id']" placeholder="2021-2022" (ngModelChange)="getDivisions($event)">
                       <option value="">Select a class</option>
-                      <option *ngFor="let data of classList" value="{{ data.id }}" label="{{ data.name }}">
-                        {{ data.name }}
+                      <option *ngFor="let data of classList" value="{{ data.class_id }}" label="{{ data.class_name }}">
+                        {{ data.class_name }}
                       </option>
                     </select>
                   </div>
@@ -47,10 +47,10 @@
                 <div class="col-xl-3 col-md-6 col-sm-12 mb-3">
                   <div class="faq-form">
                     <label for="division_id">Division</label>
-                    <select class="form-control" id="division_id" [formControl]="commonForm.controls['division_id']" placeholder="2021-2022">
+                    <select class="form-control" id="division_id" [formControl]="commonForm.controls['division_id']" placeholder="2021-2022" (ngModelChange)="getSubjects($event)">
                       <option value="">Select a division</option>
-                      <option *ngFor="let data of divisionList" value="{{ data.id }}" label="{{ data.name }}">
-                        {{ data.name }}
+                      <option *ngFor="let data of divisionList" value="{{ data.division_id }}" label="{{ data.division_name }}">
+                        {{ data.division_name }}
                       </option>
                     </select>
                   </div>
@@ -98,27 +98,19 @@
                 <th>Department</th>
                 <th>Class</th>
                 <th>Division</th>
-                <th>Subject</th>
-                <th>View</th>
+                <th>Actions</th>
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
               <tr>
                 <td>{{ rowIndex + 1 }}</td>
-                <td>{{ product.academic_year_name }}</td>
-                <td>{{ product.department }}</td>
-                <!-- <td>
-                                <font [color]="product.transaction_type == 'DEBIT' ? 'red' : 'green'"
-                                  ><b>{{ product.transaction_type }}</b></font
-                                >
-                              </td> -->
+                <td>{{ product.academic_name }}</td>
+                <td>{{ product.department_name }}</td>
                 <td>{{ product.class_name }}</td>
                 <td>{{ product.division_name }}</td>
-                <td>{{ product.subject_name }}</td>
                 <td>
-                  <button pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded btn-success ml-1" style="height: 35px; width: 35px" ngbTooltip="Teacher" (click)="updateTeacher(product)"></button>
-                  <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded btn-primary ml-1" style="height: 35px; width: 35px" ngbTooltip="Update Subject" (click)="updateSubject(product)"></button>
-                  <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded btn-danger ml-1" style="height: 35px; width: 35px" ngbTooltip="Delete Subject" (click)="deleteSubject(product)"></button>
+                  <button pButton pRipple type="button" icon="pi pi-cog" class="p-button-rounded btn-primary ml-1" style="height: 35px; width: 35px" ngbTooltip="Update Subject" (click)="updateSubject(product)"></button>
+                  
                 </td>
               </tr>
             </ng-template>

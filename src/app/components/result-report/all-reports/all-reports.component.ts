@@ -3,6 +3,7 @@ import { ToastrService } from "ngx-toastr";
 import { DialogService } from "primeng/dynamicdialog";
 import { ApiService } from "src/app/shared/services/auth/api.service";
 import { SpinnerService } from "src/app/shared/services/spinner.service";
+import { ConfigReportComponent } from "./config-report/config-report.component";
 import { MapReportComponent } from "./map-report/map-report.component";
 
 @Component({
@@ -126,6 +127,19 @@ export class AllReportsComponent implements OnInit {
         divisionList: this.divisionList,
       },
       header: `Delete Report`,
+      styleClass: "w-10 sm:w-10 md:w-10 lg:w-6",
+    });
+    ref.onClose.subscribe((result: any) => {
+      if (result) {
+        this.ngOnInit();
+      }
+    });
+  }
+
+  configReport(product:any){
+    const ref = this.dialogService.open(ConfigReportComponent, {
+      data: product,
+      header: `Configure Report`,
       styleClass: "w-10 sm:w-10 md:w-10 lg:w-6",
     });
     ref.onClose.subscribe((result: any) => {
