@@ -1,1 +1,119 @@
-<p>config-report works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card mb-0">
+        <div class="card-body filter-cards-view animate-chk">
+          <div class="row">
+            <div class="col-xl-3 col-md-6 col-sm-12 mb-3">
+              <div class="">
+                <label for="academic_year_id">Academic Year</label>
+                <select class="form-control" disabled id="academic_year_id" [formControl]="commonForm.controls['academic_id']" (ngModelChange)="getDepartments()" placeholder="2021-2022">
+                  <option value="">Select a academic</option>
+                  <option *ngFor="let data of academinYearList" value="{{ data.academic_year_id }}" label="{{ data.academic_year_name }}">
+                    {{ data.academic_year_name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-sm-12 mb-3">
+              <div class="faq-form">
+                <label for="department_id">Department</label>
+                <select class="form-control" disabled id="department_id" [formControl]="commonForm.controls['department_id']" placeholder="2021-2022" (ngModelChange)="getClasses()">
+                  <option value="">Select a department</option>
+                  <option *ngFor="let data of departmentList" value="{{ data.department_id }}" label="{{ data.department_name }}">
+                    {{ data.department_name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-sm-12 mb-3">
+              <div class="faq-form">
+                <label for="class_id">Class</label>
+                <select class="form-control" disabled id="class_id" [formControl]="commonForm.controls['class_id']" placeholder="2021-2022" (ngModelChange)="getDivisions()">
+                  <option value="">Select a class</option>
+                  <option *ngFor="let data of classList" value="{{ data.class_id }}" label="{{ data.class_name }}">
+                    {{ data.class_name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-sm-12 mb-3">
+              <div class="faq-form">
+                <label for="division_id">Division</label>
+                <select class="form-control" id="division_id" [formControl]="commonForm.controls['division_id']" placeholder="2021-2022" (ngModelChange)="getSubjects()">
+                  <option value="">Select a division</option>
+                  <option *ngFor="let data of divisionList" value="{{ data.division_id }}" label="{{ data.division_name }}">
+                    {{ data.division_name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <div class="loader-box center" *ngIf="dataFetch; else table">
+            <span class="rotate dashed"></span>
+          </div>
+          <ng-template #table>
+            <p-table #dt [value]="assignedSubjectList" [showCurrentPageReport]="true" responsiveLayout="scroll" currentPageReportTemplate="Showing {totalRecords} entries" >
+              <ng-template pTemplate="caption">
+                <div class="flex justify-content-between">
+                  List of Allocated Subjects
+  <button
+  *ngIf="enableEditButton"
+                  class="btn btn-primary"
+                  style="max-height: 36px;"
+                  type="button"
+                  (click)="enableEditting()"
+                >
+                  Edit
+                </button>
+              </div>
+              </ng-template>
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>Slno</th>
+                  <th>Name</th>
+                  <th>Max marks</th>
+                  <th *ngIf="!enableEditButton">Actions</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
+                <tr>
+                  <td>{{ rowIndex + 1 }}</td>
+                  <td>{{ product.subject_name }}</td>
+                  <td>
+                    <div *ngIf="editMarks || updateSubjectMarksID == product.subject_allocation_id; else displayMarks">
+                      <input type="number" class="form-control" id="result_date" placeholder="100"
+                      [(ngModel)]="product.max_marks">
+                    </div>
+                    <ng-template #displayMarks>
+                      {{ product.max_marks}}
+                    </ng-template>
+                  </td>
+                  <td *ngIf="!enableEditButton">
+                    <div *ngIf="!enableEditButton && updateSubjectMarksID == product.subject_allocation_id; else editbutton">
+                      <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded btn-primary ml-1" style="height: 35px; width: 35px" ngbTooltip="Update Report" (click)="updateSingleMarks(product)"></button>
+                      <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded btn-danger ml-1" style="height: 35px; width: 35px" ngbTooltip="Update Report" (click)="updateSubjectMarksID = -1"></button>
+                    </div>
+                    <ng-template #editbutton>
+                      <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded btn-primary ml-1" style="height: 35px; width: 35px" ngbTooltip="Update Report" (click)="updateSubjectMarksID = product.subject_allocation_id"></button>
+                    </ng-template>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-around">
+    <button class="btn btn-primary" *ngIf="editMarks" (click)="updateMarks()">Submit</button>
+    <button class="btn btn-warning" >Cancel</button>
+  </div>
+</div>

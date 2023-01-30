@@ -18,6 +18,7 @@ export class AllReportsComponent implements OnInit {
   departmentList: any[] = [];
   classList: any[] = [];
   divisionList: any[] = [];
+  academic_attributes_tree
   constructor(public apiService: ApiService, public spinner: SpinnerService, public toster: ToastrService, public dialogService: DialogService) {}
 
   ngOnInit(): void {
@@ -25,45 +26,14 @@ export class AllReportsComponent implements OnInit {
     this.apiService.getTypeRequest("new_table_data/RESULT_REPORT").subscribe((result: any) => {
       this.reportList = result.data;
       this.dataFetch = false;
-      /* [
-        {
-            "report_id": 1,
-            "name": "Report Name1",
-            "academic_id": 3,
-            "academic_year": "2020-21",
-            "department_id": 2,
-            "department": "Kannada",
-            "class_id": 1,
-            "class": "UKG",
-            "div_id": 1,
-            "division": "A",
-            "result_date": "20-12-2022"
-        },
-        {
-            "report_id": 2,
-            "name": "Report Name2",
-            "academic_id": 1,
-            "academic_year": "2022-23",
-            "department_id": 1,
-            "department": "ENGLISH",
-            "class_id": 1,
-            "class": "UKG",
-            "div_id": 1,
-            "division": "A",
-            "result_date": "20-12-2022"
-        }
-    ] */
     });
     (this.dataFetch = true),
       this.apiService
-        .getTypeRequest("admission_form_data")
+        .getTypeRequest("academic_attributes_tree")
         .toPromise()
         .then((result: any) => {
           this.dataFetch = false;
-          this.academinYearList = result.data["academic_year"];
-          this.departmentList = result.data["department"];
-          this.classList = result.data["class"];
-          this.divisionList = result.data["division"];
+          this.academic_attributes_tree = result.data;
 
           /* this.academinYearList = result.data["academic_year"];
         this.bloodGroupList = result.data["blood_group"];
@@ -81,10 +51,7 @@ export class AllReportsComponent implements OnInit {
     const ref = this.dialogService.open(MapReportComponent, {
       data: {
         operation: "insert",
-        academinYearList: this.academinYearList,
-        departmentList: this.departmentList,
-        classList: this.classList,
-        divisionList: this.divisionList,
+        academic_attributes_tree: this.academic_attributes_tree,
       },
       header: `Map New Report`,
       styleClass: "w-10 sm:w-10 md:w-10 lg:w-6",
@@ -101,10 +68,7 @@ export class AllReportsComponent implements OnInit {
       data: {
         data: data,
         operation: "update",
-        academinYearList: this.academinYearList,
-        departmentList: this.departmentList,
-        classList: this.classList,
-        divisionList: this.divisionList,
+        academic_attributes_tree: this.academic_attributes_tree,
       },
       header: `Update Report`,
       styleClass: "w-10 sm:w-10 md:w-10 lg:w-6",
@@ -121,10 +85,7 @@ export class AllReportsComponent implements OnInit {
       data: {
         data: data,
         operation: "delete",
-        academinYearList: this.academinYearList,
-        departmentList: this.departmentList,
-        classList: this.classList,
-        divisionList: this.divisionList,
+        academic_attributes_tree: this.academic_attributes_tree,
       },
       header: `Delete Report`,
       styleClass: "w-10 sm:w-10 md:w-10 lg:w-6",
@@ -138,7 +99,10 @@ export class AllReportsComponent implements OnInit {
 
   configReport(product:any){
     const ref = this.dialogService.open(ConfigReportComponent, {
-      data: product,
+      data: {
+        data:product,
+        academic_attributes_tree:this.academic_attributes_tree
+      },
       header: `Configure Report`,
       styleClass: "w-10 sm:w-10 md:w-10 lg:w-6",
     });

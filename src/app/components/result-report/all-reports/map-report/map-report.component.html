@@ -23,7 +23,7 @@
             </div>
             <div class="form-group col-sm-12 col-md-6 col-md-6">
               <label for="academic_id">Academic Year<span class="font-danger">*</span></label>
-              <select class="form-control" id="academic_id" [formControl]="commonForm.controls['academic_id']" (ngModelChange)="getDepartments($event)" placeholder="2021-2022">
+              <select class="form-control" id="academic_id" [formControl]="commonForm.controls['academic_id']" (ngModelChange)="getDepartments()" placeholder="2021-2022">
                 <option value="">Select a academic</option>
                 <option *ngFor="let data of academinYearList" value="{{ data.academic_year_id }}" label="{{ data.academic_year_name }}">
                   {{ data.academic_year_name }}
@@ -33,7 +33,7 @@
             </div>
             <div class="form-group col-sm-12 col-md-6 col-md-6">
               <label for="department_id">Department<span class="font-danger">*</span></label>
-              <select class="form-control" id="department_id" [formControl]="commonForm.controls['department_id']" placeholder="2021-2022" (ngModelChange)="getClasses($event)">
+              <select class="form-control" id="department_id" [formControl]="commonForm.controls['department_id']" placeholder="2021-2022" (ngModelChange)="getClasses()">
                 <option value="">Select a department</option>
                 <option *ngFor="let data of departmentList" value="{{ data.department_id }}" label="{{ data.department_name }}">
                   {{ data.department_name }}

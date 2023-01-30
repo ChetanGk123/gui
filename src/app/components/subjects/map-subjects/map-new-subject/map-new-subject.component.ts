@@ -22,8 +22,10 @@ export class MapNewSubjectComponent implements OnInit {
   teacherList: any[] = [];
   teachersToAsign: any[] = [];
   subjectsToAsign = "";
+  subjectsToEdit = "";
   teacherIndex;
   subjectIndex;
+  editSubjectIndex;
   operation;
   teacher_allocation_id;
   commonForm: FormGroup = new FormGroup({
@@ -51,10 +53,6 @@ export class MapNewSubjectComponent implements OnInit {
           break;
         }
       }
-      // this.commonForm.controls.academic_id.disable()
-      // this.commonForm.controls.department_id.disable()
-      // this.commonForm.controls.class_id.disable()
-      // this.commonForm.controls.division_id.disable()
       this.commonForm.patchValue({
         subject_allocation_id: data.subject_allocation_id,
         academic_id: data.academic_id,
@@ -183,6 +181,40 @@ export class MapNewSubjectComponent implements OnInit {
       });
     }
     this.teachersToAsign = [];
+    this.operation = "";
+  }
+
+  subjectChange(subject_allocation_id, index) {
+    if (this.operation == "update") {
+      var teacher = {
+        subject_allocation_id: subject_allocation_id,
+        academic_id:this.commonForm.controls.academic_id.value,
+        department_id:this.commonForm.controls.department_id.value,
+        class_id:this.commonForm.controls.class_id.value,
+        division_id:this.commonForm.controls.division_id.value,
+        subject_id: Number(this.subjectsToEdit),
+        subject_ids:[]
+      };
+      this.apiService.postTypeRequest(`subject_allocation_ops/update`, teacher).subscribe((result: any) => {
+        if (result.result) {
+          this.getSubjects("");
+        }
+      });
+    } else {
+      var data = {
+        subject_allocation_id: subject_allocation_id,
+        teacher_ids: [this.teachersToAsign],
+      };
+      this.apiService.postTypeRequest(`subject_allocation_ops/insert`, data).subscribe((result: any) => {
+        if (result.result) {
+          this.subjectIndex = -1;
+          this.teacherIndex = -1;
+          this.getSubjects("");
+        }
+      });
+    }
+    this.editSubjectIndex = -1;
+    this.subjectsToEdit = "";
     this.operation = "";
   }
 

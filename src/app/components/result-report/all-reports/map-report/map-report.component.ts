@@ -44,6 +44,8 @@ export class MapReportComponent implements OnInit {
         class_id:data.class_id,
         division_id:data?.division_id??data.div_id,
       })
+      this.getDepartments();
+      this.getClasses();
       if(this.config.data.operation == "delete"){
         const controls = this.commonForm.controls;
     for (const control in controls) {
@@ -54,19 +56,16 @@ export class MapReportComponent implements OnInit {
   }
 
   getAcademicYears() {
-    this.apiService
-      .getTypeRequest("academic_attributes_tree")
-      .toPromise()
-      .then((result: any) => {
-        this.data = result.data;
-        this.academinYearList = [];
-        this.data.forEach((element) => {
-          this.academinYearList.push(element);
-        });
-      });
+    this.data = this.config.data.academic_attributes_tree
+    this.config.data.academic_attributes_tree.forEach((element) => {
+      if(element.department_data.length > 0)
+      {
+        this.academinYearList.push(element);
+      }
+    });
   }
 
-  getDepartments(val: any) {
+  getDepartments() {
     for (const academic_year of this.data) {
       if (academic_year.academic_year_id == this.commonForm.controls.academic_id.value) {
         this.departmentList = [];
@@ -77,7 +76,7 @@ export class MapReportComponent implements OnInit {
       }
     }
   }
-  getClasses(val: any) {
+  getClasses() {
     for (const department of this.departmentList) {
       if (department.department_id == this.commonForm.controls.department_id.value) {
         this.classList = [];

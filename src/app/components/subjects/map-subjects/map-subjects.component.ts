@@ -54,6 +54,14 @@ export class MapSubjectsComponent implements OnInit {
         this.data = result.data;
         this.mappedSubjects = [];
         this.data.forEach((academinYear) => {
+          if(academinYear.department_data.length > 0)
+          {
+            var academicData = {
+              academic_year_id:academinYear.academic_year_id,
+                    academic_year_name:academinYear.academic_year_name,
+            }
+            this.academinYearList.push(academicData)
+          }
           academinYear.department_data.forEach(department => {
             department.class_data.forEach(clas => {
               clas.division_data.forEach(division => {
