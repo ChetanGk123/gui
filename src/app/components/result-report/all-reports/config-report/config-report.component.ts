@@ -165,13 +165,15 @@ export class ConfigReportComponent implements OnInit {
   }
 
   updateSingleMarks(product){
+    console.log(product);
+    
     if (product.max_marks == 0 || product.max_marks > 0) {
       this.dataFetch = true;
     var data = {
       report_id:this.commonForm.controls.report_id.value,
       subject_allocation_ids:[],
       marks_array:[],
-      marks_allocation_id:product.subject_allocation_id,
+      marks_allocation_id:product.marks_allocation_id,
       marks:product.max_marks
     }
     this.apiService.postTypeRequest("marks_allocation_ops/update",data)
