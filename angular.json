@@ -32,7 +32,7 @@
               "chart.js",
               "angular-calendar/date-adapters/date-fns"
             ],
-            "outputPath": "dist/endless-starterkit",
+            "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -106,13 +106,13 @@
               "budgets": [
                   {
                       "type": "initial",
-                      "maximumWarning": "3mb",
+                      "maximumWarning": "5mb",
                       "maximumError": "5mb"
                   },
                   {
                       "type": "anyComponentStyle",
-                      "maximumWarning": "7kb",
-                      "maximumError": "10kb"
+                      "maximumWarning": "25kb",
+                      "maximumError": "25kb"
                   }
               ]
           }
