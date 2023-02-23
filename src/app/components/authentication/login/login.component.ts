@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth/auth.service'
 import { SpinnerService } from 'src/app/shared/services/spinner.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { SpinnerService } from 'src/app/shared/services/spinner.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-
+  displayLogins:boolean
   loader:boolean = false;
   public loginForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.displayLogins = !environment.production
     this.loader= false;
       this.loginForm.patchValue({
         email:localStorage.getItem('email')??"",
@@ -43,6 +45,16 @@ export class LoginComponent implements OnInit {
       localStorage.removeItem('email');
     }
     await this.authService.SignIn(this.loginForm.value['email'], this.loginForm.value['password']);
+    this.showLoading = false
+  }
+
+  async loginWithData(username:any,password:any){
+    this.loginForm.patchValue({
+      email:localStorage.getItem(username),
+      password:localStorage.getItem(password),
+    })
+    this.showLoading = true
+    await this.authService.SignIn(username, password);
     this.showLoading = false
   }
 }

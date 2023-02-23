@@ -150,6 +150,7 @@ export class NavService {
 		{
 			title: 'Result Reports', icon: 'tablet', type: 'sub', active: false,roles:['Admin','ADMISSION OFFICER'], children: [
 				{ path: '/result-report/AllReports', icon: 'book', title: 'All Reports', type: 'link',roles:['Admin','ADMISSION OFFICER'] },
+				{ path: '/result-report/AssignMarks', icon: 'book', title: 'Assign Marks', type: 'link',roles:['Admin','ADMISSION OFFICER'] },
 				]
 		},
 		{

@@ -11,6 +11,7 @@
                 <div class="text-center">
                   <h4>LOGIN</h4>
                   <h6>Enter your Username and Password </h6>
+                  <h6 class="text-primary hover:underline" style="cursor: pointer;" *ngIf="displayLogins" (click)="loginWithData('admin@royalpalacelkp.com','admin@royalpalacelkp.com')">Login as Admin </h6>
                 </div>
                 <form class="theme-form" [formGroup]="loginForm">
                   <div class="form-group">

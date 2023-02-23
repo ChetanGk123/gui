@@ -18,7 +18,7 @@ export class AllReportsComponent implements OnInit {
   departmentList: any[] = [];
   classList: any[] = [];
   divisionList: any[] = [];
-  academic_attributes_tree
+  academic_attributes_tree;
   constructor(public apiService: ApiService, public spinner: SpinnerService, public toster: ToastrService, public dialogService: DialogService) {}
 
   ngOnInit(): void {
@@ -33,17 +33,7 @@ export class AllReportsComponent implements OnInit {
         .toPromise()
         .then((result: any) => {
           this.dataFetch = false;
-          this.academic_attributes_tree = result.data;
-
-          /* this.academinYearList = result.data["academic_year"];
-        this.bloodGroupList = result.data["blood_group"];
-        this.genderList = result.data["gender"];
-        this.categoryList = result.data["category"];
-        this.casteList = result.data["caste"];
-        this.religionList = result.data["religion"];
-        this.departmentList = result.data["department"];
-        this.classList = result.data["class"];
-        this.divisionList = result.data["division"]; */
+          this.academic_attributes_tree = result?.data;
         });
   }
 
@@ -59,6 +49,7 @@ export class AllReportsComponent implements OnInit {
     ref.onClose.subscribe((result: any) => {
       if (result) {
         this.ngOnInit();
+        // this.configReport(result.data[0])
       }
     });
   }
@@ -97,11 +88,12 @@ export class AllReportsComponent implements OnInit {
     });
   }
 
-  configReport(product:any){
+  configReport(product: any) {
     const ref = this.dialogService.open(ConfigReportComponent, {
+      dismissableMask: true,
       data: {
-        data:product,
-        academic_attributes_tree:this.academic_attributes_tree
+        data: product,
+        academic_attributes_tree: this.academic_attributes_tree,
       },
       header: `Configure Report`,
       styleClass: "w-10 sm:w-10 md:w-10 lg:w-6",

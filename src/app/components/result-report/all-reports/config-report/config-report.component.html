@@ -88,7 +88,7 @@
                   <td>{{ product.subject_name }}</td>
                   <td>
                     <div *ngIf="editMarks || updateSubjectMarksID == product.subject_allocation_id; else displayMarks">
-                      <input type="number" class="form-control" id="result_date" placeholder="100"
+                      <input type="number" class="form-control"  id="result_date" placeholder="100"
                       [(ngModel)]="product.max_marks">
                     </div>
                     <ng-template #displayMarks>
@@ -114,6 +114,5 @@
   </div>
   <div class="row justify-content-around">
     <button class="btn btn-primary" *ngIf="editMarks" (click)="updateMarks()">Submit</button>
-    <button class="btn btn-warning" >Cancel</button>
   </div>
 </div>

@@ -1,0 +1,176 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h5>Assign Marks</h5>
+        </div>
+        <div class="card-body step-indicator">
+          <aw-wizard navBarLayout="large-filled-symbols" [awNavigationMode] [navigateForward]="navigation">
+            <aw-wizard-step [navigationSymbol]="{ symbol: '&#xf0c9;', fontFamily: 'FontAwesome ' }" stepTitle="Reports">
+              <p-table #dt [value]="reportList" *ngIf="!loading" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10, 25, 50]">
+                <ng-template pTemplate="caption">
+                  <div class="flex justify-content-between">List of Result Reports</div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>Slno</th>
+                    <th pSortableColumn="name">Name<p-sortIcon field="name"></p-sortIcon></th>
+                    <th pSortableColumn="academic_year">Academic Year<p-sortIcon field="academic_year"></p-sortIcon></th>
+                    <th pSortableColumn="department">Department<p-sortIcon field="department"></p-sortIcon></th>
+                    <th pSortableColumn="class">Class<p-sortIcon field="class"></p-sortIcon></th>
+                    <th pSortableColumn="result_date">Result Date<p-sortIcon field="result_date"></p-sortIcon></th>
+                    <th>Assign Marks</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
+                  <tr>
+                    <td>{{ rowIndex + 1 }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.academic_year }}</td>
+                    <td>{{ product.department }}</td>
+                    <td>{{ product.class }}</td>
+                    <td>{{ product.result_date }}</td>
+                    <td>
+                      <button pButton pRipple type="button" icon="pi pi-arrow-circle-right" class="p-button-rounded btn-primary ml-1" style="height: 35px; width: 35px" ngbTooltip="Configure Report" (click)="configReport(product)" awNextStep></button>
+                    </td>
+                  </tr>
+                </ng-template> </p-table
+            ></aw-wizard-step>
+            <aw-wizard-step [navigationSymbol]="{ symbol: '&#xf03b;', fontFamily: 'FontAwesome ' }" stepTitle="Division">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card mb-0">
+                    <div class="card-body filter-cards-view animate-chk">
+                      <div class="row">
+                        <div class="col-xl-3 col-md-6 col-sm-12 mb-3">
+                          <div class="">
+                            <label for="academic_year_id">Academic Year</label>
+                            <select class="form-control" id="academic_year_id" [formControl]="commonForm.controls['academic_id']" placeholder="2021-2022">
+                              <option value="">Select a academic</option>
+                              <option *ngFor="let data of academinYearList" value="{{ data.academic_year_id }}" label="{{ data.academic_year_name }}">
+                                {{ data.academic_year_name }}
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 col-sm-12 mb-3">
+                          <div class="faq-form">
+                            <label for="department_id">Department</label>
+                            <select class="form-control" id="department_id" [formControl]="commonForm.controls['department_id']" placeholder="2021-2022" (ngModelChange)="getClasses()">
+                              <option value="">Select a department</option>
+                              <option *ngFor="let data of departmentList" value="{{ data.department_id }}" label="{{ data.department_name }}">
+                                {{ data.department_name }}
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 col-sm-12 mb-3">
+                          <div class="faq-form">
+                            <label for="class_id">Class</label>
+                            <select class="form-control" id="class_id" [formControl]="commonForm.controls['class_id']" placeholder="2021-2022" (ngModelChange)="getDivisions()">
+                              <option value="">Select a class</option>
+                              <option *ngFor="let data of classList" value="{{ data.class_id }}" label="{{ data.class_name }}">
+                                {{ data.class_name }}
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 col-sm-12 mb-3">
+                          <div class="faq-form">
+                            <label for="division_id">Division</label>
+                            <select class="form-control" id="division_id" [formControl]="commonForm.controls['division_id']" placeholder="2021-2022" (ngModelChange)="getSubjects()">
+                              <option value="">Select a division</option>
+                              <option *ngFor="let data of divisionList" value="{{ data.division_id }}" label="{{ data.division_name }}">
+                                {{ data.division_name }}
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="loader-box center" *ngIf="dataFetch; else table">
+                        <span class="rotate dashed"></span>
+                      </div>
+                      <ng-template #table>
+                        <p-table #dt [value]="subjectList" [showCurrentPageReport]="true" responsiveLayout="scroll" currentPageReportTemplate="Showing {totalRecords} entries">
+                          <ng-template pTemplate="caption">
+                            <div class="flex justify-content-between">List of Allocated Subjects</div>
+                          </ng-template>
+                          <ng-template pTemplate="header">
+                            <tr>
+                              <th>Slno</th>
+                              <th>Name</th>
+                              <th>Max marks</th>
+                              <th>Actions</th>
+                            </tr>
+                          </ng-template>
+                          <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
+                            <tr>
+                              <td>{{ rowIndex + 1 }}</td>
+                              <td>{{ product.subject_name }}</td>
+                              <td>
+                                {{ product.max_marks }}
+                              </td>
+                              <td>
+                                <button pButton pRipple type="button" icon="pi pi-arrow-circle-right" class="p-button-rounded btn-primary ml-1" style="height: 35px; width: 35px" ngbTooltip="Update Report" (click)="fetchStudents(product)" awNextStep></button>
+                              </td>
+                            </tr>
+                          </ng-template>
+                        </p-table>
+                      </ng-template>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </aw-wizard-step>
+            <aw-wizard-step [navigationSymbol]="{ symbol: '&#xf0c0;', fontFamily: 'FontAwesome ' }" stepTitle="Students">
+              <div class="row">
+                <div class="col">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="loader-box center" *ngIf="studentListLoading; else studentListTable">
+                        <span class="rotate dashed"></span>
+                      </div>
+                      <ng-template #studentListTable>
+                        <p-table #studentListdt [value]="studentList" [showCurrentPageReport]="true" responsiveLayout="scroll" currentPageReportTemplate="Showing {totalRecords} entries">
+                          <ng-template pTemplate="caption">
+                            <div class="flex justify-content-between">List of Students</div>
+                          </ng-template>
+                          <ng-template pTemplate="header">
+                            <tr>
+                              <th>Slno</th>
+                              <th>Name</th>
+                              <th>Admission No</th>
+                              <th>marks</th>
+                            </tr>
+                          </ng-template>
+                          <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
+                            <tr>
+                              <td>{{ rowIndex + 1 }}</td>
+                              <td>{{ product.f_name + " " + product.l_name }}</td>
+                              <td>{{ product.admission_no }}</td>
+                              <td>
+                                <input type="number" class="form-control" style="width: 6rem !important;" id="result_date" placeholder="100"
+                                [(ngModel)]="product.max_marks">
+                              </td>
+                            </tr>
+                          </ng-template>
+                        </p-table>
+                      </ng-template>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </aw-wizard-step>
+          </aw-wizard>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

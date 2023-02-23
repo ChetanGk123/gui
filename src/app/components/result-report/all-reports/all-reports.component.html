@@ -23,11 +23,11 @@
                 <ng-template pTemplate="header">
                   <tr>
                     <th>Slno</th>
-                    <th>Name</th>
-                    <th>Academic Year</th>
-                    <th>Department</th>
-                    <th>Class</th>
-                    <th>Result Date</th>
+                    <th pSortableColumn="name">Name<p-sortIcon field="name"></p-sortIcon></th>
+                    <th pSortableColumn="academic_year">Academic Year<p-sortIcon field="academic_year"></p-sortIcon></th>
+                    <th pSortableColumn="department">Department<p-sortIcon field="department"></p-sortIcon></th>
+                    <th pSortableColumn="class">Class<p-sortIcon field="class"></p-sortIcon></th>
+                    <th pSortableColumn="result_date">Result Date<p-sortIcon field="result_date"></p-sortIcon></th>
                     <th>View</th>
                   </tr>
                 </ng-template>
