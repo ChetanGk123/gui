@@ -11,9 +11,12 @@ import { MapReportComponent } from "./all-reports/map-report/map-report.componen
 import { ConfigReportComponent } from "./all-reports/config-report/config-report.component";
 import { AssignMarksComponent } from "./assign-marks/assign-marks.component";
 import { ArchwizardModule } from "angular-archwizard";
+import { CriteriaGroupComponent } from './criteria-group/criteria-group.component';
+import { ManageCriteriaComponent } from './criteria-group/manage-criteria/manage-criteria.component';
+import { ConfigCriteriaComponent } from './criteria-group/config-criteria/config-criteria.component';
 
 @NgModule({
-  declarations: [ResultReportComponent, AllReportsComponent, MapReportComponent, ConfigReportComponent, AssignMarksComponent],
+  declarations: [ResultReportComponent, AllReportsComponent, MapReportComponent, ConfigReportComponent, AssignMarksComponent, CriteriaGroupComponent, ManageCriteriaComponent, ConfigCriteriaComponent],
   imports: [CommonModule, ResultReportRoutingModule, ArchwizardModule, SharedModule, NgxMaskModule.forRoot()],
   providers: [DynamicDialogRef, DynamicDialogConfig, DialogService],
 })

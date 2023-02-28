@@ -3,25 +3,37 @@
     <div class="card-body">
       <form [formGroup]="commonForm">
         <div class="row">
-            <div class="form-group col-12">
-                <label for="report_name">Report name <span class="font-danger">*</span></label>
-                <input type="text" class="form-control" id="report_name" placeholder="Report"
-                    formControlName="report_name">
-                <div *ngIf="commonForm.controls.report_name.touched && commonForm.controls.report_name.errors?.required"
-                    class="text text-danger">
-                    Report Name is required.
-                </div>
-            </div>
-            <div class="form-group col-sm-12 col-md-6 col-md-6">
-                <label for="result_date">Test Date <span class="font-danger">*</span></label>
-                <input type="date" class="form-control" id="result_date" placeholder="12-12-2020"
-                    formControlName="result_date">
-                <div *ngIf="commonForm.controls.result_date.touched && commonForm.controls.result_date.errors?.required"
-                    class="text text-danger">
-                    Date is required.
-                </div>
-            </div>
-            <div class="form-group col-sm-12 col-md-6 col-md-6">
+          <div class="form-group col-sm-12 col-md-6 col-lg-3">
+            <label for="result_report_group_id">Result Group<span class="font-danger">*</span></label>
+            <select class="form-control" id="result_report_group_id" [formControl]="commonForm.controls['result_report_group_id']" placeholder="2021-2022">
+              <option value="">Select a Group</option>
+              <option *ngFor="let data of resultGroupList" value="{{ data.result_report_group_id }}" label="{{ data.result_report_group_name }}">
+                {{ data.result_report_group_name }}
+              </option>
+            </select>
+            <div *ngIf="commonForm.controls.result_report_group_id.touched && commonForm.controls.result_report_group_id.errors?.required" class="text text-danger">Group is required.</div>
+          </div>
+          <div class="form-group col-sm-12 col-md-6 col-lg-3">
+            <label for="result_criteria_group_id">Criteria Group<span class="font-danger">*</span></label>
+            <select class="form-control" id="result_criteria_group_id" [formControl]="commonForm.controls['result_criteria_group_id']" placeholder="2021-2022">
+              <option value="">Select a Group</option>
+              <option *ngFor="let data of resultGroupList" value="{{ data.result_criteria_group_id }}" label="{{ data.result_report_group_name }}">
+                {{ data.result_report_group_name }}
+              </option>
+            </select>
+            <div *ngIf="commonForm.controls.result_criteria_group_id.touched && commonForm.controls.result_criteria_group_id.errors?.required" class="text text-danger">Group is required.</div>
+          </div>
+          <div class="form-group col-sm-12 col-md-6 col-lg-3">
+            <label for="exam_date">Test Date <span class="font-danger">*</span></label>
+            <input type="date" class="form-control" id="exam_date" placeholder="12-12-2020" formControlName="exam_date" />
+            <div *ngIf="commonForm.controls.exam_date.touched && commonForm.controls.exam_date.errors?.required" class="text text-danger">Date is required.</div>
+          </div>
+          <div class="form-group col-sm-12 col-md-6 col-lg-3">
+            <label for="result_date">Result Date <span class="font-danger">*</span></label>
+            <input type="date" class="form-control" id="result_date" placeholder="12-12-2020" formControlName="result_date" />
+            <div *ngIf="commonForm.controls.result_date.touched && commonForm.controls.result_date.errors?.required" class="text text-danger">Date is required.</div>
+          </div>
+          <!-- <div class="form-group col-sm-12 col-md-6 col-md-6">
               <label for="academic_id">Academic Year<span class="font-danger">*</span></label>
               <select class="form-control" id="academic_id" [formControl]="commonForm.controls['academic_id']" (ngModelChange)="getDepartments()" placeholder="2021-2022">
                 <option value="">Select a academic</option>
@@ -50,12 +62,21 @@
                 </option>
               </select>
               <div *ngIf="commonForm.controls.class_id.touched && commonForm.controls.class_id.errors?.required" class="text text-danger">Class is required.</div>
+            </div> -->
+            <div class="col-12">
+              <aw-wizard navBarLayout="large-filled-symbols" [awNavigationMode] [navigateForward]="navigation">
+                <aw-wizard-step [navigationSymbol]="{ symbol: '&#xf0c9;', fontFamily: 'FontAwesome ' }" stepTitle="Reports">
+                  <p-tree [value]="academinYearList" selectionMode="checkbox" [(selection)]="selectedList"></p-tree>
+                </aw-wizard-step>
+                <aw-wizard-step [navigationSymbol]="{ symbol: '&#xf0c9;', fontFamily: 'FontAwesome ' }" stepTitle="Reports"></aw-wizard-step>
+              </aw-wizard>
             </div>
+          
         </div>
         <div class="row justify-content-around">
-            <button class="btn btn-primary" (click)="submit()">Submit</button>
-            <button class="btn btn-warning" (click)="cancel()">Cancel</button>
-          </div>
+          <button class="btn btn-primary" (click)="submit()">Submit</button>
+          <button class="btn btn-warning" (click)="cancel()">Cancel</button>
+        </div>
       </form>
     </div>
   </div>

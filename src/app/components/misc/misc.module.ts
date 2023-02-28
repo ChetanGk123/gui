@@ -16,6 +16,7 @@ import { AcademicYearComponent } from './academic-year/academic-year.component';
 import { ReligionComponent } from './religion/religion.component';
 import { CategoryComponent } from './category/category.component';
 import { PrimengModule } from 'src/app/shared/primeng.module';
+import { CommonComponent } from './common/common.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { PrimengModule } from 'src/app/shared/primeng.module';
     DepartmentComponent,
     AcademicYearComponent,
     ReligionComponent,
-    CategoryComponent
+    CategoryComponent,
+    CommonComponent
   ],
   imports: [
     CommonModule,

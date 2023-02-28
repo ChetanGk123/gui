@@ -1,0 +1,140 @@
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-body">
+      <form class="mb-3" [formGroup]="commonForm">
+        <div class="row">
+          <div class="form-group col-3">
+            <label for="criteria_name">Name <span class="font-danger">*</span></label>
+            <input type="text" class="form-control" id="criteria_name" placeholder="Criteria" formControlName="criteria_name" />
+            <div *ngIf="commonForm.controls.criteria_name.touched && commonForm.controls.criteria_name.errors?.required" class="text text-danger">Name is required.</div>
+          </div>
+          <div class="form-group col-2">
+            <label for="min_marks">Min Marks <span class="font-danger">*</span></label>
+            <input type="number" class="form-control" id="min_marks" placeholder="Criteria" formControlName="min_marks" />
+            <div *ngIf="commonForm.controls.min_marks.touched && commonForm.controls.min_marks.errors?.required" class="text text-danger">Min Marks is required.</div>
+          </div>
+          <div class="form-group col-2">
+            <label for="max_marks">Max Marks <span class="font-danger">*</span></label>
+            <input type="number" class="form-control" id="max_marks" placeholder="Criteria" formControlName="max_marks" />
+            <div *ngIf="commonForm.controls.max_marks.touched && commonForm.controls.max_marks.errors?.required" class="text text-danger">Max Marks is required.</div>
+          </div>
+          <div class="form-group col-2">
+            <label for="grade">Grade <span class="font-danger">*</span></label>
+            <input type="text" class="form-control" id="grade" placeholder="Criteria" formControlName="grade" />
+            <div *ngIf="commonForm.controls.grade.touched && commonForm.controls.grade.errors?.required" class="text text-danger">Grade is required.</div>
+          </div>
+          <div class="form-group col-3 mb-0">
+            <div class="form-check">
+              <div class="checkbox p-0">
+                <input id="isFailCondidtion" type="checkbox" formControlName="isFailCondidtion" class="form-check-input" />
+                <label class="form-check-label" for="isFailCondidtion" ngbTooltip="Is Fail"> Is Fail <span class="font-danger">*</span> </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-around">
+          <button class="btn btn-primary" (click)="submit()">Submit</button>
+        </div>
+      </form>
+      <p-table
+        #dt
+        [value]="criteriaList"
+        dataKey="criteria_id"
+        editMode="row"
+        *ngIf="!dataFetch"
+        [paginator]="true"
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        responsiveLayout="scroll"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="[10, 25, 50]"
+      >
+        <ng-template pTemplate="caption">
+          <div class="flex justify-content-between">List of criterias</div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <!-- {
+                "criteria_id": 1,
+                "criteria_name": "Dist",
+                "min_marks": 90,
+                "max_marks": 100,
+                "grade": "A",
+                "isFailCondidtion": 0
+            } -->
+            <th>Slno</th>
+            <th pSortableColumn="criteria_name">Name<p-sortIcon field="criteria_name"></p-sortIcon></th>
+            <th pSortableColumn="min_marks">Min Marks<p-sortIcon field="min_marks"></p-sortIcon></th>
+            <th pSortableColumn="max_marks">Max Marks<p-sortIcon field="max_marks"></p-sortIcon></th>
+            <th pSortableColumn="grade">Grade<p-sortIcon field="grade"></p-sortIcon></th>
+            <th pSortableColumn="isFailCondidtion">IsFail?<p-sortIcon field="isFailCondidtion"></p-sortIcon></th>
+            <th>View</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product let-rowIndex="rowIndex" let-editing="editing">
+          <tr [pEditableRow]="product">
+            <td>{{ rowIndex + 1 }}</td>
+            <td>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input pInputText type="text" style="max-width: 7rem" [(ngModel)]="product.criteria_name" />
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ product.criteria_name }}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input pInputText type="number" style="max-width: 5rem" [(ngModel)]="product.min_marks" />
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ product.min_marks }}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input pInputText type="number" style="max-width: 5rem" [(ngModel)]="product.max_marks" />
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ product.max_marks }}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input pInputText type="text" style="max-width: 5rem" [(ngModel)]="product.grade" />
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ product.grade }}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                    <p-checkbox [(ngModel)]="product.isFailCondidtion" [binary]="true" ></p-checkbox>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ product.isFailCondidtion }}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td>
+              <div class="flex align-items-center justify-content-center gap-2">
+                <button *ngIf="!editing" pButton pRipple type="button" style="height: 35px; width: 35px" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(product)" class="p-button-rounded btn-primary"></button>
+                <button *ngIf="!editing" pButton pRipple type="button" style="height: 35px; width: 35px" icon="pi pi-trash" (click)="onRowDelete(product)" class="p-button-rounded btn-danger"></button>
+                <button *ngIf="editing" pButton pRipple type="button" style="height: 35px; width: 35px" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(product)" class="p-button-rounded p-button-success mr-2"></button>
+                <button *ngIf="editing" pButton pRipple type="button" style="height: 35px; width: 35px" pCancelEditableRow icon="pi pi-times"  class="p-button-rounded p-button-danger btn-danger"></button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,75 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <!-- <p-toolbar styleClass="mb-4" class="align-content-center">
+                  <ng-template class="align-content-center" pTemplate="left">
+                    <h4>{{ Title }}</h4>
+                  </ng-template>
+          
+                  <ng-template pTemplate="right">
+                    <button (document:keydown.Alt.n)="add()" pButton pRipple label="Add" icon="pi pi-plus" class="mr-2 inline-block p-button" (click)="add()"></button>
+                  </ng-template>
+                </p-toolbar> -->
+          <div class="loader-box center" *ngIf="loading">
+            <span class="rotate dashed"></span>
+          </div>
+          <p-table
+            *ngIf="!loading"
+            #dt
+            dataKey="code"
+            [value]="Data"
+            [paginator]="true"
+            [rows]="10"
+            [loading]="loading"
+            [showCurrentPageReport]="true"
+            responsiveLayout="scroll"
+            currentPageReportTemplate="Showing {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[10, 25, 50]"
+            [filterDelay]="0"
+            [globalFilterFields]="['name']"
+          >
+            <ng-template pTemplate="caption">
+              <div class="flex justify-content-between">
+                List of Criterias
+                <button class="btn btn-primary" style="max-height: 36px" type="button" (click)="add()">+&nbsp;Add</button>
+              </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+              <tr>
+                <th>SlNo</th>
+                <th pSortableColumn="name">
+                  Name
+                  <p-sortIcon field="name"></p-sortIcon>
+                </th>
+                <th>Actions</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
+              <tr >
+                <td style="width: 20%">
+                  {{ rowIndex + 1 }}
+                </td>
+
+                <td style="width: 60%">
+                  <div class="flex align-items-center">
+                    
+                    <p class="font-bold">
+                      {{ product.result_criteria_group_name }}
+                    </p>
+                  </div>
+                </td>
+                <td>
+                  <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded btn-primary ml-1" style="height: 35px; width: 35px" ngbTooltip="Update criteria" (click)="edit(product)"></button>
+                  <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded btn-danger ml-1" style="height: 35px; width: 35px" ngbTooltip="Delete criteria" (click)="confirm(product)"></button>
+                  <button pButton pRipple type="button" icon="pi pi-cog" class="p-button-rounded btn-primary ml-1" style="height: 35px; width: 35px" ngbTooltip="Config criteria" (click)="config(product)"></button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

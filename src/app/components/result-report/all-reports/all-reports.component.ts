@@ -44,7 +44,7 @@ export class AllReportsComponent implements OnInit {
         academic_attributes_tree: this.academic_attributes_tree,
       },
       header: `Map New Report`,
-      styleClass: "w-10 sm:w-10 md:w-10 lg:w-6",
+      styleClass: "w-10 sm:w-10 md:w-10 lg:w-7",
     });
     ref.onClose.subscribe((result: any) => {
       if (result) {

@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { AllReportsComponent } from "./all-reports/all-reports.component";
 import { AssignMarksComponent } from "./assign-marks/assign-marks.component";
+import { CriteriaGroupComponent } from "./criteria-group/criteria-group.component";
 import { ResultReportComponent } from "./result-report.component";
 
 const routes: Routes = [
@@ -24,6 +25,14 @@ const routes: Routes = [
     data: {
       title: "Result Reports",
       breadcrumb: "Assign Marks",
+    },
+  },
+  {
+    path: "CriteriaGroup",
+    component: CriteriaGroupComponent,
+    data: {
+      title: "Criteria Group",
+      breadcrumb: "Criteria Group",
     },
   },
 ];

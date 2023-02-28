@@ -11,6 +11,8 @@ import { NgxMaskModule, IConfig } from 'ngx-mask'
 import { CommonModule } from '@angular/common';
 import { TokenInterceptor } from './shared/Interceptor/http.interceptor';
 import { SharedModule } from './shared/shared.module';
+import { MessageService, ConfirmationService } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
 
@@ -30,7 +32,10 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     AuthenticationModule,
   ],
   providers: [
-    CookieService,{provide: HTTP_INTERCEPTORS,useClass: TokenInterceptor, multi: true}],
+    CookieService,{provide: HTTP_INTERCEPTORS,useClass: TokenInterceptor, multi: true},
+    MessageService,
+    ConfirmationService,
+    DialogService,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

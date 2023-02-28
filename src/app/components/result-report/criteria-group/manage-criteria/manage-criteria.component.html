@@ -1,0 +1,18 @@
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-body">
+      <form [formGroup]="commonForm">
+        <div class="row">
+          <div class="form-group col-12">
+            <label for="item_name">Criteria name <span class="font-danger">*</span></label>
+            <input type="text" class="form-control" id="item_name" placeholder="Criteria" formControlName="item_name" />
+            <div *ngIf="commonForm.controls.item_name.touched && commonForm.controls.item_name.errors?.required" class="text text-danger">Criteria Name is required.</div>
+          </div>
+        </div>
+        <div class="row justify-content-around">
+          <button class="btn btn-primary" (click)="submit()">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
