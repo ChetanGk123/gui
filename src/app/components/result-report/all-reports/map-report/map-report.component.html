@@ -1,39 +1,8 @@
 <div class="container-fluid">
   <div class="card">
     <div class="card-body">
-      <form [formGroup]="commonForm">
-        <div class="row">
-          <div class="form-group col-sm-12 col-md-6 col-lg-3">
-            <label for="result_report_group_id">Result Group<span class="font-danger">*</span></label>
-            <select class="form-control" id="result_report_group_id" [formControl]="commonForm.controls['result_report_group_id']" placeholder="2021-2022">
-              <option value="">Select a Group</option>
-              <option *ngFor="let data of resultGroupList" value="{{ data.result_report_group_id }}" label="{{ data.result_report_group_name }}">
-                {{ data.result_report_group_name }}
-              </option>
-            </select>
-            <div *ngIf="commonForm.controls.result_report_group_id.touched && commonForm.controls.result_report_group_id.errors?.required" class="text text-danger">Group is required.</div>
-          </div>
-          <div class="form-group col-sm-12 col-md-6 col-lg-3">
-            <label for="result_criteria_group_id">Criteria Group<span class="font-danger">*</span></label>
-            <select class="form-control" id="result_criteria_group_id" [formControl]="commonForm.controls['result_criteria_group_id']" placeholder="2021-2022">
-              <option value="">Select a Group</option>
-              <option *ngFor="let data of resultGroupList" value="{{ data.result_criteria_group_id }}" label="{{ data.result_report_group_name }}">
-                {{ data.result_report_group_name }}
-              </option>
-            </select>
-            <div *ngIf="commonForm.controls.result_criteria_group_id.touched && commonForm.controls.result_criteria_group_id.errors?.required" class="text text-danger">Group is required.</div>
-          </div>
-          <div class="form-group col-sm-12 col-md-6 col-lg-3">
-            <label for="exam_date">Test Date <span class="font-danger">*</span></label>
-            <input type="date" class="form-control" id="exam_date" placeholder="12-12-2020" formControlName="exam_date" />
-            <div *ngIf="commonForm.controls.exam_date.touched && commonForm.controls.exam_date.errors?.required" class="text text-danger">Date is required.</div>
-          </div>
-          <div class="form-group col-sm-12 col-md-6 col-lg-3">
-            <label for="result_date">Result Date <span class="font-danger">*</span></label>
-            <input type="date" class="form-control" id="result_date" placeholder="12-12-2020" formControlName="result_date" />
-            <div *ngIf="commonForm.controls.result_date.touched && commonForm.controls.result_date.errors?.required" class="text text-danger">Date is required.</div>
-          </div>
-          <!-- <div class="form-group col-sm-12 col-md-6 col-md-6">
+      <div class="row">
+        <!-- <div class="form-group col-sm-12 col-md-6 col-md-6">
               <label for="academic_id">Academic Year<span class="font-danger">*</span></label>
               <select class="form-control" id="academic_id" [formControl]="commonForm.controls['academic_id']" (ngModelChange)="getDepartments()" placeholder="2021-2022">
                 <option value="">Select a academic</option>
@@ -63,21 +32,114 @@
               </select>
               <div *ngIf="commonForm.controls.class_id.touched && commonForm.controls.class_id.errors?.required" class="text text-danger">Class is required.</div>
             </div> -->
-            <div class="col-12">
-              <aw-wizard navBarLayout="large-filled-symbols" [awNavigationMode] [navigateForward]="navigation">
-                <aw-wizard-step [navigationSymbol]="{ symbol: '&#xf0c9;', fontFamily: 'FontAwesome ' }" stepTitle="Reports">
-                  <p-tree [value]="academinYearList" selectionMode="checkbox" [(selection)]="selectedList"></p-tree>
-                </aw-wizard-step>
-                <aw-wizard-step [navigationSymbol]="{ symbol: '&#xf0c9;', fontFamily: 'FontAwesome ' }" stepTitle="Reports"></aw-wizard-step>
-              </aw-wizard>
-            </div>
-          
+        <div class="col-12">
+          <aw-wizard navBarLayout="large-filled-symbols" [awNavigationMode] [navigateForward]="navigation">
+            <aw-wizard-step [navigationSymbol]="{ symbol: '&#xf00a;', fontFamily: 'FontAwesome ' }" stepTitle="Reports">
+              <form [formGroup]="commonForm">
+                <div class="row">
+                  <div class="form-group col-sm-12 col-md-6 col-lg-3">
+                    <label for="result_report_group_id">Result Group<span class="font-danger">*</span></label>
+                    <select class="form-control" id="result_report_group_id" [formControl]="commonForm.controls['result_report_group_id']" placeholder="2021-2022">
+                      <option value="">Select a Group</option>
+                      <option *ngFor="let data of resultGroupList" value="{{ data.result_report_group_id }}" label="{{ data.result_report_group_name }}">
+                        {{ data.result_report_group_name }}
+                      </option>
+                    </select>
+                    <div *ngIf="commonForm.controls.result_report_group_id.touched && commonForm.controls.result_report_group_id.errors?.required" class="text text-danger">Group is required.</div>
+                  </div>
+                  <div class="form-group col-sm-12 col-md-6 col-lg-3">
+                    <label for="result_criteria_group_id">Criteria Group<span class="font-danger">*</span></label>
+                    <select class="form-control" id="result_criteria_group_id" [formControl]="commonForm.controls['result_criteria_group_id']" placeholder="2021-2022">
+                      <option value="">Select a Group</option>
+                      <option *ngFor="let data of criteriaGroupList" value="{{ data.result_criteria_group_id }}" label="{{ data.result_criteria_group_name }}">
+                        {{ data.result_criteria_group_name }}
+                      </option>
+                    </select>
+                    <div *ngIf="commonForm.controls.result_criteria_group_id.touched && commonForm.controls.result_criteria_group_id.errors?.required" class="text text-danger">Group is required.</div>
+                  </div>
+                  <div class="form-group col-sm-12 col-md-6 col-lg-3">
+                    <label for="exam_date">Test Date <span class="font-danger">*</span></label>
+                    <input type="date" class="form-control" id="exam_date" placeholder="12-12-2020" formControlName="exam_date" />
+                    <div *ngIf="commonForm.controls.exam_date.touched && commonForm.controls.exam_date.errors?.required" class="text text-danger">Date is required.</div>
+                  </div>
+                  <div class="form-group col-sm-12 col-md-6 col-lg-3">
+                    <label for="result_date">Result Date <span class="font-danger">*</span></label>
+                    <input type="date" class="form-control" id="result_date" placeholder="12-12-2020" formControlName="result_date" />
+                    <div *ngIf="commonForm.controls.result_date.touched && commonForm.controls.result_date.errors?.required" class="text text-danger">Date is required.</div>
+                  </div>
+                </div>
+              </form>
+              <p-tree *ngIf="commonForm.valid" [value]="academinYearList" selectionMode="checkbox" [(selection)]="selectedFile" (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"></p-tree>
+              <div class="row justify-content-around mt-3">
+                <button class="btn btn-primary" [disabled]="selectedList.length == []" awNextStep>Next</button>
+              </div>
+            </aw-wizard-step>
+            <aw-wizard-step [navigationSymbol]="{ symbol: '&#xf0c9;', fontFamily: 'FontAwesome ' }" stepTitle="Details">
+              <p-table #dt [value]="selectedList" dataKey="record_id" editMode="row" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10, 25, 50]">
+                <!-- <ng-template pTemplate="caption">
+                    <div class="flex justify-content-between">
+                      List of Classes With Allocated Subjects
+                    </div>
+                  </ng-template> -->
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>Slno</th>
+                    <th pSortableColumn="academic_id">Academin Year<p-sortIcon field="academic_id"></p-sortIcon></th>
+                    <th pSortableColumn="department_id">Department<p-sortIcon field="department_id"></p-sortIcon></th>
+                    <th pSortableColumn="class_id">Class<p-sortIcon field="class_id"></p-sortIcon></th>
+                    <th pSortableColumn="division_id">Division<p-sortIcon field="division_id"></p-sortIcon></th>
+                    <th pSortableColumn="exam_date">Exam Date<p-sortIcon field="exam_date"></p-sortIcon></th>
+                    <th pSortableColumn="result_date">Result Date<p-sortIcon field="result_date"></p-sortIcon></th>
+                    <th>Actions</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-product let-rowIndex="rowIndex" let-editing="editing">
+                  <tr [pEditableRow]="product">
+                    <td>{{ rowIndex + 1 }}</td>
+                    <td>{{ product.academic_name }}</td>
+                    <td>{{ product.department_name }}</td>
+                    <td>{{ product.class_name }}</td>
+                    <td>{{ product.division_name }}</td>
+                    <td>
+                      <p-cellEditor>
+                        <ng-template pTemplate="input">
+                          <input pInputText type="date" style="max-width: 9rem" [(ngModel)]="product.exam_date" />
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                          {{ product.exam_date }}
+                        </ng-template>
+                      </p-cellEditor>
+                    </td>
+                    <td>
+                      <p-cellEditor>
+                        <ng-template pTemplate="input">
+                          <input pInputText type="date" style="max-width: 9rem" [(ngModel)]="product.result_date" />
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                          {{ product.result_date }}
+                        </ng-template>
+                      </p-cellEditor>
+                    </td>
+                    <td>
+                      <div class="flex align-items-center justify-content-center gap-2">
+                        <button *ngIf="!editing" pButton pRipple type="button" style="height: 35px; width: 35px" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(product)" class="p-button-rounded btn-primary"></button>
+                        <button *ngIf="!editing" pButton pRipple type="button" style="height: 35px; width: 35px" icon="pi pi-trash" (click)="onRowDelete(product,rowIndex)" class="p-button-rounded btn-danger"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" style="height: 35px; width: 35px" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(product)" class="p-button-rounded p-button-success mr-2"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" style="height: 35px; width: 35px" pCancelEditableRow icon="pi pi-times" class="p-button-rounded p-button-danger btn-danger"></button>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+              <div class="row justify-content-around mt-3">
+                <button class="btn btn-primary" (click)="submit()">Submit</button>
+                <button class="btn btn-warning" awPreviousStep (click)="clear()">Clear</button>
+              </div>
+            </aw-wizard-step>
+          </aw-wizard>
         </div>
-        <div class="row justify-content-around">
-          <button class="btn btn-primary" (click)="submit()">Submit</button>
-          <button class="btn btn-warning" (click)="cancel()">Cancel</button>
-        </div>
-      </form>
+      </div>
+      
     </div>
   </div>
 </div>

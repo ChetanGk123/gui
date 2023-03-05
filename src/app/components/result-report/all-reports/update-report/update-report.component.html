@@ -1,0 +1,62 @@
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-body">
+        <form [formGroup]="commonForm">
+            <div class="row">
+          <div class="row">
+            <div class="form-group col-sm-12 col-md-6 col-lg-3">
+              <label for="academic_id">Academic Year<span class="font-danger">*</span></label>
+              <input type="text" disabled class="form-control" id="academic_id" [value]="config.data.data.academic_name" />
+            </div>
+            <div class="form-group col-sm-12 col-md-6 col-lg-3">
+              <label for="department_id">Department<span class="font-danger">*</span></label>
+              <input type="text" disabled class="form-control" id="department_id" [value]="config.data.data.department_name" />
+            </div>
+            <div class="form-group col-sm-12 col-md-6 col-lg-3">
+              <label for="class_id">Class<span class="font-danger">*</span></label>
+              <input type="text" disabled class="form-control" id="class_id" [value]="config.data.data.class_name" />
+            </div>
+            <div class="form-group col-sm-12 col-md-6 col-lg-3">
+              <label for="division_id">Division<span class="font-danger">*</span></label>
+              <input type="text" disabled class="form-control" id="division_id" [value]="config.data.data.division_name" />
+            </div>
+            <div class="form-group col-sm-12 col-md-6 col-lg-3">
+              <label for="result_report_group_id">Result Group<span class="font-danger">*</span></label>
+              <select class="form-control" id="result_report_group_id" [formControl]="commonForm.controls['result_report_group_id']" placeholder="2021-2022">
+                <option value="">Select a Group</option>
+                <option *ngFor="let data of resultGroupList" value="{{ data.result_report_group_id }}" label="{{ data.result_report_group_name }}">
+                  {{ data.result_report_group_name }}
+                </option>
+              </select>
+              <div *ngIf="commonForm.controls.result_report_group_id.touched && commonForm.controls.result_report_group_id.errors?.required" class="text text-danger">Group is required.</div>
+            </div>
+            <div class="form-group col-sm-12 col-md-6 col-lg-3">
+              <label for="result_criteria_group_id">Criteria Group<span class="font-danger">*</span></label>
+              <select class="form-control" id="result_criteria_group_id" [formControl]="commonForm.controls['result_criteria_group_id']" placeholder="2021-2022">
+                <option value="">Select a Group</option>
+                <option *ngFor="let data of criteriaGroupList" value="{{ data.result_criteria_group_id }}" label="{{ data.result_criteria_group_name }}">
+                  {{ data.result_criteria_group_name }}
+                </option>
+              </select>
+              <div *ngIf="commonForm.controls.result_criteria_group_id.touched && commonForm.controls.result_criteria_group_id.errors?.required" class="text text-danger">Group is required.</div>
+            </div>
+            <div class="form-group col-sm-12 col-md-6 col-lg-3">
+              <label for="exam_date">Test Date <span class="font-danger">*</span></label>
+              <input type="date" class="form-control" id="exam_date" placeholder="12-12-2020" formControlName="exam_date" />
+              <div *ngIf="commonForm.controls.exam_date.touched && commonForm.controls.exam_date.errors?.required" class="text text-danger">Date is required.</div>
+            </div>
+            <div class="form-group col-sm-12 col-md-6 col-lg-3">
+              <label for="result_date">Result Date <span class="font-danger">*</span></label>
+              <input type="date" class="form-control" id="result_date" placeholder="12-12-2020" formControlName="result_date" />
+              <div *ngIf="commonForm.controls.result_date.touched && commonForm.controls.result_date.errors?.required" class="text text-danger">Date is required.</div>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-around mt-3">
+            <button class="btn btn-primary" type="submit" (click)="submit()">Submit</button>
+            <button class="btn btn-warning" type="button" (click)="cancel()">Cancel</button>
+          </div>
+        </form>
+    </div>
+  </div>
+</div>

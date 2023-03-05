@@ -6,7 +6,7 @@
               <div class="loader-box center" *ngIf="dataFetch">
                 <span class="rotate dashed"></span>
               </div>
-              <p-table #dt [value]="reportList" *ngIf="!dataFetch" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10, 25, 50]">
+              <p-table #dt [value]="reportList" *ngIf="!dataFetch" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10, 25, 50]" rowGroupMode="subheader" groupRowsBy="result_report_group_id">
                 <ng-template pTemplate="caption">
                   <div class="flex justify-content-between">
                     List of Result Reports
@@ -23,21 +23,26 @@
                 <ng-template pTemplate="header">
                   <tr>
                     <th>Slno</th>
-                    <th pSortableColumn="name">Name<p-sortIcon field="name"></p-sortIcon></th>
-                    <th pSortableColumn="academic_year">Academic Year<p-sortIcon field="academic_year"></p-sortIcon></th>
-                    <th pSortableColumn="department">Department<p-sortIcon field="department"></p-sortIcon></th>
-                    <th pSortableColumn="class">Class<p-sortIcon field="class"></p-sortIcon></th>
-                    <th pSortableColumn="result_date">Result Date<p-sortIcon field="result_date"></p-sortIcon></th>
+                    <th>Academic Year</th>
+                    <th>Department</th>
+                    <th>class</th>
+                    <th>Result Date</th>
                     <th>View</th>
                   </tr>
                 </ng-template>
+                <ng-template pTemplate="groupheader" let-product>
+                  <tr pRowGroupHeader>
+                      <td colspan="6">
+                          <span class="p-text-bold font-bold p-ml-2">{{product.report_result_group_name}}</span>
+                      </td>
+                  </tr>
+              </ng-template>
                 <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
                   <tr>
                     <td>{{ rowIndex + 1 }}</td>
-                    <td>{{ product.name }}</td>
-                    <td>{{ product.academic_year }}</td>
-                    <td>{{ product.department }}</td>
-                    <td>{{ product.class }}</td>
+                    <td>{{ product.academic_name }}</td>
+                    <td>{{ product.department_name }}</td>
+                    <td>{{ product.class_name }}</td>
                     <td>{{ product.result_date }}</td>
                     <td>
                       <button pButton pRipple type="button" icon="pi pi-cog" class="p-button-rounded btn-primary ml-1" style="height: 35px; width: 35px" ngbTooltip="Configure Report" (click)="configReport(product)"></button>

@@ -5,6 +5,7 @@ import { ApiService } from "src/app/shared/services/auth/api.service";
 import { SpinnerService } from "src/app/shared/services/spinner.service";
 import { ConfigReportComponent } from "./config-report/config-report.component";
 import { MapReportComponent } from "./map-report/map-report.component";
+import { UpdateReportComponent } from "./update-report/update-report.component";
 
 @Component({
   selector: "app-all-reports",
@@ -18,6 +19,8 @@ export class AllReportsComponent implements OnInit {
   departmentList: any[] = [];
   classList: any[] = [];
   divisionList: any[] = [];
+  resultGroupList: any[] = [];
+  criteriaGroupList: any[] = [];
   academic_attributes_tree;
   constructor(public apiService: ApiService, public spinner: SpinnerService, public toster: ToastrService, public dialogService: DialogService) {}
 
@@ -26,6 +29,12 @@ export class AllReportsComponent implements OnInit {
     this.apiService.getTypeRequest("new_table_data/RESULT_REPORT").subscribe((result: any) => {
       this.reportList = result.data;
       this.dataFetch = false;
+    });
+    this.apiService.getTypeRequest("new_table_data/RESULT_REPORT_GROUP").subscribe((result: any) => {
+      this.resultGroupList = result.data;
+    });
+    this.apiService.getTypeRequest("new_table_data/RESULT_CRITERIA_GROUP").subscribe((result: any) => {
+      this.criteriaGroupList = result.data;
     });
     (this.dataFetch = true),
       this.apiService
@@ -41,10 +50,12 @@ export class AllReportsComponent implements OnInit {
     const ref = this.dialogService.open(MapReportComponent, {
       data: {
         operation: "insert",
+        criteriaGroupList:this.criteriaGroupList,
+        resultGroupList: this.resultGroupList,
         academic_attributes_tree: this.academic_attributes_tree,
       },
       header: `Map New Report`,
-      styleClass: "w-10 sm:w-10 md:w-10 lg:w-7",
+      styleClass: "w-10 sm:w-10 md:w-10 lg:w-9",
     });
     ref.onClose.subscribe((result: any) => {
       if (result) {
@@ -55,11 +66,13 @@ export class AllReportsComponent implements OnInit {
   }
 
   updateReport(data: any) {
-    const ref = this.dialogService.open(MapReportComponent, {
+    const ref = this.dialogService.open(UpdateReportComponent, {
       data: {
         data: data,
         operation: "update",
-        academic_attributes_tree: this.academic_attributes_tree,
+        criteriaGroupList:this.criteriaGroupList,
+        resultGroupList: this.resultGroupList,
+        // academic_attributes_tree: this.academic_attributes_tree,
       },
       header: `Update Report`,
       styleClass: "w-10 sm:w-10 md:w-10 lg:w-6",

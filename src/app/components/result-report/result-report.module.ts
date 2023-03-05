@@ -14,9 +14,10 @@ import { ArchwizardModule } from "angular-archwizard";
 import { CriteriaGroupComponent } from './criteria-group/criteria-group.component';
 import { ManageCriteriaComponent } from './criteria-group/manage-criteria/manage-criteria.component';
 import { ConfigCriteriaComponent } from './criteria-group/config-criteria/config-criteria.component';
+import { UpdateReportComponent } from './all-reports/update-report/update-report.component';
 
 @NgModule({
-  declarations: [ResultReportComponent, AllReportsComponent, MapReportComponent, ConfigReportComponent, AssignMarksComponent, CriteriaGroupComponent, ManageCriteriaComponent, ConfigCriteriaComponent],
+  declarations: [ResultReportComponent, AllReportsComponent, MapReportComponent, ConfigReportComponent, AssignMarksComponent, CriteriaGroupComponent, ManageCriteriaComponent, ConfigCriteriaComponent, UpdateReportComponent],
   imports: [CommonModule, ResultReportRoutingModule, ArchwizardModule, SharedModule, NgxMaskModule.forRoot()],
   providers: [DynamicDialogRef, DynamicDialogConfig, DialogService],
 })
