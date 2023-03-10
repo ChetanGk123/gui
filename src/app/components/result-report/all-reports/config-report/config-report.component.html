@@ -40,7 +40,7 @@
             <div class="col-xl-3 col-md-6 col-sm-12 mb-3">
               <div class="faq-form">
                 <label for="division_id">Division</label>
-                <select class="form-control" id="division_id" [formControl]="commonForm.controls['division_id']" placeholder="2021-2022" (ngModelChange)="getSubjects()">
+                <select class="form-control" disabled id="division_id" [formControl]="commonForm.controls['division_id']" placeholder="2021-2022" (ngModelChange)="getSubjects()">
                   <option value="">Select a division</option>
                   <option *ngFor="let data of divisionList" value="{{ data.division_id }}" label="{{ data.division_name }}">
                     {{ data.division_name }}

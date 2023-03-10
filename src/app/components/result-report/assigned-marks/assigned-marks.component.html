@@ -7,13 +7,23 @@
         </div>
         <div class="card-body step-indicator">
           <aw-wizard navBarLayout="large-filled-symbols" [awNavigationMode] [navigateForward]="navigation">
-            <aw-wizard-step [navigationSymbol]="{ symbol: '&#xf0c9;', fontFamily: 'FontAwesome ' }" stepTitle="Reports" [stepId]='0'>
-              <p-table #dt [value]="reportList" *ngIf="!dataFetch" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10, 25, 50]" rowGroupMode="subheader" groupRowsBy="result_report_group_id">
+            <aw-wizard-step [navigationSymbol]="{ symbol: '&#xf0c9;', fontFamily: 'FontAwesome ' }" stepTitle="Reports" [stepId]="0">
+              <!-- <button pButton pRipple type="button" icon="pi pi-arrow-circle-right" class="p-button-rounded btn-primary ml-1" style="height: 35px; width: 35px" ngbTooltip="Update Report"  (click)="exportTempPdf()" awNextStep></button> -->
+              <p-table
+                #dt
+                [value]="reportList"
+                *ngIf="!dataFetch"
+                [paginator]="true"
+                [rows]="10"
+                [showCurrentPageReport]="true"
+                responsiveLayout="scroll"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [rowsPerPageOptions]="[10, 25, 50]"
+                rowGroupMode="subheader"
+                groupRowsBy="result_report_group_id"
+              >
                 <ng-template pTemplate="caption">
-                  <div class="flex justify-content-between">
-                    List of Result Reports
-    
-                </div>
+                  <div class="flex justify-content-between">List of Result Reports</div>
                 </ng-template>
                 <ng-template pTemplate="header">
                   <tr>
@@ -28,26 +38,28 @@
                 </ng-template>
                 <ng-template pTemplate="groupheader" let-product>
                   <tr pRowGroupHeader>
-                      <td colspan="7">
-                          <span class="p-text-bold font-bold p-ml-2">{{product.report_result_group_name}}</span>
-                      </td>
+                    <td colspan="7">
+                      <span class="p-text-bold font-bold p-ml-2">{{ product.report_result_group_name }}</span>
+                    </td>
                   </tr>
-              </ng-template>
+                </ng-template>
                 <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
                   <tr>
                     <td>{{ rowIndex + 1 }}</td>
                     <td>{{ product.academic_name }}</td>
                     <td>{{ product.department_name }}</td>
                     <td>{{ product.class_name }}</td>
-                    <td>{{ product.division_name}}</td>
+                    <td>{{ product.division_name }}</td>
                     <td>{{ product.result_date }}</td>
                     <td>
                       <button pButton pRipple type="button" icon="pi pi-arrow-circle-right" class="p-button-rounded btn-primary ml-1" style="height: 35px; width: 35px" ngbTooltip="Configure Report" (click)="configReport(product)" awNextStep></button>
                     </td>
                   </tr>
-                </ng-template>
-              </p-table></aw-wizard-step>
-            <aw-wizard-step [navigationSymbol]="{ symbol: '&#xf03b;', fontFamily: 'FontAwesome ' }" stepTitle="Subjects" [stepId]='1'>
+                </ng-template> </p-table
+            >
+            
+            </aw-wizard-step>
+            <aw-wizard-step [navigationSymbol]="{ symbol: '&#xf03b;', fontFamily: 'FontAwesome ' }" stepTitle="Subjects" [stepId]="1">
               <div class="row">
                 <div class="col-12">
                   <div class="card mb-0">
@@ -124,7 +136,7 @@
                 </div>
               </div>
             </aw-wizard-step>
-            <aw-wizard-step [navigationSymbol]="{ symbol: '&#xf0c0;', fontFamily: 'FontAwesome ' }" stepTitle="Students"  [stepId]='2' >
+            <aw-wizard-step [navigationSymbol]="{ symbol: '&#xf0c0;', fontFamily: 'FontAwesome ' }" stepTitle="Students" [stepId]="2">
               <div class="row">
                 <div class="col-12">
                   <div class="card">
@@ -133,22 +145,19 @@
                         <span class="rotate dashed"></span>
                       </div>
                       <ng-template #studentListTable>
-                        <p-table #studentListdt [value]="studentList" [showCurrentPageReport]="true"
-                        responsiveLayout="scroll"
-                        dataKey="admission_no"
-                        [paginator]="true"
-                        [rows]="10"
-                        currentPageReportTemplate="Showing {last} of {totalRecords} entries"
-                        [rowsPerPageOptions]="[10, 25, 50]">
+                        <p-table #studentListdt [value]="studentList" [showCurrentPageReport]="true" responsiveLayout="scroll" dataKey="admission_no" [paginator]="true" [rows]="10" currentPageReportTemplate="Showing {last} of {totalRecords} entries" [rowsPerPageOptions]="[10, 25, 50]">
                           <ng-template pTemplate="caption">
                             <div class="flex justify-content-between">List of Students</div>
+                            <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="btn-success mr-2" pTooltip="XLS" tooltipPosition="bottom"></button>
+                    <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-warning mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>
                           </ng-template>
                           <ng-template pTemplate="header">
                             <tr>
                               <th>Slno</th>
                               <th>Name</th>
                               <th>Admission No</th>
-                              <th>marks</th>
+                              <th>Marks</th>
+                              <th>Grade</th>
                             </tr>
                           </ng-template>
                           <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
@@ -156,10 +165,8 @@
                               <td>{{ rowIndex + 1 }}</td>
                               <td>{{ product.f_name + " " + product.m_name+ " " + product.l_name }}</td>
                               <td>{{ product.admission_no }}</td>
-                              <td>
-                                <input type="number" [disabled]="product.grade" class="form-control" style="width: 6rem !important;" id="result_date" placeholder="100"
-                                [(ngModel)]="product.max_marks">
-                              </td>
+                              <td>{{ product.max_marks??"-" }}</td>
+                              <td>{{ product.grade??"-" }}</td>
                             </tr>
                           </ng-template>
                         </p-table>
@@ -169,7 +176,7 @@
                 </div>
                 <div class="col flex justify-content-evenly">
                   <button class="btn btn-primary" style="max-height: 36px" type="button" awPreviousStep>Previous</button>
-                  <button class="btn btn-primary" style="max-height: 36px" type="button" [disabled]="studentList?.length == 0" 
+                  <button class="btn btn-primary" style="max-height: 36px" type="button" [disabled]="studentList" 
                   (click)="submitMarks()">Submit</button>
                 </div>
               </div>

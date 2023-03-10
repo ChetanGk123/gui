@@ -22,7 +22,7 @@ export class ConfigReportComponent implements OnInit {
   mappedSubjects: any[] = [];
   subject_allocation_ids: any[] = [];
   marks_array: any[] = [];
-  updateSubjectMarksID
+  updateSubjectMarksID;
   Loading: boolean = false;
   commonForm: FormGroup = new FormGroup({
     report_id: new FormControl("", [Validators.required]),
@@ -77,6 +77,7 @@ export class ConfigReportComponent implements OnInit {
       this.getClasses();
       this.getDivisions();
     });
+    this.getSubjects();
     this.getReportData();
   }
 
@@ -122,7 +123,7 @@ export class ConfigReportComponent implements OnInit {
 
   getSubjects() {
     this.editMarks = false;
-    this.enableEditButton = false
+    this.enableEditButton = false;
     if (this.commonForm.valid) {
       this.assignedSubjectList = [];
       this.dataFetch = true;
@@ -134,13 +135,12 @@ export class ConfigReportComponent implements OnInit {
             this.assignedSubjectList = result.data;
             console.log(this.assignedSubjectList);
             for (const iterator of this.assignedSubjectList) {
-              if(iterator.max_marks == null){
+              if (iterator.max_marks == null) {
                 this.enableEditButton = true;
-                break
+                break;
+              } else {
               }
-              else{
-              }
-            } 
+            }
           }
         })
         .finally(() => {
@@ -151,45 +151,39 @@ export class ConfigReportComponent implements OnInit {
     }
   }
 
-  getReportData() {
-    this.apiService
-      .getTypeRequest(`specific_table_data/RESULT_REPORT_INFO/${this.commonForm.controls.report_id.value}`)
-      .toPromise()
-      .then((result: any) => {
-        console.log(result.data);
-      });
-  }
+  getReportData() {}
 
   enableEditting() {
     this.editMarks = true;
   }
 
-  updateSingleMarks(product){
+  updateSingleMarks(product) {
     console.log(product);
-    
+
     if (product.max_marks == 0 || product.max_marks > 0) {
       this.dataFetch = true;
-    var data = {
-      report_id:this.commonForm.controls.report_id.value,
-      subject_allocation_ids:[],
-      marks_array:[],
-      marks_allocation_id:product.marks_allocation_id,
-      marks:product.max_marks
-    }
-    this.apiService.postTypeRequest("marks_allocation_ops/update",data)
-      .toPromise()
+      var data = {
+        report_id: this.commonForm.controls.report_id.value,
+        subject_allocation_ids: [],
+        marks_array: [],
+        marks_allocation_id: product.marks_allocation_id,
+        marks: product.max_marks,
+      };
+      this.apiService
+        .postTypeRequest("marks_allocation_ops/update", data)
+        .toPromise()
         .then((result: any) => {
-          if(result.result){
-            this.toster.success(result.message)
-            this.updateSubjectMarksID = -1
-            this.getSubjects()
-          } else{
-            this.toster.error(result.message)
+          if (result.result) {
+            this.toster.success(result.message);
+            this.updateSubjectMarksID = -1;
+            this.getSubjects();
+          } else {
+            this.toster.error(result.message);
             this.dataFetch = false;
           }
-        })
-    } else{
-      this.toster.error("please enter proper marks")
+        });
+    } else {
+      this.toster.error("please enter proper marks");
     }
   }
 
@@ -216,23 +210,24 @@ export class ConfigReportComponent implements OnInit {
         "marks":3 // only to update
       } */
       var data = {
-        report_id:this.commonForm.controls.report_id.value,
-        subject_allocation_ids:subject_allocation_ids,
-        marks_array:max_marks,
-        marks_allocation_id:"",
-        marks:""
-      }
-      this.apiService.postTypeRequest("marks_allocation_ops/insert",data)
-      .toPromise()
+        report_id: this.commonForm.controls.report_id.value,
+        subject_allocation_ids: subject_allocation_ids,
+        marks_array: max_marks,
+        marks_allocation_id: "",
+        marks: "",
+      };
+      this.apiService
+        .postTypeRequest("marks_allocation_ops/insert", data)
+        .toPromise()
         .then((result: any) => {
-          if(result.result){
-            this.toster.success(result.message)
-            this.getSubjects()
-          } else{
-            this.toster.error(result.message)
+          if (result.result) {
+            this.toster.success(result.message);
+            this.getSubjects();
+          } else {
+            this.toster.error(result.message);
             this.dataFetch = false;
           }
-        })
+        });
     } catch (error) {
       this.toster.error(error);
     }

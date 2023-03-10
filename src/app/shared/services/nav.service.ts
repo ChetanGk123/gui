@@ -152,6 +152,7 @@ export class NavService {
 				{ path: '/result-report/CriteriaGroup', icon: 'book', title: 'Criteria Group', type: 'link',roles:['Admin','ADMISSION OFFICER'] },
 				{ path: '/result-report/AllReports', icon: 'book', title: 'All Reports', type: 'link',roles:['Admin','ADMISSION OFFICER'] },
 				{ path: '/result-report/AssignMarks', icon: 'book', title: 'Assign Marks', type: 'link',roles:['Admin','ADMISSION OFFICER'] },
+				{ path: '/result-report/AssignedMarks', icon: 'book', title: 'Assigned Marks', type: 'link',roles:['Admin','ADMISSION OFFICER'] },
 				]
 		},
 		{

@@ -102,6 +102,8 @@ export class AllReportsComponent implements OnInit {
   }
 
   configReport(product: any) {
+    console.log(product);
+    
     const ref = this.dialogService.open(ConfigReportComponent, {
       dismissableMask: true,
       data: {

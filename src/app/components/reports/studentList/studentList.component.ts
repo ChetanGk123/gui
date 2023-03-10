@@ -19,11 +19,13 @@ export class StudentListComponent implements OnInit {
     academicYear: new FormControl(""),
     department: new FormControl(""),
     class: new FormControl(""),
+    division: new FormControl(""),
     studentName: new FormControl(""),
   });
   List: any = [];
   departmentList: any = [];
   classList: any = [];
+  divisionList: any = [];
   StudentList: any = [];
   Students: any = [];
   dataFetch: boolean = false;
@@ -40,6 +42,12 @@ export class StudentListComponent implements OnInit {
     this.apiService.getTypeRequest("dropdown_data/CLASS").subscribe((result: any) => {
       if (result.result) {
         this.classList = result.data;
+      } else {
+      }
+    });
+    this.apiService.getTypeRequest("dropdown_data/DIVISION").subscribe((result: any) => {
+      if (result.result) {
+        this.divisionList = result.data;
       } else {
       }
     });
@@ -65,6 +73,7 @@ export class StudentListComponent implements OnInit {
         (this.filterForm.get("academicYear").value ? x.academic_year.includes(this.filterForm.get("academicYear").value) : true) &&
         (this.filterForm.get("department").value ? x.department.includes(this.filterForm.get("department").value) : true) &&
         (this.filterForm.get("class").value ? x.class.includes(this.filterForm.get("class").value) : true) &&
+        (this.filterForm.get("division").value ? x.division.includes(this.filterForm.get("division").value) : true) &&
         (x.student_name.toLowerCase().includes(value.toLowerCase()) || x.admission_no.toString().includes(value))
       ) {
         this.StudentList.push(x);

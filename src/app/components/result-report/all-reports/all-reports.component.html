@@ -26,13 +26,14 @@
                     <th>Academic Year</th>
                     <th>Department</th>
                     <th>class</th>
+                    <th>Division</th>
                     <th>Result Date</th>
                     <th>View</th>
                   </tr>
                 </ng-template>
                 <ng-template pTemplate="groupheader" let-product>
                   <tr pRowGroupHeader>
-                      <td colspan="6">
+                      <td colspan="7">
                           <span class="p-text-bold font-bold p-ml-2">{{product.report_result_group_name}}</span>
                       </td>
                   </tr>
@@ -43,6 +44,7 @@
                     <td>{{ product.academic_name }}</td>
                     <td>{{ product.department_name }}</td>
                     <td>{{ product.class_name }}</td>
+                    <td>{{ product.division_name}}</td>
                     <td>{{ product.result_date }}</td>
                     <td>
                       <button pButton pRipple type="button" icon="pi pi-cog" class="p-button-rounded btn-primary ml-1" style="height: 35px; width: 35px" ngbTooltip="Configure Report" (click)="configReport(product)"></button>
