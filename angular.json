@@ -17,30 +17,13 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "allowedCommonJsDependencies": [
-              "rxjs-compat",
-              "hammerjs",
-              "dragula",
-              "rxjs",
-              "rxjs/operators",
-              "rxjs/Subject",
-              "rxjs/internal/operators",
-              "rxjs/add/operator/map",
-              "rxjs/Subscription",
-              "rxjs-compat/add/operator/map",
-              "crypto-js",
-              "chart.js",
-              "angular-calendar/date-adapters/date-fns"
-            ],
+            "allowedCommonJsDependencies": ["rxjs-compat", "hammerjs", "dragula", "rxjs", "rxjs/operators", "rxjs/Subject", "rxjs/internal/operators", "rxjs/add/operator/map", "rxjs/Subscription", "rxjs-compat/add/operator/map", "crypto-js", "chart.js", "angular-calendar/date-adapters/date-fns"],
             "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
@@ -70,6 +53,7 @@
           },
           "configurations": {
             "production": {
+              "outputPath": "dist/production",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -96,6 +80,7 @@
               ]
             },
             "demo": {
+              "outputPath": "dist/demo",
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -104,18 +89,18 @@
               "vendorChunk": false,
               "buildOptimizer": true,
               "budgets": [
-                  {
-                      "type": "initial",
-                      "maximumWarning": "5mb",
-                      "maximumError": "5mb"
-                  },
-                  {
-                      "type": "anyComponentStyle",
-                      "maximumWarning": "25kb",
-                      "maximumError": "25kb"
-                  }
+                {
+                  "type": "initial",
+                  "maximumWarning": "5mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "25kb",
+                  "maximumError": "25kb"
+                }
               ]
-          }
+            }
           }
         },
         "serve": {
@@ -125,7 +110,7 @@
           },
           "configurations": {
             "demo": {
-                "browserTarget": "endless-starterkit:build:demo"
+              "browserTarget": "endless-starterkit:build:demo"
             },
             "production": {
               "browserTarget": "endless-starterkit:build:production"
@@ -145,13 +130,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
             "scripts": []
           }
         },
