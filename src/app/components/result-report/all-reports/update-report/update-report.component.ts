@@ -49,7 +49,7 @@ export class UpdateReportComponent implements OnInit {
     public datepipe: DatePipe,) {}
 
   ngOnInit(): void {
-    console.log(this.config.data);
+    // console.log(this.config.data);
     let result_date = new Date();
     result_date = this.config.data.data.result_date.split("-")
     let exam_date = new Date();
@@ -67,7 +67,7 @@ export class UpdateReportComponent implements OnInit {
         result_criteria_group_id: this.config.data.data.result_criteria_group_id,
         report_result_group_name: this.config.data.data.report_result_group_name,
       });
-      console.log(this.commonForm.value);
+      // console.log(this.commonForm.value);
       
     }
     this.resultGroupList = this.config.data.resultGroupList;

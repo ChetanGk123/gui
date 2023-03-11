@@ -25,7 +25,7 @@ export class ConfigCriteriaComponent implements OnInit {
   constructor(public config: DynamicDialogConfig, public apiService: ApiService) {}
 
   ngOnInit(): void {
-    console.log(this.config.data);
+    // console.log(this.config.data);
     this.criteriaList = []
     if (this.config.data) {
       this.dataFetch = true;
@@ -53,7 +53,7 @@ export class ConfigCriteriaComponent implements OnInit {
   }
 
   onRowEditSave(product: any) {
-    console.log(product);
+    // console.log(product);
     var data = {
       result_criteria_group_id: this.result_criteria_group_id,
       criteria_id:product.criteria_id,
@@ -82,7 +82,7 @@ export class ConfigCriteriaComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.commonForm.value);
+    // console.log(this.commonForm.value);
     if (this.commonForm.valid) {
       var data = {
         criteria_name: this.commonForm.controls.criteria_name.value,

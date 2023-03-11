@@ -63,7 +63,7 @@ export class AddSubjectComponent implements OnInit {
   }
 
   isValueAvailable() {
-    console.log(this.subjects);
+    // console.log(this.subjects);
     
     if(this.subjects != undefined && this.subjects.length > 0){
       var value = this.subjects.filter((x) => {

@@ -139,7 +139,7 @@ export class AssignMarksComponent implements OnInit {
 
   configMarksReport(product: any) {
     product.report_id = this.commonForm.controls.report_id.value;
-    console.log(product);
+    // console.log(product);
 
     const ref = this.dialogService.open(ConfigReportComponent, {
       dismissableMask: true,

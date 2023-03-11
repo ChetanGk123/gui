@@ -66,7 +66,7 @@ export class AdmissionLetterComponent implements OnInit {
 
   async fetchApi() {
     this.dataFetch = true;
-    console.log(this.data);
+    // this.data);
 
     this.admission_data = this.data.admission_data;
     this.current_academic_details = this.data.current_academic_details;

@@ -58,7 +58,7 @@ export class MapReportComponent implements OnInit {
     this.getAcademicYears();
     if (this.config.data.operation != "insert") {
       var data = this.config.data.data;
-      console.log(this.config.data);
+      // console.log(this.config.data);
       var dob = this.config?.data?.data.result_date.split("-");
       this.commonForm.patchValue({
         report_id: data.report_id,
@@ -326,8 +326,8 @@ export class MapReportComponent implements OnInit {
   onRowEditInit(data:any){}
   onRowDelete(data:any,rowIndex:any){
     this.selectedList.splice(rowIndex,1)
-    console.log(data);
-    console.log(this.selectedFile);
+    // console.log(data);
+    // console.log(this.selectedFile);
     this.selectedFile.splice(this.selectedFile.findIndex(f =>{data.data.academic_id === f.data.academic_id && data.data.department_id === f.data.department_id && data.data.class_id === f.data.class_id && data.data.division_id === f.data.division_id }),1)
 /* 
 data: {academic_id: 1, department_id: 1, class_id: 3, division_id: 2}

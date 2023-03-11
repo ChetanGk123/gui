@@ -205,7 +205,7 @@ export class MarksReportComponent implements OnInit {
           "subject_allocation_id": 53
       }
   }
-  console.log(this.config.data);
+  // console.log(this.config.data);
     this.dataFetch = true;
     this.generatePDF();
   }

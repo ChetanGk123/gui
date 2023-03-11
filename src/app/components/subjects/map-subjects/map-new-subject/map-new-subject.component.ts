@@ -42,7 +42,7 @@ export class MapNewSubjectComponent implements OnInit {
   ngOnInit(): void {
     this.teacherList = this.config.data.teacherList;
     this.subjectList = this.config.data.subjectList;
-    console.log(this.config.data);
+    // console.log(this.config.data);
 
     if (this.config.data.operation != "insert") {
       var data = this.config.data.updateDeleteData;
@@ -75,12 +75,12 @@ export class MapNewSubjectComponent implements OnInit {
       .getTypeRequest(`specific_data/TEACHER_ALLOCATION/${product.subject_allocation_id}`)
       .toPromise()
       .then((result: any) => {
-        console.log(result.data);
+        // console.log(result.data);
       });
   }
 
   deleteSubject(data: any) {
-    console.log(data);
+    // console.log(data);
     this.confirmationService.confirm({
       message: "Are you sure that you want to delete?",
       header: "Confirmation",
@@ -118,7 +118,7 @@ export class MapNewSubjectComponent implements OnInit {
           },
         ],
       });
-      console.log(this.commonForm.value);
+      // console.log(this.commonForm.value);
       this.apiService.postTypeRequest(`subject_allocation_ops/insert`, this.commonForm.value).subscribe((result: any) => {
         if (result.result) {
           this.toster.success(result.message);
@@ -144,7 +144,7 @@ export class MapNewSubjectComponent implements OnInit {
         .then((result: any) => {
           if (result.result) {
             this.assignedSubjectList = result.data;
-            console.log(this.assignedSubjectList);
+            // console.log(this.assignedSubjectList);
           }
         })
         .finally(() => {
@@ -276,7 +276,7 @@ export class MapNewSubjectComponent implements OnInit {
         this.commonForm.controls.subject_id.setValue(this.config.data.updateDeleteData.subject_id);
         this.commonForm.controls.subject_ids.setValue([]);
       }
-      console.log(this.commonForm.value);
+      // console.log(this.commonForm.value);
       this.apiService.postTypeRequest(`subject_allocation_ops/${this.config.data.operation}`, this.commonForm.value).subscribe((result: any) => {
         if (result.result) {
           this.toster.success(result.message);

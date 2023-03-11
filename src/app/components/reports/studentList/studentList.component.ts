@@ -51,7 +51,7 @@ export class StudentListComponent implements OnInit {
       } else {
       }
     });
-    this.apiService.getTypeRequest("get_due_fees").subscribe((result: any) => {
+    this.apiService.getTypeRequest("table_data/ALL_ACTIVE_STUDENTS").subscribe((result: any) => {
       if (result.result) {
         this.dataFetch = false;
         this.StudentList = result.data;

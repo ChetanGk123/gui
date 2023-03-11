@@ -122,7 +122,7 @@ export class MapSubjectsComponent implements OnInit {
       .postTypeRequest("academic_attributes_data", this.commonForm.value)
       .toPromise()
       .then((result: any) => {
-        console.log(result);
+        // console.log(result);
         if (result.result) {
         }
       });
@@ -242,7 +242,7 @@ export class MapSubjectsComponent implements OnInit {
     //     this.fetchData();
     //   }
     // });
-    console.log(data);
+    // console.log(data);
     
   }
 

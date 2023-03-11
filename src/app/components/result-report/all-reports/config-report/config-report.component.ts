@@ -38,7 +38,7 @@ export class ConfigReportComponent implements OnInit {
   constructor(public datepipe: DatePipe, public config: DynamicDialogConfig, public apiService: ApiService, public toster: ToastrService, public ref: DynamicDialogRef) {}
 
   ngOnInit(): void {
-    console.log(this.config.data);
+    // console.log(this.config.data);
     this.commonForm.patchValue({
       report_id: this.config.data.data.report_id ?? "",
       academic_id: this.config.data.data.academic_id ?? "",
@@ -46,7 +46,7 @@ export class ConfigReportComponent implements OnInit {
       class_id: this.config.data.data.class_id ?? "",
       division_id: this.config.data.data.division_id ?? "",
     });
-    console.log(this.commonForm.value);
+    // console.log(this.commonForm.value);
 
     this.config.data.academic_attributes_tree.forEach((academinYear) => {
       if (academinYear.department_data.length > 0) {
@@ -133,7 +133,7 @@ export class ConfigReportComponent implements OnInit {
         .then((result: any) => {
           if (result.result) {
             this.assignedSubjectList = result.data;
-            console.log(this.assignedSubjectList);
+            // console.log(this.assignedSubjectList);
             for (const iterator of this.assignedSubjectList) {
               if (iterator.max_marks == null) {
                 this.enableEditButton = true;
@@ -158,7 +158,7 @@ export class ConfigReportComponent implements OnInit {
   }
 
   updateSingleMarks(product) {
-    console.log(product);
+    // console.log(product);
 
     if (product.max_marks == 0 || product.max_marks > 0) {
       this.dataFetch = true;

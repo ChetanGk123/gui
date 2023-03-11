@@ -15,7 +15,7 @@ export class MapTeachersComponent implements OnInit {
   constructor(public config: DynamicDialogConfig, public apiService: ApiService, public toster:ToastrService,public ref: DynamicDialogRef) { }
 
   ngOnInit(): void {
-    console.log(this.config.data);
+    // console.log(this.config.data);
     this.selectedTeachers = this.config.data.selectedTeachers;
     var data = {
       academic_id:this.config.data.data.academic_id,
@@ -27,15 +27,15 @@ export class MapTeachersComponent implements OnInit {
         .postTypeRequest("academic_attributes_data", data)
         .toPromise()
         .then((result: any) => {
-          console.log(result);
+          // console.log(result);
           if(result.result){
           }
         })
   }
 
   submit(){
-    console.log(this.selectedTeachers);
-    console.log(this.config.data);
+    // console.log(this.selectedTeachers);
+    // console.log(this.config.data);
     /* {
       "subject_allocation_id": 9,
       "academic_id": 1,

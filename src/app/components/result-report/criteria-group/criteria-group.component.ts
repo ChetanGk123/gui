@@ -128,7 +128,7 @@ export class CriteriaGroupComponent implements OnInit {
       })
       .catch((error: any) => {
         this.loading = false;
-        console.log(error.message);
+        // console.log(error.message);
       });
   }
 

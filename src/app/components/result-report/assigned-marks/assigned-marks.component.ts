@@ -7,6 +7,7 @@ import { ApiService } from "src/app/shared/services/auth/api.service";
 import { SpinnerService } from "src/app/shared/services/spinner.service";
 import * as FileSaver from "file-saver";
 import { MarksReportComponent } from "./marks-report/marks-report.component";
+import { EditAssignedMarksComponent } from "./edit-assigned-marks/edit-assigned-marks.component";
 
 @Component({
   selector: "app-assigned-marks",
@@ -16,6 +17,7 @@ import { MarksReportComponent } from "./marks-report/marks-report.component";
 export class AssignedMarksComponent implements OnInit {
   academic_attributes_tree: any
   dataFetch: boolean = false
+  editStudents: boolean = false
   navigation = "visited"
   reportList: any[] = []
   academinYearList: any[] = []
@@ -146,7 +148,7 @@ export class AssignedMarksComponent implements OnInit {
 
 
   configReport(product) {
-    console.log(product);
+    // console.log(product);
     
     this.commonForm.patchValue({
       report_id: product.report_id ?? "",
@@ -223,7 +225,7 @@ export class AssignedMarksComponent implements OnInit {
         studentList: this.studentList,
         commonForm: this.commonForm.getRawValue(),
       },
-      header: `Configure Report`,
+      header: `Result Report`,
       styleClass: "w-10 sm:w-10 md:w-10 lg:w-8",
     })
   }
@@ -427,4 +429,21 @@ export class AssignedMarksComponent implements OnInit {
   } */
 
   submitMarks() {}
+
+  editAssignedMarks() {
+    const ref = this.dialogService.open(EditAssignedMarksComponent, {
+      data: {
+        studentList: this.studentList,
+        commonForm: this.commonForm.getRawValue(),
+      },
+      header: `Edit Marks`,
+      styleClass: "w-10 sm:w-10 md:w-10 lg:w-8",
+    })
+    ref.onClose.subscribe((result: any) => {
+      if (result) {
+        this.fetchStudents(this.commonForm.getRawValue());
+        // this.configReport(result.data[0])
+      }
+    });
+  }
 }

@@ -19,7 +19,7 @@ export class ManageCriteriaComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.config.data.operation != "insert"){
-      console.log(this.config.data);
+      // console.log(this.config.data);
       var data = this.config.data.data;
       this.commonForm.patchValue({
         item_id:data.result_criteria_group_id,
@@ -29,7 +29,7 @@ export class ManageCriteriaComponent implements OnInit {
   }
 
   submit(){
-    console.log(this.commonForm.value);
+    // console.log(this.commonForm.value);
       this.apiService.postTypeRequest(`${this.config.data.url}RESULT_CRITERIA_GROUP`, this.commonForm.value).subscribe((result: any) => {
         if (result.result) {
           this.toster.success(result.message);
