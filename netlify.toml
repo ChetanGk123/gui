@@ -1,0 +1,7 @@
+[build]
+  publish = "dist/demo"
+  command = "ng build --configuration demo"
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
